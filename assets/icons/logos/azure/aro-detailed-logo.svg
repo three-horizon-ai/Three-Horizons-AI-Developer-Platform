@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="300"
+   height="200"
+   viewBox="0 0 300 200"
+   version="1.1"
+   id="aro-detailed-logo-svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   aria-labelledby="title-aro-detailed"
+>
+  <title id="title-aro-detailed">Azure Red Hat OpenShift Detailed Logo</title>
+  <desc id="desc-aro-detailed">Detailed Logo for Microsoft Azure Red Hat OpenShift (ARO)</desc>
+  
+  <style>
+    .azure-blue { fill: #0072C6; }
+    .redhat-red { fill: #EE0000; }
+    .openshift-red { fill: #CC0000; }
+    .text-dark { fill: #333333; font-family: Arial, sans-serif; }
+  </style>
+  
+  <!-- Azure Cloud Background -->
+  <path d="M50,40 C30,50 20,90 50,100 C80,110 100,150 50,160 L200,160 L200,40 Z" 
+        fill="#E5F2F9" stroke="#0072C6" stroke-width="1" opacity="0.3"/>
+  
+  <!-- OpenShift Logo -->
+  <g id="openshift-logo" transform="translate(100,80)">
+    <!-- OpenShift Gear -->
+    <path d="M0,-45 L26,-38 L42,-20 L45,0 L42,20 L26,38 L0,45 L-26,38 L-42,20 L-45,0 L-42,-20 L-26,-38 Z" 
+          fill="white" stroke="#CC0000" stroke-width="2"/>
+    
+    <!-- Red Hat Logo -->
+    <ellipse cx="0" cy="0" rx="30" ry="30" fill="white" stroke="#CC0000" stroke-width="1" opacity="0.8"/>
+    <path d="M-15,-15 C-10,-20 0,-20 5,-15 C10,-10 15,-15 20,-10 C25,-5 30,0 25,10 C20,20 0,25 -10,15 C-20,5 -20,-10 -15,-15 Z" 
+          class="redhat-red"/>
+    <ellipse cx="0" cy="10" rx="20" ry="10" class="redhat-red"/>
+  </g>
+  
+  <!-- Microsoft Azure Red Hat OpenShift Text -->
+  <text x="150" y="170" text-anchor="middle" font-size="14" font-weight="bold" class="text-dark">
+    Azure Red Hat OpenShift
+  </text>
+  
+  <!-- Azure Logo -->
+  <g id="azure-logo" transform="translate(215,75) scale(0.4)">
+    <path d="M0,20 L40,0 L40,40 Z" class="azure-blue" />
+    <path d="M45,40 L60,0 L100,40 Z" class="azure-blue" />
+  </g>
+  
+  <!-- Red Hat Logo -->
+  <g id="redhat-small-logo" transform="translate(250,75) scale(0.25)">
+    <circle cx="0" cy="0" r="40" fill="white"/>
+    <path d="M-25,-15 C-20,-20 -10,-20 0,-15 C10,-10 20,-15 30,-5 C40,5 30,15 15,20 C0,25 -15,20 -25,10 C-35,0 -30,-10 -25,-15 Z" 
+          class="redhat-red"/>
+    <ellipse cx="0" cy="15" rx="30" ry="10" class="redhat-red"/>
+  </g>
+  
+  <!-- Three Horizons Integration Tag -->
+  <rect x="70" y="25" width="160" height="25" rx="12.5" fill="#CC0000" opacity="0.8" />
+  <text x="150" y="42" text-anchor="middle" font-size="12" fill="white" font-family="Arial, sans-serif">
+    Three Horizons Integration
+  </text>
+</svg>

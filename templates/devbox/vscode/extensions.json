@@ -1,0 +1,19 @@
+{
+  "recommendations": [
+    "ms-azuretools.vscode-azureresourcegroups",
+    "ms-azuretools.vscode-bicep",
+    "ms-vscode.azure-account",
+    "ms-kubernetes-tools.vscode-kubernetes-tools",
+    "redhat.vscode-yaml",
+    "github.vscode-github-actions",
+    "ms-vscode.vscode-node-azure-pack",
+    "hashicorp.terraform",
+    "redhat.vscode-openshift-connector",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "yzhang.markdown-all-in-one",
+    "eamodio.gitlens",
+    "ms-vscode-remote.remote-containers",
+    "ms-azuretools.vscode-docker"
+  ]
+} 

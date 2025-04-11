@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="900" height="600" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .title { font: bold 24px sans-serif; fill: #0366d6; }
+    .subtitle { font: 18px sans-serif; fill: #24292e; }
+    .label { font: bold 14px sans-serif; fill: #24292e; }
+    .description { font: 12px sans-serif; fill: #586069; }
+    .horizon1 { fill: #2188ff; }
+    .horizon2 { fill: #f9c513; }
+    .horizon3 { fill: #6f42c1; }
+    .boxbg { fill: white; stroke-width: 2px; }
+    .box1 { stroke: #2188ff; }
+    .box2 { stroke: #f9c513; }
+    .box3 { stroke: #6f42c1; }
+    .arrow { fill: none; stroke: #586069; stroke-width: 2px; marker-end: url(#arrowhead); }
+    .dashed { stroke-dasharray: 5,5; }
+  </style>
+  
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#586069"/>
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="450" y="40" class="title" text-anchor="middle">Three Horizons Golden Paths</text>
+  <text x="450" y="70" class="subtitle" text-anchor="middle">Developer Journey Acceleration</text>
+  
+  <!-- Horizon Labels -->
+  <rect x="100" y="100" width="200" height="40" class="horizon1" rx="5" ry="5" opacity="0.2"/>
+  <text x="200" y="125" class="label" text-anchor="middle">HORIZON 1: FOUNDATION</text>
+  
+  <rect x="350" y="100" width="200" height="40" class="horizon2" rx="5" ry="5" opacity="0.2"/>
+  <text x="450" y="125" class="label" text-anchor="middle">HORIZON 2: ENHANCEMENT</text>
+  
+  <rect x="600" y="100" width="200" height="40" class="horizon3" rx="5" ry="5" opacity="0.2"/>
+  <text x="700" y="125" class="label" text-anchor="middle">HORIZON 3: INNOVATION</text>
+  
+  <!-- Web Application Path -->
+  <rect x="100" y="170" width="200" height="80" class="boxbg box1" rx="5" ry="5"/>
+  <text x="200" y="195" class="label" text-anchor="middle">Web Application</text>
+  <text x="200" y="215" class="description" text-anchor="middle">Standard web app template</text>
+  <text x="200" y="235" class="description" text-anchor="middle">Basic CI/CD pipeline</text>
+  
+  <rect x="350" y="170" width="200" height="80" class="boxbg box2" rx="5" ry="5"/>
+  <text x="450" y="195" class="label" text-anchor="middle">Enhanced Web Application</text>
+  <text x="450" y="215" class="description" text-anchor="middle">Security scanning</text>
+  <text x="450" y="235" class="description" text-anchor="middle">Performance optimization</text>
+  
+  <rect x="600" y="170" width="200" height="80" class="boxbg box3" rx="5" ry="5"/>
+  <text x="700" y="195" class="label" text-anchor="middle">AI-Enhanced Web App</text>
+  <text x="700" y="215" class="description" text-anchor="middle">GitHub Copilot integration</text>
+  <text x="700" y="235" class="description" text-anchor="middle">Advanced analytics</text>
+  
+  <!-- Kubernetes Application Path -->
+  <rect x="100" y="280" width="200" height="80" class="boxbg box1" rx="5" ry="5"/>
+  <text x="200" y="305" class="label" text-anchor="middle">Kubernetes Application</text>
+  <text x="200" y="325" class="description" text-anchor="middle">Basic container deployment</text>
+  <text x="200" y="345" class="description" text-anchor="middle">Simple service exposure</text>
+  
+  <rect x="350" y="280" width="200" height="80" class="boxbg box2" rx="5" ry="5"/>
+  <text x="450" y="305" class="label" text-anchor="middle">Enhanced K8s App</text>
+  <text x="450" y="325" class="description" text-anchor="middle">Network policies</text>
+  <text x="450" y="345" class="description" text-anchor="middle">Resource optimization</text>
+  
+  <rect x="600" y="280" width="200" height="80" class="boxbg box3" rx="5" ry="5"/>
+  <text x="700" y="305" class="label" text-anchor="middle">Cloud-Native App</text>
+  <text x="700" y="325" class="description" text-anchor="middle">Service mesh integration</text>
+  <text x="700" y="345" class="description" text-anchor="middle">Autoscaling & self-healing</text>
+  
+  <!-- Data Service Path -->
+  <rect x="100" y="390" width="200" height="80" class="boxbg box1" rx="5" ry="5"/>
+  <text x="200" y="415" class="label" text-anchor="middle">Data Service</text>
+  <text x="200" y="435" class="description" text-anchor="middle">Basic database integration</text>
+  <text x="200" y="455" class="description" text-anchor="middle">Simple data access layer</text>
+  
+  <rect x="350" y="390" width="200" height="80" class="boxbg box2" rx="5" ry="5"/>
+  <text x="450" y="415" class="label" text-anchor="middle">Enhanced Data Service</text>
+  <text x="450" y="435" class="description" text-anchor="middle">Data encryption</text>
+  <text x="450" y="455" class="description" text-anchor="middle">Caching & performance</text>
+  
+  <rect x="600" y="390" width="200" height="80" class="boxbg box3" rx="5" ry="5"/>
+  <text x="700" y="415" class="label" text-anchor="middle">Advanced Data Platform</text>
+  <text x="700" y="435" class="description" text-anchor="middle">ML/AI integration</text>
+  <text x="700" y="455" class="description" text-anchor="middle">Real-time analytics</text>
+  
+  <!-- Serverless Path -->
+  <rect x="100" y="500" width="200" height="80" class="boxbg box1" rx="5" ry="5"/>
+  <text x="200" y="525" class="label" text-anchor="middle">Serverless Functions</text>
+  <text x="200" y="545" class="description" text-anchor="middle">Basic Azure Functions</text>
+  <text x="200" y="565" class="description" text-anchor="middle">HTTP triggers</text>
+  
+  <rect x="350" y="500" width="200" height="80" class="boxbg box2" rx="5" ry="5"/>
+  <text x="450" y="525" class="label" text-anchor="middle">Enhanced Serverless</text>
+  <text x="450" y="545" class="description" text-anchor="middle">Event-driven architecture</text>
+  <text x="450" y="565" class="description" text-anchor="middle">Integration with services</text>
+  
+  <rect x="600" y="500" width="200" height="80" class="boxbg box3" rx="5" ry="5"/>
+  <text x="700" y="525" class="label" text-anchor="middle">Intelligent Serverless</text>
+  <text x="700" y="545" class="description" text-anchor="middle">AI-powered workflows</text>
+  <text x="700" y="565" class="description" text-anchor="middle">Predictive scaling</text>
+  
+  <!-- Connecting arrows -->
+  <path d="M 300 210 L 350 210" class="arrow" />
+  <path d="M 550 210 L 600 210" class="arrow" />
+  
+  <path d="M 300 320 L 350 320" class="arrow" />
+  <path d="M 550 320 L 600 320" class="arrow" />
+  
+  <path d="M 300 430 L 350 430" class="arrow" />
+  <path d="M 550 430 L 600 430" class="arrow" />
+  
+  <path d="M 300 540 L 350 540" class="arrow" />
+  <path d="M 550 540 L 600 540" class="arrow" />
+  
+  <!-- Cross-capability connections -->
+  <path d="M 200 250 C 200 265, 200 275, 200 280" class="arrow dashed" />
+  <path d="M 450 250 C 450 265, 450 275, 450 280" class="arrow dashed" />
+  <path d="M 700 250 C 700 265, 700 275, 700 280" class="arrow dashed" />
+  
+  <path d="M 200 360 C 200 375, 200 385, 200 390" class="arrow dashed" />
+  <path d="M 450 360 C 450 375, 450 385, 450 390" class="arrow dashed" />
+  <path d="M 700 360 C 700 375, 700 385, 700 390" class="arrow dashed" />
+  
+  <path d="M 200 470 C 200 485, 200 495, 200 500" class="arrow dashed" />
+  <path d="M 450 470 C 450 485, 450 495, 450 500" class="arrow dashed" />
+  <path d="M 700 470 C 700 485, 700 495, 700 500" class="arrow dashed" />
+</svg>

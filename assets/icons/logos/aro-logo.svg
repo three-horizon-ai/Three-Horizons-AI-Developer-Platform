@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="200"
+   height="200"
+   viewBox="0 0 200 200"
+   version="1.1"
+   id="aro-logo-svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   aria-labelledby="title-aro"
+>
+  <title id="title-aro">Azure Red Hat OpenShift Logo</title>
+  <desc id="desc-aro">Logo for Microsoft Azure Red Hat OpenShift (ARO)</desc>
+  
+  <style>
+    .redhat-red { fill: #EE0000; }
+    .openshift-red { fill: #CC0000; }
+    .azure-blue { fill: #0072C6; }
+    .dark-blue { fill: #0F1689; }
+  </style>
+  
+  <!-- OpenShift Gear Background -->
+  <g id="openshift-gear">
+    <path d="M100,30 L130,40 L160,60 L175,90 L175,110 L160,140 L130,160 L100,170 L70,160 L40,140 L25,110 L25,90 L40,60 L70,40 Z" 
+          fill="white" stroke="#CC0000" stroke-width="2"/>
+  </g>
+  
+  <!-- Inner Red Hat Logo -->
+  <g id="redhat-inner">
+    <circle cx="100" cy="100" r="50" fill="white"/>
+    <path d="M80,70 C85,65 95,65 100,70 C105,75 110,70 115,75 C120,80 130,85 120,95 C110,105 90,110 80,100 C70,90 75,75 80,70 Z" 
+          class="redhat-red"/>
+    <ellipse cx="100" cy="110" rx="30" ry="15" class="redhat-red"/>
+  </g>
+  
+  <!-- Azure Cloud elements -->
+  <g id="azure-elements">
+    <path d="M165,45 C180,50 185,65 175,80 C190,85 195,100 185,115 L150,115 L140,95 Z" 
+          class="azure-blue" opacity="0.5"/>
+    <path d="M35,140 C20,135 15,120 25,105 C10,100 5,85 15,70 L50,70 L60,90 Z" 
+          class="azure-blue" opacity="0.5"/>
+  </g>
+  
+  <!-- Optional Text 'ARO' - hidden for simplified logo, uncomment if needed 
+  <text x="100" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" class="redhat-red">ARO</text>
+  -->
+</svg>

@@ -1,0 +1,58 @@
+name: Create Implementation Checklist
+
+on:
+  workflow_dispatch:
+    inputs:
+      checklist_type:
+        description: 'Type of implementation checklist'
+        required: true
+        default: 'aks'
+        type: choice
+        options:
+          - aks
+          - aro
+          - devhub
+      issue_title:
+        description: 'Title for the issue'
+        required: true
+        default: 'New Implementation Checklist'
+
+jobs:
+  create-checklist:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Create AKS Implementation Issue
+        if: ${{ inputs.checklist_type == 'aks' }}
+        uses: peter-evans/create-issue-from-file@v4
+        with:
+          title: ${{ inputs.issue_title }}
+          content-filepath: ./.github/checklist-templates/aks-implementation.md
+          labels: |
+            implementation
+            aks
+            checklist
+
+      - name: Create ARO Implementation Issue
+        if: ${{ inputs.checklist_type == 'aro' }}
+        uses: peter-evans/create-issue-from-file@v4
+        with:
+          title: ${{ inputs.issue_title }}
+          content-filepath: ./.github/checklist-templates/aro-implementation.md
+          labels: |
+            implementation
+            aro
+            checklist
+
+      - name: Create DevHub Implementation Issue
+        if: ${{ inputs.checklist_type == 'devhub' }}
+        uses: peter-evans/create-issue-from-file@v4
+        with:
+          title: ${{ inputs.issue_title }}
+          content-filepath: ./.github/checklist-templates/devhub-implementation.md
+          labels: |
+            implementation
+            devhub
+            checklist

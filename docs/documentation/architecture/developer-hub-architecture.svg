@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+    <linearGradient id="redhat-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#EE0000;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#CC0000;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="catalog-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0078D4;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#0063B1;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="template-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#83B81A;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#5A8010;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="plugin-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8661C5;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#6B4C9E;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="portal-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF8C00;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#DD7B00;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Title -->
+  <text x="400" y="50" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" font-weight="bold" fill="#333">Red Hat Developer Hub Architecture</text>
+  
+  <!-- Red Hat Developer Hub Main Platform -->
+  <rect x="100" y="100" width="600" height="400" rx="10" ry="10" fill="#F8F8F8" stroke="#EE0000" stroke-width="2"/>
+  <rect x="100" y="100" width="600" height="40" rx="10" ry="10" fill="url(#redhat-gradient)" filter="url(#shadow)"/>
+  <text x="400" y="125" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" fill="white" font-weight="bold">Red Hat Developer Hub</text>
+  
+  <!-- Component Catalog -->
+  <rect x="120" y="160" width="250" height="150" rx="5" ry="5" fill="url(#catalog-gradient)" filter="url(#shadow)" opacity="0.9"/>
+  <text x="245" y="185" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white" font-weight="bold">Component Catalog</text>
+  
+  <!-- Component Catalog Items -->
+  <rect x="140" y="200" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
+  <text x="190" y="220" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#0078D4">API Services</text>
+  
+  <rect x="250" y="200" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
+  <text x="300" y="220" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#0078D4">Web Services</text>
+  
+  <rect x="140" y="240" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
+  <text x="190" y="260" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#0078D4">Libraries</text>
+  
+  <rect x="250" y="240" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
+  <text x="300" y="260" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#0078D4">Databases</text>
+  
+  <!-- Template Library -->
+  <rect x="430" y="160" width="250" height="150" rx="5" ry="5" fill="url(#template-gradient)" filter="url(#shadow)" opacity="0.9"/>
+  <text x="555" y="185" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white" font-weight="bold">Template Library</text>
+  
+  <!-- Template Library Items -->
+  <rect x="450" y="200" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
+  <text x="500" y="220" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#5A8010">Node.js App</text>
+  
+  <rect x="560" y="200" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
+  <text x="610" y="220" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#5A8010">Java App</text>
+  
+  <rect x="450" y="240" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
+  <text x="500" y="260" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#5A8010">Python App</text>
+  
+  <rect x="560" y="240" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
+  <text x="610" y="260" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#5A8010">Microservice</text>
+  
+  <!-- Plugin Ecosystem -->
+  <rect x="120" y="330" width="250" height="150" rx="5" ry="5" fill="url(#plugin-gradient)" filter="url(#shadow)" opacity="0.9"/>
+  <text x="245" y="355" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white" font-weight="bold">Plugin Ecosystem</text>
+  
+  <!-- Plugin Items -->
+  <rect x="140" y="370" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
+  <text x="190" y="390" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#6B4C9E">GitHub</text>
+  
+  <rect x="250" y="370" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
+  <text x="300" y="390" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#6B4C9E">Azure</text>
+  
+  <rect x="140" y="410" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
+  <text x="190" y="430" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#6B4C9E">Kubernetes</text>
+  
+  <rect x="250" y="410" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
+  <text x="300" y="430" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#6B4C9E">Tekton</text>
+  
+  <!-- Developer Portal -->
+  <rect x="430" y="330" width="250" height="150" rx="5" ry="5" fill="url(#portal-gradient)" filter="url(#shadow)" opacity="0.9"/>
+  <text x="555" y="355" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white" font-weight="bold">Developer Portal</text>
+  
+  <!-- Portal Features -->
+  <rect x="450" y="370" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
+  <text x="500" y="390" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#DD7B00">Documentation</text>
+  
+  <rect x="560" y="370" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
+  <text x="610" y="390" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#DD7B00">Golden Paths</text>
+  
+  <rect x="450" y="410" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
+  <text x="500" y="430" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#DD7B00">Scorecards</text>
+  
+  <rect x="560" y="410" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
+  <text x="610" y="430" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#DD7B00">Service Catalog</text>
+  
+  <!-- Integration Arrows -->
+  <path d="M 245 310 L 245 330" stroke="#6B4C9E" stroke-width="2" stroke-dasharray="5,5"/>
+  <polygon points="240,325 245,330 250,325" fill="#6B4C9E"/>
+  
+  <path d="M 555 310 L 555 330" stroke="#DD7B00" stroke-width="2" stroke-dasharray="5,5"/>
+  <polygon points="550,325 555,330 560,325" fill="#DD7B00"/>
+  
+  <path d="M 370 235 L 430 235" stroke="#5A8010" stroke-width="2" stroke-dasharray="5,5"/>
+  <polygon points="425,230 430,235 425,240" fill="#5A8010"/>
+  
+  <path d="M 370 405 L 430 405" stroke="#DD7B00" stroke-width="2" stroke-dasharray="5,5"/>
+  <polygon points="425,400 430,405 425,410" fill="#DD7B00"/>
+  
+  <!-- External Connections -->
+  <rect x="290" y="520" width="220" height="40" rx="10" ry="10" fill="#24292E" filter="url(#shadow)"/>
+  <text x="400" y="545" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white" font-weight="bold">GitHub Enterprise</text>
+  
+  <line x1="400" y1="500" x2="400" y2="520" stroke="#24292E" stroke-width="3" stroke-dasharray="5,5"/>
+  <polygon points="395,515 400,520 405,515" fill="#24292E"/>
+  
+  <!-- Legend -->
+  <rect x="580" y="500" width="170" height="80" rx="5" ry="5" fill="white" stroke="#ccc" stroke-width="1"/>
+  <text x="665" y="520" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold" fill="#333">Components</text>
+  
+  <rect x="600" y="535" width="15" height="15" fill="url(#catalog-gradient)"/>
+  <text x="665" y="547" font-family="Arial, sans-serif" font-size="12" fill="#333">Software Catalog</text>
+  
+  <rect x="600" y="560" width="15" height="15" fill="url(#template-gradient)"/>
+  <text x="665" y="572" font-family="Arial, sans-serif" font-size="12" fill="#333">Templates</text>
+</svg> 

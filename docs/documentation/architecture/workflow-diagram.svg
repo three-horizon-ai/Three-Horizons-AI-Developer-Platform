@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+    <linearGradient id="inner-loop-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#83B81A;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#5A8010;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="outer-loop-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0078D4;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#0063B1;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="governance-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8661C5;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#6B4C9E;stop-opacity:1"/>
+    </linearGradient>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#666"/>
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="400" y="50" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" font-weight="bold" fill="#333">Three Horizons Workflow Architecture</text>
+  
+  <!-- Inner Loop Development -->
+  <rect x="100" y="100" width="600" height="150" rx="10" ry="10" fill="#F8F8F8" stroke="#5A8010" stroke-width="2"/>
+  <rect x="100" y="100" width="600" height="40" rx="10" ry="10" fill="url(#inner-loop-gradient)" filter="url(#shadow)"/>
+  <text x="400" y="125" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" fill="white" font-weight="bold">Inner Loop Development</text>
+  
+  <!-- Inner Loop Steps -->
+  <circle cx="180" cy="170" r="25" fill="url(#inner-loop-gradient)" filter="url(#shadow)"/>
+  <text x="180" y="175" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white" font-weight="bold">1</text>
+  <text x="180" y="215" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#333">Choose Template</text>
+  
+  <circle cx="300" cy="170" r="25" fill="url(#inner-loop-gradient)" filter="url(#shadow)"/>
+  <text x="300" y="175" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white" font-weight="bold">2</text>
+  <text x="300" y="215" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#333">Local Development</text>
+  
+  <circle cx="420" cy="170" r="25" fill="url(#inner-loop-gradient)" filter="url(#shadow)"/>
+  <text x="420" y="175" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white" font-weight="bold">3</text>
+  <text x="420" y="215" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#333">Code Validation</text>
+  
+  <circle cx="540" cy="170" r="25" fill="url(#inner-loop-gradient)" filter="url(#shadow)"/>
+  <text x="540" y="175" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white" font-weight="bold">4</text>
+  <text x="540" y="215" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#333">Pull Request</text>
+  
+  <!-- Inner Loop Arrows -->
+  <line x1="205" y1="170" x2="275" y2="170" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="325" y1="170" x2="395" y2="170" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="445" y1="170" x2="515" y2="170" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <!-- Outer Loop Deployment -->
+  <rect x="100" y="280" width="600" height="150" rx="10" ry="10" fill="#F8F8F8" stroke="#0063B1" stroke-width="2"/>
+  <rect x="100" y="280" width="600" height="40" rx="10" ry="10" fill="url(#outer-loop-gradient)" filter="url(#shadow)"/>
+  <text x="400" y="305" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" fill="white" font-weight="bold">Outer Loop Deployment</text>
+  
+  <!-- Outer Loop Steps -->
+  <circle cx="180" cy="350" r="25" fill="url(#outer-loop-gradient)" filter="url(#shadow)"/>
+  <text x="180" y="355" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white" font-weight="bold">1</text>
+  <text x="180" y="395" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#333">CI Build</text>
+  
+  <circle cx="300" cy="350" r="25" fill="url(#outer-loop-gradient)" filter="url(#shadow)"/>
+  <text x="300" y="355" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white" font-weight="bold">2</text>
+  <text x="300" y="395" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#333">Testing</text>
+  
+  <circle cx="420" cy="350" r="25" fill="url(#outer-loop-gradient)" filter="url(#shadow)"/>
+  <text x="420" y="355" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white" font-weight="bold">3</text>
+  <text x="420" y="395" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#333">Staging</text>
+  
+  <circle cx="540" cy="350" r="25" fill="url(#outer-loop-gradient)" filter="url(#shadow)"/>
+  <text x="540" y="355" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white" font-weight="bold">4</text>
+  <text x="540" y="395" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#333">Production</text>
+  
+  <!-- Outer Loop Arrows -->
+  <line x1="205" y1="350" x2="275" y2="350" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="325" y1="350" x2="395" y2="350" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="445" y1="350" x2="515" y2="350" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <!-- Between Inner and Outer Loop -->
+  <line x1="540" y1="195" x2="540" y2="325" stroke="#666" stroke-width="2" stroke-dasharray="5,5"/>
+  <line x1="180" y1="325" x2="180" y2="195" stroke="#666" stroke-width="2" stroke-dasharray="5,5"/>
+  <polygon points="535,320 540,325 545,320" fill="#666"/>
+  <polygon points="175,200 180,195 185,200" fill="#666"/>
+  
+  <!-- Governance & Compliance -->
+  <rect x="100" y="460" width="600" height="100" rx="10" ry="10" fill="#F8F8F8" stroke="#6B4C9E" stroke-width="2"/>
+  <rect x="100" y="460" width="600" height="40" rx="10" ry="10" fill="url(#governance-gradient)" filter="url(#shadow)"/>
+  <text x="400" y="485" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" fill="white" font-weight="bold">Governance &amp; Compliance</text>
+  
+  <!-- Governance Items -->
+  <rect x="140" y="510" width="120" height="30" rx="5" ry="5" fill="url(#governance-gradient)" filter="url(#shadow)" opacity="0.7"/>
+  <text x="200" y="530" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">Security Scanning</text>
+  
+  <rect x="290" y="510" width="120" height="30" rx="5" ry="5" fill="url(#governance-gradient)" filter="url(#shadow)" opacity="0.7"/>
+  <text x="350" y="530" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">Policy Compliance</text>
+  
+  <rect x="440" y="510" width="120" height="30" rx="5" ry="5" fill="url(#governance-gradient)" filter="url(#shadow)" opacity="0.7"/>
+  <text x="500" y="530" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">Artifact Signing</text>
+  
+  <!-- Governance Connection -->
+  <line x1="400" y1="460" x2="400" y2="430" stroke="#6B4C9E" stroke-width="2" stroke-dasharray="5,5"/>
+  <polygon points="395,435 400,430 405,435" fill="#6B4C9E"/>
+  
+  <!-- Legend -->
+  <rect x="580" y="570" width="170" height="80" rx="5" ry="5" fill="white" stroke="#ccc" stroke-width="1"/>
+  <text x="665" y="590" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold" fill="#333">Workflow</text>
+  
+  <rect x="600" y="605" width="15" height="15" fill="url(#inner-loop-gradient)"/>
+  <text x="665" y="617" font-family="Arial, sans-serif" font-size="12" fill="#333">Developer Inner Loop</text>
+  
+  <rect x="600" y="630" width="15" height="15" fill="url(#outer-loop-gradient)"/>
+  <text x="665" y="642" font-family="Arial, sans-serif" font-size="12" fill="#333">Deployment Outer Loop</text>
+</svg> 

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="1000" height="650" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .title { font: bold 24px sans-serif; fill: #0366d6; }
+    .subtitle { font: italic 18px sans-serif; fill: #24292e; }
+    .label { font: bold 14px sans-serif; fill: #24292e; }
+    .small-label { font: bold 12px sans-serif; fill: #24292e; }
+    .description { font: 12px sans-serif; fill: #586069; }
+    .horizon1 { fill: #2188ff; }
+    .horizon2 { fill: #f9c513; }
+    .horizon3 { fill: #6f42c1; }
+    .section-title { font: bold 16px sans-serif; fill: #24292e; }
+    .stage { fill: white; stroke: #0366d6; stroke-width: 2px; rx: 8px; ry: 8px; }
+    .container { fill: #f6f8fa; stroke: #24292e; stroke-width: 1px; rx: 5px; ry: 5px; }
+    .arrow { fill: none; stroke: #586069; stroke-width: 2px; marker-end: url(#arrowhead); }
+    .dashed { stroke-dasharray: 5,5; }
+    .feedback { fill: none; stroke: #cb2431; stroke-width: 1.5px; stroke-dasharray: 5,3; marker-end: url(#redarrowhead); }
+    .step { fill: #e1e4e8; stroke: #24292e; stroke-width: 1px; rx: 3px; ry: 3px; }
+    .environment { fill: #dbedff; stroke: #0366d6; stroke-width: 1.5px; rx: 10px; ry: 10px; }
+    .tools { fill: #effaf0; stroke: #28a745; stroke-width: 1px; rx: 3px; ry: 3px; }
+    .security { fill: #ffe2e2; stroke: #cb2431; stroke-width: 1.5px; rx: 3px; ry: 3px; }
+  </style>
+  
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#586069"/>
+    </marker>
+    <marker id="redarrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#cb2431"/>
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="500" y="40" class="title" text-anchor="middle">Three Horizons CI/CD Pipeline Architecture</text>
+  <text x="500" y="70" class="subtitle" text-anchor="middle">GitHub Actions and GitOps Workflow</text>
+  
+  <!-- CI Pipeline Section -->
+  <rect x="100" y="100" width="800" height="180" class="container"/>
+  <text x="120" y="120" class="section-title">Continuous Integration Pipeline (GitHub Actions)</text>
+  
+  <!-- CI Stages -->
+  <rect x="120" y="140" width="140" height="60" class="stage"/>
+  <text x="190" y="170" class="label" text-anchor="middle">Source</text>
+  <text x="190" y="190" class="small-label" text-anchor="middle">GitHub Repository</text>
+  
+  <rect x="280" y="140" width="140" height="60" class="stage"/>
+  <text x="350" y="170" class="label" text-anchor="middle">Build</text>
+  <text x="350" y="190" class="small-label" text-anchor="middle">Compile & Package</text>
+  
+  <rect x="440" y="140" width="140" height="60" class="stage"/>
+  <text x="510" y="170" class="label" text-anchor="middle">Test</text>
+  <text x="510" y="190" class="small-label" text-anchor="middle">Unit & Integration</text>
+  
+  <rect x="600" y="140" width="140" height="60" class="stage"/>
+  <text x="670" y="170" class="label" text-anchor="middle">Security Scan</text>
+  <text x="670" y="190" class="small-label" text-anchor="middle">Code & Dependencies</text>
+  
+  <rect x="760" y="140" width="120" height="60" class="stage"/>
+  <text x="820" y="170" class="label" text-anchor="middle">Artifacts</text>
+  <text x="820" y="190" class="small-label" text-anchor="middle">Container Registry</text>
+  
+  <!-- CI Steps -->
+  <rect x="130" y="220" width="120" height="40" class="step"/>
+  <text x="190" y="245" class="small-label" text-anchor="middle">Code Checkout</text>
+  
+  <rect x="290" y="220" width="120" height="40" class="step"/>
+  <text x="350" y="245" class="small-label" text-anchor="middle">npm/Maven Build</text>
+  
+  <rect x="450" y="220" width="120" height="40" class="step"/>
+  <text x="510" y="245" class="small-label" text-anchor="middle">Jest/JUnit Tests</text>
+  
+  <rect x="610" y="220" width="120" height="40" class="step"/>
+  <text x="670" y="245" class="small-label" text-anchor="middle">Sonar/OWASP Check</text>
+  
+  <rect x="770" y="220" width="100" height="40" class="step"/>
+  <text x="820" y="245" class="small-label" text-anchor="middle">Push Image</text>
+  
+  <!-- CD Pipeline Section -->
+  <rect x="100" y="300" width="800" height="140" class="container"/>
+  <text x="120" y="320" class="section-title">Continuous Delivery Pipeline (GitOps)</text>
+  
+  <!-- CD Stages -->
+  <rect x="120" y="340" width="140" height="60" class="stage"/>
+  <text x="190" y="370" class="label" text-anchor="middle">Infrastructure</text>
+  <text x="190" y="390" class="small-label" text-anchor="middle">Bicep/Terraform</text>
+  
+  <rect x="280" y="340" width="140" height="60" class="stage"/>
+  <text x="350" y="370" class="label" text-anchor="middle">Deploy Dev</text>
+  <text x="350" y="390" class="small-label" text-anchor="middle">Automated Deploy</text>
+  
+  <rect x="440" y="340" width="140" height="60" class="stage"/>
+  <text x="510" y="370" class="label" text-anchor="middle">Quality Gate</text>
+  <text x="510" y="390" class="small-label" text-anchor="middle">Integration Tests</text>
+  
+  <rect x="600" y="340" width="140" height="60" class="stage"/>
+  <text x="670" y="370" class="label" text-anchor="middle">Deploy Staging</text>
+  <text x="670" y="390" class="small-label" text-anchor="middle">Approved Deploy</text>
+  
+  <rect x="760" y="340" width="120" height="60" class="stage"/>
+  <text x="820" y="370" class="label" text-anchor="middle">Production</text>
+  <text x="820" y="390" class="small-label" text-anchor="middle">Manual Approval</text>
+  
+  <!-- CD Steps -->
+  <rect x="130" y="420" width="120" height="40" class="step"/>
+  <text x="190" y="445" class="small-label" text-anchor="middle">IaC Provisioning</text>
+  
+  <rect x="290" y="420" width="120" height="40" class="step"/>
+  <text x="350" y="445" class="small-label" text-anchor="middle">Flux/ArgoCD Sync</text>
+  
+  <rect x="450" y="420" width="120" height="40" class="step"/>
+  <text x="510" y="445" class="small-label" text-anchor="middle">Automated Tests</text>
+  
+  <rect x="610" y="420" width="120" height="40" class="step"/>
+  <text x="670" y="445" class="small-label" text-anchor="middle">GitOps Promotion</text>
+  
+  <rect x="770" y="420" width="100" height="40" class="step"/>
+  <text x="820" y="445" class="small-label" text-anchor="middle">Blue/Green Deploy</text>
+  
+  <!-- Environment Sections -->
+  <rect x="100" y="480" width="180" height="120" class="environment"/>
+  <text x="190" y="500" class="label" text-anchor="middle">Development</text>
+  <text x="190" y="520" class="description" text-anchor="middle">- Automated Deployments</text>
+  <text x="190" y="540" class="description" text-anchor="middle">- Feature Branch Testing</text>
+  <text x="190" y="560" class="description" text-anchor="middle">- Developer Feedback</text>
+  <text x="190" y="580" class="description" text-anchor="middle">- Continuous Testing</text>
+  
+  <rect x="310" y="480" width="180" height="120" class="environment"/>
+  <text x="400" y="500" class="label" text-anchor="middle">Staging/QA</text>
+  <text x="400" y="520" class="description" text-anchor="middle">- Pre-production Testing</text>
+  <text x="400" y="540" class="description" text-anchor="middle">- Load/Performance Tests</text>
+  <text x="400" y="560" class="description" text-anchor="middle">- User Acceptance</text>
+  <text x="400" y="580" class="description" text-anchor="middle">- Release Candidates</text>
+  
+  <rect x="520" y="480" width="180" height="120" class="environment"/>
+  <text x="610" y="500" class="label" text-anchor="middle">Production</text>
+  <text x="610" y="520" class="description" text-anchor="middle">- Controlled Releases</text>
+  <text x="610" y="540" class="description" text-anchor="middle">- Phased Rollout</text>
+  <text x="610" y="560" class="description" text-anchor="middle">- Monitoring & Alerts</text>
+  <text x="610" y="580" class="description" text-anchor="middle">- Rollback Capability</text>
+  
+  <rect x="730" y="480" width="170" height="120" class="tools"/>
+  <text x="815" y="500" class="label" text-anchor="middle">Tools & Technology</text>
+  <text x="815" y="520" class="description" text-anchor="middle">- GitHub Actions</text>
+  <text x="815" y="540" class="description" text-anchor="middle">- Flux/ArgoCD for GitOps</text>
+  <text x="815" y="560" class="description" text-anchor="middle">- Azure Container Registry</text>
+  <text x="815" y="580" class="description" text-anchor="middle">- AKS/ARO Kubernetes</text>
+  
+  <!-- Connecting arrows -->
+  <!-- CI Pipeline -->
+  <path d="M 260 170 L 280 170" class="arrow" />
+  <path d="M 420 170 L 440 170" class="arrow" />
+  <path d="M 580 170 L 600 170" class="arrow" />
+  <path d="M 740 170 L 760 170" class="arrow" />
+  
+  <!-- CI to CD -->
+  <path d="M 820 200 L 820 250 L 190 250 L 190 340" class="arrow" />
+  
+  <!-- CD Pipeline -->
+  <path d="M 260 370 L 280 370" class="arrow" />
+  <path d="M 420 370 L 440 370" class="arrow" />
+  <path d="M 580 370 L 600 370" class="arrow" />
+  <path d="M 740 370 L 760 370" class="arrow" />
+  
+  <!-- CD to Environments -->
+  <path d="M 350 400 L 350 430 L 190 430 L 190 480" class="arrow" />
+  <path d="M 670 400 L 670 430 L 400 430 L 400 480" class="arrow" />
+  <path d="M 820 400 L 820 430 L 610 430 L 610 480" class="arrow" />
+  
+  <!-- Feedback loops -->
+  <path d="M 190 480 C 100 400, 80 200, 120 170" class="feedback" />
+  <path d="M 400 480 C 300 450, 200 250, 350 200" class="feedback" />
+  <path d="M 610 480 C 500 450, 400 200, 700 200" class="feedback" />
+  
+  <!-- Horizon Levels -->
+  <rect x="910" y="140" width="20" height="40" class="horizon1" rx="5" ry="5" opacity="0.8"/>
+  <text x="880" y="165" class="label" text-anchor="end">H1: Foundation</text>
+  
+  <rect x="910" y="200" width="20" height="40" class="horizon2" rx="5" ry="5" opacity="0.8"/>
+  <text x="880" y="225" class="label" text-anchor="end">H2: Enhancement</text>
+  
+  <rect x="910" y="260" width="20" height="40" class="horizon3" rx="5" ry="5" opacity="0.8"/>
+  <text x="880" y="285" class="label" text-anchor="end">H3: Innovation</text>
+</svg>

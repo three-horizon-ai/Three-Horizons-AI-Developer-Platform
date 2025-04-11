@@ -1,0 +1,35 @@
+# This file defines who is responsible for each part of the code
+# The format is PATTERN OWNER1 OWNER2 ...
+
+# Default owners for the entire repository (replace with actual users)
+* @maintainer1 @maintainer2
+
+# Documentation
+/docs/ @docs-team @tech-writers
+/docs/architecture/ @architects @tech-leads
+/docs/troubleshooting/ @support-team @tech-leads
+
+# Example scenarios
+/scenarios/ @solution-architects
+/scenarios/scenario1-microservices/ @microservices-specialists
+/scenarios/scenario2-serverless/ @serverless-specialists
+/scenarios/scenario3-eventdriven/ @event-driven-specialists
+
+# Templates
+/templates/ @template-maintainers
+/templates/azure/ @azure-specialists
+/templates/devhub/ @devhub-specialists
+
+# Tools and scripts
+/tools/ @devops-team
+/tools/scripts/ @automation-specialists
+/tools/utilities/ @tools-team
+
+# Translations
+/docs/translations/pt-br/ @brazilian-team
+/docs/translations/es-latam/ @latam-team
+README.pt-br.md @brazilian-team
+README.es-latam.md @latam-team
+
+# GitHub Workflows
+/.github/workflows/ @devops-team @cicd-specialists

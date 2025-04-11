@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="1000" height="700" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .title { font: bold 24px sans-serif; fill: #0366d6; }
+    .subtitle { font: italic 18px sans-serif; fill: #24292e; }
+    .label { font: bold 14px sans-serif; fill: #24292e; }
+    .small-label { font: bold 12px sans-serif; fill: #24292e; }
+    .description { font: 12px sans-serif; fill: #586069; }
+    .horizon1 { fill: #2188ff; }
+    .horizon2 { fill: #f9c513; }
+    .horizon3 { fill: #6f42c1; }
+    .phase { font: bold 16px sans-serif; fill: #ffffff; }
+    .phase-box { fill: #0366d6; stroke: none; rx: 10px; ry: 10px; }
+    .stage { fill: white; stroke: #0366d6; stroke-width: 2px; rx: 8px; ry: 8px; }
+    .arrow { fill: none; stroke: #586069; stroke-width: 2px; marker-end: url(#arrowhead); }
+    .step { fill: #e1e4e8; stroke: #24292e; stroke-width: 1px; rx: 5px; ry: 5px; }
+    .horizon-marker { stroke-width: 3px; }
+  </style>
+  
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#586069"/>
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="500" y="40" class="title" text-anchor="middle">Three Horizons Complete Integration Workflow</text>
+  <text x="500" y="70" class="subtitle" text-anchor="middle">Step-by-Step Implementation Process</text>
+  
+  <!-- Phase 1: Infrastructure -->
+  <rect x="100" y="100" width="160" height="40" class="phase-box"/>
+  <text x="180" y="125" class="phase" text-anchor="middle">1. Infrastructure</text>
+  
+  <rect x="100" y="145" width="160" height="35" class="step"/>
+  <text x="180" y="167" class="small-label" text-anchor="middle">Resource Groups</text>
+  
+  <rect x="100" y="185" width="160" height="35" class="step"/>
+  <text x="180" y="207" class="small-label" text-anchor="middle">Virtual Networks</text>
+  
+  <rect x="100" y="225" width="160" height="35" class="step"/>
+  <text x="180" y="247" class="small-label" text-anchor="middle">Key Vault</text>
+  
+  <rect x="100" y="265" width="160" height="35" class="step"/>
+  <text x="180" y="287" class="small-label" text-anchor="middle">Container Registry</text>
+  
+  <!-- Phase 2: Platform -->
+  <rect x="310" y="100" width="160" height="40" class="phase-box"/>
+  <text x="390" y="125" class="phase" text-anchor="middle">2. Platform</text>
+  
+  <rect x="310" y="145" width="160" height="35" class="step"/>
+  <text x="390" y="167" class="small-label" text-anchor="middle">AKS/ARO Cluster</text>
+  
+  <rect x="310" y="185" width="160" height="35" class="step"/>
+  <text x="390" y="207" class="small-label" text-anchor="middle">RBAC Configuration</text>
+  
+  <rect x="310" y="225" width="160" height="35" class="step"/>
+  <text x="390" y="247" class="small-label" text-anchor="middle">Storage Classes</text>
+  
+  <rect x="310" y="265" width="160" height="35" class="step"/>
+  <text x="390" y="287" class="small-label" text-anchor="middle">Ingress Controller</text>
+  
+  <!-- Phase 3: Developer Hub -->
+  <rect x="520" y="100" width="160" height="40" class="phase-box"/>
+  <text x="600" y="125" class="phase" text-anchor="middle">3. Developer Hub</text>
+  
+  <rect x="520" y="145" width="160" height="35" class="step"/>
+  <text x="600" y="167" class="small-label" text-anchor="middle">Operator Installation</text>
+  
+  <rect x="520" y="185" width="160" height="35" class="step"/>
+  <text x="600" y="207" class="small-label" text-anchor="middle">Database Setup</text>
+  
+  <rect x="520" y="225" width="160" height="35" class="step"/>
+  <text x="600" y="247" class="small-label" text-anchor="middle">DevHub Deployment</text>
+  
+  <rect x="520" y="265" width="160" height="35" class="step"/>
+  <text x="600" y="287" class="small-label" text-anchor="middle">Ingress Configuration</text>
+  
+  <!-- Phase 4: GitHub -->
+  <rect x="730" y="100" width="160" height="40" class="phase-box"/>
+  <text x="810" y="125" class="phase" text-anchor="middle">4. GitHub</text>
+  
+  <rect x="730" y="145" width="160" height="35" class="step"/>
+  <text x="810" y="167" class="small-label" text-anchor="middle">OAuth App Setup</text>
+  
+  <rect x="730" y="185" width="160" height="35" class="step"/>
+  <text x="810" y="207" class="small-label" text-anchor="middle">Auth Configuration</text>
+  
+  <rect x="730" y="225" width="160" height="35" class="step"/>
+  <text x="810" y="247" class="small-label" text-anchor="middle">Catalog Integration</text>
+  
+  <rect x="730" y="265" width="160" height="35" class="step"/>
+  <text x="810" y="287" class="small-label" text-anchor="middle">Templates Repository</text>
+  
+  <!-- Horizon 1 Marker -->
+  <line x1="80" y1="320" x2="920" y2="320" stroke="#2188ff" stroke-width="3" class="horizon-marker"/>
+  <text x="90" y="340" class="label" fill="#2188ff">Horizon 1: Foundation</text>
+  
+  <!-- Phase 5: CI/CD -->
+  <rect x="100" y="370" width="160" height="40" class="phase-box"/>
+  <text x="180" y="395" class="phase" text-anchor="middle">5. CI/CD</text>
+  
+  <rect x="100" y="415" width="160" height="35" class="step"/>
+  <text x="180" y="437" class="small-label" text-anchor="middle">Flux Installation</text>
+  
+  <rect x="100" y="455" width="160" height="35" class="step"/>
+  <text x="180" y="477" class="small-label" text-anchor="middle">GitOps Repository</text>
+  
+  <rect x="100" y="495" width="160" height="35" class="step"/>
+  <text x="180" y="517" class="small-label" text-anchor="middle">GitHub Actions</text>
+  
+  <rect x="100" y="535" width="160" height="35" class="step"/>
+  <text x="180" y="557" class="small-label" text-anchor="middle">Test Deployment</text>
+  
+  <!-- Phase 6: Monitoring -->
+  <rect x="310" y="370" width="160" height="40" class="phase-box"/>
+  <text x="390" y="395" class="phase" text-anchor="middle">6. Monitoring</text>
+  
+  <rect x="310" y="415" width="160" height="35" class="step"/>
+  <text x="390" y="437" class="small-label" text-anchor="middle">Prometheus Stack</text>
+  
+  <rect x="310" y="455" width="160" height="35" class="step"/>
+  <text x="390" y="477" class="small-label" text-anchor="middle">Azure Monitor</text>
+  
+  <rect x="310" y="495" width="160" height="35" class="step"/>
+  <text x="390" y="517" class="small-label" text-anchor="middle">Grafana Dashboards</text>
+  
+  <rect x="310" y="535" width="160" height="35" class="step"/>
+  <text x="390" y="557" class="small-label" text-anchor="middle">Alerting</text>
+  
+  <!-- Phase 7: Validation -->
+  <rect x="520" y="370" width="370" height="40" class="phase-box"/>
+  <text x="705" y="395" class="phase" text-anchor="middle">7. Platform Validation</text>
+  
+  <rect x="520" y="415" width="160" height="35" class="step"/>
+  <text x="600" y="437" class="small-label" text-anchor="middle">Test Application</text>
+  
+  <rect x="520" y="455" width="160" height="35" class="step"/>
+  <text x="600" y="477" class="small-label" text-anchor="middle">CI/CD Validation</text>
+  
+  <rect x="520" y="495" width="160" height="35" class="step"/>
+  <text x="600" y="517" class="small-label" text-anchor="middle">Monitoring Check</text>
+  
+  <rect x="520" y="535" width="160" height="35" class="step"/>
+  <text x="600" y="557" class="small-label" text-anchor="middle">End-to-End Testing</text>
+  
+  <rect x="730" y="415" width="160" height="35" class="step"/>
+  <text x="810" y="437" class="small-label" text-anchor="middle">GitHub Copilot</text>
+  
+  <rect x="730" y="455" width="160" height="35" class="step"/>
+  <text x="810" y="477" class="small-label" text-anchor="middle">AI Recommendations</text>
+  
+  <rect x="730" y="495" width="160" height="35" class="step"/>
+  <text x="810" y="517" class="small-label" text-anchor="middle">Advanced Analytics</text>
+  
+  <rect x="730" y="535" width="160" height="35" class="step"/>
+  <text x="810" y="557" class="small-label" text-anchor="middle">ML Pipelines</text>
+  
+  <!-- Horizon 2 Marker -->
+  <line x1="80" y1="590" x2="700" y2="590" stroke="#f9c513" stroke-width="3" class="horizon-marker"/>
+  <text x="90" y="610" class="label" fill="#f9c513">Horizon 2: Enhancement</text>
+  
+  <!-- Horizon 3 Marker -->
+  <line x1="700" y1="590" x2="920" y2="590" stroke="#6f42c1" stroke-width="3" class="horizon-marker"/>
+  <text x="820" y="610" class="label" fill="#6f42c1">Horizon 3: Innovation</text>
+  
+  <!-- Next Steps -->
+  <rect x="100" y="630" width="800" height="40" class="phase-box" fill="#24292e"/>
+  <text x="500" y="655" class="phase" text-anchor="middle">Next Steps: Standardization, Advanced CI/CD, Extended Monitoring</text>
+  
+  <!-- Connection arrows -->
+  <!-- Phase to Phase -->
+  <path d="M 260 170 L 310 170" class="arrow" />
+  <path d="M 470 170 L 520 170" class="arrow" />
+  <path d="M 680 170 L 730 170" class="arrow" />
+  
+  <path d="M 260 490 L 310 490" class="arrow" />
+  <path d="M 470 490 L 520 490" class="arrow" />
+  <path d="M 680 490 L 730 490" class="arrow" />
+  
+  <!-- Phase to Next Phase -->
+  <path d="M 180 310 C 180 330, 180 350, 180 370" class="arrow" />
+  <path d="M 390 310 C 390 330, 390 350, 390 370" class="arrow" />
+  <path d="M 600 310 C 600 330, 600 350, 600 370" class="arrow" />
+  <path d="M 810 310 C 810 330, 810 350, 710 370" class="arrow" />
+  
+  <!-- Validation to Next Steps -->
+  <path d="M 390 580 C 390 600, 400 610, 400 630" class="arrow" />
+  <path d="M 600 580 C 600 600, 500 610, 500 630" class="arrow" />
+  <path d="M 810 580 C 810 600, 600 610, 600 630" class="arrow" />
+</svg>

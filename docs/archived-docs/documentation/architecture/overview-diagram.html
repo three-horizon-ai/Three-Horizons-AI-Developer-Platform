@@ -1,0 +1,181 @@
+<\!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Developer Experience Ecosystem Overview</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      line-height: 1.6;
+      color: #333;
+    }
+    h1 {
+      color: #662c91;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+    }
+    .diagram-container {
+      text-align: center;
+      margin: 30px 0;
+    }
+    .diagram-img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .note {
+      background-color: #f9f0ff;
+      border-left: 4px solid #662c91;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 3px;
+    }
+    .key-components {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin: 30px 0;
+    }
+    .component {
+      width: 30%;
+      min-width: 250px;
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 5px;
+    }
+    .azure {
+      background-color: #e6f2ff;
+      border-left: 4px solid #0078d4;
+    }
+    .redhat {
+      background-color: #fff5f5;
+      border-left: 4px solid #cc0000;
+    }
+    .github {
+      background-color: #f0f0f0;
+      border-left: 4px solid #24292e;
+    }
+    h3 {
+      margin-top: 0;
+    }
+    .outputs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin: 30px 0;
+    }
+    .output {
+      width: 22%;
+      min-width: 200px;
+      margin-bottom: 20px;
+      padding: 15px;
+      background-color: #e6f2ff;
+      border-radius: 5px;
+      text-align: center;
+    }
+    .buttons {
+      margin: 30px 0;
+      text-align: center;
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 0 10px;
+      background-color: #662c91;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Developer Experience Ecosystem Overview</h1>
+  
+  <div class="note">
+    <p>This HTML version provides a more accessible view of the Developer Experience Ecosystem diagram that may not render correctly as SVG on GitHub.</p>
+  </div>
+  
+  <div class="diagram-container">
+    <img class="diagram-img" src="overview-diagram.png" alt="Developer Experience Ecosystem Diagram">
+  </div>
+  
+  <h2>Three Horizons Integration Platform</h2>
+  <p>The Three Horizons Platform integrates three key technology pillars into a cohesive ecosystem that delivers a superior developer experience:</p>
+  
+  <div class="key-components">
+    <div class="component azure">
+      <h3>Microsoft Azure</h3>
+      <p>Provides the infrastructure and platform services:</p>
+      <ul>
+        <li>Azure Kubernetes Service (AKS)</li>
+        <li>Azure Red Hat OpenShift (ARO)</li>
+        <li>Azure Database Services</li>
+        <li>Azure Active Directory</li>
+      </ul>
+    </div>
+    
+    <div class="component redhat">
+      <h3>Red Hat Developer Hub</h3>
+      <p>Creates a centralized developer portal:</p>
+      <ul>
+        <li>Golden Path Templates</li>
+        <li>Service Catalog</li>
+        <li>Developer Documentation</li>
+        <li>Self-Service Tools</li>
+      </ul>
+    </div>
+    
+    <div class="component github">
+      <h3>GitHub Enterprise</h3>
+      <p>Enables DevOps and security capabilities:</p>
+      <ul>
+        <li>Source Code Management</li>
+        <li>CI/CD Pipelines (Actions)</li>
+        <li>Advanced Security (CodeQL)</li>
+        <li>GitHub Copilot</li>
+      </ul>
+    </div>
+  </div>
+  
+  <h2>Platform Outputs</h2>
+  <p>The Three Horizons Platform delivers these key outcomes:</p>
+  
+  <div class="outputs">
+    <div class="output">
+      <h3>Golden Paths</h3>
+      <p>Standardized developer workflows</p>
+    </div>
+    
+    <div class="output">
+      <h3>DevBox Templates</h3>
+      <p>Consistent development environments</p>
+    </div>
+    
+    <div class="output">
+      <h3>Inner Loop Dev</h3>
+      <p>Optimized local development</p>
+    </div>
+    
+    <div class="output">
+      <h3>Outer Loop Deployment</h3>
+      <p>Streamlined CI/CD processes</p>
+    </div>
+  </div>
+  
+  <div class="buttons">
+    <a class="button" href="overview-diagram.svg">View SVG Version</a>
+    <a class="button" href="../../../README.md">Back to README</a>
+  </div>
+  
+  <footer>
+    <p><small>© 2025 Three Horizons Platform. The HTML version of this diagram was created to ensure accessibility and compatibility across all viewing platforms.</small></p>
+  </footer>
+</body>
+</html>

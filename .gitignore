@@ -1,0 +1,278 @@
+# Operating system files and folders
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE and editor configuration files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+
+# Dependencies
+node_modules/
+yarn.lock
+# package-lock.json - Needed for GitHub Actions
+*.log
+
+# Configuration files with sensitive information
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+*.pem
+*.key
+*.cert
+
+# Build and distribution files
+dist/
+build/
+out/
+target/
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Azure/Kubernetes specific files
+.azure/
+*.kubeconfig
+kubeconfig
+
+# Dependency directories
+bower_components/
+jspm_packages/
+packages/
+
+# IDE files
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+*.swp
+*.swo
+.vs/
+*.vsix
+
+# Environment configs
+.env
+.env.test
+.env.*.local
+.env.local
+.envrc
+
+# Build directories
+dist/
+build/
+out/
+tmp/
+coverage/
+.next/
+.nuxt/
+.cache/
+target/
+.serverless/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# OS specific
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Azure
+.azure/
+.Azure/
+azureauth.json
+azuredeploy.parameters.local.json
+azuredeploy.parameters.dev.json
+backend.tfvars
+
+# Terraform
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+*.tfvars
+*.tfplan
+
+# Package management
+# package-lock.json - Needed for GitHub Actions
+yarn.lock
+.pnp.*
+
+# Testing
+coverage/
+.nyc_output
+
+# Generated files
+**/.generated
+.eslintcache
+.yarn-integrity
+.webpack/
+.build/
+
+# Archive and backup directories
+archive/
+templates/archive/
+**/archive/
+**/templates/archive/
+*/archive/*
+*/archives/*
+backup/
+backups/
+*_backup/
+*_backup*/
+backup_*/
+*/backup/*
+*/backups/*
+*.bak
+*.backup
+*.old
+*.orig
+*.previous
+*.save
+*~
+
+# External backup directories (from restructuring scripts)
+../three-horizons-backup/
+../removed_scenarios/
+../removed_docs/
+../backup*/
+../*/backup/
+../*/backups/
+
+# Non-English documentation files
+*-pt-br.md
+*-es-latam.md
+*-*.md
+!README.md
+!CONTRIBUTING.md
+!CODE_OF_CONDUCT.md
+!LICENSE.md
+!REPOSITORY_RESTRUCTURING.md
+!inner-loop-development.md
+!outer-loop-deployment.md
+!golden-paths.md
+!custom-templates.md
+!github-actions-configuration.md
+!openshift-gitops-setup.md
+
+# Repository restructuring scripts and files
+.local-scripts/
+restructure_repo.sh
+fix_remaining_translations.sh
+remove_remaining_translations.sh
+final_translation_cleanup.sh
+*translation*.sh
+*.bak
+*.orig
+*.final_backup
+REPOSITORY_RESTRUCTURING.md
+
+# Excluded scenarios (not part of complete integration)
+scenarios/scenario*
+scenarios/README*
+
+# Documentation guidelines and translation process
+docs/TRANSLATION_PROCESS.md
+docs/DOCUMENTATION_GUIDELINES.md
+docs/translations/
+**/translations/
+
+# Old templates and deprecated files
+templates/archive/
+templates/*/archive/
+
+# Temporary and development files
+*.tmp
+*.temp
+*.wip
+**/WIP/
+*_wip.*
+*-draft.*
+draft-*.*
+
+# Duplicate and backup content
+*/backup/
+*/backups/
+*_duplicated/
+*-copy.*
+*_copy.*
+
+# Documentation that is not relevant to the complete integration scenario
+docs/other-scenarios/
+docs/alternatives/
+# docs/implementation/  # Allowing implementation documentation
+
+# Build and CI configuration files from other scenarios
+.github/workflows/scenario*
+
+# Documentation for removed scenarios
+docs/scenarios/scenario*
+# Arquivos de relatório e logs adicionais
+docs/reports/
+output.txt
+script-check-report.txt
+*.report
+*.log.*
+
+# Links simbólicos (se necessário excluí-los)
+# CONTRIBUTING.md
+# SECURITY.md
+# EXECUTIVE-OVERVIEW.md
+
+# Arquivos temporários adicionais
+.history/
+.vscode-server/
+.vscode-test/
+.ionide/
+.devcontainer/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+.nox/
+
+# Arquivos temporários gerados pelos scripts
+*.moved
+*.original
+*.previous_version
+*_tmp
+*_temp
+
+# Diretórios de documentação que devem ser excluídos do git
+docs/draft/
+docs/wip/
+**/draft/
+**/wip/
+
+# Diretórios de código fonte que foram movidos mas mantidos para compatibilidade
+_old_src/
+_legacy/
+_deprecated/
+
+# Symlinks
+**/symlinks/
