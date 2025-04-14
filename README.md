@@ -18,7 +18,7 @@
 
 The Three Horizons Platform integrates Microsoft Azure, Red Hat Developer Hub, and GitHub Enterprise to create a unified developer experience that accelerates innovation while maintaining governance and quality.
 
-![Three Horizons Platform Overview](assets/images/overview-diagram.svg)
+![Three Horizons Platform Overview](assets/images/three-horizons-diagram.svg)
 
 This platform evolves your organization's capabilities across three horizons:
 
