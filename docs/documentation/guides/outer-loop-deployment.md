@@ -1,10 +1,14 @@
-# Outer Loop Deployment Guide
+# <span style="color: #0366d6;">🚀 Outer Loop Deployment Guide</span>
 
-## Overview
+## <span style="color: #0366d6;">🔄 Overview</span>
 
 The Outer Loop Deployment process is a critical component of the Three Horizons Platform that handles the continuous integration and delivery of code from development to production environments. This guide explains the outer loop concepts, workflows, and best practices to ensure reliable deployments.
 
-## What is the Outer Loop?
+![Outer Loop Deployment Workflow](../architecture/integration-workflow.svg)
+
+> 🔍 **Architecture Note:** The diagram above illustrates the complete Outer Loop deployment workflow, showing how code moves from development through testing, staging, and into production environments.
+
+## <span style="color: #0366d6;">🤔 What is the Outer Loop?</span>
 
 The Outer Loop refers to the CI/CD workflow that begins after developers push their code to the shared repository. It encompasses:
 
@@ -14,7 +18,7 @@ The Outer Loop refers to the CI/CD workflow that begins after developers push th
 
 Unlike the Inner Loop (which is developer-centric), the Outer Loop focuses on the team's collective codebase and its journey to production.
 
-## Prerequisites
+## <span style="color: #0366d6;">📋 Prerequisites</span>
 
 Before interacting with the Outer Loop deployment process, ensure you have:
 
@@ -23,7 +27,7 @@ Before interacting with the Outer Loop deployment process, ensure you have:
 - **Required Tokens/Credentials**: Service connection details for deployments if needed
 - **Environment Knowledge**: Understanding of the target environments (dev, test, stage, prod)
 
-## Outer Loop Workflow
+## <span style="color: #0366d6;">🔄 Outer Loop Workflow</span>
 
 ### 1. Code Integration
 
@@ -130,9 +134,13 @@ az pipelines run --name "Rollback-Deployment" --branch main --parameters environ
 
 Rollbacks are automatically triggered if health checks fail, or can be manually initiated.
 
-## GitOps and Infrastructure as Code
+## <span style="color: #0366d6;">🔄 GitOps and Infrastructure as Code</span>
 
 The Three Horizons Platform leverages GitOps principles for infrastructure and deployment:
+
+![GitOps Workflow for Infrastructure](../architecture/cicd-pipeline.svg)
+
+> 🔄 **GitOps Principle:** Infrastructure changes follow the same workflow as application code, with Git as the single source of truth and automated deployments triggered by commits.
 
 ### Infrastructure Templates
 
@@ -146,9 +154,13 @@ The Three Horizons Platform leverages GitOps principles for infrastructure and d
 - Configuration as Code with versioning
 - Secrets management with tight access controls
 
-## Monitoring and Observability
+## <span style="color: #0366d6;">📊 Monitoring and Observability</span>
 
 The Outer Loop includes comprehensive monitoring:
+
+![Monitoring and Observability](../architecture/overview-diagram.svg)
+
+> 📈 **Monitoring Architecture:** This diagram shows how monitoring and observability components integrate with the deployment pipeline to provide real-time insights into application health and performance.
 
 ### Deployment Metrics
 
@@ -163,7 +175,7 @@ The Outer Loop includes comprehensive monitoring:
 - Log Analytics for centralized logging
 - Custom dashboards for service health
 
-## Security and Compliance
+## <span style="color: #0366d6;">🔒 Security and Compliance</span>
 
 Security is integrated throughout the deployment pipeline:
 
@@ -172,7 +184,7 @@ Security is integrated throughout the deployment pipeline:
 - Compliance verification against regulatory standards
 - Security testing automation
 
-## Best Practices
+## <span style="color: #0366d6;">✅ Best Practices</span>
 
 - **Environment Parity**: Keep environments as similar as possible
 - **Immutable Artifacts**: Deploy the same artifacts across environments
@@ -182,7 +194,7 @@ Security is integrated throughout the deployment pipeline:
 - **Monitoring**: Implement thorough monitoring and alerting
 - **Documentation**: Keep deployment documentation updated
 
-## Troubleshooting
+## <span style="color: #0366d6;">🛠️ Troubleshooting</span>
 
 ### Common Issues and Solutions
 
@@ -204,9 +216,24 @@ Security is integrated throughout the deployment pipeline:
 - Update dependencies if security issues are detected
 - Review access controls if unauthorized access is suspected
 
-## Related Documentation
+## <span style="color: #0366d6;">📚 Related Documentation</span>
 
 - [Inner Loop Development Guide](./inner-loop-development.md)
 - [Golden Paths Guide](./golden-paths.md)
 - [Continuous Integration Strategies](../implementation/continuous-integration.md)
 - [Deployment Strategy](../implementation/deployment-strategy.md) 
+
+## <span style="color: #0366d6;">📊 Diagram Key</span>
+
+The diagrams in this guide use the following color coding and symbols:
+
+| Color | Component | Description |
+|-------|-----------|-------------|
+| <span style="color: #0078D4;">■</span> Azure | Azure services and infrastructure | Cloud resources hosting the platform |
+| <span style="color: #EE0000;">■</span> Red Hat | Developer Hub components | Developer experience and portal |
+| <span style="color: #24292E;">■</span> GitHub | Source control and CI/CD | Code repositories and automation |
+| <span style="color: #2188ff;">■</span> Horizon 1 | Foundation capabilities | Core platform elements |
+| <span style="color: #f9c513;">■</span> Horizon 2 | Enhancement capabilities | Optimized features |
+| <span style="color: #6f42c1;">■</span> Horizon 3 | Innovation capabilities | Advanced and transformative features |
+
+> 🔍 **Note on Diagrams**: All architecture diagrams in this documentation reflect the latest Three Horizons Platform architecture as of April 2025, using a consistent styling and nomenclature. 
