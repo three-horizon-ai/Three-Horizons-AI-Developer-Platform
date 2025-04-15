@@ -246,5 +246,5 @@ While possible, migration between paths can be challenging. It's best to select 
 
 - [Inner Loop Development Guide](./inner-loop-development.md)
 - [Outer Loop Deployment Guide](./outer-loop-deployment.md)
-- [Developer Hub Overview](../overview/developer-hub.md)
-- [Template Contribution Guidelines](../contribution/template-guidelines.md) 
+- [Architecture Decision Records](../architecture/adrs.md)
+- [Platform Engineering Strategy](../architecture/platform-engineering.md) 

@@ -204,17 +204,9 @@ Security is integrated throughout the deployment pipeline:
 - Update dependencies if security issues are detected
 - Review access controls if unauthorized access is suspected
 
-## Support
-
-For issues related to Outer Loop deployments:
-
-- **Chat**: #deployment-support channel in Teams
-- **On-call Support**: Platform engineering team rotation
-- **Escalation Path**: See [Escalation Process](../operations/escalation-process.md)
-
 ## Related Documentation
 
 - [Inner Loop Development Guide](./inner-loop-development.md)
 - [Golden Paths Guide](./golden-paths.md)
-- [Infrastructure as Code Guide](../implementation/infrastructure-as-code.md)
-- [Monitoring Strategy](../operations/monitoring.md) 
+- [Continuous Integration Strategies](../implementation/continuous-integration.md)
+- [Deployment Strategy](../implementation/deployment-strategy.md) 

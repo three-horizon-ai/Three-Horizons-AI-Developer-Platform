@@ -210,17 +210,16 @@ See the [Outer Loop Deployment Guide](./outer-loop-deployment.md) for more infor
 - **DevHub CLI**: For interacting with the Developer Hub (`devhub --help`)
 - **Project-specific tools**: Documented in each project's README
 
-## Support
-
-For issues related to Inner Loop development:
-
-- **Chat**: #developer-support channel in Teams
-- **Knowledge Base**: [DevHub Documentation](https://devhub.example.com/docs)
-- **Office Hours**: Tuesdays and Thursdays, 10:00 AM - 12:00 PM
-
 ## Related Documentation
 
-- [Golden Paths Guide](./golden-paths.md)
 - [Outer Loop Deployment Guide](./outer-loop-deployment.md)
-- [Environment Setup](../getting-started/environment-setup.md)
-- [Coding Standards](../reference/coding-standards.md) 
+- [Golden Paths Guide](./golden-paths.md)
+- [Local Development Setup](../implementation/local-development.md)
+- [Testing Best Practices](../implementation/testing-best-practices.md)
+
+#### Avoiding Burnout
+
+- Take regular breaks
+- Communicate blockers early
+- Don't sacrifice code quality for speed
+- Maintain work-life balance 
