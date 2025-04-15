@@ -165,7 +165,7 @@ The complete implementation is divided into 8 phases:
 
 The Three Horizons Platform connects multiple technologies to create a cohesive developer experience. The diagram below shows the primary integration points between components:
 
-![Integration Architecture Diagram](images/integration-architecture.svg)
+![Integration Architecture Diagram](images/integration-architecture-corrected.svg)
 
 ### <span style="color: #0366d6;">Authentication Flows</span>
 
