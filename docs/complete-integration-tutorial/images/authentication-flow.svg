@@ -92,10 +92,10 @@
     <path d="M 250 300 L 250 140 L 350 140" stroke="#666666" stroke-width="2" fill="none" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
     <text x="240" y="220" font-family="Arial, sans-serif" font-size="14" text-anchor="end" fill="#666">9. Return GitHub Token</text>
 
-    <!-- Session Indication - Movido para mais acima -->
-    <path d="M 450 90 C 400 70, 600 70, 550 90" stroke="#28a745" stroke-width="2" fill="none" stroke-dasharray="5,5"/>
-    <text x="500" y="60" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#28a745">Authenticated Session Established</text>
-
+    <!-- Session Indication - Reposicionado diretamente acima do Red Hat Developer Hub -->
+    <text x="500" y="100" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#28a745">Authenticated Session Established</text>
+    <path d="M 425 120 C 465 110, 535 110, 575 120" stroke="#28a745" stroke-width="2" fill="none" stroke-dasharray="5,5"/>
+    
     <!-- Legend - Reposicionada -->
     <g transform="translate(10,45)">
         <rect x="10" y="10" width="15" height="15" fill="url(#gradient-rhdh)" stroke="#cc0000" stroke-width="1"/>
