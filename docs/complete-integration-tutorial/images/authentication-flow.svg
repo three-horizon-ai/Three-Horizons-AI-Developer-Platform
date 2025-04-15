@@ -62,35 +62,35 @@
 
     <!-- RHDH to Entra ID -->
     <path d="M 650 170 L 775 170 L 775 300" stroke="#666666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
-    <text x="700" y="155" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#666">2. Redirect to SSO</text>
+    <text x="715" y="155" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#666">2. Redirect to SSO</text>
 
     <!-- Entra ID to User -->
     <path d="M 775 400 L 775 520 L 650 520" stroke="#666666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
-    <text x="750" y="450" font-family="Arial, sans-serif" font-size="14" text-anchor="end" fill="#666">3. Authenticate User</text>
+    <text x="750" y="430" font-family="Arial, sans-serif" font-size="14" text-anchor="end" fill="#666">3. Authenticate User</text>
 
     <!-- User to Entra ID -->
     <path d="M 600 500 L 720 500" stroke="#666666" stroke-width="2" fill="none" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
-    <text x="660" y="485" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#666">4. Provide Credentials</text>
+    <text x="660" y="465" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#666">4. Provide Credentials</text>
 
     <!-- Entra ID to RHDH -->
     <path d="M 750 300 L 750 140 L 650 140" stroke="#666666" stroke-width="2" fill="none" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
-    <text x="760" y="220" font-family="Arial, sans-serif" font-size="14" text-anchor="start" fill="#666">5. Return Auth Token</text>
+    <text x="790" y="220" font-family="Arial, sans-serif" font-size="14" text-anchor="start" fill="#666">5. Return Auth Token</text>
 
     <!-- RHDH to GitHub -->
     <path d="M 350 170 L 225 170 L 225 300" stroke="#666666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
-    <text x="230" y="155" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#666">6. Request GitHub Access</text>
+    <text x="190" y="155" font-family="Arial, sans-serif" font-size="14" text-anchor="end" fill="#666">6. Request GitHub Access</text>
 
     <!-- GitHub to User -->
     <path d="M 225 400 L 225 520 L 350 520" stroke="#666666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
-    <text x="250" y="450" font-family="Arial, sans-serif" font-size="14" text-anchor="start" fill="#666">7. GitHub Auth Request</text>
+    <text x="250" y="430" font-family="Arial, sans-serif" font-size="14" text-anchor="start" fill="#666">7. GitHub Auth Request</text>
 
     <!-- User to GitHub -->
     <path d="M 400 500 L 280 500" stroke="#666666" stroke-width="2" fill="none" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
-    <text x="340" y="485" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#666">8. Authorize</text>
+    <text x="340" y="465" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#666">8. Authorize</text>
 
     <!-- GitHub to RHDH -->
     <path d="M 250 300 L 250 140 L 350 140" stroke="#666666" stroke-width="2" fill="none" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
-    <text x="240" y="220" font-family="Arial, sans-serif" font-size="14" text-anchor="end" fill="#666">9. Return GitHub Token</text>
+    <text x="210" y="220" font-family="Arial, sans-serif" font-size="14" text-anchor="end" fill="#666">9. Return GitHub Token</text>
 
     <!-- Session Indication - Reposicionado diretamente acima do Red Hat Developer Hub -->
     <text x="500" y="100" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#28a745">Authenticated Session Established</text>
