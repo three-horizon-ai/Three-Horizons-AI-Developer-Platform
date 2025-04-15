@@ -698,7 +698,7 @@ Red Hat Developer Hub 1.5 introduces several important enhancements and features
    - Enhanced Kubernetes resource visualization
    - Improved CI/CD integration
 
-![RHDH 1.5 Features (v1.0, April 2025)](images/rhdh-features.svg)
+![RHDH 1.5 Features (v1.0, April 2025)](images/rhdh-features.png)
 
 ### <span style="color: #0366d6;">Available RHDH Plugins</span>
 
