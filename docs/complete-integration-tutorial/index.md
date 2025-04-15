@@ -113,7 +113,7 @@ Introduces transformative capabilities:
 
 The following diagram illustrates the complete implementation workflow for the Three Horizons Platform, organized by phases and aligned with the Three Horizons model:
 
-![Three Horizons Integration Workflow](images/implementation-workflow.svg)
+![Three Horizons Integration Workflow](images/implementation-workflow.png)
 
 > **Note on Diagrams**: All architecture diagrams in this documentation reflect the latest Three Horizons Platform architecture as of April 2025, using a consistent styling and nomenclature. Each diagram includes a version indicator to help track changes over time.
 
