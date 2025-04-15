@@ -86,17 +86,17 @@
     <text x="890" y="140" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#ffffff">Industry Best Practices</text>
     
     <!-- Legend -->
-    <rect x="1030" y="200" width="15" height="15" fill="#0066cc"/>
-    <text x="1050" y="213" font-family="Arial" font-size="12" text-anchor="start" fill="#333">Inner Loop</text>
+    <rect x="1130" y="200" width="15" height="15" fill="#0066cc"/>
+    <text x="1150" y="213" font-family="Arial" font-size="12" text-anchor="start" fill="#333">Inner Loop</text>
     
-    <rect x="1030" y="225" width="15" height="15" fill="#cc0000"/>
-    <text x="1050" y="238" font-family="Arial" font-size="12" text-anchor="start" fill="#333">Integration Path</text>
+    <rect x="1130" y="225" width="15" height="15" fill="#cc0000"/>
+    <text x="1150" y="238" font-family="Arial" font-size="12" text-anchor="start" fill="#333">Integration Path</text>
     
-    <rect x="1030" y="250" width="15" height="15" fill="#0078d4"/>
-    <text x="1050" y="263" font-family="Arial" font-size="12" text-anchor="start" fill="#333">Deployment Path</text>
+    <rect x="1130" y="250" width="15" height="15" fill="#0078d4"/>
+    <text x="1150" y="263" font-family="Arial" font-size="12" text-anchor="start" fill="#333">Deployment Path</text>
     
-    <rect x="1030" y="275" width="15" height="15" fill="#ffffcc"/>
-    <text x="1050" y="288" font-family="Arial" font-size="12" text-anchor="start" fill="#333">Platform Foundation</text>
+    <rect x="1130" y="275" width="15" height="15" fill="#ffffcc"/>
+    <text x="1150" y="288" font-family="Arial" font-size="12" text-anchor="start" fill="#333">Platform Foundation</text>
     
     <!-- Connections -->
     <path d="M 600 290 L 600 370" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
