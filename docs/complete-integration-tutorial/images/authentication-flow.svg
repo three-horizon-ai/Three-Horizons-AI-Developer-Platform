@@ -62,7 +62,7 @@
 
     <!-- RHDH to Entra ID -->
     <path d="M 650 170 L 775 170 L 775 300" stroke="#666666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
-    <text x="715" y="155" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#666">2. Redirect to SSO</text>
+    <text x="830" y="155" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#666">2. Redirect to SSO</text>
 
     <!-- Entra ID to User -->
     <path d="M 775 400 L 775 520 L 650 520" stroke="#666666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
