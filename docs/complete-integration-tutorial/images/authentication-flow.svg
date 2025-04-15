@@ -31,8 +31,9 @@
     <!-- Cabeçalho com fundo - NOVO -->
     <rect x="0" y="0" width="1000" height="40" fill="#f3f3f3" stroke="#dddddd" stroke-width="1"/>
     
-    <!-- Título movido para bem mais acima -->
-    <text x="500" y="18" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#333333">Authentication Flow Diagram - Three Horizons Platform Integration</text>
+    <!-- Updated title format with main title and subtitle -->
+    <text x="500" y="25" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#333333">Authentication Flow</text>
+    <text x="500" y="55" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#666666">Secure user access for the Three Horizons Platform</text>
     
     <!-- Main Components -->
     <!-- Developer Hub Box -->
