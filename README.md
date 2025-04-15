@@ -67,9 +67,9 @@ Our comprehensive playbook includes these key documentation resources:
 ### Core Implementation Resources
 
 - [Complete Integration Tutorial](docs/complete-integration-tutorial/index.md) - Primary step-by-step implementation guide
-- [Inner Loop Development Guide](docs/archived-docs/documentation/guides/inner-loop-development.md) - Optimizing developer workflows
-- [Outer Loop Deployment Guide](docs/archived-docs/documentation/guides/outer-loop-deployment.md) - Implementing continuous deployment
-- [Golden Paths Guide](docs/archived-docs/documentation/developer/golden-paths.md) - Standardized developer workflows
+- [Inner Loop Development Guide](docs/documentation/guides/inner-loop-development.md) - Optimizing developer workflows
+- [Outer Loop Deployment Guide](docs/documentation/guides/outer-loop-deployment.md) - Implementing continuous deployment
+- [Golden Paths Guide](docs/documentation/guides/golden-paths.md) - Standardized developer workflows
 
 ### Operational Resources
 

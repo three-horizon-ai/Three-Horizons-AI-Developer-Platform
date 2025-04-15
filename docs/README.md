@@ -25,10 +25,10 @@ Use our [Documentation Map](DOCUMENTATION_MAP.md) to navigate the complete docum
 ## <span style="color: #0366d6;">📂 Key Documentation Sections</span>
 
 ### <span style="color: #0366d6;">Implementation Guides</span>
-- [Developer Hub Guide](complete-integration-tutorial/developer-hub-guide.md)
-- [GitHub Platform Guide](complete-integration-tutorial/github-platform-guide.md)
-- [Microsoft DevBox Guide](complete-integration-tutorial/devbox-guide.md)
-- [Azure Integration Guide](complete-integration-tutorial/azure-integration-guide.md)
+- [Developer Hub Guide](complete-integration-tutorial/index.md#phase-3-developer-hub-deployment)
+- [GitHub Platform Guide](complete-integration-tutorial/index.md#phase-4-github-integration)
+- [Microsoft DevBox Guide](complete-integration-tutorial/index.md#phase-8-microsoft-devbox-configuration)
+- [Azure Integration Guide](complete-integration-tutorial/index.md#phase-1-infrastructure-provisioning)
 
 ### <span style="color: #0366d6;">Architecture</span>
 - [Architecture Overview](documentation/architecture/overview-diagram.svg)
@@ -37,7 +37,7 @@ Use our [Documentation Map](DOCUMENTATION_MAP.md) to navigate the complete docum
 
 ### <span style="color: #0366d6;">Reference</span>
 - [Deployment Checklists](complete-integration-tutorial/index.md#implementation-checklists)
-- [GitHub Integration](complete-integration-tutorial/github-platform-guide.md)
+- [GitHub Integration](complete-integration-tutorial/index.md#phase-4-github-integration)
 - [Glossary](GLOSSARY.md)
 
 ## <span style="color: #0366d6;">🔄 Documentation Changes</span>

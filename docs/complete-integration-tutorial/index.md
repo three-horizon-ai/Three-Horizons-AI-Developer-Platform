@@ -139,12 +139,12 @@ Before beginning this tutorial, ensure you have:
    - GitHub Enterprise account
    - Azure AD administrator access
    - OpenShift Pull Secret (for ARO)
-   - [Identity management documentation](images/architecture-zones.svg)
+   - [Identity management documentation](../documentation/architecture/security-architecture.svg)
 
 4. **Network Requirements**:
    - Ability to create VNets and subnets
    - Outbound internet access
-   - [Network architecture documentation](images/architecture-zones.svg)
+   - [Network architecture documentation](../documentation/architecture/network-diagram.svg)
 
 ## <span style="color: #0366d6;">📋 Implementation Phases</span>
 
@@ -197,10 +197,10 @@ The Three Horizons Platform uses a unified identity approach:
 
 For detailed implementation of specific components, refer to these guides:
 
-- [**Red Hat Developer Hub Guide**](developer-hub-guide.md) - Comprehensive guide for implementing the Developer Hub
-- [**GitHub Platform Integration Guide**](github-platform-guide.md) - Detailed steps for GitHub Enterprise integration
-- [**Microsoft DevBox Guide**](devbox-guide.md) - Complete guide for setting up developer environments
-- [**Azure Integration Guide**](azure-integration-guide.md) - Guide for ARM templates and Terraform infrastructure
+- [**Red Hat Developer Hub Guide**](#phase-3-developer-hub-deployment) - Comprehensive guide for implementing the Developer Hub
+- [**GitHub Platform Integration Guide**](#phase-4-github-integration) - Detailed steps for GitHub Enterprise integration
+- [**Microsoft DevBox Guide**](#phase-8-microsoft-devbox-configuration) - Complete guide for setting up developer environments
+- [**Azure Integration Guide**](#phase-1-infrastructure-provisioning) - Guide for ARM templates and Terraform infrastructure
 
 Let's start with the first phase.
 
@@ -265,7 +265,7 @@ az network vnet subnet create \
   --disable-private-endpoint-network-policies true
 ```
 
-> 🔗 **Reference:** See our [network architecture documentation](images/architecture-zones.svg) for the recommended network topology and Microsoft's [private endpoint documentation](https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview).
+> 🔗 **Reference:** See our [network architecture documentation](../documentation/architecture/network-diagram.svg) for the recommended network topology and Microsoft's [private endpoint documentation](https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview).
 
 ### <span style="color: #0366d6;">Step 1.3: Create Key Vault</span>
 
@@ -435,7 +435,7 @@ az identity federated-credential create \
   --subject system:serviceaccount:default:workload-identity-sa
 ```
 
-> 🔍 **Learn More:** Review our [AKS architecture documentation](images/architecture-zones.svg) for details on how AKS fits into the Three Horizons architecture and [Azure Workload Identity documentation](https://learn.microsoft.com/en-us/azure/aks/workload-identity-overview) for more details.
+> 🔍 **Learn More:** Review our [AKS architecture documentation](../documentation/architecture/three-horizons-diagram.svg) for details on how AKS fits into the Three Horizons architecture and [Azure Workload Identity documentation](https://learn.microsoft.com/en-us/azure/aks/workload-identity-overview).
 
 ### <span style="color: #0366d6;">Option B: ARO Installation</span>
 
@@ -1743,7 +1743,7 @@ helm install prometheus prometheus-community/kube-prometheus-stack \
   --set prometheusOperator.createCustomResource=true
 ```
 
-> 📊 **Monitoring Guide:** See our [monitoring architecture](images/architecture-zones.svg) for an overview of the monitoring components.
+> 📊 **Monitoring Guide:** See our [monitoring architecture](../documentation/architecture/workflow-diagram.svg) for an overview of the monitoring components.
 
 ### <span style="color: #0366d6;">Step 6.2: Configure Azure Monitor Integration</span>
 
@@ -2093,7 +2093,7 @@ Now that you have completed the foundation and enhancement phases, you can proce
 2. **AI-Powered Recommendations**:
    - Implement a machine learning model for code quality recommendations
    - Deploy as a Developer Hub plugin
-   - [Developer Hub plugins guide](developer-hub-guide.md)
+   - [Developer Hub plugins guide](#phase-3-developer-hub-deployment)
 
 3. **Advanced Analytics**:
    - Set up a data lake for platform telemetry
@@ -2454,7 +2454,7 @@ Verify the DevBox setup:
 Congratulations on implementing the complete Three Horizons Platform! Here are recommended next steps:
 
 1. **Standardize Development Practices**:
-   - Implement [Golden Paths](developer-hub-guide.md) for developers
+   - Implement [Golden Paths](#phase-3-developer-hub-deployment) for developers
    - Create organization-specific templates
 
 2. **Advanced CI/CD**:
@@ -2478,9 +2478,9 @@ Congratulations on implementing the complete Three Horizons Platform! Here are r
 ### Internal Documentation
 
 - [Architecture Overview](images/three-horizons-complete.svg)
-- [Developer Hub Guide](developer-hub-guide.md)
-- [GitHub Platform Guide](github-platform-guide.md)
-- [Security Architecture](images/architecture-zones.svg)
+- [Developer Hub Guide](#phase-3-developer-hub-deployment)
+- [GitHub Platform Guide](#phase-4-github-integration)
+- [Security Architecture](../documentation/architecture/security-architecture.svg)
 
 ### External Documentation
 
