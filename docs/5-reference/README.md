@@ -54,6 +54,8 @@ Detailed network configuration reference:
 └─────────────────────────┘     └─────────────────────────┘
 ```
 
+![Network Architecture Diagram](../documentation/architecture/network-diagram.svg)
+
 ## API Reference
 
 ### REST APIs
