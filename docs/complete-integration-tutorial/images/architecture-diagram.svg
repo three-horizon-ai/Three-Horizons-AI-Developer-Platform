@@ -1,0 +1,138 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Styles and Definitions -->
+  <defs>
+    <!-- Gradients for sections -->
+    <linearGradient id="azureGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0078D4" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#0078D4" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="redhatGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EE0000" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#EE0000" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="githubGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#24292E" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#24292E" stop-opacity="0.05"/>
+    </linearGradient>
+    
+    <!-- Arrow definition -->
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#666666"/>
+    </marker>
+    
+    <!-- Component styles -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  
+  <!-- Title -->
+  <text x="600" y="50" font-family="Arial, sans-serif" font-size="32" text-anchor="middle" font-weight="bold" fill="#333333">Three Horizons Platform Architecture</text>
+  <text x="600" y="85" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" fill="#666666">Integrating Azure, Red Hat Developer Hub, and GitHub Enterprise</text>
+  
+  <!-- Horizon Sections -->
+  <rect x="100" y="115" width="1000" height="95" rx="8" ry="8" fill="#2188ff" fill-opacity="0.1" stroke="#2188ff" stroke-width="2"/>
+  <text x="150" y="145" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#2188ff">Horizon 1: Foundation</text>
+  <text x="150" y="170" font-family="Arial, sans-serif" font-size="16" fill="#666666">Core infrastructure, basic services, and essential capabilities</text>
+  
+  <rect x="100" y="220" width="1000" height="95" rx="8" ry="8" fill="#f9c513" fill-opacity="0.1" stroke="#f9c513" stroke-width="2"/>
+  <text x="150" y="250" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#f9c513">Horizon 2: Enhancement</text>
+  <text x="150" y="275" font-family="Arial, sans-serif" font-size="16" fill="#666666">Advanced features, optimization, and increased automation</text>
+  
+  <rect x="100" y="325" width="1000" height="95" rx="8" ry="8" fill="#6f42c1" fill-opacity="0.1" stroke="#6f42c1" stroke-width="2"/>
+  <text x="150" y="355" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#6f42c1">Horizon 3: Innovation</text>
+  <text x="150" y="380" font-family="Arial, sans-serif" font-size="16" fill="#666666">AI-driven features, advanced analytics, and transformation capabilities</text>
+  
+  <!-- Architecture Zones -->
+  <rect x="100" y="440" width="250" height="280" rx="8" ry="8" fill="url(#githubGradient)" stroke="#24292E" stroke-width="2"/>
+  <text x="225" y="465" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#24292E">Development Zone</text>
+  <text x="225" y="485" font-family="Arial, sans-serif" font-size="14" font-style="italic" text-anchor="middle" fill="#666">(Inner Loop)</text>
+  
+  <rect x="380" y="440" width="250" height="280" rx="8" ry="8" fill="url(#redhatGradient)" stroke="#EE0000" stroke-width="2"/>
+  <text x="505" y="465" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#EE0000">Integration Zone</text>
+  <text x="505" y="485" font-family="Arial, sans-serif" font-size="14" font-style="italic" text-anchor="middle" fill="#666">(CI/CD Pipeline)</text>
+  
+  <rect x="660" y="440" width="250" height="280" rx="8" ry="8" fill="url(#azureGradient)" stroke="#0078D4" stroke-width="2"/>
+  <text x="785" y="465" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#0078D4">Runtime Zone</text>
+  <text x="785" y="485" font-family="Arial, sans-serif" font-size="14" font-style="italic" text-anchor="middle" fill="#666">(Outer Loop)</text>
+  
+  <rect x="940" y="440" width="160" height="280" rx="8" ry="8" fill="#f8f9fa" stroke="#666666" stroke-width="2"/>
+  <text x="1020" y="465" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#666666">Operations</text>
+  <text x="1020" y="485" font-family="Arial, sans-serif" font-size="14" font-style="italic" text-anchor="middle" fill="#666">(Monitoring)</text>
+  
+  <!-- Development Zone Components -->
+  <rect x="125" y="510" width="200" height="40" rx="5" ry="5" fill="white" stroke="#24292E" stroke-width="1" filter="url(#shadow)"/>
+  <text x="225" y="535" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#333333">GitHub Codespaces</text>
+  
+  <rect x="125" y="560" width="200" height="40" rx="5" ry="5" fill="white" stroke="#24292E" stroke-width="1" filter="url(#shadow)"/>
+  <text x="225" y="585" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#333333">GitHub Copilot Enterprise</text>
+  
+  <rect x="125" y="610" width="200" height="40" rx="5" ry="5" fill="white" stroke="#24292E" stroke-width="1" filter="url(#shadow)"/>
+  <text x="225" y="635" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#333333">Microsoft DevBox</text>
+  
+  <rect x="125" y="660" width="200" height="40" rx="5" ry="5" fill="white" stroke="#24292E" stroke-width="1" filter="url(#shadow)"/>
+  <text x="225" y="685" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#333333">Enterprise Repositories</text>
+  
+  <!-- Integration Zone Components -->
+  <rect x="405" y="510" width="200" height="40" rx="5" ry="5" fill="white" stroke="#EE0000" stroke-width="1" filter="url(#shadow)"/>
+  <text x="505" y="535" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#333333">GitHub Actions</text>
+  
+  <rect x="405" y="560" width="200" height="40" rx="5" ry="5" fill="white" stroke="#EE0000" stroke-width="1" filter="url(#shadow)"/>
+  <text x="505" y="585" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#333333">Golden Paths</text>
+  
+  <rect x="405" y="610" width="200" height="40" rx="5" ry="5" fill="white" stroke="#EE0000" stroke-width="1" filter="url(#shadow)"/>
+  <text x="505" y="635" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#333333">GitHub Advanced Security</text>
+  
+  <rect x="405" y="660" width="200" height="40" rx="5" ry="5" fill="white" stroke="#EE0000" stroke-width="1" filter="url(#shadow)"/>
+  <text x="505" y="685" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#333333">Container Registry</text>
+  
+  <!-- Runtime Zone Components -->
+  <rect x="685" y="510" width="200" height="40" rx="5" ry="5" fill="white" stroke="#0078D4" stroke-width="1" filter="url(#shadow)"/>
+  <text x="785" y="535" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#333333">Azure Red Hat OpenShift</text>
+  
+  <rect x="685" y="560" width="200" height="40" rx="5" ry="5" fill="white" stroke="#0078D4" stroke-width="1" filter="url(#shadow)"/>
+  <text x="785" y="585" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#333333">Azure Kubernetes Service</text>
+  
+  <rect x="685" y="610" width="200" height="40" rx="5" ry="5" fill="white" stroke="#0078D4" stroke-width="1" filter="url(#shadow)"/>
+  <text x="785" y="635" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#333333">GitOps (Flux/ArgoCD)</text>
+  
+  <rect x="685" y="660" width="200" height="40" rx="5" ry="5" fill="white" stroke="#0078D4" stroke-width="1" filter="url(#shadow)"/>
+  <text x="785" y="685" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#333333">Application Workloads</text>
+  
+  <!-- Operations Zone Components -->
+  <rect x="960" y="510" width="120" height="40" rx="5" ry="5" fill="white" stroke="#666666" stroke-width="1" filter="url(#shadow)"/>
+  <text x="1020" y="535" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#333333">Azure Monitor</text>
+  
+  <rect x="960" y="560" width="120" height="40" rx="5" ry="5" fill="white" stroke="#666666" stroke-width="1" filter="url(#shadow)"/>
+  <text x="1020" y="585" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#333333">Prometheus</text>
+  
+  <rect x="960" y="610" width="120" height="40" rx="5" ry="5" fill="white" stroke="#666666" stroke-width="1" filter="url(#shadow)"/>
+  <text x="1020" y="635" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#333333">Grafana</text>
+  
+  <rect x="960" y="660" width="120" height="40" rx="5" ry="5" fill="white" stroke="#666666" stroke-width="1" filter="url(#shadow)"/>
+  <text x="1020" y="685" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#333333">Alerting</text>
+  
+  <!-- Connecting arrows -->
+  <!-- Dev to Integration -->
+  <path d="M 325 530 L 405 530" stroke="#666666" stroke-width="2" marker-end="url(#arrowhead)" fill="none"/>
+  <path d="M 325 580 L 405 580" stroke="#666666" stroke-width="2" marker-end="url(#arrowhead)" fill="none"/>
+  <path d="M 325 680 L 405 680" stroke="#666666" stroke-width="2" marker-end="url(#arrowhead)" fill="none"/>
+  
+  <!-- Integration to Runtime -->
+  <path d="M 605 530 L 685 530" stroke="#666666" stroke-width="2" marker-end="url(#arrowhead)" fill="none"/>
+  <path d="M 605 630 L 685 630" stroke="#666666" stroke-width="2" marker-end="url(#arrowhead)" fill="none"/>
+  <path d="M 605 680 L 685 680" stroke="#666666" stroke-width="2" marker-end="url(#arrowhead)" fill="none"/>
+  
+  <!-- Runtime to Monitoring -->
+  <path d="M 885 530 L 960 530" stroke="#666666" stroke-width="2" marker-end="url(#arrowhead)" fill="none"/>
+  <path d="M 885 580 L 960 580" stroke="#666666" stroke-width="2" marker-end="url(#arrowhead)" fill="none"/>
+  <path d="M 885 680 L 960 680" stroke="#666666" stroke-width="2" marker-end="url(#arrowhead)" fill="none"/>
+  
+  <!-- Feedback loop -->
+  <path d="M 960 630 C 940 730 300 730 225 700" stroke="#666666" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowhead)" fill="none"/>
+  <text x="600" y="750" font-family="Arial, sans-serif" font-size="16" font-style="italic" text-anchor="middle" fill="#666666">Continuous Feedback Loop</text>
+  
+  <!-- Developer Hub as unified layer -->
+  <rect x="100" y="740" width="1000" height="50" rx="8" ry="8" fill="#f0f5ff" stroke="#333333" stroke-width="2"/>
+  <text x="600" y="773" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#333333">Red Hat Developer Hub (Central Developer Portal)</text>
+</svg> 
