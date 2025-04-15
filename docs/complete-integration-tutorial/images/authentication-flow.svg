@@ -28,9 +28,11 @@
     <!-- Background -->
     <rect width="1000" height="600" fill="#fafafa"/>
     
-    <!-- Title - Movido para cima -->
-    <text x="500" y="25" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#333333">Authentication Flow Diagram</text>
-    <text x="500" y="50" font-family="Arial, sans-serif" font-size="16" font-style="italic" text-anchor="middle" fill="#666666">Three Horizons Platform Integration</text>
+    <!-- Cabeçalho com fundo - NOVO -->
+    <rect x="0" y="0" width="1000" height="40" fill="#f3f3f3" stroke="#dddddd" stroke-width="1"/>
+    
+    <!-- Título movido para bem mais acima -->
+    <text x="500" y="18" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#333333">Authentication Flow Diagram - Three Horizons Platform Integration</text>
     
     <!-- Main Components -->
     <!-- Developer Hub Box -->
@@ -90,23 +92,27 @@
     <path d="M 250 300 L 250 140 L 350 140" stroke="#666666" stroke-width="2" fill="none" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
     <text x="240" y="220" font-family="Arial, sans-serif" font-size="14" text-anchor="end" fill="#666">9. Return GitHub Token</text>
 
-    <!-- Session Indication - Ajustado para cima -->
-    <path d="M 450 120 C 400 90, 600 90, 550 120" stroke="#28a745" stroke-width="2" fill="none" stroke-dasharray="5,5"/>
-    <text x="500" y="85" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#28a745">Authenticated Session Established</text>
+    <!-- Session Indication - Movido para mais acima -->
+    <path d="M 450 90 C 400 70, 600 70, 550 90" stroke="#28a745" stroke-width="2" fill="none" stroke-dasharray="5,5"/>
+    <text x="500" y="60" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#28a745">Authenticated Session Established</text>
 
     <!-- Legend - Reposicionada -->
-    <rect x="100" y="30" width="15" height="15" fill="url(#gradient-rhdh)" stroke="#cc0000" stroke-width="1"/>
-    <text x="125" y="43" font-family="Arial, sans-serif" font-size="12" text-anchor="start" fill="#333">Red Hat Components</text>
+    <g transform="translate(10,45)">
+        <rect x="10" y="10" width="15" height="15" fill="url(#gradient-rhdh)" stroke="#cc0000" stroke-width="1"/>
+        <text x="35" y="23" font-family="Arial, sans-serif" font-size="12" text-anchor="start" fill="#333">Red Hat Components</text>
+        
+        <rect x="10" y="35" width="15" height="15" fill="url(#gradient-github)" stroke="#24292e" stroke-width="1"/>
+        <text x="35" y="48" font-family="Arial, sans-serif" font-size="12" text-anchor="start" fill="#333">GitHub Enterprise</text>
+        
+        <rect x="10" y="60" width="15" height="15" fill="url(#gradient-azure)" stroke="#0078d4" stroke-width="1"/>
+        <text x="35" y="73" font-family="Arial, sans-serif" font-size="12" text-anchor="start" fill="#333">Microsoft Azure Services</text>
+    </g>
     
-    <rect x="100" y="55" width="15" height="15" fill="url(#gradient-github)" stroke="#24292e" stroke-width="1"/>
-    <text x="125" y="68" font-family="Arial, sans-serif" font-size="12" text-anchor="start" fill="#333">GitHub Enterprise</text>
-    
-    <rect x="100" y="80" width="15" height="15" fill="url(#gradient-azure)" stroke="#0078d4" stroke-width="1"/>
-    <text x="125" y="93" font-family="Arial, sans-serif" font-size="12" text-anchor="start" fill="#333">Microsoft Azure Services</text>
-    
-    <line x1="300" y1="30" x2="330" y2="30" stroke="#666666" stroke-width="2" stroke-dasharray="5,5"/>
-    <text x="340" y="35" font-family="Arial, sans-serif" font-size="12" text-anchor="start" fill="#333">Response Flow</text>
-    
-    <line x1="300" y1="55" x2="330" y2="55" stroke="#666666" stroke-width="2"/>
-    <text x="340" y="60" font-family="Arial, sans-serif" font-size="12" text-anchor="start" fill="#333">Request Flow</text>
+    <g transform="translate(180,45)">
+        <line x1="10" y1="10" x2="40" y2="10" stroke="#666666" stroke-width="2" stroke-dasharray="5,5"/>
+        <text x="50" y="15" font-family="Arial, sans-serif" font-size="12" text-anchor="start" fill="#333">Response Flow</text>
+        
+        <line x1="10" y1="35" x2="40" y2="35" stroke="#666666" stroke-width="2"/>
+        <text x="50" y="40" font-family="Arial, sans-serif" font-size="12" text-anchor="start" fill="#333">Request Flow</text>
+    </g>
 </svg> 
