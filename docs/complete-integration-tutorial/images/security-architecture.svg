@@ -3,22 +3,22 @@
   <!-- Background rectangle -->
   <rect width="900" height="700" fill="#f8f9fa" />
 
-  <!-- Title -->
-  <text x="450" y="35" font-family="sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#333333">Three Horizons Platform - Security Architecture (v1.0, April 2025)</text>
+  <!-- Title - moved higher up -->
+  <text x="450" y="25" font-family="sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#333333">Three Horizons Platform - Security Architecture (v1.0, April 2025)</text>
 
-  <!-- Zero Trust Banner -->
-  <rect x="150" y="55" width="600" height="30" rx="5" fill="#222222" />
-  <text x="450" y="75" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="white">Zero Trust Security Model</text>
+  <!-- Zero Trust Banner - adjusted position -->
+  <rect x="150" y="65" width="600" height="30" rx="5" fill="#222222" />
+  <text x="450" y="85" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="white">Zero Trust Security Model</text>
 
-  <!-- Platform Icons -->
-  <circle cx="350" cy="75" r="15" fill="#0078d4" />
-  <text x="350" y="79" font-size="12" fill="white" text-anchor="middle">A</text>
+  <!-- Platform Icons - adjusted positions -->
+  <circle cx="650" cy="85" r="15" fill="#0078d4" />
+  <text x="650" y="89" font-size="12" fill="white" text-anchor="middle">A</text>
   
-  <circle cx="450" cy="75" r="15" fill="#ee0000" />
-  <text x="450" y="79" font-size="12" fill="white" text-anchor="middle">R</text>
+  <circle cx="690" cy="85" r="15" fill="#ee0000" />
+  <text x="690" y="89" font-size="12" fill="white" text-anchor="middle">R</text>
   
-  <circle cx="550" cy="75" r="15" fill="#6f42c1" />
-  <text x="550" y="79" font-size="12" fill="white" text-anchor="middle">G</text>
+  <circle cx="730" cy="85" r="15" fill="#6f42c1" />
+  <text x="730" y="89" font-size="12" fill="white" text-anchor="middle">G</text>
 
   <!-- Side borders with labels -->
   <rect x="120" y="100" width="20" height="500" fill="#e9ecef" />
@@ -201,4 +201,10 @@
   
   <rect x="650" y="655" width="80" height="20" rx="10" fill="#dc3545" />
   <text x="690" y="668" font-family="sans-serif" font-size="10" font-weight="bold" fill="white" text-anchor="middle">ISO 27001</text>
+  
+  <!-- Platform Legend -->
+  <rect x="350" y="680" width="380" height="15" fill="white" stroke="#dee2e6" stroke-width="1" rx="3" />
+  <text x="360" y="691" font-family="sans-serif" font-size="10" fill="#333333">A: Azure</text>
+  <text x="440" y="691" font-family="sans-serif" font-size="10" fill="#333333">R: Red Hat</text>
+  <text x="520" y="691" font-family="sans-serif" font-size="10" fill="#333333">G: GitHub</text>
 </svg> 
