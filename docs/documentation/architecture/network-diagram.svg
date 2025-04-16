@@ -1,79 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="800" height="600" viewBox="0 0 800 600">
-  <defs>
-    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.3"/>
-    </filter>
-    <linearGradient id="azure-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#0078D4;stop-opacity:1"/>
-      <stop offset="100%" style="stop-color:#0063B1;stop-opacity:1"/>
-    </linearGradient>
-    <linearGradient id="public-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#83B81A;stop-opacity:1"/>
-      <stop offset="100%" style="stop-color:#5A8010;stop-opacity:1"/>
-    </linearGradient>
-    <linearGradient id="private-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#FF8C00;stop-opacity:1"/>
-      <stop offset="100%" style="stop-color:#DD7B00;stop-opacity:1"/>
-    </linearGradient>
-    <linearGradient id="secure-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#CF2030;stop-opacity:1"/>
-      <stop offset="100%" style="stop-color:#B01B29;stop-opacity:1"/>
-    </linearGradient>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#ffffff"/>
+  
+  <!-- Boxes - Top Row -->
+  <rect x="100" y="50" width="250" height="100" stroke="#000000" stroke-width="2" fill="#f0f0f0" rx="5" ry="5"/>
+  <text x="225" y="100" font-family="monospace" font-size="16" text-anchor="middle" fill="#000000">Azure Virtual Network</text>
+  
+  <rect x="450" y="50" width="250" height="100" stroke="#000000" stroke-width="2" fill="#f0f0f0" rx="5" ry="5"/>
+  <text x="575" y="100" font-family="monospace" font-size="16" text-anchor="middle" fill="#000000">On-premises Network</text>
+  
+  <!-- Vertical Connectors from Top Row -->
+  <line x1="225" y1="150" x2="225" y2="200" stroke="#000000" stroke-width="2" stroke-dasharray="5,5"/>
+  <polygon points="225,210 220,200 230,200" fill="#000000"/>
+  
+  <line x1="575" y1="150" x2="575" y2="200" stroke="#000000" stroke-width="2" stroke-dasharray="5,5"/>
+  <polygon points="575,210 570,200 580,200" fill="#000000"/>
+  
+  <!-- Boxes - Middle Row -->
+  <rect x="100" y="220" width="250" height="100" stroke="#000000" stroke-width="2" fill="#f0f0f0" rx="5" ry="5"/>
+  <text x="225" y="270" font-family="monospace" font-size="16" text-anchor="middle" fill="#000000">ExpressRoute Circuit</text>
+  
+  <rect x="450" y="220" width="250" height="100" stroke="#000000" stroke-width="2" fill="#f0f0f0" rx="5" ry="5"/>
+  <text x="575" y="270" font-family="monospace" font-size="16" text-anchor="middle" fill="#000000">ExpressRoute Gateway</text>
+  
+  <!-- Horizontal Connector in Middle Row -->
+  <line x1="350" y1="270" x2="450" y2="270" stroke="#000000" stroke-width="2"/>
+  <polygon points="350,270 360,265 360,275" fill="#000000"/>
+  
+  <!-- Vertical Connector from Middle Row -->
+  <line x1="225" y1="320" x2="225" y2="370" stroke="#000000" stroke-width="2" stroke-dasharray="5,5"/>
+  <polygon points="225,380 220,370 230,370" fill="#000000"/>
+  
+  <!-- Boxes - Bottom Row -->
+  <rect x="100" y="390" width="250" height="100" stroke="#000000" stroke-width="2" fill="#f0f0f0" rx="5" ry="5"/>
+  <text x="225" y="440" font-family="monospace" font-size="16" text-anchor="middle" fill="#000000">Platform Subnet</text>
+  
+  <rect x="450" y="390" width="250" height="100" stroke="#000000" stroke-width="2" fill="#f0f0f0" rx="5" ry="5"/>
+  <text x="575" y="440" font-family="monospace" font-size="16" text-anchor="middle" fill="#000000">Service Subnet</text>
   
   <!-- Title -->
-  <text x="400" y="50" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" font-weight="bold" fill="#333">Three Horizons Network Architecture</text>
-  
-  <!-- Internet Cloud -->
-  <ellipse cx="400" cy="120" rx="150" ry="50" fill="#E6F7FF" stroke="#0078D4" stroke-width="2"/>
-  <text x="400" y="125" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" fill="#333" font-weight="bold">Internet</text>
-  
-  <!-- Azure Cloud -->
-  <rect x="100" y="200" width="600" height="350" rx="10" ry="10" fill="#F0F5FF" stroke="#0078D4" stroke-width="2" stroke-dasharray="5,5"/>
-  <text x="400" y="220" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#0078D4" font-weight="bold">Azure Virtual Network</text>
-  
-  <!-- Public Subnet -->
-  <rect x="150" y="250" width="200" height="100" rx="5" ry="5" fill="url(#public-gradient)" filter="url(#shadow)" opacity="0.9"/>
-  <text x="250" y="290" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white" font-weight="bold">Public Subnet</text>
-  <text x="250" y="315" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">Application Gateway</text>
-  <text x="250" y="335" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">Load Balancer</text>
-  
-  <!-- Private Subnet -->
-  <rect x="450" y="250" width="200" height="100" rx="5" ry="5" fill="url(#private-gradient)" filter="url(#shadow)" opacity="0.9"/>
-  <text x="550" y="290" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white" font-weight="bold">Private Subnet</text>
-  <text x="550" y="315" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">AKS Cluster</text>
-  <text x="550" y="335" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">DevHub Applications</text>
-  
-  <!-- Secure Subnet -->
-  <rect x="150" y="400" width="200" height="100" rx="5" ry="5" fill="url(#secure-gradient)" filter="url(#shadow)" opacity="0.9"/>
-  <text x="250" y="440" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white" font-weight="bold">Secure Subnet</text>
-  <text x="250" y="465" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">Database Services</text>
-  <text x="250" y="485" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">Key Vault</text>
-  
-  <!-- Management Subnet -->
-  <rect x="450" y="400" width="200" height="100" rx="5" ry="5" fill="url(#azure-gradient)" filter="url(#shadow)" opacity="0.9"/>
-  <text x="550" y="440" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white" font-weight="bold">Management Subnet</text>
-  <text x="550" y="465" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">Bastion Host</text>
-  <text x="550" y="485" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">Monitoring Services</text>
-  
-  <!-- Connection Lines -->
-  <line x1="400" y1="170" x2="400" y2="200" stroke="#0078D4" stroke-width="3" stroke-dasharray="5,5"/>
-  <line x1="250" y1="350" x2="250" y2="400" stroke="#666" stroke-width="2"/>
-  <line x1="550" y1="350" x2="550" y2="400" stroke="#666" stroke-width="2"/>
-  <line x1="350" y1="300" x2="450" y2="300" stroke="#666" stroke-width="2"/>
-  <line x1="350" y1="450" x2="450" y2="450" stroke="#666" stroke-width="2"/>
-  
-  <!-- Legend -->
-  <rect x="580" y="500" width="170" height="100" rx="5" ry="5" fill="white" stroke="#ccc" stroke-width="1"/>
-  <text x="665" y="520" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold" fill="#333">Legend</text>
-  
-  <rect x="600" y="535" width="15" height="15" fill="url(#public-gradient)"/>
-  <text x="665" y="547" font-family="Arial, sans-serif" font-size="12" fill="#333">Public Zone</text>
-  
-  <rect x="600" y="560" width="15" height="15" fill="url(#private-gradient)"/>
-  <text x="665" y="572" font-family="Arial, sans-serif" font-size="12" fill="#333">Private Zone</text>
-  
-  <rect x="600" y="585" width="15" height="15" fill="url(#secure-gradient)"/>
-  <text x="665" y="597" font-family="Arial, sans-serif" font-size="12" fill="#333">Secure Zone</text>
+  <text x="400" y="25" font-family="Arial" font-size="20" font-weight="bold" text-anchor="middle" fill="#333333">Network Architecture</text>
 </svg> 

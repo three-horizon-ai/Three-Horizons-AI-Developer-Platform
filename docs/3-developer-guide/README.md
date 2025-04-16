@@ -1,323 +1,148 @@
 ---
 title: "Developer Guide"
-description: "Comprehensive developer guide for the Three Horizons Platform"
-position_in_journey: "4. Development"
+description: "Comprehensive guide for developers working with the Three Horizons Platform"
+position_in_journey: "3. Development"
 previous_doc: "../2-implementation-guide/README.md"
 next_doc: "../4-operations-guide/README.md"
-last_updated: "April 9, 2025"
+last_updated: "April 10, 2025"
 ---
 
-# Three Horizons Platform Developer Guide
+# <span style="color: #0366d6;">👨‍💻 Developer Guide</span>
 
 **Navigation:** [Home](../../README.md) > [Documentation Map](../DOCUMENTATION_MAP.md) > Developer Guide
 
-This guide provides comprehensive information for developers working with the Three Horizons Platform. It covers development workflows, best practices, and platform-specific guidance to help you build applications efficiently.
-
-## Getting Started as a Developer
+![Developer Experience Overview](../documentation/architecture/workflow-diagram.svg)
 
-### Environment Setup
+> 🔍 **Developer Experience:** This diagram illustrates the developer experience within the Three Horizons Platform, showing how developers interact with the platform to build, test, and deploy applications.
 
-Configure your development environment for the Three Horizons Platform:
+Welcome to the Developer Guide for the Three Horizons Platform. This guide is designed to help developers understand how to effectively use the platform to build, test, and deploy applications.
 
-1. **IDE Configuration**:
-   - Install VS Code or JetBrains IDE
-   - Set up recommended extensions:
-     - GitHub Copilot
-     - Kubernetes
-     - Docker
-     - Azure Tools
-     - Red Hat Developer Tools
+## <span style="color: #0366d6;">📚 Core Developer Documentation</span>
 
-2. **Local Development Environment**:
-   - Install Docker Desktop
-   - Install Kubernetes tools (kubectl, helm, etc.)
-   - Configure Azure CLI
-   - Set up GitHub CLI
+The following guides provide comprehensive documentation for developers working on the Three Horizons Platform:
 
-3. **Access and Permissions**:
-   - Request access to the Developer Hub
-   - Set up your GitHub account with correct team permissions
-   - Configure Azure AD authentication
-
-## GitHub Copilot Integration
-
-Leverage GitHub Copilot to enhance your development workflow:
-
-### Setting up GitHub Copilot
-
-1. Install the GitHub Copilot extension in your IDE
-2. Configure settings for optimal suggestions:
-   ```json
-   {
-     "github.copilot.enable": {
-       "*": true,
-       "plaintext": true,
-       "markdown": true,
-       "yaml": true
-     },
-     "github.copilot.advanced": {
-       "inlineSuggest.enable": true
-     }
-   }
-   ```
-
-### Effective Use of GitHub Copilot
+- [Inner Loop Development Guide](../documentation/guides/inner-loop-development.md) - Local development workflows and best practices
+- [Outer Loop Deployment Guide](../documentation/guides/outer-loop-deployment.md) - CI/CD and deployment workflows
+- [Golden Paths Guide](../documentation/guides/golden-paths.md) - Standardized application development templates
 
-- **Code Generation**: Use comments to guide Copilot for generating complex code blocks
-- **Code Explanations**: Ask Copilot to explain confusing code sections
-- **Documentation**: Let Copilot help generate documentation and comments
-- **Test Creation**: Generate unit and integration tests with Copilot's assistance
+## <span style="color: #0366d6;">🧭 Getting Started as a Developer</span>
 
-### Platform-Specific Patterns
+If you're new to the Three Horizons Platform, start here to quickly become productive:
 
-Help Copilot understand Three Horizons patterns by:
+### <span style="color: #0366d6;">Environment Setup</span>
 
-- Referencing similar code in your repository
-- Using consistent naming conventions
-- Including detailed comments about platform components
-- Creating code snippets for common patterns
+Before you begin working with the Three Horizons Platform, ensure your development environment is properly configured:
 
-For more information, see the [GitHub Copilot Integration Guide](../getting-started/github-copilot-integration.md).
+1. **IDE Setup**: Install Visual Studio Code or JetBrains IDE with the following extensions:
+   - GitHub Copilot
+   - Git Integration
+   - Kubernetes Tools
+   - Remote Development
 
-## Golden Paths
+2. **CLI Tools**: Install these command-line tools:
+   - Azure CLI
+   - GitHub CLI
+   - Kubernetes CLI (kubectl)
+   - Helm
+   - DevHub CLI
 
-The Three Horizons Platform provides several Golden Paths to accelerate development:
+3. **Authentication**: Configure authentication for:
+   - Azure using `az login`
+   - GitHub using `gh auth login`
+   - Kubernetes/OpenShift cluster
 
-### Available Golden Paths
+For detailed setup instructions, refer to the [Environment Setup Guide](../getting-started/README.md).
 
-1. **Create Web Application**:
-   - React/Angular/Vue frontend
-   - API backend
-   - CI/CD pipeline
-   - Deployment configuration
+### <span style="color: #0366d6;">First Application</span>
 
-2. **Create API Service**:
-   - RESTful API scaffold
-   - API documentation
-   - Monitoring integration
-   - Security controls
+Follow these steps to create your first application on the Three Horizons Platform:
 
-3. **Create Database Service**:
-   - Database configuration
-   - Migration scripts
-   - Backup policies
-   - Data access layer
+1. Access the Developer Hub at `https://devhub.yourdomain.com`
+2. Navigate to the **Create** section
+3. Select an appropriate Golden Path template for your application type
+4. Fill in the required information and create your application
+5. Clone the repository to your local environment
+6. Follow the README instructions to start development
 
-### Using Golden Paths
+## <span style="color: #0366d6;">🔄 Development Workflow</span>
 
-1. Navigate to the Developer Hub
-2. Select "Create" from the main menu
-3. Choose a Golden Path template
-4. Follow the guided creation process
-5. Customize as needed for your specific requirements
+The Three Horizons Platform supports a modern development workflow divided into two main phases:
 
-## Development Workflow
+![Development Workflow](../documentation/architecture/integration-workflow.svg)
 
-### Inner Loop Development
+> 🔄 **Workflow Overview:** This diagram shows the complete development workflow from inner loop development through to production deployment, highlighting the role of each component in the process.
 
-The local development workflow:
+### <span style="color: #0366d6;">Inner Loop Development</span>
 
-1. **Clone Repository**:
-   ```bash
-   git clone https://github.com/your-org/your-project.git
-   cd your-project
-   ```
+The Inner Loop represents the development workflow that happens on your local machine:
 
-2. **Branch Creation**:
-   ```bash
-   git checkout -b feature/new-feature
-   ```
+1. **Write Code**: Develop features and fix bugs
+2. **Build**: Compile and package your application
+3. **Run**: Execute your application locally
+4. **Test**: Validate functionality with automated tests
+5. **Debug**: Identify and fix issues
 
-3. **Local Development**:
-   - Make code changes
-   - Use GitHub Copilot for assistance
-   - Run local tests
+For detailed guidance on optimizing your Inner Loop development process, see the [Inner Loop Development Guide](../documentation/guides/inner-loop-development.md).
 
-4. **Code Submission**:
-   ```bash
-   git add .
-   git commit -m "Implement new feature"
-   git push origin feature/new-feature
-   ```
+### <span style="color: #0366d6;">Outer Loop Deployment</span>
 
-5. **Pull Request**:
-   - Create a PR via GitHub
-   - Address review comments
-   - Ensure CI checks pass
+The Outer Loop handles the CI/CD process that begins after you push your code:
 
-### Outer Loop Deployment
+1. **Continuous Integration**: Automated building and testing
+2. **Validation**: Code quality checks and security scanning
+3. **Deployment**: Automated deployment to various environments
+4. **Monitoring**: Tracking application performance and health
 
-The CI/CD deployment workflow:
+For complete information on the Outer Loop process, refer to the [Outer Loop Deployment Guide](../documentation/guides/outer-loop-deployment.md).
 
-1. **Continuous Integration**:
-   - Automated testing
-   - Code quality checks
-   - Security scanning
+## <span style="color: #0366d6;">🤖 GitHub Copilot Integration</span>
 
-2. **Continuous Deployment**:
-   - Automated deployment to dev/test
-   - Manual approval for production
-   - GitOps-based promotion
+The Three Horizons Platform includes AI-assisted development through GitHub Copilot:
 
-## Service Integration
+- **Code Completion**: Get intelligent code suggestions as you type
+- **Function Generation**: Generate complete functions based on comments
+- **Bug Finding**: Identify potential issues before they cause problems
+- **Documentation**: Generate documentation for your code
 
-### Accessing Platform Services
+To make the most of GitHub Copilot in your development workflow, follow these best practices:
 
-Connect your application to platform services:
+1. Write clear comments describing your intent
+2. Use GitHub Copilot Chat for complex queries
+3. Review suggestions carefully before accepting them
+4. Provide feedback to help Copilot learn your preferences
 
-1. **Azure Services**:
-   - Managed Identities
-   - Storage
-   - Databases
-   - Messaging
+## <span style="color: #0366d6;">🛣️ Golden Paths</span>
 
-2. **Third-Party Services**:
-   - Authentication providers
-   - API gateways
-   - Monitoring tools
+Golden Paths provide standardized, well-supported workflows for common development scenarios:
 
-### Service Discovery
+![Golden Paths Overview](../documentation/architecture/web-application-standard.svg)
 
-Discover available services in the Developer Hub:
+> 🛣️ **Golden Paths:** These templated application patterns provide standardized, well-supported workflows that accelerate development while ensuring best practices.
 
-1. Browse the service catalog
-2. View documentation for each service
-3. Request access to required services
-4. Follow integration guides
+- **Web Application Path**: For building web frontends and backends
+- **Microservice Path**: For building backend services and APIs
+- **Data Processing Path**: For data-intensive applications
+- **DevOps Extension Path**: For building platform and automation tools
 
-## API Development
+For detailed information on available Golden Paths and how to use them, see the [Golden Paths Guide](../documentation/guides/golden-paths.md).
 
-### API Standards
+## <span style="color: #0366d6;">📊 Diagram Key</span>
 
-Follow these standards when developing APIs:
+The diagrams in this guide use the following color coding and symbols:
 
-1. **REST Design Principles**:
-   - Use proper HTTP methods
-   - Implement consistent error handling
-   - Version your APIs
-   - Use plural resource names
+| Color | Component | Description |
+|-------|-----------|-------------|
+| <span style="color: #0078D4;">■</span> Azure | Azure services and infrastructure | Cloud resources hosting the platform |
+| <span style="color: #EE0000;">■</span> Red Hat | Developer Hub components | Developer experience and portal |
+| <span style="color: #24292E;">■</span> GitHub | Source control and CI/CD | Code repositories and automation |
+| <span style="color: #2188ff;">■</span> Horizon 1 | Foundation capabilities | Core platform elements |
+| <span style="color: #f9c513;">■</span> Horizon 2 | Enhancement capabilities | Optimized features |
+| <span style="color: #6f42c1;">■</span> Horizon 3 | Innovation capabilities | Advanced and transformative features |
 
-2. **Documentation**:
-   - Use OpenAPI/Swagger
-   - Document all endpoints
-   - Include example responses
-   - Document error codes
-
-3. **Security**:
-   - Implement authentication
-   - Apply rate limiting
-   - Validate inputs
-   - Use HTTPS
-
-## Observability
-
-### Logging
-
-Implement effective logging:
-
-```javascript
-// Example structured logging
-logger.info('User authenticated', {
-  userId: user.id,
-  authMethod: 'oauth',
-  correlationId: request.correlationId
-});
-```
-
-### Metrics
-
-Export application metrics:
-
-1. Use Prometheus client libraries
-2. Define custom metrics for business logic
-3. Set up alerts for critical thresholds
-
-### Distributed Tracing
-
-Implement distributed tracing:
-
-1. Use OpenTelemetry instrumentation
-2. Propagate trace context between services
-3. Add span attributes for detailed analysis
-
-## Security Best Practices
-
-### Secure Coding
-
-Follow secure coding practices:
-
-1. Input validation
-2. Output encoding
-3. Authentication and authorization
-4. Secure data handling
-
-### Dependency Management
-
-Manage dependencies securely:
-
-```bash
-# Scan dependencies for vulnerabilities
-npm audit
-# or
-yarn audit
-
-# Set up Dependabot for automated updates
-# Configure in .github/dependabot.yml
-```
-
-## Testing Strategy
-
-### Unit Testing
-
-Write effective unit tests:
-
-```javascript
-// Example unit test with Jest
-describe('UserService', () => {
-  it('should authenticate valid users', async () => {
-    const service = new UserService(mockRepo);
-    const result = await service.authenticate('user', 'pass');
-    expect(result.isAuthenticated).toBe(true);
-  });
-});
-```
-
-### Integration Testing
-
-Set up integration tests:
-
-1. Test service interactions
-2. Use test containers for dependencies
-3. Mock external services
-
-### End-to-End Testing
-
-Implement E2E testing:
-
-1. Use Cypress or Playwright
-2. Test critical user journeys
-3. Run in pipeline before deployment
-
-## Troubleshooting
-
-Common development issues and solutions:
-
-| Issue | Solution |
-|-------|----------|
-| **Local environment issues** | Run `./scripts/setup/dev-env-setup.sh` to reset environment |
-| **Auth token errors** | Check AAD permissions and token expiration |
-| **CI pipeline failures** | Check action logs and validate branch configuration |
-| **Deployment issues** | Verify Kubernetes resource definitions |
-
-## Related Topics
-
-- [GitHub Copilot Integration](../getting-started/github-copilot-integration.md)
-- [Architecture Overview](../1-architecture/README.md)
-- [Implementation Guide](../2-implementation-guide/README.md)
-- [API Reference](../5-reference/README.md)
+> 🔍 **Note on Diagrams**: All architecture diagrams in this documentation reflect the latest Three Horizons Platform architecture as of April 2025, using a consistent styling and nomenclature.
 
 ---
 
 <footer>
-  <p align="center">Last updated: April 9, 2025 | <a href="../../.github/CONTRIBUTING.md">Contribute to this document</a></p>
+  <p align="center">Last updated: April 10, 2025 | <a href="../../.github/CONTRIBUTING.md">Contribute to this document</a></p>
 </footer>

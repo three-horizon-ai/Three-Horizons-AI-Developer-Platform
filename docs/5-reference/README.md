@@ -30,29 +30,7 @@ Detailed specifications for platform components:
 
 Detailed network configuration reference:
 
-```
-┌─────────────────────────┐     ┌─────────────────────────┐
-│                         │     │                         │
-│  Azure Virtual Network  │     │   On-premises Network   │
-│                         │     │                         │
-└───────────┬─────────────┘     └───────────┬─────────────┘
-            │                               │
-            │                               │
-            ▼                               ▼
-┌─────────────────────────┐     ┌─────────────────────────┐
-│                         │     │                         │
-│  ExpressRoute Circuit   │◄────┤   ExpressRoute Gateway  │
-│                         │     │                         │
-└───────────┬─────────────┘     └─────────────────────────┘
-            │
-            │
-            ▼
-┌─────────────────────────┐     ┌─────────────────────────┐
-│                         │     │                         │
-│  Platform Subnet        │     │  Service Subnet         │
-│                         │     │                         │
-└─────────────────────────┘     └─────────────────────────┘
-```
+![Network Architecture Diagram](../documentation/architecture/network-diagram.svg)
 
 ## API Reference
 

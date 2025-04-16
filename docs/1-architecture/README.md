@@ -92,7 +92,7 @@ The platform integrates artificial intelligence throughout the development lifec
 This directory contains the following architectural diagrams:
 
 - [Integration Architecture](integration-diagram.svg) - Integration between components
-- [Network Architecture](network-diagram.svg) - Network topology and connectivity
+- ![Network Architecture](../documentation/architecture/network-diagram.svg) - Network topology and connectivity
 - [Security Architecture](security-architecture.svg) - Security controls and integration
 - [Developer Hub Architecture](developer-hub-architecture.svg) - Developer Hub components
 - [Workflow Architecture](workflow-diagram.svg) - Development workflow visualization

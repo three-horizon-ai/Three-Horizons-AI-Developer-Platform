@@ -1,12 +1,16 @@
-# Golden Paths Guide
+# <span style="color: #0366d6;">🛣️ Golden Paths Guide</span>
 
-## Overview
+## <span style="color: #0366d6;">🔄 Overview</span>
 
 Golden Paths are curated, well-supported development workflows that enable developers to build, deploy, and operate applications efficiently on the Three Horizons Platform. They represent the organization's recommended practices and provide streamlined experiences for common development scenarios.
 
+![Golden Paths Overview](../architecture/three-horizons-architecture.svg)
+
+> 🔍 **Golden Paths Concept:** The diagram illustrates how Golden Paths provide standardized, well-supported pathways for different application types across the Three Horizons Platform.
+
 This guide explains the concept of Golden Paths, the available paths in the Three Horizons Platform, and how to use them to accelerate your development process.
 
-## What are Golden Paths?
+## <span style="color: #0366d6;">🤔 What are Golden Paths?</span>
 
 Golden Paths (sometimes called "paved roads") provide:
 
@@ -18,7 +22,7 @@ Golden Paths (sometimes called "paved roads") provide:
 
 While Golden Paths are recommended, they are not mandatory—developers maintain flexibility to make technology choices based on specific requirements.
 
-## Benefits of Golden Paths
+## <span style="color: #0366d6;">💡 Benefits of Golden Paths</span>
 
 - **Accelerated Onboarding**: New team members can start contributing quickly
 - **Reduced Toil**: Less time spent on configuration and setup
@@ -26,9 +30,13 @@ While Golden Paths are recommended, they are not mandatory—developers maintain
 - **Operational Consistency**: Easier to support applications built on standard patterns
 - **Focus on Business Logic**: Developers concentrate on creating value, not infrastructure
 
-## Available Golden Paths
+## <span style="color: #0366d6;">🧩 Available Golden Paths</span>
 
 The Three Horizons Platform offers several Golden Paths designed for different application types and use cases:
+
+![Available Golden Paths](../architecture/web-application-standard.svg)
+
+> 💡 **Path Selection:** This diagram shows the different Golden Paths available in the platform, each tailored for specific application types and technology stacks. Select the path that best matches your project requirements.
 
 ### Web Application Path
 
@@ -56,6 +64,10 @@ devhub create --template web-application --name mywebapp
 
 Designed for building backend services and APIs.
 
+![Microservice Architecture](../architecture/web-application-microservices.svg)
+
+> 🔍 **Microservice Architecture:** This diagram illustrates the typical architecture of applications built using the Microservice Golden Path, showing service boundaries and interactions.
+
 **Technology Stack:**
 - Node.js, Java (Spring Boot), or .NET Core
 - OpenAPI/Swagger for API documentation
@@ -77,6 +89,10 @@ devhub create --template microservice --language java --name myservice
 ### Data Processing Path
 
 Designed for building data processing and analytics applications.
+
+![Data Processing Architecture](../architecture/web-application-serverless.svg)
+
+> 📊 **Data Flow:** This diagram shows how data flows through applications built with the Data Processing Golden Path, from ingestion through processing to insights.
 
 **Technology Stack:**
 - Python with data science libraries
@@ -118,7 +134,7 @@ Designed for creating tooling and automation extensions.
 devhub create --template devops-extension --name mytool
 ```
 
-## Using Golden Paths
+## <span style="color: #0366d6;">🚀 Using Golden Paths</span>
 
 ### Getting Started
 
@@ -155,11 +171,15 @@ git remote add origin https://github.com/enterprise/mywebapp.git
 git push -u origin main
 ```
 
-## Golden Path Lifecycle
+## <span style="color: #0366d6;">🔄 Golden Path Lifecycle</span>
 
 ### Inner Loop Development
 
 Each Golden Path includes tooling for efficient local development:
+
+![Golden Path Lifecycle](../architecture/integration-diagram.svg)
+
+> 🔄 **Lifecycle Flow:** This diagram illustrates the complete lifecycle of applications built with Golden Paths, from local development through to production deployment and ongoing operations.
 
 - Pre-configured dev containers
 - Hot-reload capabilities
@@ -179,7 +199,7 @@ Golden Paths come with CI/CD pipeline configurations:
 
 See the [Outer Loop Deployment Guide](./outer-loop-deployment.md) for more information.
 
-## Contributing to Golden Paths
+## <span style="color: #0366d6;">🤝 Contributing to Golden Paths</span>
 
 The Three Horizons Platform encourages contributions to improve the Golden Paths:
 
@@ -198,7 +218,7 @@ To propose a new Golden Path template:
 3. Submit a pull request with comprehensive documentation
 4. Participate in the review process
 
-## Governance and Support
+## <span style="color: #0366d6;">📋 Governance and Support</span>
 
 ### Maintenance
 
@@ -217,7 +237,7 @@ For issues with Golden Paths:
 - **Office Hours**: Wednesdays, 1:00 PM - 3:00 PM
 - **GitHub Issues**: Use the `support` label for template issues
 
-## Best Practices
+## <span style="color: #0366d6;">✅ Best Practices</span>
 
 - **Start Simple**: Choose the most appropriate Golden Path for your needs
 - **Follow Conventions**: Adhere to the patterns established in the templates
@@ -225,7 +245,7 @@ For issues with Golden Paths:
 - **Contribute Improvements**: Share enhancements that could benefit others
 - **Stay Updated**: Regularly update to the latest template versions
 
-## FAQ
+## <span style="color: #0366d6;">❓ FAQ</span>
 
 ### When should I NOT use a Golden Path?
 
@@ -242,9 +262,24 @@ Major updates occur quarterly, while security patches and minor improvements are
 
 While possible, migration between paths can be challenging. It's best to select the appropriate path at the beginning of your project.
 
-## Related Documentation
+## <span style="color: #0366d6;">📚 Related Documentation</span>
 
 - [Inner Loop Development Guide](./inner-loop-development.md)
 - [Outer Loop Deployment Guide](./outer-loop-deployment.md)
-- [Developer Hub Overview](../overview/developer-hub.md)
-- [Template Contribution Guidelines](../contribution/template-guidelines.md) 
+- [Architecture Decision Records](../architecture/adrs.md)
+- [Platform Engineering Strategy](../architecture/platform-engineering.md) 
+
+## <span style="color: #0366d6;">📊 Diagram Key</span>
+
+The diagrams in this guide use the following color coding and symbols:
+
+| Color | Component | Description |
+|-------|-----------|-------------|
+| <span style="color: #0078D4;">■</span> Azure | Azure services and infrastructure | Cloud resources hosting the platform |
+| <span style="color: #EE0000;">■</span> Red Hat | Developer Hub components | Developer experience and portal |
+| <span style="color: #24292E;">■</span> GitHub | Source control and CI/CD | Code repositories and automation |
+| <span style="color: #2188ff;">■</span> Horizon 1 | Foundation capabilities | Core platform elements |
+| <span style="color: #f9c513;">■</span> Horizon 2 | Enhancement capabilities | Optimized features |
+| <span style="color: #6f42c1;">■</span> Horizon 3 | Innovation capabilities | Advanced and transformative features |
+
+> 🔍 **Note on Diagrams**: All architecture diagrams in this documentation reflect the latest Three Horizons Platform architecture as of April 2025, using a consistent styling and nomenclature. 

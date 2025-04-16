@@ -139,12 +139,12 @@ Before beginning this tutorial, ensure you have:
    - GitHub Enterprise account
    - Azure AD administrator access
    - OpenShift Pull Secret (for ARO)
-   - [Identity management documentation](images/architecture-zones.svg)
+   - [Identity management documentation](../documentation/architecture/security-architecture.svg)
 
 4. **Network Requirements**:
    - Ability to create VNets and subnets
    - Outbound internet access
-   - [Network architecture documentation](images/architecture-zones.svg)
+   - [Network architecture documentation](../documentation/architecture/network-diagram.svg)
 
 ## <span style="color: #0366d6;">📋 Implementation Phases</span>
 
@@ -197,10 +197,10 @@ The Three Horizons Platform uses a unified identity approach:
 
 For detailed implementation of specific components, refer to these guides:
 
-- [**Red Hat Developer Hub Guide**](developer-hub-guide.md) - Comprehensive guide for implementing the Developer Hub
-- [**GitHub Platform Integration Guide**](github-platform-guide.md) - Detailed steps for GitHub Enterprise integration
-- [**Microsoft DevBox Guide**](devbox-guide.md) - Complete guide for setting up developer environments
-- [**Azure Integration Guide**](azure-integration-guide.md) - Guide for ARM templates and Terraform infrastructure
+- [**Red Hat Developer Hub Guide**](#phase-3-developer-hub-deployment) - Comprehensive guide for implementing the Developer Hub
+- [**GitHub Platform Integration Guide**](#phase-4-github-integration) - Detailed steps for GitHub Enterprise integration
+- [**Microsoft DevBox Guide**](#phase-8-microsoft-devbox-configuration) - Complete guide for setting up developer environments
+- [**Azure Integration Guide**](#phase-1-infrastructure-provisioning) - Guide for ARM templates and Terraform infrastructure
 
 Let's start with the first phase.
 
@@ -265,7 +265,7 @@ az network vnet subnet create \
   --disable-private-endpoint-network-policies true
 ```
 
-> 🔗 **Reference:** See our [network architecture documentation](images/architecture-zones.svg) for the recommended network topology and Microsoft's [private endpoint documentation](https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview).
+> 🔗 **Reference:** See our [network architecture documentation](../documentation/architecture/network-diagram.svg) for the recommended network topology and Microsoft's [private endpoint documentation](https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview).
 
 ### <span style="color: #0366d6;">Step 1.3: Create Key Vault</span>
 
@@ -435,7 +435,7 @@ az identity federated-credential create \
   --subject system:serviceaccount:default:workload-identity-sa
 ```
 
-> 🔍 **Learn More:** Review our [AKS architecture documentation](images/architecture-zones.svg) for details on how AKS fits into the Three Horizons architecture and [Azure Workload Identity documentation](https://learn.microsoft.com/en-us/azure/aks/workload-identity-overview) for more details.
+> 🔍 **Learn More:** Review our [AKS architecture documentation](../documentation/architecture/three-horizons-diagram.svg) for details on how AKS fits into the Three Horizons architecture and [Azure Workload Identity documentation](https://learn.microsoft.com/en-us/azure/aks/workload-identity-overview).
 
 ### <span style="color: #0366d6;">Option B: ARO Installation</span>
 
@@ -1743,7 +1743,7 @@ helm install prometheus prometheus-community/kube-prometheus-stack \
   --set prometheusOperator.createCustomResource=true
 ```
 
-> 📊 **Monitoring Guide:** See our [monitoring architecture](images/architecture-zones.svg) for an overview of the monitoring components.
+> 📊 **Monitoring Guide:** See our [monitoring architecture](../documentation/architecture/workflow-diagram.svg) for an overview of the monitoring components.
 
 ### <span style="color: #0366d6;">Step 6.2: Configure Azure Monitor Integration</span>
 
@@ -2093,7 +2093,7 @@ Now that you have completed the foundation and enhancement phases, you can proce
 2. **AI-Powered Recommendations**:
    - Implement a machine learning model for code quality recommendations
    - Deploy as a Developer Hub plugin
-   - [Developer Hub plugins guide](developer-hub-guide.md)
+   - [Developer Hub plugins guide](#phase-3-developer-hub-deployment)
 
 3. **Advanced Analytics**:
    - Set up a data lake for platform telemetry
@@ -2454,7 +2454,7 @@ Verify the DevBox setup:
 Congratulations on implementing the complete Three Horizons Platform! Here are recommended next steps:
 
 1. **Standardize Development Practices**:
-   - Implement [Golden Paths](developer-hub-guide.md) for developers
+   - Implement [Golden Paths](#phase-3-developer-hub-deployment) for developers
    - Create organization-specific templates
 
 2. **Advanced CI/CD**:
@@ -2478,9 +2478,9 @@ Congratulations on implementing the complete Three Horizons Platform! Here are r
 ### Internal Documentation
 
 - [Architecture Overview](images/three-horizons-complete.svg)
-- [Developer Hub Guide](developer-hub-guide.md)
-- [GitHub Platform Guide](github-platform-guide.md)
-- [Security Architecture](images/architecture-zones.svg)
+- [Developer Hub Guide](#phase-3-developer-hub-deployment)
+- [GitHub Platform Guide](#phase-4-github-integration)
+- [Security Architecture](../documentation/architecture/security-architecture.svg)
 
 ### External Documentation
 
@@ -2870,121 +2870,8 @@ In case of critical issues that require rollback:
 | GitHub Codespaces | [GitHub Codespaces Documentation](https://docs.github.com/en/codespaces) | April 2025 |
 | GitHub Advanced Security | [Advanced Security Documentation](https://docs.github.com/en/get-started/learning-about-github/about-github-advanced-security) | April 2025 |
 
-### <span style="color: #0366d6;">DevOps Tools</span>
-
-| Component | Documentation | Version |
----
 
 > 📘 **Note:** Verify all documentation links periodically as they may change. These references are current as of April 2025.
-
-## <span style="color: #0366d6;">📋 Documentation Update Workflow</span>
-
-This workflow outlines the process for maintaining and updating this documentation:
-
-### <span style="color: #0366d6;">1. Initial Assessment</span>
-- Compare current documentation against latest official releases
-- Identify sections requiring updates
-- Create a prioritized list of updates needed
-- Establish documentation governance process
-
-### <span style="color: #0366d6;">2. Technical Verification</span>
-- Set up test environment for command verification
-- Validate all CLI commands and scripts
-- Test deployment procedures in isolated environment
-- Verify architecture diagrams against current service models
-
-### <span style="color: #0366d6;">3. Content Updates</span>
-- Update command syntax and parameters
-- Refresh architecture diagrams
-- Update screenshots to reflect current UIs
-- Add new features and capabilities
-- Remove deprecated features or mark as legacy
-
-### <span style="color: #0366d6;">4. External Reference Integration</span>
-- Add official documentation links for each major component
-- Include version-specific documentation links
-- Add community resources where appropriate
-- Include support channels and troubleshooting resources
-
-### <span style="color: #0366d6;">5. Review Process</span>
-- Technical review by subject matter experts
-- Editorial review for clarity and consistency
-- User testing with new implementation teams
-- Accessibility and inclusivity review
-
-### <span style="color: #0366d6;">6. Publication and Maintenance</span>
-- Implement versioning for documentation
-- Establish regular review cycle (quarterly recommended)
-- Create feedback mechanism for users
-- Set up monitoring for external reference link health
-
-### <span style="color: #0366d6;">7. Automation Opportunities</span>
-- Set up automated checks for broken links
-- Implement scheduled validation of CLI commands
-- Create documentation build pipeline
-- Implement auto-verification of version references
-
-> 💡 **Best Practice:** Follow this workflow for all documentation updates to maintain quality and consistency.
-
-## <span style="color: #0366d6;">🔄 Tutorial Update Recommendations</span>
-
-The following recommendations have been identified for future updates to this tutorial:
-
-### <span style="color: #0366d6;">Introduction Section</span>
-- Update the Three Horizons model diagram with 2025 references
-- Add a clear timeline for implementation planning
-- Include more detailed prerequisite verification steps
-- Add links to related Microsoft, Red Hat, and GitHub documentation
-
-### <span style="color: #0366d6;">Infrastructure Section</span>
-- Update Azure Resource Manager templates with latest syntax
-- Add Bicep alternatives for infrastructure deployment
-- Verify resource naming conventions against latest Azure best practices
-- Include more detailed network security configuration
-
-### <span style="color: #0366d6;">AKS/ARO Section</span>
-- Update AKS deployment commands with latest API versions
-- Add Kubernetes version compatibility information
-- Update ARO installation with latest Red Hat OpenShift version
-- Enhance guidance for multi-cluster management
-
-### <span style="color: #0366d6;">Developer Hub Section</span>
-- Update to reflect Red Hat Developer Hub 1.5 features
-- Add information about high availability configuration
-- Include the new plugins ecosystem and extension framework
-- Update authentication flow with current security recommendations
-
-### <span style="color: #0366d6;">GitHub Integration Section</span>
-- Update GitHub Enterprise integration with latest APIs
-- Enhance GitHub Copilot configuration with business features
-- Update GitHub Actions workflow examples to current syntax
-- Add GitHub Advanced Security implementation guidance
-
-### <span style="color: #0366d6;">CI/CD Pipeline Section</span>
-- Update GitOps implementation with latest Flux/ArgoCD versions
-- Add progressive delivery patterns (canary, blue/green)
-- Update pipeline security scanning integration
-- Include more detailed hybrid CI/CD scenarios
-
-### <span style="color: #0366d6;">Monitoring Section</span>
-- Update Prometheus Operator installation to latest version
-- Enhance Azure Monitor integration with current APIs
-- Add more comprehensive dashboard examples
-- Include cost monitoring and optimization guidance
-
-### <span style="color: #0366d6;">DevBox Section</span>
-- Update Microsoft DevBox configuration with latest features
-- Add more detailed network isolation guidance
-- Enhance GitHub Copilot integration in developer environments
-- Include more robust environment validation steps
-
-### <span style="color: #0366d6;">Validation Section</span>
-- Add more comprehensive testing scenarios
-- Include automated validation scripts
-- Add performance benchmarking guidelines
-- Enhance troubleshooting coverage
-
-> 🚀 **Note:** These recommendations are scheduled to be implemented in the Q2 2025 update cycle. Contributors are welcome to help implement these improvements through pull requests.
 
 ---
 

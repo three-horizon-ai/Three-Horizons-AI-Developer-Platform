@@ -11,9 +11,13 @@ last_updated: "April 10, 2025"
 
 **Navigation:** [Home](../../README.md) > [Getting Started](README.md) > Installation
 
+![Installation Architecture](../documentation/architecture/three-horizons-diagram.svg)
+
+> 🔍 **Installation Note:** This diagram illustrates the components you will be installing as part of the Three Horizons Platform, showing how they work together to create a unified developer experience.
+
 Welcome to your Three Horizons Platform installation journey! This guide walks you through the complete process of deploying the platform in your environment. By following these structured steps, you'll establish the foundation for your organization's developer experience transformation.
 
-## Prerequisites
+## <span style="color: #0366d6;">📋 Prerequisites</span>
 
 Before you begin, ensure you have:
 
@@ -29,7 +33,7 @@ Before you begin, ensure you have:
   - OpenShift CLI (if using ARO)
   - VS Code or JetBrains IDE with GitHub Copilot extension
 
-## Installation Options
+## <span style="color: #0366d6;">⚙️ Installation Options</span>
 
 The Three Horizons Platform offers three primary installation options:
 
@@ -41,7 +45,7 @@ The Three Horizons Platform offers three primary installation options:
 
 This guide covers the Standard installation. For other options, see the [Implementation Guide](../2-implementation-guide/README.md) for customized deployment scenarios.
 
-## Step 1: Prepare Your Environment
+## <span style="color: #0366d6;">🔄 Step 1: Prepare Your Environment</span>
 
 First, log in to Azure and set up your environment:
 
@@ -62,7 +66,11 @@ az provider register --namespace Microsoft.ContainerRegistry
 az provider register --namespace Microsoft.OperationalInsights
 ```
 
-## Step 2: Choose Your Infrastructure Platform
+## <span style="color: #0366d6;">🔄 Step 2: Choose Your Infrastructure Platform</span>
+
+![Infrastructure Options](../documentation/architecture/architecture-zones.svg)
+
+> 🔍 **Platform Note:** Choose the infrastructure platform that best fits your organization's needs. AKS provides a managed Kubernetes experience, while ARO offers an enterprise-grade OpenShift experience.
 
 ### Option A: Azure Kubernetes Service (AKS)
 
@@ -98,7 +106,7 @@ az aro list-credentials \
   --name three-horizons-aro
 ```
 
-## Step 3: Deploy Red Hat Developer Hub
+## <span style="color: #0366d6;">🔄 Step 3: Deploy Red Hat Developer Hub</span>
 
 ### For AKS:
 
@@ -129,7 +137,7 @@ oc new-project developer-hub
 oc apply -f https://example.com/developer-hub-operator.yaml
 ```
 
-## Step 4: Configure Azure AD Integration
+## <span style="color: #0366d6;">🔄 Step 4: Configure Azure AD Integration</span>
 
 ```bash
 # Register an application in Azure AD
@@ -149,7 +157,11 @@ az role assignment create \
   --scope /subscriptions/<subscription-id>/resourceGroups/three-horizons-rg
 ```
 
-## Step 5: Configure GitHub Copilot Integration
+## <span style="color: #0366d6;">🔄 Step 5: Configure GitHub Copilot Integration</span>
+
+![GitHub Copilot Integration](../documentation/architecture/developer-hub-architecture.svg)
+
+> 🤖 **AI Integration:** GitHub Copilot enhances developer productivity through AI-assisted code completion and suggestions, integrating directly with your development environments.
 
 Enhance your platform with AI-assisted development capabilities through GitHub Copilot integration.
 
@@ -182,7 +194,7 @@ Ensure all developers install the GitHub Copilot extension in their IDEs:
 
 For detailed configuration and usage guidance, see the [GitHub Copilot Integration Guide](github-copilot-integration.md).
 
-## Step 6: Configure GitHub Integration
+## <span style="color: #0366d6;">🔄 Step 6: Configure GitHub Integration</span>
 
 ```bash
 # Create GitHub App
@@ -200,7 +212,7 @@ kubectl create secret generic github-app-credentials \
 kubectl apply -f github-integration.yaml
 ```
 
-## Step 7: Configure DNS and TLS
+## <span style="color: #0366d6;">🔄 Step 7: Configure DNS and TLS</span>
 
 Secure your platform with proper DNS configuration and TLS certificates:
 
@@ -217,7 +229,7 @@ kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.7
 kubectl apply -f devhub-certificate.yaml
 ```
 
-## Step 8: Verification
+## <span style="color: #0366d6;">✅ Step 8: Verification</span>
 
 After installation, verify that all components are running correctly:
 
@@ -235,7 +247,7 @@ kubectl get pods -n developer-hub
 # Check that repositories are available in Developer Hub
 ```
 
-## Finalize Your Installation
+## <span style="color: #0366d6;">🔍 Finalize Your Installation</span>
 
 Complete your installation by following these configuration steps:
 
@@ -248,32 +260,35 @@ Complete your installation by following these configuration steps:
 4. Configure Golden Paths under **Settings** > **Scaffolder**
 5. Set up your catalog under **Settings** > **Catalog**
 
-## Continue Your Journey
+## <span style="color: #0366d6;">🔍 Continue Your Journey</span>
 
 Now that you've successfully installed the Three Horizons Platform, continue your journey with these next steps:
 
-- [Configure Golden Paths](../documentation/developer/golden-paths.md) - Create standardized development workflows
-- [Set Up CI/CD Pipelines](../documentation/guides/ci-cd-integration.md) - Implement automated delivery
-- [Configure Monitoring](../documentation/operations/monitoring.md) - Establish observability
-- [Create Custom Templates](../documentation/developer/custom-templates.md) - Customize for your organization
+- [Configure Golden Paths](../documentation/guides/golden-paths.md) - Create standardized development workflows
+- [Set Up Inner Loop Development](../documentation/guides/inner-loop-development.md) - Implement developer workflows
+- [Set Up Outer Loop Deployment](../documentation/guides/outer-loop-deployment.md) - Configure deployment pipelines
+- [Create Custom Templates](../2-implementation-guide/README.md) - Customize for your organization
+
+![Implementation Workflow](../documentation/architecture/integration-workflow.svg)
+
+> 🔄 **Continuous Journey:** Your Three Horizons Platform implementation is a continuous journey. After installation, continue to evolve and enhance your platform to meet your organization's needs.
 
 For additional implementation guidance, proceed to the [Implementation Guide](../2-implementation-guide/README.md).
 
-## Troubleshooting Your Installation
+## <span style="color: #0366d6;">📊 Diagram Key</span>
 
-If you encounter challenges during your installation journey:
+The diagrams in this guide use the following color coding and symbols:
 
-- Check the [Troubleshooting Guide](../documentation/developer/troubleshooting.md)
-- Ensure all prerequisites are met
-- Verify connectivity between components
-- Check pod logs for specific error messages
+| Color | Component | Description |
+|-------|-----------|-------------|
+| <span style="color: #0078D4;">■</span> Azure | Azure services and infrastructure | Cloud resources hosting the platform |
+| <span style="color: #EE0000;">■</span> Red Hat | Developer Hub components | Developer experience and portal |
+| <span style="color: #24292E;">■</span> GitHub | Source control and CI/CD | Code repositories and automation |
+| <span style="color: #2188ff;">■</span> Horizon 1 | Foundation capabilities | Core platform elements |
+| <span style="color: #f9c513;">■</span> Horizon 2 | Enhancement capabilities | Optimized features |
+| <span style="color: #6f42c1;">■</span> Horizon 3 | Innovation capabilities | Advanced and transformative features |
 
-## Related Topics
-
-- [GitHub Copilot Integration](github-copilot-integration.md) - Optimize development with AI assistance
-- [Architecture Overview](../documentation/architecture/index.md) - Understand the platform architecture
-- [OpenShift Configuration](../2-implementation-guide/README.md) - Advanced OpenShift configuration
-- [Security Best Practices](../5-reference/README.md) - Security recommendations
+> 🔍 **Note on Diagrams**: All architecture diagrams in this documentation reflect the latest Three Horizons Platform architecture as of April 2025, using a consistent styling and nomenclature.
 
 ---
 

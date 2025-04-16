@@ -24,25 +24,25 @@ Welcome to the Three Horizons Platform documentation. This map will help you nav
 
 ### <span style="color: #0366d6;">Component Implementation Guides</span>
 
-- [Red Hat Developer Hub Guide](complete-integration-tutorial/developer-hub-guide.md) - Comprehensive guide for implementing Developer Hub
-- [GitHub Platform Integration Guide](complete-integration-tutorial/github-platform-guide.md) - Detailed GitHub Enterprise integration
-- [Microsoft DevBox Guide](complete-integration-tutorial/devbox-guide.md) - Complete guide for developer environments
-- [Azure Integration Guide](complete-integration-tutorial/azure-integration-guide.md) - Terraform and ARM template implementation
+- [Red Hat Developer Hub Guide](complete-integration-tutorial/index.md#phase-3-developer-hub-deployment) - Comprehensive guide for implementing Developer Hub
+- [GitHub Platform Integration Guide](complete-integration-tutorial/index.md#phase-4-github-integration) - Detailed GitHub Enterprise integration
+- [Microsoft DevBox Guide](complete-integration-tutorial/index.md#phase-8-microsoft-devbox-configuration) - Complete guide for developer environments
+- [Azure Integration Guide](complete-integration-tutorial/index.md#phase-1-infrastructure-provisioning) - Terraform and ARM template implementation
 
 ### <span style="color: #0366d6;">Architecture Documentation</span>
 
 - [Architecture Overview](documentation/architecture/overview-diagram.svg) - Platform architecture and design
 - [Three Horizons Architecture](documentation/architecture/three-horizons-diagram.svg) - Complete architectural overview
-- [Developer Hub Architecture](documentation/architecture/three-horizons-diagram.svg) - Developer Hub components
-- [Security Architecture](documentation/architecture/architecture-zones.svg) - Security framework
-- [Network Architecture](documentation/architecture/architecture-zones.svg) - Network topology
+- [Developer Hub Architecture](documentation/architecture/developer-hub-architecture.svg) - Developer Hub components
+- [Security Architecture](documentation/architecture/security-architecture.svg) - Security framework
+- [Network Architecture](documentation/architecture/network-diagram.svg) - Network topology
 
 ### <span style="color: #0366d6;">Implementation Patterns</span>
 
-- [Web Application (Standard)](documentation/architecture/integration-workflow.svg) - Standard web app pattern
-- [Microservices Architecture](documentation/architecture/integration-workflow.svg) - Microservices pattern
-- [Serverless Architecture](documentation/architecture/architecture-zones.svg) - Serverless pattern
-- [CI/CD Pipeline](documentation/architecture/integration-workflow.svg) - DevOps workflow
+- [Web Application (Standard)](documentation/architecture/workflow-diagram.svg) - Standard web app pattern
+- [Microservices Architecture](documentation/architecture/workflow-diagram.svg) - Microservices pattern
+- [Serverless Architecture](documentation/architecture/workflow-diagram.svg) - Serverless pattern
+- [CI/CD Pipeline](documentation/architecture/workflow-diagram.svg) - DevOps workflow
 
 ### <span style="color: #0366d6;">Example Implementation Resources</span>
 

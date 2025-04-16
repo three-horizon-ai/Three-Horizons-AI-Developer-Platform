@@ -1,10 +1,14 @@
-# Inner Loop Development Guide
+# <span style="color: #0366d6;">🧑‍💻 Inner Loop Development Guide</span>
 
-## Overview
+## <span style="color: #0366d6;">🔄 Overview</span>
 
 The Inner Loop Development process is a core component of the Three Horizons Platform, providing developers with a streamlined workflow for local development, testing, and validation before code is integrated into the main codebase. This guide explains the inner loop concepts, tools, and best practices to help you become productive quickly.
 
-## What is the Inner Loop?
+![Inner Loop Development Workflow](../architecture/workflow-diagram.svg)
+
+> 🔍 **Note:** The diagram above illustrates the developer's Inner Loop workflow, showing the cycle of writing, building, running, testing, and debugging code locally before committing to shared repositories.
+
+## <span style="color: #0366d6;">🤔 What is the Inner Loop?</span>
 
 The Inner Loop refers to the development workflow that happens locally on a developer's machine. It encompasses the cycle of:
 
@@ -16,7 +20,7 @@ The Inner Loop refers to the development workflow that happens locally on a deve
 
 This cycle is repeated frequently as you develop features or fix bugs, all before committing code to the shared repository.
 
-## Prerequisites
+## <span style="color: #0366d6;">📋 Prerequisites</span>
 
 Before starting with the inner loop development process, ensure you have:
 
@@ -29,7 +33,7 @@ Before starting with the inner loop development process, ensure you have:
   - Language-specific tools (Node.js, Java, Python, etc.)
 - **IDE**: Visual Studio Code with recommended extensions or JetBrains IDEs
 
-## Inner Loop Workflow
+## <span style="color: #0366d6;">🔄 Inner Loop Workflow</span>
 
 ### 1. Project Initialization
 
@@ -153,7 +157,7 @@ git commit -m "feat: add new user authentication flow"
 git push origin feature/user-auth
 ```
 
-## Integration with the Outer Loop
+## <span style="color: #0366d6;">🔄 Integration with the Outer Loop</span>
 
 The Inner Loop connects to the Outer Loop (CI/CD) workflow when:
 
@@ -162,9 +166,13 @@ The Inner Loop connects to the Outer Loop (CI/CD) workflow when:
 3. Code is reviewed and approved
 4. Changes are merged and deployed through the CD pipeline
 
+![Inner to Outer Loop Integration](../architecture/cicd-pipeline.svg)
+
+> 📝 **Integration Note:** This diagram shows how the Inner Loop development workflow connects to the Outer Loop CI/CD process, creating a complete development lifecycle.
+
 See the [Outer Loop Deployment Guide](./outer-loop-deployment.md) for more information on what happens after your code leaves the Inner Loop.
 
-## Troubleshooting
+## <span style="color: #0366d6;">🛠️ Troubleshooting</span>
 
 ### Common Issues and Solutions
 
@@ -186,7 +194,7 @@ See the [Outer Loop Deployment Guide](./outer-loop-deployment.md) for more infor
 - Update test fixtures if APIs or models have changed
 - Check for environment-specific issues
 
-## Best Practices
+## <span style="color: #0366d6;">✅ Best Practices</span>
 
 - **Commit Often**: Make small, focused commits that address a single concern
 - **Use Feature Branches**: Always develop in feature branches, not directly in main
@@ -195,7 +203,11 @@ See the [Outer Loop Deployment Guide](./outer-loop-deployment.md) for more infor
 - **Document Changes**: Update documentation alongside code changes
 - **Peer Review**: Consider informal peer reviews before creating a PR
 
-## Tools and Resources
+![Inner Loop Best Practices](../architecture/three-horizons-diagram.svg)
+
+> 🔍 **Best Practices Note:** This diagram highlights how the Inner Loop development practices integrate with the broader Three Horizons architecture, emphasizing the developer's role in the platform ecosystem.
+
+## <span style="color: #0366d6;">🧰 Tools and Resources</span>
 
 ### Recommended Extensions
 
@@ -210,17 +222,31 @@ See the [Outer Loop Deployment Guide](./outer-loop-deployment.md) for more infor
 - **DevHub CLI**: For interacting with the Developer Hub (`devhub --help`)
 - **Project-specific tools**: Documented in each project's README
 
-## Support
+## <span style="color: #0366d6;">📚 Related Documentation</span>
 
-For issues related to Inner Loop development:
-
-- **Chat**: #developer-support channel in Teams
-- **Knowledge Base**: [DevHub Documentation](https://devhub.example.com/docs)
-- **Office Hours**: Tuesdays and Thursdays, 10:00 AM - 12:00 PM
-
-## Related Documentation
-
-- [Golden Paths Guide](./golden-paths.md)
 - [Outer Loop Deployment Guide](./outer-loop-deployment.md)
-- [Environment Setup](../getting-started/environment-setup.md)
-- [Coding Standards](../reference/coding-standards.md) 
+- [Golden Paths Guide](./golden-paths.md)
+- [Local Development Setup](../implementation/local-development.md)
+- [Testing Best Practices](../implementation/testing-best-practices.md)
+
+## <span style="color: #0366d6;">📊 Diagram Key</span>
+
+The diagrams in this guide use the following color coding and symbols:
+
+| Color | Component | Description |
+|-------|-----------|-------------|
+| <span style="color: #0078D4;">■</span> Azure | Azure services and infrastructure | Cloud resources hosting the platform |
+| <span style="color: #EE0000;">■</span> Red Hat | Developer Hub components | Developer experience and portal |
+| <span style="color: #24292E;">■</span> GitHub | Source control and CI/CD | Code repositories and automation |
+| <span style="color: #2188ff;">■</span> Horizon 1 | Foundation capabilities | Core platform elements |
+| <span style="color: #f9c513;">■</span> Horizon 2 | Enhancement capabilities | Optimized features |
+| <span style="color: #6f42c1;">■</span> Horizon 3 | Innovation capabilities | Advanced and transformative features |
+
+> 🔍 **Note on Diagrams**: All architecture diagrams in this documentation reflect the latest Three Horizons Platform architecture as of April 2025, using a consistent styling and nomenclature.
+
+#### Avoiding Burnout
+
+- Take regular breaks
+- Communicate blockers early
+- Don't sacrifice code quality for speed
+- Maintain work-life balance 
