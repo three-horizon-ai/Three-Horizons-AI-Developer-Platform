@@ -3,22 +3,22 @@
   <!-- Background rectangle -->
   <rect width="900" height="700" fill="#f8f9fa" />
 
-  <!-- Title - moved higher up -->
-  <text x="450" y="25" font-family="sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#333333">Three Horizons Platform - Security Architecture (v1.0, April 2025)</text>
+  <!-- Title - moved much lower -->
+  <text x="450" y="55" font-family="sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#333333">Three Horizons Platform - Security Architecture (v1.0, April 2025)</text>
 
-  <!-- Zero Trust Banner - adjusted position -->
-  <rect x="150" y="65" width="600" height="30" rx="5" fill="#222222" />
-  <text x="450" y="85" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="white">Zero Trust Security Model</text>
+  <!-- Zero Trust Banner - position preserved -->
+  <rect x="150" y="70" width="600" height="30" rx="5" fill="#222222" />
+  <text x="450" y="90" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="white">Zero Trust Security Model</text>
 
-  <!-- Platform Icons - adjusted positions -->
-  <circle cx="650" cy="85" r="15" fill="#0078d4" />
-  <text x="650" y="89" font-size="12" fill="white" text-anchor="middle">A</text>
+  <!-- Platform Icons - adjusted positions further to the right -->
+  <circle cx="770" cy="85" r="15" fill="#0078d4" />
+  <text x="770" y="89" font-size="12" fill="white" text-anchor="middle">A</text>
   
-  <circle cx="690" cy="85" r="15" fill="#ee0000" />
-  <text x="690" y="89" font-size="12" fill="white" text-anchor="middle">R</text>
+  <circle cx="810" cy="85" r="15" fill="#ee0000" />
+  <text x="810" y="89" font-size="12" fill="white" text-anchor="middle">R</text>
   
-  <circle cx="730" cy="85" r="15" fill="#6f42c1" />
-  <text x="730" y="89" font-size="12" fill="white" text-anchor="middle">G</text>
+  <circle cx="850" cy="85" r="15" fill="#6f42c1" />
+  <text x="850" y="89" font-size="12" fill="white" text-anchor="middle">G</text>
 
   <!-- Side borders with labels -->
   <rect x="120" y="100" width="20" height="500" fill="#e9ecef" />
