@@ -274,22 +274,25 @@ Create an Azure Key Vault to store secrets:
 ```bash
 # Create Key Vault with access policies and network rules
 az keyvault create \
-  --name threehorizonsvault \
+  --name "th3horizons$(date +%s)" \
   --resource-group three-horizons-shared \
   --location centralus \
   --sku standard \
   --enable-rbac-authorization true \
   --tags Environment=Production Project=ThreeHorizons Owner=PlatformTeam
 
+# Capture the Key Vault name for future use
+KEY_VAULT_NAME=$(az keyvault list --resource-group three-horizons-shared --query "[0].name" -o tsv)
+
 # Configure networking (optional for higher security)
 az keyvault network-rule add \
-  --name threehorizonsvault \
+  --name "$KEY_VAULT_NAME" \
   --resource-group three-horizons-shared \
   --vnet-name three-horizons-vnet \
   --subnet services-subnet
 ```
 
-> 🔒 **Security Note:** We're using RBAC-based access control for Key Vault, which is the recommended approach for granular permissions. Learn more in the [Key Vault RBAC documentation](https://learn.microsoft.com/en-us/azure/key-vault/general/rbac-guide).
+> 🔐 **Nota sobre nomes de Key Vault:** Os nomes de Azure Key Vault devem ser globalmente únicos e não podem conter hífens ou espaços. Estamos usando um timestamp para garantir a unicidade do nome. Em ambientes de produção, considere um esquema de nomenclatura mais planejado para seus recursos.
 
 ### <span style="color: #0366d6;">Step 1.4: Create Container Registry</span>
 
@@ -338,7 +341,7 @@ az role assignment create \
   --assignee-object-id $IDENTITY_PRINCIPAL_ID \
   --assignee-principal-type ServicePrincipal \
   --role "Key Vault Secrets User" \
-  --scope $(az keyvault show --name threehorizonsvault --resource-group three-horizons-shared --query id -o tsv)
+  --scope $(az keyvault show --name "$KEY_VAULT_NAME" --resource-group three-horizons-shared --query id -o tsv)
 ```
 
 > ⚠️ **Important:** Managed identities are the preferred method for service authentication in Azure. They provide better security than service principals as they don't require secret management. [Learn more about managed identities](https://learn.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview).
@@ -358,7 +361,7 @@ az network vnet subnet list \
   -o table
 
 # Verify Key Vault
-az keyvault show --name threehorizonsvault -o table
+az keyvault show --name "$KEY_VAULT_NAME" -o table
 
 # Verify Container Registry
 az acr show --name threehorizonsregistry -o table
@@ -752,7 +755,7 @@ az postgres flexible-server firewall-rule create \
 # Store database credentials in Key Vault
 az keyvault secret set \
   --name db-password \
-  --vault-name threehorizonsvault \
+  --vault-name "$KEY_VAULT_NAME" \
   --value "StrongPassword123!"
 
 # Get the database host
@@ -2849,7 +2852,7 @@ az network vnet show \
 
 # Verify Key Vault access policies
 az keyvault show \
-  --name threehorizonsvault \
+  --name "$KEY_VAULT_NAME" \
   --resource-group three-horizons-shared \
   --query "properties.accessPolicies[].{ObjectId:objectId, Permissions:permissions}" \
   -o json

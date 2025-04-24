@@ -31,7 +31,7 @@ RESOURCE_GROUP="three-horizons-devhub"
 LOCATION="centralus"
 AKS_CLUSTER_NAME="devhub-aks"
 ACR_NAME="devhubacr$(date +%s)"
-KEYVAULT_NAME="devhubkv$(date +%s)"
+KEYVAULT_NAME="th3horizons$(date +%s)"
 VNET_NAME="devhub-vnet"
 ```
 
