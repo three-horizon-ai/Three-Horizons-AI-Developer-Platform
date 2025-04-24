@@ -285,19 +285,29 @@ az keyvault create \
 KEY_VAULT_NAME=$(az keyvault list --resource-group three-horizons-shared --query "[0].name" -o tsv)
 
 # Configure networking (optional for higher security)
+# First, enable KeyVault service endpoint on the subnet
+az network vnet subnet update \
+  --resource-group three-horizons-platform \
+  --vnet-name three-horizons-vnet \
+  --name services-subnet \
+  --service-endpoints Microsoft.KeyVault
+
+# Get the subnet ID for the network rule
 SUBNET_ID=$(az network vnet subnet show \
   --resource-group three-horizons-platform \
   --vnet-name three-horizons-vnet \
   --name services-subnet \
   --query id -o tsv)
 
+# Add the network rule to Key Vault
 az keyvault network-rule add \
   --name "$KEY_VAULT_NAME" \
   --resource-group three-horizons-shared \
   --subnet $SUBNET_ID
 
-# Note: For KeyVault network rules, use the full subnet ID rather than specifying
-# vnet-name and subnet name separately. The "--vnet-resource-group" parameter is not supported.
+# Note: Before adding a subnet to Key Vault network rules, you must first enable 
+# service endpoints for Microsoft.KeyVault on that subnet, otherwise you'll receive
+# a "SubnetsHaveNoServiceEndpointsConfigured" error.
 ```
 
 > 🔐 **Note on Key Vault Names:** Azure Key Vault names must be globally unique and cannot contain hyphens or spaces. We're using a timestamp to ensure name uniqueness. In production environments, consider using a more planned naming scheme for your resources.
