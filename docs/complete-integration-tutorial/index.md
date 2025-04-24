@@ -289,10 +289,11 @@ az keyvault network-rule add \
   --name "$KEY_VAULT_NAME" \
   --resource-group three-horizons-shared \
   --vnet-name three-horizons-vnet \
+  --vnet-resource-group three-horizons-platform \
   --subnet services-subnet
 ```
 
-> 🔐 **Nota sobre nomes de Key Vault:** Os nomes de Azure Key Vault devem ser globalmente únicos e não podem conter hífens ou espaços. Estamos usando um timestamp para garantir a unicidade do nome. Em ambientes de produção, considere um esquema de nomenclatura mais planejado para seus recursos.
+> 🔐 **Note on Key Vault Names:** Azure Key Vault names must be globally unique and cannot contain hyphens or spaces. We're using a timestamp to ensure name uniqueness. In production environments, consider using a more planned naming scheme for your resources.
 
 ### <span style="color: #0366d6;">Step 1.4: Create Container Registry</span>
 
@@ -988,13 +989,13 @@ EOF
 
 ### <span style="color: #0366d6;">Step 4.4: Configure Technical Documentation with TechDocs</span>
 
-O TechDocs é um componente essencial do Red Hat Developer Hub 1.5 que permite a criação e gestão de documentação como código.
+TechDocs is an essential component of Red Hat Developer Hub 1.5 that enables creating and managing documentation as code.
 
 ```bash
-# Criar bucket para armazenamento de documentação técnica
-# Para este exemplo, usaremos um bucket local no cluster (para produção, use um bucket S3 ou similar)
+# Create bucket for technical documentation storage
+# For this example, we'll use a local bucket in the cluster (for production, use an S3 bucket or similar)
 
-# Criar storage class e PVC para TechDocs
+# Create storage class and PVC for TechDocs
 kubectl apply -f - <<EOF
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -1009,7 +1010,7 @@ spec:
       storage: 10Gi
 EOF
 
-# Configurar plugin TechDocs usando Dynamic Plugins do RHDH 1.5
+# Configure TechDocs plugin using RHDH 1.5 Dynamic Plugins
 kubectl apply -f - <<EOF
 apiVersion: rhdh.redhat.com/v1alpha1
 kind: DynamicPlugin
@@ -1038,7 +1039,7 @@ spec:
       }
 EOF
 
-# Configurar frontend do TechDocs
+# Configure TechDocs frontend
 kubectl apply -f - <<EOF
 apiVersion: rhdh.redhat.com/v1alpha1
 kind: DynamicPlugin
@@ -1052,7 +1053,7 @@ spec:
     version: '1.6.5'
 EOF
 
-# Adicionar exemplo de documentação ao catálogo
+# Add example documentation to the catalog
 kubectl apply -f - <<EOF
 apiVersion: v1
 kind: ConfigMap
@@ -1065,7 +1066,7 @@ data:
     kind: Component
     metadata:
       name: example-docs
-      description: "Exemplo de componente com documentação técnica"
+      description: "Example component with technical documentation"
       annotations:
         backstage.io/techdocs-ref: dir:.
     spec:
@@ -1075,7 +1076,7 @@ data:
 EOF
 ```
 
-Este exemplo configura o TechDocs com geração local de documentação. Para ambientes de produção, recomenda-se usar soluções como AWS S3, Google Cloud Storage ou Azure Blob Storage para armazenamento da documentação gerada.
+This example configures TechDocs with local documentation generation. For production environments, it's recommended to use solutions like AWS S3, Google Cloud Storage, or Azure Blob Storage for storing generated documentation.
 
 ### <span style="color: #0366d6;">Step 4.5: Configure Templates Repository</span>
 
@@ -1244,15 +1245,15 @@ Validate your GitHub integration:
 
 ### <span style="color: #0366d6;">Step 4.6: Configure Security Scanning Plugin</span>
 
-A versão 1.5 do Red Hat Developer Hub oferece integração aprimorada com ferramentas de segurança. Vamos configurar o plugin de análise de segurança:
+Red Hat Developer Hub version 1.5 offers enhanced integration with security tools. Let's configure the security analysis plugin:
 
 ```bash
-# Criar secret para token de API de segurança
+# Create security scanner API token secret
 kubectl create secret generic security-scanner-token \
   --namespace developer-hub \
   --from-literal=token=<your-security-scanner-token>
 
-# Configurar plugin de segurança usando Dynamic Plugins
+# Configure security plugin using Dynamic Plugins
 kubectl apply -f - <<EOF
 apiVersion: rhdh.redhat.com/v1alpha1
 kind: DynamicPlugin
@@ -1285,7 +1286,7 @@ spec:
           key: token
 EOF
 
-# Adicionar anotações para habilitar varreduras de segurança em repositórios
+# Add annotations to enable security scans on repositories
 kubectl apply -f - <<EOF
 apiVersion: v1
 kind: ConfigMap
@@ -1330,7 +1331,7 @@ data:
 EOF
 ```
 
-Este plugin permite a integração com ferramentas de análise de segurança como Snyk, SonarQube e outros scanners, fornecendo visibilidade das vulnerabilidades diretamente no Developer Hub. Essa funcionalidade é especialmente valiosa para equipes que utilizam a abordagem "shift left" na segurança, incorporando verificações de segurança mais cedo no ciclo de desenvolvimento.
+This plugin enables integration with security analysis tools such as Snyk, SonarQube, and other scanners, providing visibility into vulnerabilities directly in the Developer Hub. This functionality is especially valuable for teams using the "shift left" approach to security, incorporating security checks earlier in the development cycle.
 
 ### <span style="color: #0366d6;">Horizon 2 (Enhancement) Validation</span>
 
