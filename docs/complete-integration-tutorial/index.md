@@ -336,10 +336,13 @@ az acr replication create \
   --registry $ACR_NAME \
   --location centralus2
 
-# Enable image scanning (requires appropriate Azure subscription)
-az acr security enable \
-  --registry $ACR_NAME \
-  --name defender
+# Enable Microsoft Defender for container registries (via Microsoft Defender for Cloud)
+az security pricing create \
+  --name ContainerRegistry \
+  --tier 'standard'
+
+# Enable vulnerability scanning (alternative method if needed)
+echo "To enable image scanning, go to Azure Portal > $ACR_NAME > Microsoft Defender for Cloud > Enable Microsoft Defender for Containers"
 ```
 
 > 💡 **Best Practice:** For production environments, enable geo-replication for your container registry to improve image pull performance and availability. [Learn more about ACR geo-replication](https://learn.microsoft.com/en-us/azure/container-registry/container-registry-geo-replication).
