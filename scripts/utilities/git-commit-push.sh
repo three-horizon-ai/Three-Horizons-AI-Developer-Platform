@@ -1,36 +1,36 @@
 #!/bin/bash
 
-echo "Realizando commit e push das alterações da reorganização do repositório..."
+echo "Realizing commit and push of changes to the repository..."
 
-# Adicionar todas as alterações
+# Add all changes
 git add .
-echo "✓ Alterações adicionadas ao stage"
+echo "✓ Changes added to stage"
 
-# Criar o commit com uma mensagem descritiva
-git commit -m "refactor: reorganiza estrutura do repositório
+# Create a commit with a descriptive message
+git commit -m "refactor: reorganize repository structure
 
-- Move CONTRIBUTING.md e SECURITY.md para .github/
-- Move EXECUTIVE-OVERVIEW.md para docs/meta/
-- Move arquivos de configuração para docs/config/
-- Move relatórios para docs/reports/
-- Atualiza .gitignore para incluir arquivos temporários
-- Atualiza referências nos arquivos README.md, index.md e DOCUMENTATION_MAP.md
-- Remove diretórios redundantes
-- Mantém apenas arquivos essenciais no diretório raiz"
+- Move CONTRIBUTING.md and SECURITY.md to .github/
+- Move EXECUTIVE-OVERVIEW.md to docs/meta/
+- Move configuration files to docs/config/
+- Move reports to docs/reports/
+- Update .gitignore to include temporary files
+- Update references in README.md, index.md and DOCUMENTATION_MAP.md
+- Remove redundant directories
+- Keep only essential files in the root directory"
 
-echo "✓ Commit realizado"
+echo "✓ Commit done"
 
-# Verificar se há um remote configurado antes de tentar fazer push
+# Check if there is a remote configured before trying to push
 remote_exists=$(git remote | wc -l)
 if [ "$remote_exists" -gt 0 ]; then
-  # Fazer push para o repositório remoto
+  # Push to the remote repository
   git push
-  echo "✓ Push realizado com sucesso"
+  echo "✓ Push done successfully"
 else
-  echo "⚠️ Nenhum repositório remoto configurado. O push não foi realizado."
-  echo "Para configurar um repositório remoto, use:"
+  echo "⚠️ No remote repository configured. Push not done."
+  echo "To configure a remote repository, use:"
   echo "  git remote add origin URL_DO_REPOSITORIO"
   echo "  git push -u origin BRANCH_ATUAL"
 fi
 
-echo "Processo concluído!" 
+echo "Process done!" 

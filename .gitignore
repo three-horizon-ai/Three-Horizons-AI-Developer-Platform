@@ -276,3 +276,5 @@ _deprecated/
 
 # Symlinks
 **/symlinks/
+
+# Documentation directories that should be excluded from git
