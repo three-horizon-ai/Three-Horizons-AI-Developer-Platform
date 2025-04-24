@@ -55,7 +55,7 @@ git clone https://github.com/your-org/three-horizons-platform.git
 cd three-horizons-platform
 
 # Run the automated installer
-./scripts/setup/quickstart.sh --aks --resource-group your-resource-group --location eastus
+./scripts/setup/quickstart.sh --aks --resource-group your-resource-group --location centralus
 ```
 
 This quick start option will deploy a standard configuration of the Three Horizons Platform, which you can then customize based on your specific requirements.

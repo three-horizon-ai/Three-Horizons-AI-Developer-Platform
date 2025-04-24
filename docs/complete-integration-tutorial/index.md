@@ -222,13 +222,13 @@ az account set --subscription "<subscription-id>"
 # Create resource group for the platform with tags
 az group create \
   --name three-horizons-platform \
-  --location eastus \
+  --location centralus \
   --tags Environment=Production Project=ThreeHorizons Owner=PlatformTeam
 
 # Create resource group for shared services
 az group create \
   --name three-horizons-shared \
-  --location eastus \
+  --location centralus \
   --tags Environment=Production Project=ThreeHorizons Owner=PlatformTeam
 ```
 
@@ -276,7 +276,7 @@ Create an Azure Key Vault to store secrets:
 az keyvault create \
   --name three-horizons-vault \
   --resource-group three-horizons-shared \
-  --location eastus \
+  --location centralus \
   --sku standard \
   --enable-rbac-authorization true \
   --tags Environment=Production Project=ThreeHorizons Owner=PlatformTeam
@@ -300,7 +300,7 @@ Set up Azure Container Registry:
 az acr create \
   --name threehorizonsregistry \
   --resource-group three-horizons-shared \
-  --location eastus \
+  --location centralus \
   --sku Premium \
   --admin-enabled false \
   --tags Environment=Production Project=ThreeHorizons
@@ -308,7 +308,7 @@ az acr create \
 # Enable geo-replication for production workloads
 az acr replication create \
   --registry threehorizonsregistry \
-  --location westus
+  --location centralus2
 
 # Enable image scanning
 az acr security enable \
@@ -655,7 +655,7 @@ spec:
   - developer-hub
 EOF
 
-# Deploy Developer Hub Operator
+# Deploy Developer Hub Operator v1.5
 cat <<EOF | kubectl apply -f -
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
@@ -667,7 +667,11 @@ spec:
   name: rhdh-operator
   source: redhat-operators
   sourceNamespace: olm
+  startingCSV: rhdh-operator.v1.5.0
 EOF
+
+# Wait for the operator to be installed
+kubectl wait --for=condition=ready pod -l name=rhdh-operator-controller-manager -n developer-hub --timeout=300s
 ```
 
 > 📘 **Reference:** For detailed operator configuration, see the [Red Hat Developer Hub documentation](https://developers.redhat.com/rhdh/1.5/getting_started).
@@ -733,7 +737,7 @@ az postgres flexible-server create \
   --storage-size 32 \
   --version 14 \
   --high-availability Enabled \
-  --location eastus \
+  --location centralus \
   --database-name backstage \
   --tags Environment=Production Project=ThreeHorizons
 
@@ -769,7 +773,7 @@ kubectl create secret generic developer-hub-postgres \
 ### <span style="color: #0366d6;">Step 3.4: Deploy Developer Hub Instance</span>
 
 ```bash
-# Deploy Red Hat Developer Hub instance
+# Deploy Red Hat Developer Hub instance v1.5
 kubectl apply -f - <<EOF
 apiVersion: rhdh.redhat.com/v1alpha1
 kind: Backstage
@@ -909,13 +913,16 @@ spec:
   disabled: false
   package: 
     name: '@backstage/plugin-auth-backend'
+    version: '0.19.3'
   pluginConfig:
   - name: auth.providers.github
-    data:
-            clientId: \${GITHUB_CLIENT_ID}
-            clientSecret: \${GITHUB_CLIENT_SECRET}
-    deployment:
-      env: 
+    data: |
+      {
+        "clientId": "\${GITHUB_CLIENT_ID}",
+        "clientSecret": "\${GITHUB_CLIENT_SECRET}"
+      }
+  deployment:
+    env: 
     - name: GITHUB_CLIENT_ID
       valueFrom:
         secretKeyRef:
@@ -934,13 +941,6 @@ EOF
 ### <span style="color: #0366d6;">Step 4.3: Configure GitHub Integration for Software Catalog</span>
 
 ```bash
-# Create a GitHub Personal Access Token with appropriate scopes
-# For GitHub Enterprise Cloud, create a token at https://github.com/settings/tokens with:
-# - repo
-# - read:org
-# - workflow
-# - read:packages
-
 # Create GitHub integration token secret
 kubectl create secret generic github-token \
   --namespace developer-hub \
@@ -957,18 +957,22 @@ spec:
   disabled: false
   package:
     name: '@backstage/plugin-catalog-backend-module-github'
+    version: '0.3.9'
   pluginConfig:
   - name: catalog.providers.github
-    data:
-      allowedInstances: ['github.com']
-          organization: 'your-org-name'
-          schedule:
-            frequency: { minutes: 30 }
-        timeout: { minutes: 3 }
-      catalogPath: '/catalog-info.yaml'
-      validateLocationsExist: true
-    deployment:
-      env:
+    data: |
+      {
+        "allowedInstances": ["github.com"],
+        "organization": "your-org-name",
+        "schedule": {
+          "frequency": { "minutes": 30 },
+          "timeout": { "minutes": 3 }
+        },
+        "catalogPath": "/catalog-info.yaml",
+        "validateLocationsExist": true
+      }
+  deployment:
+    env:
     - name: GITHUB_TOKEN
       valueFrom:
         secretKeyRef:
@@ -979,7 +983,98 @@ EOF
 
 > 🔐 **Security Note:** For production, use GitHub Apps instead of personal access tokens for better security and auditability. See the [GitHub Apps integration guide](https://docs.github.com/en/apps/creating-github-apps/about-creating-github-apps/about-creating-github-apps).
 
-### <span style="color: #0366d6;">Step 4.4: Configure Templates Repository</span>
+### <span style="color: #0366d6;">Step 4.4: Configure Technical Documentation with TechDocs</span>
+
+O TechDocs é um componente essencial do Red Hat Developer Hub 1.5 que permite a criação e gestão de documentação como código.
+
+```bash
+# Criar bucket para armazenamento de documentação técnica
+# Para este exemplo, usaremos um bucket local no cluster (para produção, use um bucket S3 ou similar)
+
+# Criar storage class e PVC para TechDocs
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: techdocs-storage
+  namespace: developer-hub
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+EOF
+
+# Configurar plugin TechDocs usando Dynamic Plugins do RHDH 1.5
+kubectl apply -f - <<EOF
+apiVersion: rhdh.redhat.com/v1alpha1
+kind: DynamicPlugin
+metadata:
+  name: techdocs-plugin
+  namespace: developer-hub
+spec:
+  disabled: false
+  package:
+    name: '@backstage/plugin-techdocs-backend'
+    version: '1.6.9'
+  pluginConfig:
+  - name: techdocs
+    data: |
+      {
+        "builder": "local",
+        "generators": {
+          "techdocs": "local"
+        },
+        "publisher": {
+          "type": "local",
+          "local": {
+            "publishDirectory": "/tmp/backstage/techdocs/generated"
+          }
+        }
+      }
+EOF
+
+# Configurar frontend do TechDocs
+kubectl apply -f - <<EOF
+apiVersion: rhdh.redhat.com/v1alpha1
+kind: DynamicPlugin
+metadata:
+  name: techdocs-frontend-plugin
+  namespace: developer-hub
+spec:
+  disabled: false
+  package:
+    name: '@backstage/plugin-techdocs'
+    version: '1.6.5'
+EOF
+
+# Adicionar exemplo de documentação ao catálogo
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: example-docs
+  namespace: developer-hub
+data:
+  docs-example.yaml: |
+    apiVersion: backstage.io/v1alpha1
+    kind: Component
+    metadata:
+      name: example-docs
+      description: "Exemplo de componente com documentação técnica"
+      annotations:
+        backstage.io/techdocs-ref: dir:.
+    spec:
+      type: documentation
+      lifecycle: experimental
+      owner: team-platform
+EOF
+```
+
+Este exemplo configura o TechDocs com geração local de documentação. Para ambientes de produção, recomenda-se usar soluções como AWS S3, Google Cloud Storage ou Azure Blob Storage para armazenamento da documentação gerada.
+
+### <span style="color: #0366d6;">Step 4.5: Configure Templates Repository</span>
 
 ```bash
 # Create a templates repository in your GitHub organization
@@ -1143,6 +1238,98 @@ Validate your GitHub integration:
 4. Verify that repositories and templates are being imported
 5. Test creating a new component from a template
 6. Verify GitHub Copilot is enabled for your organization by opening a code file in GitHub Codespaces or in a local editor with the GitHub Copilot extension
+
+### <span style="color: #0366d6;">Step 4.6: Configure Security Scanning Plugin</span>
+
+A versão 1.5 do Red Hat Developer Hub oferece integração aprimorada com ferramentas de segurança. Vamos configurar o plugin de análise de segurança:
+
+```bash
+# Criar secret para token de API de segurança
+kubectl create secret generic security-scanner-token \
+  --namespace developer-hub \
+  --from-literal=token=<your-security-scanner-token>
+
+# Configurar plugin de segurança usando Dynamic Plugins
+kubectl apply -f - <<EOF
+apiVersion: rhdh.redhat.com/v1alpha1
+kind: DynamicPlugin
+metadata:
+  name: security-insights-plugin
+  namespace: developer-hub
+spec:
+  disabled: false
+  package:
+    name: '@backstage/plugin-security-insights'
+    version: '0.4.0'
+  pluginConfig:
+  - name: security.insights
+    data: |
+      {
+        "securityScanners": [
+          {
+            "name": "snyk",
+            "type": "snyk",
+            "apiUrl": "https://api.snyk.io/v1"
+          }
+        ]
+      }
+  deployment:
+    env:
+    - name: SECURITY_SCANNER_TOKEN
+      valueFrom:
+        secretKeyRef:
+          name: security-scanner-token
+          key: token
+EOF
+
+# Adicionar anotações para habilitar varreduras de segurança em repositórios
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: security-config
+  namespace: developer-hub
+data:
+  security-template.yaml: |
+    apiVersion: scaffolder.backstage.io/v1beta3
+    kind: Template
+    metadata:
+      name: security-scan-enabled-service
+      title: Security Scan Enabled Service
+      description: Create a new service with security scanning enabled
+    spec:
+      owner: team-platform
+      type: service
+      parameters:
+        - title: Service Information
+          required:
+            - name
+            - owner
+          properties:
+            name:
+              title: Name
+              type: string
+              description: Unique name of the service
+            owner:
+              title: Owner
+              type: string
+              description: Owner of the service
+      steps:
+        - id: template
+          name: Create Service
+          action: fetch:template
+          input:
+            url: ./template
+            values:
+              name: \${{ parameters.name }}
+              owner: \${{ parameters.owner }}
+              securityInsights: enabled
+EOF
+```
+
+Este plugin permite a integração com ferramentas de análise de segurança como Snyk, SonarQube e outros scanners, fornecendo visibilidade das vulnerabilidades diretamente no Developer Hub. Essa funcionalidade é especialmente valiosa para equipes que utilizam a abordagem "shift left" na segurança, incorporando verificações de segurança mais cedo no ciclo de desenvolvimento.
+
+### <span style="color: #0366d6;">Horizon 2 (Enhancement) Validation</span>
 
 ## <span style="color: #0366d6;">🚀 Phase 5: CI/CD Pipeline Setup</span>
 
@@ -2198,7 +2385,7 @@ In this phase, we'll set up Microsoft DevBox as the standardized development env
 # Create a resource group for DevBox
 az group create \
   --name three-horizons-devbox \
-  --location eastus \
+  --location centralus \
   --tags Environment=Production Project=ThreeHorizons
 
 # Register required resource providers
@@ -2217,7 +2404,7 @@ az provider register --namespace Microsoft.Compute
 az devcenter admin devcenter create \
   --name three-horizons-devcenter \
   --resource-group three-horizons-devbox \
-  --location eastus \
+  --location centralus \
   --identity-type SystemAssigned \
   --tags Environment=Production Project=ThreeHorizons
 ```
@@ -2229,7 +2416,7 @@ az devcenter admin devcenter create \
 az monitor log-analytics workspace create \
   --workspace-name three-horizons-devbox-logs \
   --resource-group three-horizons-devbox \
-  --location eastus \
+  --location centralus \
   --tags Environment=Production Project=ThreeHorizons
 
 # Get the workspace ID
@@ -2352,7 +2539,7 @@ Save this script to Azure Blob Storage and create a shared access signature (SAS
 az storage account create \
   --name threehorizonscustom \
   --resource-group three-horizons-devbox \
-  --location eastus \
+  --location centralus \
   --sku Standard_LRS \
   --kind StorageV2 \
   --tags Environment=Production Project=ThreeHorizons

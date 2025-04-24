@@ -57,7 +57,7 @@ az login
 az account set --subscription "Your-Subscription-ID"
 
 # Create a resource group
-az group create --name three-horizons-rg --location eastus
+az group create --name three-horizons-rg --location centralus
 
 # Register required resource providers
 az provider register --namespace Microsoft.Kubernetes
@@ -111,17 +111,80 @@ az aro list-credentials \
 ### For AKS:
 
 ```bash
-# Install Red Hat Developer Hub Operator
+# Create namespace for Developer Hub
 kubectl create namespace developer-hub
 
-# Add Helm repository for Developer Hub
-helm repo add developer-hub https://charts.example.com/developer-hub
-helm repo update
+# Install Red Hat Developer Hub Operator using OLM
+kubectl apply -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: redhat-operators
+  namespace: olm
+spec:
+  displayName: Red Hat Operators
+  publisher: Red Hat
+  sourceType: grpc
+  image: registry.redhat.io/redhat/redhat-operator-index:v4.13
+  updateStrategy:
+    registryPoll:
+      interval: 30m
+EOF
 
-# Install Developer Hub
-helm install developer-hub developer-hub/developer-hub \
-  --namespace developer-hub \
-  --set global.domain=devhub.yourdomain.com
+# Create OperatorGroup
+kubectl apply -f - <<EOF
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: developer-hub-operatorgroup
+  namespace: developer-hub
+spec:
+  targetNamespaces:
+  - developer-hub
+EOF
+
+# Install RHDH Operator v1.5
+kubectl apply -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: rhdh-operator
+  namespace: developer-hub
+spec:
+  channel: stable
+  name: rhdh-operator
+  source: redhat-operators
+  sourceNamespace: olm
+  startingCSV: rhdh-operator.v1.5.0
+EOF
+
+# Deploy RHDH instance
+kubectl apply -f - <<EOF
+apiVersion: rhdh.redhat.com/v1alpha1
+kind: Backstage
+metadata:
+  name: developer-hub
+  namespace: developer-hub
+spec:
+  application:
+    replicas: 1
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "1Gi"
+      limits:
+        cpu: "1"
+        memory: "2Gi"
+  database:
+    enableLocalPostgres: true
+  rbac:
+    enabled: true
+  extraEnvs:
+    - name: RHDH_CONFIG_APP_CONFIG_app_baseUrl
+      value: "https://devhub.yourdomain.com"
+    - name: RHDH_DYNAMIC_PLUGINS_BACKEND_DYNAMIC_PLUGINS
+      value: "true"
+EOF
 ```
 
 ### For ARO:
@@ -133,8 +196,54 @@ oc login --token=<token> --server=<server>
 # Create project for Developer Hub
 oc new-project developer-hub
 
-# Install Developer Hub Operator
-oc apply -f https://example.com/developer-hub-operator.yaml
+# Install Red Hat Developer Hub Operator from OperatorHub
+oc apply -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: rhdh-operator
+  namespace: openshift-operators
+spec:
+  channel: stable
+  name: rhdh-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+  startingCSV: rhdh-operator.v1.5.0
+EOF
+
+# Deploy RHDH instance
+oc apply -f - <<EOF
+apiVersion: rhdh.redhat.com/v1alpha1
+kind: Backstage
+metadata:
+  name: developer-hub
+  namespace: developer-hub
+spec:
+  application:
+    replicas: 1
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "1Gi"
+      limits:
+        cpu: "1"
+        memory: "2Gi"
+  database:
+    enableLocalPostgres: true
+  rbac:
+    enabled: true
+  route:
+    enabled: true
+    host: devhub.yourdomain.com
+    tls:
+      insecureEdgeTerminationPolicy: Redirect
+      termination: edge
+  extraEnvs:
+    - name: RHDH_CONFIG_APP_CONFIG_app_baseUrl
+      value: "https://devhub.yourdomain.com"
+    - name: RHDH_DYNAMIC_PLUGINS_BACKEND_DYNAMIC_PLUGINS
+      value: "true"
+EOF
 ```
 
 ## <span style="color: #0366d6;">🔄 Step 4: Configure Azure AD Integration</span>

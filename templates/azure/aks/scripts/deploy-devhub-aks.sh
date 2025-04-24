@@ -38,7 +38,7 @@ function confirm() {
 
 # Configuration - Default values
 DEFAULT_RESOURCE_GROUP="rg-threehorizons-dev"
-DEFAULT_LOCATION="eastus2"
+DEFAULT_LOCATION="centralus"
 DEFAULT_AKS_NAME="aks-threehorizons-dev"
 DEFAULT_VNET_NAME="vnet-threehorizons"
 DEFAULT_SUBNET_NAME="aks-subnet"

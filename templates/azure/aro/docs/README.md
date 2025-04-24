@@ -28,7 +28,7 @@ The deployment uses the following Azure resources:
 ```bash
 # Set environment variables
 RESOURCE_GROUP="three-horizons-devhub"
-LOCATION="eastus"
+LOCATION="centralus"
 ARO_CLUSTER_NAME="devhub-aro"
 ACR_NAME="devhubacr$(date +%s)"
 KEYVAULT_NAME="devhub-kv-$(date +%s)"
@@ -174,39 +174,37 @@ oc login $API_SERVER -u kubeadmin -p <password>
 # Create project for Developer Hub
 oc new-project developer-hub
 
-# Install the Developer Hub Operator from OperatorHub
+# Install the Red Hat Developer Hub Operator v1.5 from OperatorHub
 oc apply -f - << EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
-  name: developer-hub-operator
+  name: rhdh-operator
   namespace: openshift-operators
 spec:
   channel: stable
-  name: developer-hub-operator
-  source: certified-operators
+  name: rhdh-operator
+  source: redhat-operators
   sourceNamespace: openshift-marketplace
+  startingCSV: rhdh-operator.v1.5.0
 EOF
 
 # Wait for the operator to be installed
-oc get csv -n openshift-operators | grep developer-hub
+oc wait --for=condition=ready pod -l name=rhdh-operator-controller-manager -n openshift-operators --timeout=300s
 ```
 
 ### 11. Deploy Developer Hub
 
 ```bash
-# Create Developer Hub instance
+# Create Developer Hub instance v1.5
 oc apply -f - << EOF
-apiVersion: devhub.io/v1alpha1
-kind: DeveloperHub
+apiVersion: rhdh.redhat.com/v1alpha1
+kind: Backstage
 metadata:
-  name: devhub
+  name: developer-hub
   namespace: developer-hub
 spec:
-  appDomain: devhub.$ARO_DOMAIN
-  global:
-    clusterDomain: $ARO_DOMAIN
-  backend:
+  application:
     replicas: 2
     resources:
       requests:
@@ -215,19 +213,25 @@ spec:
       limits:
         memory: 2Gi
         cpu: 1
-  frontend:
-    replicas: 2
-    resources:
-      requests:
-        memory: 256Mi
-        cpu: 100m
-      limits:
-        memory: 512Mi
-        cpu: 500m
   database:
-    storageClass: managed-premium
-    storageSize: 10Gi
+    enableLocalPostgres: true
+  rbac:
+    enabled: true
+  route:
+    enabled: true
+    host: devhub.$ARO_DOMAIN
+    tls:
+      insecureEdgeTerminationPolicy: Redirect
+      termination: edge
+  extraEnvs:
+    - name: RHDH_CONFIG_APP_CONFIG_app_baseUrl
+      value: "https://devhub.$ARO_DOMAIN"
+    - name: RHDH_DYNAMIC_PLUGINS_BACKEND_DYNAMIC_PLUGINS
+      value: "true"
 EOF
+
+# Wait for the deployment to be ready
+oc wait --for=condition=ready pod -l app=developer-hub -n developer-hub --timeout=300s
 ```
 
 ### 12. Configure Azure AD Integration

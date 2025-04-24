@@ -2,7 +2,7 @@
 param clusterName string = 'aro-threehorizons'
 
 @description('Location of the ARO cluster.')
-param location string = resourceGroup().location
+param location string = 'centralus'
 
 @description('Name of the Virtual Network.')
 param vnetName string = 'vnet-threehorizons'

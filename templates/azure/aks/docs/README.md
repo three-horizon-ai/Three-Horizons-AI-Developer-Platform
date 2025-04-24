@@ -28,7 +28,7 @@ The deployment uses the following Azure resources:
 ```bash
 # Set environment variables
 RESOURCE_GROUP="three-horizons-devhub"
-LOCATION="eastus"
+LOCATION="centralus"
 AKS_CLUSTER_NAME="devhub-aks"
 ACR_NAME="devhubacr$(date +%s)"
 KEYVAULT_NAME="devhub-kv-$(date +%s)"
@@ -123,17 +123,84 @@ az aks get-credentials \
 # Create namespace for Developer Hub
 kubectl create namespace developer-hub
 
-# Add Developer Hub Helm repository
-helm repo add developer-hub https://developer-hub-repo.example.com/charts
-helm repo update
+# Install Red Hat Developer Hub Operator using OLM
+# First, install OLM if not already installed
+curl -sL https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.26.0/install.sh | bash -s v0.26.0
 
-# Install Developer Hub
-helm install developer-hub developer-hub/developer-hub \
-  --namespace developer-hub \
-  --set global.clusterDomain=cluster.local \
-  --set global.hostName=devhub.example.com \
-  --set postgresql.enabled=true \
-  --values developer-hub-values.yaml
+# Add Red Hat Operators catalog
+kubectl apply -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: redhat-operators
+  namespace: olm
+spec:
+  displayName: Red Hat Operators
+  publisher: Red Hat
+  sourceType: grpc
+  image: registry.redhat.io/redhat/redhat-operator-index:v4.13
+  updateStrategy:
+    registryPoll:
+      interval: 30m
+EOF
+
+# Create OperatorGroup
+kubectl apply -f - <<EOF
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: developer-hub-operatorgroup
+  namespace: developer-hub
+spec:
+  targetNamespaces:
+  - developer-hub
+EOF
+
+# Install RHDH Operator v1.5
+kubectl apply -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: rhdh-operator
+  namespace: developer-hub
+spec:
+  channel: stable
+  name: rhdh-operator
+  source: redhat-operators
+  sourceNamespace: olm
+  startingCSV: rhdh-operator.v1.5.0
+EOF
+
+# Wait for the operator to be ready
+kubectl wait --for=condition=ready pod -l name=rhdh-operator -n developer-hub --timeout=300s
+
+# Deploy RHDH instance
+kubectl apply -f - <<EOF
+apiVersion: rhdh.redhat.com/v1alpha1
+kind: Backstage
+metadata:
+  name: developer-hub
+  namespace: developer-hub
+spec:
+  application:
+    replicas: 1
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "1Gi"
+      limits:
+        cpu: "1"
+        memory: "2Gi"
+  database:
+    enableLocalPostgres: true
+  rbac:
+    enabled: true
+  extraEnvs:
+    - name: RHDH_CONFIG_APP_CONFIG_app_baseUrl
+      value: "https://devhub.example.com"
+    - name: RHDH_DYNAMIC_PLUGINS_BACKEND_DYNAMIC_PLUGINS
+      value: "true"
+EOF
 ```
 
 ### 9. Configure Azure AD Integration

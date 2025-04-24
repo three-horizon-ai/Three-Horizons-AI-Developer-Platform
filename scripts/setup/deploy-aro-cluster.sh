@@ -98,7 +98,7 @@ collect_parameters() {
     
     # Basic deployment parameters
     RESOURCE_GROUP=$(prompt_with_default "Resource Group Name" "rg-three-horizons-aro")
-    LOCATION=$(prompt_with_default "Azure Region" "eastus2")
+    LOCATION=$(prompt_with_default "Azure Region" "centralus")
     CLUSTER_NAME=$(prompt_with_default "ARO Cluster Name" "aro-three-horizons")
     
     # Network parameters
