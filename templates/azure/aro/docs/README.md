@@ -28,10 +28,10 @@ The deployment uses the following Azure resources:
 ```bash
 # Set environment variables
 RESOURCE_GROUP="three-horizons-devhub"
-LOCATION="eastus"
+LOCATION="centralus"
 ARO_CLUSTER_NAME="devhub-aro"
 ACR_NAME="devhubacr$(date +%s)"
-KEYVAULT_NAME="devhub-kv-$(date +%s)"
+KEYVAULT_NAME="th3horizons$(date +%s)"
 VNET_NAME="devhub-vnet"
 MASTER_SUBNET="master-subnet"
 WORKER_SUBNET="worker-subnet"
@@ -89,6 +89,7 @@ az acr create \
 az keyvault create \
   --resource-group $RESOURCE_GROUP \
   --name $KEYVAULT_NAME \
+  --location $LOCATION \
   --enable-rbac-authorization true
 ```
 
@@ -174,39 +175,37 @@ oc login $API_SERVER -u kubeadmin -p <password>
 # Create project for Developer Hub
 oc new-project developer-hub
 
-# Install the Developer Hub Operator from OperatorHub
+# Install the Red Hat Developer Hub Operator v1.5 from OperatorHub
 oc apply -f - << EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
-  name: developer-hub-operator
+  name: rhdh-operator
   namespace: openshift-operators
 spec:
   channel: stable
-  name: developer-hub-operator
-  source: certified-operators
+  name: rhdh-operator
+  source: redhat-operators
   sourceNamespace: openshift-marketplace
+  startingCSV: rhdh-operator.v1.5.0
 EOF
 
 # Wait for the operator to be installed
-oc get csv -n openshift-operators | grep developer-hub
+oc wait --for=condition=ready pod -l name=rhdh-operator-controller-manager -n openshift-operators --timeout=300s
 ```
 
 ### 11. Deploy Developer Hub
 
 ```bash
-# Create Developer Hub instance
+# Create Developer Hub instance v1.5
 oc apply -f - << EOF
-apiVersion: devhub.io/v1alpha1
-kind: DeveloperHub
+apiVersion: rhdh.redhat.com/v1alpha1
+kind: Backstage
 metadata:
-  name: devhub
+  name: developer-hub
   namespace: developer-hub
 spec:
-  appDomain: devhub.$ARO_DOMAIN
-  global:
-    clusterDomain: $ARO_DOMAIN
-  backend:
+  application:
     replicas: 2
     resources:
       requests:
@@ -215,19 +214,25 @@ spec:
       limits:
         memory: 2Gi
         cpu: 1
-  frontend:
-    replicas: 2
-    resources:
-      requests:
-        memory: 256Mi
-        cpu: 100m
-      limits:
-        memory: 512Mi
-        cpu: 500m
   database:
-    storageClass: managed-premium
-    storageSize: 10Gi
+    enableLocalPostgres: true
+  rbac:
+    enabled: true
+  route:
+    enabled: true
+    host: devhub.$ARO_DOMAIN
+    tls:
+      insecureEdgeTerminationPolicy: Redirect
+      termination: edge
+  extraEnvs:
+    - name: RHDH_CONFIG_APP_CONFIG_app_baseUrl
+      value: "https://devhub.$ARO_DOMAIN"
+    - name: RHDH_DYNAMIC_PLUGINS_BACKEND_DYNAMIC_PLUGINS
+      value: "true"
 EOF
+
+# Wait for the deployment to be ready
+oc wait --for=condition=ready pod -l app=developer-hub -n developer-hub --timeout=300s
 ```
 
 ### 12. Configure Azure AD Integration
@@ -296,18 +301,29 @@ oc create secret generic github-app-credentials \
 
 # Update Developer Hub configuration to use GitHub integration
 oc apply -f - << EOF
-apiVersion: devhub.io/v1alpha1
-kind: DeveloperHubConfig
+apiVersion: rhdh.redhat.com/v1alpha1
+kind: DynamicPlugin
 metadata:
-  name: github-integration
+  name: github-catalog-plugin
   namespace: developer-hub
 spec:
-  github:
-    enabled: true
-    appCredentialsSecret: github-app-credentials
-    organizations:
-    - name: your-github-org
-      visibilityLevel: all
+  disabled: false
+  package:
+    name: '@backstage/plugin-catalog-backend-module-github'
+    version: '0.3.9'
+  pluginConfig:
+  - name: catalog.providers.github
+    data: |
+      {
+        "allowedInstances": ["github.com"],
+        "organization": "your-github-org",
+        "schedule": {
+          "frequency": { "minutes": 30 },
+          "timeout": { "minutes": 3 }
+        },
+        "catalogPath": "/catalog-info.yaml",
+        "visibilityLevel": "all"
+      }
 EOF
 ```
 
