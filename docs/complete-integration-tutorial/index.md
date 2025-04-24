@@ -317,27 +317,34 @@ az keyvault network-rule add \
 Set up Azure Container Registry:
 
 ```bash
-# Create Container Registry with geo-replication
+# Create Container Registry with geo-replication and unique name
+# Using timestamp to ensure uniqueness
+ACR_NAME="threehorizonsreg$(date +%s)"
 az acr create \
-  --name threehorizonsregistry \
+  --name $ACR_NAME \
   --resource-group three-horizons-shared \
   --location centralus \
   --sku Premium \
   --admin-enabled false \
   --tags Environment=Production Project=ThreeHorizons
 
+# Store the ACR name for future use (important for subsequent commands)
+echo "Container Registry name: $ACR_NAME"
+
 # Enable geo-replication for production workloads
 az acr replication create \
-  --registry threehorizonsregistry \
+  --registry $ACR_NAME \
   --location centralus2
 
-# Enable image scanning
+# Enable image scanning (requires appropriate Azure subscription)
 az acr security enable \
-  --registry threehorizonsregistry \
+  --registry $ACR_NAME \
   --name defender
 ```
 
 > 💡 **Best Practice:** For production environments, enable geo-replication for your container registry to improve image pull performance and availability. [Learn more about ACR geo-replication](https://learn.microsoft.com/en-us/azure/container-registry/container-registry-geo-replication).
+
+> ⚠️ **Note on ACR Names:** Azure Container Registry names must be globally unique. We're using a timestamp to ensure name uniqueness. Make sure to store the generated name from the echo command for later use in your deployment scripts.
 
 ### <span style="color: #0366d6;">Step 1.5: Create Managed Identity for Workload Identity</span>
 
