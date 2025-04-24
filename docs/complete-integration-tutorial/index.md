@@ -334,7 +334,10 @@ echo "Container Registry name: $ACR_NAME"
 # Enable geo-replication for production workloads
 az acr replication create \
   --registry $ACR_NAME \
-  --location centralus2
+  --location eastus2
+
+# Note: Make sure to select a valid region for ACR replication. 
+# Common pairs are centralus + eastus2, or westus + eastus for geographic redundancy.
 
 # Enable Microsoft Defender for container registries (via Microsoft Defender for Cloud)
 az security pricing create \
