@@ -395,7 +395,7 @@ az network vnet subnet list \
 az keyvault show --name "$KEY_VAULT_NAME" -o table
 
 # Verify Container Registry
-az acr show --name threehorizonsregistry -o table
+az acr show --name $ACR_NAME -o table  # Use the dynamically generated name from earlier steps
 
 # Verify managed identity
 az identity show --name three-horizons-identity --resource-group three-horizons-shared -o table
