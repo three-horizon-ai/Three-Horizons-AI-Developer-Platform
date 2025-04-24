@@ -502,7 +502,7 @@ az network vnet subnet update \
   --name aro-master-subnet \
   --resource-group three-horizons-platform \
   --vnet-name three-horizons-vnet \
-  --disable-private-link-service-network-policies true
+  --private-link-service-network-policies Disabled
 
 # Create ARO cluster with current OpenShift version
 az aro create \
@@ -528,13 +528,19 @@ az aro show \
   --resource-group three-horizons-platform \
   --query consoleProfile.url -o tsv
 
+# Get the API server URL
+az aro show \
+  --name three-horizons-aro \
+  --resource-group three-horizons-platform \
+  --query apiserverProfile.url -o tsv
+
 # Get login credentials
 az aro list-credentials \
   --name three-horizons-aro \
   --resource-group three-horizons-platform
 
-# Login with oc CLI
-oc login <api-server-url> -u kubeadmin -p <password>
+# Login with oc CLI (substitute with your actual API URL from above)
+oc login "$(az aro show --name three-horizons-aro --resource-group three-horizons-platform --query apiserverProfile.url -o tsv)" -u kubeadmin -p "<password-from-previous-command>" --insecure-skip-tls-verify=true
 
 # Verify connection
 oc get nodes
