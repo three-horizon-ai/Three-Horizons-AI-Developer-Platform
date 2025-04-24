@@ -31,7 +31,7 @@ RESOURCE_GROUP="three-horizons-devhub"
 LOCATION="centralus"
 ARO_CLUSTER_NAME="devhub-aro"
 ACR_NAME="devhubacr$(date +%s)"
-KEYVAULT_NAME="devhub-kv-$(date +%s)"
+KEYVAULT_NAME="devhubkv$(date +%s)"
 VNET_NAME="devhub-vnet"
 MASTER_SUBNET="master-subnet"
 WORKER_SUBNET="worker-subnet"
@@ -89,6 +89,7 @@ az acr create \
 az keyvault create \
   --resource-group $RESOURCE_GROUP \
   --name $KEYVAULT_NAME \
+  --location $LOCATION \
   --enable-rbac-authorization true
 ```
 
@@ -300,18 +301,29 @@ oc create secret generic github-app-credentials \
 
 # Update Developer Hub configuration to use GitHub integration
 oc apply -f - << EOF
-apiVersion: devhub.io/v1alpha1
-kind: DeveloperHubConfig
+apiVersion: rhdh.redhat.com/v1alpha1
+kind: DynamicPlugin
 metadata:
-  name: github-integration
+  name: github-catalog-plugin
   namespace: developer-hub
 spec:
-  github:
-    enabled: true
-    appCredentialsSecret: github-app-credentials
-    organizations:
-    - name: your-github-org
-      visibilityLevel: all
+  disabled: false
+  package:
+    name: '@backstage/plugin-catalog-backend-module-github'
+    version: '0.3.9'
+  pluginConfig:
+  - name: catalog.providers.github
+    data: |
+      {
+        "allowedInstances": ["github.com"],
+        "organization": "your-github-org",
+        "schedule": {
+          "frequency": { "minutes": 30 },
+          "timeout": { "minutes": 3 }
+        },
+        "catalogPath": "/catalog-info.yaml",
+        "visibilityLevel": "all"
+      }
 EOF
 ```
 

@@ -31,7 +31,7 @@ RESOURCE_GROUP="three-horizons-devhub"
 LOCATION="centralus"
 AKS_CLUSTER_NAME="devhub-aks"
 ACR_NAME="devhubacr$(date +%s)"
-KEYVAULT_NAME="devhub-kv-$(date +%s)"
+KEYVAULT_NAME="devhubkv$(date +%s)"
 VNET_NAME="devhub-vnet"
 ```
 
@@ -79,6 +79,7 @@ az acr create \
 az keyvault create \
   --resource-group $RESOURCE_GROUP \
   --name $KEYVAULT_NAME \
+  --location $LOCATION \
   --enable-rbac-authorization true
 ```
 

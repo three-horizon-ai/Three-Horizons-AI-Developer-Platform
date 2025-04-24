@@ -274,7 +274,7 @@ Create an Azure Key Vault to store secrets:
 ```bash
 # Create Key Vault with access policies and network rules
 az keyvault create \
-  --name three-horizons-vault \
+  --name threehorizonsvault \
   --resource-group three-horizons-shared \
   --location centralus \
   --sku standard \
@@ -283,7 +283,7 @@ az keyvault create \
 
 # Configure networking (optional for higher security)
 az keyvault network-rule add \
-  --name three-horizons-vault \
+  --name threehorizonsvault \
   --resource-group three-horizons-shared \
   --vnet-name three-horizons-vnet \
   --subnet services-subnet
@@ -338,7 +338,7 @@ az role assignment create \
   --assignee-object-id $IDENTITY_PRINCIPAL_ID \
   --assignee-principal-type ServicePrincipal \
   --role "Key Vault Secrets User" \
-  --scope $(az keyvault show --name three-horizons-vault --resource-group three-horizons-shared --query id -o tsv)
+  --scope $(az keyvault show --name threehorizonsvault --resource-group three-horizons-shared --query id -o tsv)
 ```
 
 > ⚠️ **Important:** Managed identities are the preferred method for service authentication in Azure. They provide better security than service principals as they don't require secret management. [Learn more about managed identities](https://learn.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview).
@@ -358,7 +358,7 @@ az network vnet subnet list \
   -o table
 
 # Verify Key Vault
-az keyvault show --name three-horizons-vault -o table
+az keyvault show --name threehorizonsvault -o table
 
 # Verify Container Registry
 az acr show --name threehorizonsregistry -o table
@@ -752,7 +752,7 @@ az postgres flexible-server firewall-rule create \
 # Store database credentials in Key Vault
 az keyvault secret set \
   --name db-password \
-  --vault-name three-horizons-vault \
+  --vault-name threehorizonsvault \
   --value "StrongPassword123!"
 
 # Get the database host
@@ -2849,7 +2849,7 @@ az network vnet show \
 
 # Verify Key Vault access policies
 az keyvault show \
-  --name three-horizons-vault \
+  --name threehorizonsvault \
   --resource-group three-horizons-shared \
   --query "properties.accessPolicies[].{ObjectId:objectId, Permissions:permissions}" \
   -o json
