@@ -1,0 +1,16 @@
+apiVersion: rhdh.redhat.com/v1alpha1
+kind: DynamicPlugin
+metadata:
+  name: github-scaffolder-plugin
+  namespace: developer-hub
+spec:
+  disabled: false
+  package:
+    name: '@backstage/plugin-scaffolder-backend-module-github'
+  pluginConfig:
+  - name: scaffolder.github
+    data: |
+      {
+        "visibility": "public",
+        "repoVisibility": "public"
+      } 

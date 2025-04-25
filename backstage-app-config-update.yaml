@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backstage-appconfig-developer-hub
+  namespace: developer-hub
+data:
+  default.app-config.yaml: |
+    app:
+      title: Red Hat Developer Hub
+      baseUrl: https://backstage-developer-hub-developer-hub.apps.n2l2jc9a.centralus.aroapp.io
+
+    organization:
+      name: Three Horizons
+
+    backend:
+      baseUrl: https://backstage-developer-hub-developer-hub.apps.n2l2jc9a.centralus.aroapp.io
+      cors:
+        origin: https://backstage-developer-hub-developer-hub.apps.n2l2jc9a.centralus.aroapp.io
+      database:
+        client: pg
+        connection:
+          host: ${POSTGRES_HOST}
+          port: ${POSTGRES_PORT}
+          user: ${POSTGRES_USER}
+          password: ${POSTGRES_PASSWORD}
+          database: ${POSTGRES_DB}
+
+    auth:
+      environment: production
+      providers:
+        github:
+          production:
+            clientId: ${AUTH_GITHUB_CLIENT_ID}
+            clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
+            signIn:
+              resolvers:
+                - resolver: usernameMatchingUserEntityName
+                  dangerouslyAllowSignInWithoutUserInCatalog: true
+
+    catalog:
+      providers:
+        github:
+          allowedInstances: ["github.com"]
+          organization: ${GITHUB_ORGANIZATION}
+          schedule:
+            frequency:
+              minutes: 30
+            timeout:
+              minutes: 3
+          catalogPath: /catalog-info.yaml
+          validateLocationsExist: true
+
+    scaffolder:
+      github:
+        visibility: public
+        repoVisibility: public 

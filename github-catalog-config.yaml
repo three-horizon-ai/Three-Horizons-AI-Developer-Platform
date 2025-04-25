@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backstage-github-catalog-config
+  namespace: developer-hub
+data:
+  app-config.yaml: |
+    catalog:
+      providers:
+        github:
+          allowedInstances: ["github.com"]
+          organization: ${GITHUB_ORGANIZATION}
+          schedule:
+            frequency:
+              minutes: 30
+            timeout:
+              minutes: 3
+          catalogPath: /catalog-info.yaml
+          validateLocationsExist: true 
