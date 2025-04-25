@@ -1006,74 +1006,207 @@ Access the Developer Hub at https://devhub.example.com (replace with your domain
 
 In this phase, we'll integrate your GitHub Enterprise Cloud instance with the Three Horizons Platform.
 
-### <span style="color: #0366d6;">Step 4.1: Create GitHub OAuth App</span>
+### <span style="color: #0366d6;">Step 4.1: Create GitHub App</span>
 
-1. Go to your GitHub Enterprise instance (or github.com for your organization)
-2. Navigate to Settings > Developer Settings > OAuth Apps > New OAuth App
+Instead of using OAuth apps, we'll create a GitHub App for better security, fine-grained permissions, and short-lived tokens.
+
+1. Go to your GitHub organization (or github.com for your organization)
+2. Navigate to **Settings > Developer Settings > GitHub Apps > New GitHub App**
 3. Fill in the following:
-   - Application name: Three Horizons Platform
-   - Homepage URL: https://devhub.example.com
-   - Authorization callback URL: https://devhub.example.com/api/auth/github/handler/frame
-   - Enable Device Flow: Yes (check this option)
-4. Register the application and note the Client ID
-5. Generate a new client secret and save it securely
+   - **GitHub App name**: Enter a unique name (e.g., `ThreeHorizons-RHDH-<GUID>`)
+   - **Homepage URL**: Your Developer Hub URL `https://devhub.example.com`
+   - **Authorization callback URL**: `https://devhub.example.com/api/auth/github/handler/frame`
+   - **Webhook URL**: Your Developer Hub URL `https://devhub.example.com`
+   - **Webhook secret**: Generate and save a strong secret
+4. Configure **Repository permissions** with **Read-only** access to:
+   - Administration
+   - Commit statuses
+   - Contents
+   - Dependabot alerts
+   - Deployments
+   - Pull Requests
+   - Webhooks
 
-> 📝 **Note:** For GitHub Enterprise Cloud, follow the [enterprise OAuth app documentation](https://docs.github.com/en/enterprise-cloud@latest/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app).
+   > 📝 **Note:** If you plan to make changes using the GitHub API, upgrade permissions to **Read and write** as needed.
 
-### <span style="color: #0366d6;">Step 4.2: Configure Developer Hub for GitHub Authentication</span>
+5. Configure **Organization permissions** with **Read-only** access to:
+   - Members
+6. For **Where can this GitHub App be installed?**, select **Only on this account**
+7. Click **Create GitHub App**
+8. In the **General > Client secrets** section, click **Generate a new client secret**
+9. In the **General > Private keys** section, click **Generate a private key** (this will download a `.pem` file)
+10. In the **Install App** tab, choose an account to install your GitHub App
+11. Save the following values for the next step:
+    - App ID
+    - Client ID
+    - Client secret
+    - Private key (from the downloaded .pem file)
+    - Webhook secret
+
+> 🔐 **Security Note:** The GitHub App approach provides better security through fine-grained permissions and short-lived tokens compared to OAuth apps or personal access tokens.
+
+### <span style="color: #0366d6;">Step 4.2: Configure Secrets for GitHub Integration</span>
+
+Create Kubernetes secrets to store the GitHub App credentials:
 
 ```bash
-# Create GitHub secrets
-kubectl create secret generic github-oauth \
-  --namespace developer-hub \
-  --from-literal=client-id=<your-client-id> \
-  --from-literal=client-secret=<your-client-secret>
+# Create a namespace for secrets if not already created
+kubectl create namespace developer-hub
 
-# Update Developer Hub configuration (apply dynamic plugins configuration)
+# Create secrets for GitHub integration
+kubectl create secret generic github-app-credentials \
+  --namespace developer-hub \
+  --from-literal=AUTH_GITHUB_APP_ID='<your-app-id>' \
+  --from-literal=AUTH_GITHUB_CLIENT_ID='<your-client-id>' \
+  --from-literal=GITHUB_HOST_DOMAIN='github.com' \
+  --from-literal=GITHUB_ORGANIZATION='your-org-name' \
+  --from-literal=GITHUB_ORG_URL='github.com/your-org-name' \
+  --from-literal=GITHUB_CLIENT_SECRET='<your-client-secret>' \
+  --from-literal=GITHUB_WEBHOOK_URL='https://devhub.example.com' \
+  --from-literal=GITHUB_WEBHOOK_SECRET='<your-webhook-secret>'
+
+# Create a separate secret for the private key due to its format
+kubectl create secret generic github-private-key \
+  --namespace developer-hub \
+  --from-file=GITHUB_PRIVATE_KEY_FILE=<path-to-your-downloaded-pem-file>
+```
+
+> ⚠️ **Warning:** Replace all placeholder values with your actual GitHub App credentials. For production environments, consider using a more secure method to manage secrets, such as retrieving them from Key Vault using managed identities.
+
+### <span style="color: #0366d6;">Step 4.3: Configure Developer Hub for GitHub Authentication</span>
+
+Create a ConfigMap to configure GitHub authentication in Developer Hub:
+
+```bash
+# Create a ConfigMap for GitHub authentication
 kubectl apply -f - <<EOF
-apiVersion: rhdh.redhat.com/v1alpha1
-kind: DynamicPlugin
+apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: github-auth-plugin
+  name: app-config-github-auth
   namespace: developer-hub
-spec:
-  disabled: false
-  package: 
-    name: '@backstage/plugin-auth-backend'
-    version: '0.19.3'
-  pluginConfig:
-  - name: auth.providers.github
-    data: |
-      {
-        "clientId": "\${GITHUB_CLIENT_ID}",
-        "clientSecret": "\${GITHUB_CLIENT_SECRET}"
-      }
-  deployment:
-    env: 
-    - name: GITHUB_CLIENT_ID
-      valueFrom:
-        secretKeyRef:
-          name: github-oauth
-          key: client-id
-    - name: GITHUB_CLIENT_SECRET
-      valueFrom:
-        secretKeyRef:
-          name: github-oauth
-          key: client-secret
+data:
+  app-config-github-auth.yaml: |
+    auth:
+      environment: production
+      providers:
+        github:
+          production:
+            clientId: \${AUTH_GITHUB_CLIENT_ID}
+            clientSecret: \${AUTH_GITHUB_CLIENT_SECRET}
+    integrations:
+      github:
+        - host: \${GITHUB_HOST_DOMAIN}
+          apps:
+            - appId: \${AUTH_GITHUB_APP_ID}
+              clientId: \${AUTH_GITHUB_CLIENT_ID}
+              clientSecret: \${GITHUB_CLIENT_SECRET}
+              webhookUrl: \${GITHUB_WEBHOOK_URL}
+              webhookSecret: \${GITHUB_WEBHOOK_SECRET}
+              privateKey: |
+                \${GITHUB_PRIVATE_KEY_FILE}
+    signInPage: github
 EOF
 ```
 
-> 🔍 **Learn More:** See [GitHub Enterprise integration](https://backstage.io/docs/integrations/github/github-apps) in the Backstage documentation.
+Setting `environment: production` disables the Guest login option, making GitHub the primary authentication method. To allow users to sign in without being pre-registered in the Developer Hub catalog (useful for testing but not recommended for production), add the following configuration:
 
-### <span style="color: #0366d6;">Step 4.3: Configure GitHub Integration for Software Catalog</span>
+```yaml
+auth:
+  environment: production
+  providers:
+    github:
+      production:
+        clientId: ${AUTH_GITHUB_CLIENT_ID}
+        clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
+        signIn:
+          resolvers:
+            - resolver: usernameMatchingUserEntityName
+              dangerouslyAllowSignInWithoutUserInCatalog: true
+```
+
+> 🔍 **Learn More:** See [GitHub App authentication](https://backstage.io/docs/auth/github/provider) in the Backstage documentation for additional configuration options.
+
+### <span style="color: #0366d6;">Step 4.4: Configure User Provisioning from GitHub</span>
+
+To automatically provision users from GitHub to the Developer Hub software catalog:
 
 ```bash
-# Create GitHub integration token secret
-kubectl create secret generic github-token \
-  --namespace developer-hub \
-  --from-literal=token=<your-personal-access-token>
+# Create a ConfigMap for GitHub user provisioning
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config-github-users
+  namespace: developer-hub
+data:
+  app-config-github-users.yaml: |
+    catalog:
+      providers:
+        github:
+          providerId:
+            organization: "\${GITHUB_ORGANIZATION}"
+            schedule:
+              frequency:
+                minutes: 30
+              initialDelay:
+                seconds: 15
+              timeout:
+                minutes: 15
+        githubOrg:
+          githubUrl: "\${GITHUB_HOST_DOMAIN}"
+          orgs: [ "\${GITHUB_ORGANIZATION}" ]
+          schedule:
+            frequency:
+              minutes: 30
+            initialDelay:
+              seconds: 15
+            timeout:
+              minutes: 15
+EOF
+```
 
-# Configure software catalog with dynamic plugins
+This configuration synchronizes GitHub organization members to the Developer Hub software catalog every 30 minutes, allowing them to authenticate and use the platform.
+
+> 📝 **Note:** Adjust the synchronization schedule as needed for your environment. For larger organizations, consider increasing the timeout values.
+
+### <span style="color: #0366d6;">Step 4.5: Add Configurations to Developer Hub Instance</span>
+
+Update the Red Hat Developer Hub instance to include the GitHub authentication and user provisioning configurations:
+
+```bash
+# Update the Developer Hub instance to include GitHub configuration
+kubectl patch backstage developer-hub -n developer-hub --type=merge -p '{"spec": {"extraFiles": [{"configMap": {"name": "app-config-github-auth"}}, {"configMap": {"name": "app-config-github-users"}}]}}'
+```
+
+Alternatively, include the configuration in the initial Developer Hub deployment (from Phase 3):
+
+```yaml
+apiVersion: rhdh.redhat.com/v1alpha1
+kind: Backstage
+metadata:
+  name: developer-hub
+  namespace: developer-hub
+spec:
+  application:
+    # ... existing configuration ...
+  database:
+    # ... existing configuration ...
+  extraFiles:
+    - configMapRef:
+        name: app-config-github-auth
+    - configMapRef:
+        name: app-config-github-users
+```
+
+> ⚠️ **Note:** After applying this configuration, the Developer Hub pod will restart to load the new settings. Monitor the pod status to ensure it restarts successfully.
+
+### <span style="color: #0366d6;">Step 4.6: Configure GitHub Integration Plugins</span>
+
+Red Hat Developer Hub 1.5 supports dynamic plugins for GitHub integration. Set up the catalog and scaffolder plugins:
+
+```bash
+# Configure GitHub catalog integration plugin
 kubectl apply -f - <<EOF
 apiVersion: rhdh.redhat.com/v1alpha1
 kind: DynamicPlugin
@@ -1090,7 +1223,7 @@ spec:
     data: |
       {
         "allowedInstances": ["github.com"],
-        "organization": "your-org-name",
+        "organization": "\${GITHUB_ORGANIZATION}",
         "schedule": {
           "frequency": { "minutes": 30 },
           "timeout": { "minutes": 3 }
@@ -1100,17 +1233,62 @@ spec:
       }
   deployment:
     env:
-    - name: GITHUB_TOKEN
+    - name: GITHUB_ORGANIZATION
       valueFrom:
         secretKeyRef:
-          name: github-token
-          key: token
+          name: github-app-credentials
+          key: GITHUB_ORGANIZATION
+EOF
+
+# Configure GitHub scaffolder (templates) plugin
+kubectl apply -f - <<EOF
+apiVersion: rhdh.redhat.com/v1alpha1
+kind: DynamicPlugin
+metadata:
+  name: github-scaffolder-plugin
+  namespace: developer-hub
+spec:
+  disabled: false
+  package:
+    name: '@backstage/plugin-scaffolder-backend-module-github'
+  pluginConfig:
+  - name: scaffolder.github
+    data: |
+      {
+        "visibility": "public",
+        "repoVisibility": "public"
+      }
 EOF
 ```
 
-> 🔐 **Security Note:** For production, use GitHub Apps instead of personal access tokens for better security and auditability. See the [GitHub Apps integration guide](https://docs.github.com/en/apps/creating-github-apps/about-creating-github-apps/about-creating-github-apps).
+This configuration enables Developer Hub to discover and import repositories from your GitHub organization and to create new repositories when using software templates.
 
-### <span style="color: #0366d6;">Step 4.4: Configure Technical Documentation with TechDocs</span>
+> 📝 **Note:** For private repositories, change the `visibility` and `repoVisibility` values to `"private"` in the scaffolder plugin configuration.
+
+### <span style="color: #0366d6;">Step 4.7: Validate GitHub Integration</span>
+
+Validate your GitHub integration:
+
+1. Access the Developer Hub at `https://devhub.example.com`
+2. You should see the GitHub login option instead of the Guest login
+3. Sign in with a GitHub account from your organization
+4. Navigate to the **Settings** page and verify that your GitHub identity is displayed
+5. Navigate to the **Catalog** section and verify that GitHub repositories with `catalog-info.yaml` files are being imported
+6. Check the Developer Hub logs to confirm successful GitHub authentication and API calls:
+
+```bash
+# Check Developer Hub logs for GitHub integration
+kubectl logs -n developer-hub deployment/developer-hub | grep "github"
+
+# Verify that user synchronization is working
+kubectl logs -n developer-hub deployment/developer-hub | grep "GithubMultiOrgEntityProvider"
+```
+
+A successful GitHub integration will show user authentication events and repository discovery in the logs.
+
+> 📚 **Reference Documentation:** For comprehensive details on GitHub authentication with Red Hat Developer Hub, refer to the [official Red Hat documentation](https://docs.redhat.com/en/documentation/red_hat_developer_hub/1.5/html/authentication_in_red_hat_developer_hub/authenticating-with-github).
+
+### <span style="color: #0366d6;">Step 4.8: Configure Technical Documentation with TechDocs</span>
 
 TechDocs is an essential component of Red Hat Developer Hub 1.5 that enables creating and managing documentation as code.
 
@@ -1201,7 +1379,7 @@ EOF
 
 This example configures TechDocs with local documentation generation. For production environments, it's recommended to use solutions like AWS S3, Google Cloud Storage, or Azure Blob Storage for storing generated documentation.
 
-### <span style="color: #0366d6;">Step 4.5: Configure Templates Repository</span>
+### <span style="color: #0366d6;">Step 4.9: Configure Templates Repository</span>
 
 ```bash
 # Create a templates repository in your GitHub organization
@@ -1253,7 +1431,7 @@ spec:
 EOF
 ```
 
-### <span style="color: #0366d6;">Step 4.5: Configure GitHub Copilot</span>
+### <span style="color: #0366d6;">Step 4.10: Configure GitHub Copilot</span>
 
 GitHub Copilot is a transformative AI pair programmer that significantly enhances developer productivity. This section provides detailed guidance on integrating Copilot with the Three Horizons Platform.
 
@@ -1366,7 +1544,7 @@ Validate your GitHub integration:
 5. Test creating a new component from a template
 6. Verify GitHub Copilot is enabled for your organization by opening a code file in GitHub Codespaces or in a local editor with the GitHub Copilot extension
 
-### <span style="color: #0366d6;">Step 4.6: Configure Security Scanning Plugin</span>
+### <span style="color: #0366d6;">Step 4.11: Configure Security Scanning Plugin</span>
 
 Red Hat Developer Hub version 1.5 offers enhanced integration with security tools. Let's configure the security analysis plugin:
 
