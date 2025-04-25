@@ -812,8 +812,35 @@ RHDH 1.5 includes the following plugins that can be enabled as needed:
 
 For production environments, we recommend using a managed database service:
 
+> **PostgreSQL Setup Options:**
+> 
+> 1. **Option A: Use our automated setup script (Recommended):**
+>    ```bash
+>    # Execute our automated PostgreSQL setup script
+>    ./scripts/setup-postgres.sh
+>    ```
+>    This script provides an interactive setup process with validation checks.
+> 
+> 2. **Option B: Manual setup with individual commands:**
+
+> **Prerequisites:**
+> - Azure CLI installed and configured (`az --version` to verify)
+> - Logged into Azure (`az login`)
+> - Resource group "three-horizons-shared" already created
+> - Key Vault created and available
+
 ```bash
+# First, ensure you're logged into Azure and set KEY_VAULT_NAME
+if ! az account show &>/dev/null; then
+  echo "Please log in to your Azure account"
+  az login
+fi
+
+# Set your Key Vault name - replace with your actual Key Vault name
+KEY_VAULT_NAME="your-key-vault-name"
+
 # Create Azure Database for PostgreSQL flexible server
+# Run these commands one at a time to avoid issues with multiline commands
 az postgres flexible-server create \
   --resource-group three-horizons-shared \
   --name three-horizons-psql \
@@ -836,26 +863,39 @@ az postgres flexible-server firewall-rule create \
   --start-ip-address 0.0.0.0 \
   --end-ip-address 0.0.0.0
 
-# Store database credentials in Key Vault
+# Store database credentials in Key Vault (ensure KEY_VAULT_NAME is set correctly)
 az keyvault secret set \
   --name db-password \
   --vault-name "$KEY_VAULT_NAME" \
   --value "StrongPassword123!"
 
-# Get the database host
+# Get the database host and store it in a variable
 DB_HOST=$(az postgres flexible-server show \
   --resource-group three-horizons-shared \
   --name three-horizons-psql \
   --query fullyQualifiedDomainName \
   --output tsv)
 
+# Verify that DB_HOST is set correctly
+echo "Database Host: $DB_HOST"
+
 # Create Kubernetes secret for database connection
 kubectl create secret generic developer-hub-postgres \
   --namespace developer-hub \
   --from-literal=postgres-password="StrongPassword123!"
+
+# Verify the secret was created successfully
+kubectl get secret developer-hub-postgres -n developer-hub
 ```
 
 > ⚠️ **Warning:** For production, use a more secure method to manage passwords, such as retrieving them from Key Vault using managed identities.
+>
+> **Troubleshooting:**
+> - If you face issues with multiline commands, try running each command separately
+> - If you see "dquote>" prompts, press Ctrl+C and restart the command
+> - For ARM-based Mac users, ensure Azure CLI is installed via Homebrew or the official installer
+> - If the resource group doesn't exist, create it first with: `az group create --name three-horizons-shared --location centralus`
+> - If terminal issues persist, use our automated script: `./scripts/setup-postgres.sh`
 
 ### <span style="color: #0366d6;">Step 3.4: Deploy Developer Hub Instance</span>
 
