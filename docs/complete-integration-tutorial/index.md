@@ -611,9 +611,10 @@ EOF
 
 ### <span style="color: #0366d6;">Step 2.5: Install Ingress Controller</span>
 
-Install an ingress controller to manage external access:
+> **Note**: For ARO/OpenShift clusters, you can skip this step as OpenShift already includes a built-in Ingress Controller (OpenShift Routes).
 
 ```bash
+# Only for AKS clusters:
 # Install NGINX Ingress Controller
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
@@ -631,6 +632,52 @@ helm install ingress-nginx ingress-nginx/ingress-nginx \
 ### <span style="color: #0366d6;">Horizon 1 (Foundation) Validation</span>
 
 Validate your platform installation:
+
+#### <span style="color: #0366d6;">ARO/OpenShift Cluster Validation</span>
+
+```bash
+# Verify node health
+oc get nodes
+
+# Verify cluster operators status
+oc get clusteroperators
+
+# Verify built-in Ingress Controller  
+oc get ingresscontroller -n openshift-ingress-operator
+
+# Verify default route
+oc get route -n openshift-console console
+
+# Verify storage classes
+oc get storageclass
+
+# Verify the azure-file-rwx storage class was created successfully
+oc get storageclass azure-file-rwx -o yaml
+
+# Test persistent volume claims
+cat <<EOF | oc apply -f -
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: validation-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: managed-csi
+EOF
+
+# Check PVC status (should show Bound after a moment)
+oc get pvc validation-pvc
+
+# Clean up test PVC
+oc delete pvc validation-pvc
+```
+
+#### <span style="color: #0366d6;">AKS Cluster Validation</span>
 
 ```bash
 # Verify node health
@@ -656,8 +703,8 @@ Now let's deploy the Red Hat Developer Hub (RHDH) version 1.5, which is the cent
 # For AKS
 curl -sL https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.26.0/install.sh | bash -s v0.26.0
 
-# For ARO, OLM is already installed
-oc get pods -n openshift-operator-lifecycle-management
+# For ARO, OLM is already installed - verify with:
+oc get pods -n openshift-operator-lifecycle-manager
 ```
 
 ### <span style="color: #0366d6;">Step 3.2: Install Developer Hub Operator</span>
@@ -683,16 +730,14 @@ spec:
       interval: 30m
 EOF
 
-# For AKS: Create OperatorGroup
+# Create OperatorGroup
 cat <<EOF | kubectl apply -f -
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
   name: developer-hub-operatorgroup
   namespace: developer-hub
-spec:
-  targetNamespaces:
-  - developer-hub
+spec: {}
 EOF
 
 # Deploy Developer Hub Operator v1.5
@@ -703,16 +748,18 @@ metadata:
   name: rhdh-operator
   namespace: developer-hub
 spec:
-  channel: stable
-  name: rhdh-operator
+  channel: fast-1.5
+  name: rhdh
   source: redhat-operators
-  sourceNamespace: olm
-  startingCSV: rhdh-operator.v1.5.0
+  sourceNamespace: openshift-marketplace
 EOF
 
+# For ARO, OLM is already installed so you only need to create the OperatorGroup and Subscription
 # Wait for the operator to be installed
-kubectl wait --for=condition=ready pod -l name=rhdh-operator-controller-manager -n developer-hub --timeout=300s
+kubectl wait --for=condition=ready pod -l app=rhdh-operator -n developer-hub --timeout=300s
 ```
+
+> 📘 **Note:** For ARO/OpenShift clusters, the Operator Lifecycle Manager (OLM) is already installed. You only need to create the OperatorGroup and Subscription. The correct channel for RHDH 1.5 is "fast-1.5".
 
 > 📘 **Reference:** For detailed operator configuration, see the [Red Hat Developer Hub documentation](https://developers.redhat.com/rhdh/1.5/getting_started).
 
