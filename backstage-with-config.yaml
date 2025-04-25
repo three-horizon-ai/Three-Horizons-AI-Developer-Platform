@@ -1,0 +1,25 @@
+apiVersion: rhdh.redhat.com/v1alpha3
+kind: Backstage
+metadata:
+  name: developer-hub
+  namespace: developer-hub
+spec:
+  application:
+    replicas: 2
+  database:
+    enableLocalDb: true
+  extraFiles:
+    - configMap:
+        name: auth-config
+      mountPath: /opt/app-root/src
+  extraEnvs:
+    - name: RHDH_CONFIG_APP_CONFIG_app_baseUrl
+      value: "https://backstage-developer-hub-developer-hub.apps.n2l2jc9a.centralus.aroapp.io"
+    - name: RHDH_DYNAMIC_PLUGINS_BACKEND_DYNAMIC_PLUGINS
+      value: "true"
+    - name: RHDH_CONFIG_APP_CONFIG_auth_environment
+      value: "development"
+    - name: RHDH_CONFIG_APP_CONFIG_backend_auth_environment
+      value: "development"
+    - name: APP_CONFIG_auth
+      value: "/opt/app-root/src/auth.yaml" 
