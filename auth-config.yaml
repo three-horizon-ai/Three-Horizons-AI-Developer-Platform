@@ -1,0 +1,14 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: auth-config
+  namespace: developer-hub
+data:
+  auth.yaml: |
+    auth:
+      environment: development
+      providers:
+        github:
+          development:
+            clientId: Ov23ctoxkunRhv6Z8FNU
+            clientSecret: 2c5a5d4ed40d65b7aee601cc299dde1c931b0ae6
