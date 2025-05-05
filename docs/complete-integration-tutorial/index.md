@@ -810,27 +810,23 @@ RHDH 1.5 includes the following plugins that can be enabled as needed:
 
 ### <span style="color: #0366d6;">Step 3.3: Configure Managed Database</span>
 
-For production environments, we recommend using a managed database service:
-
-> **PostgreSQL Setup Options:**
-> 
-> 1. **Option A: Use our automated setup script (Recommended):**
->    ```bash
->    # Execute our automated PostgreSQL setup script
->    ./scripts/setup-postgres.sh
->    ```
->    This script provides an interactive setup process with validation checks.
-> 
-> 2. **Option B: Manual setup with individual commands:**
-
-> **Prerequisites:**
-> - Azure CLI installed and configured (`az --version` to verify)
-> - Logged into Azure (`az login`)
-> - Resource group "three-horizons-shared" already created
-> - Key Vault created and available
+For production environments, we recommend using a managed database service. You can use our automated script which now includes a timestamp in the server name to ensure uniqueness:
 
 ```bash
-# First, ensure you're logged into Azure and set KEY_VAULT_NAME
+# Execute the PostgreSQL setup script
+./scripts/setup-postgres.sh
+```
+
+This script will:
+1. Create an Azure Database for PostgreSQL flexible server with a unique timestamp-based name
+2. Configure appropriate firewall rules
+3. Store credentials in Azure Key Vault (optional)
+4. Create necessary Kubernetes secrets
+
+Alternatively, you can configure the database manually with these commands:
+
+```bash
+# Login to Azure if not already logged in
 if ! az account show &>/dev/null; then
   echo "Please log in to your Azure account"
   az login
@@ -839,18 +835,22 @@ fi
 # Set your Key Vault name - replace with your actual Key Vault name
 KEY_VAULT_NAME="your-key-vault-name"
 
+# Generate a unique timestamp for the server name to avoid naming conflicts
+TIMESTAMP=$(date +"%m%d%H%M")
+DB_SERVER_NAME="backstagedb-${TIMESTAMP}"
+
 # Create Azure Database for PostgreSQL flexible server
 # Run these commands one at a time to avoid issues with multiline commands
 az postgres flexible-server create \
   --resource-group three-horizons-shared \
-  --name three-horizons-psql \
+  --name ${DB_SERVER_NAME} \
   --admin-user backstage \
   --admin-password "StrongPassword123!" \
   --sku-name Standard_D2s_v3 \
   --tier GeneralPurpose \
   --storage-size 32 \
   --version 14 \
-  --high-availability Enabled \
+  --high-availability ZoneRedundant \
   --location centralus \
   --database-name backstage \
   --tags Environment=Production Project=ThreeHorizons
@@ -858,7 +858,7 @@ az postgres flexible-server create \
 # Configure firewall rule to allow Azure services
 az postgres flexible-server firewall-rule create \
   --resource-group three-horizons-shared \
-  --name three-horizons-psql \
+  --name ${DB_SERVER_NAME} \
   --rule-name AllowAzureServices \
   --start-ip-address 0.0.0.0 \
   --end-ip-address 0.0.0.0
@@ -872,7 +872,7 @@ az keyvault secret set \
 # Get the database host and store it in a variable
 DB_HOST=$(az postgres flexible-server show \
   --resource-group three-horizons-shared \
-  --name three-horizons-psql \
+  --name ${DB_SERVER_NAME} \
   --query fullyQualifiedDomainName \
   --output tsv)
 
@@ -889,6 +889,11 @@ kubectl get secret developer-hub-postgres -n developer-hub
 ```
 
 > ⚠️ **Warning:** For production, use a more secure method to manage passwords, such as retrieving them from Key Vault using managed identities.
+>
+> **Why we use timestamp-based naming:**
+> - Azure PostgreSQL server names must be globally unique across all Azure
+> - Using a timestamp in the name prevents conflicts when multiple users follow this guide
+> - The format is `backstagedb-MMDDHHMM` (month, day, hour, minute)
 >
 > **Troubleshooting:**
 > - If you face issues with multiline commands, try running each command separately

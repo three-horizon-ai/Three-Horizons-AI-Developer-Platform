@@ -26,10 +26,12 @@ fi
 
 # Default values
 DEFAULT_RESOURCE_GROUP="three-horizons-shared"
-DEFAULT_DB_NAME="three-horizons-psql"
+# Add timestamp to database name for uniqueness
+TIMESTAMP=$(date +"%m%d%H%M")
+DEFAULT_DB_NAME="backstagedb-${TIMESTAMP}"
 DEFAULT_LOCATION="centralus"
 DEFAULT_ADMIN_USER="backstage"
-DEFAULT_DB_NAME="backstage"
+DEFAULT_DATABASE_NAME="backstage"
 DEFAULT_KEY_VAULT_NAME=""
 
 # Get configuration from user
@@ -47,8 +49,8 @@ LOCATION=${LOCATION:-$DEFAULT_LOCATION}
 read -p "Admin Username [$DEFAULT_ADMIN_USER]: " ADMIN_USER
 ADMIN_USER=${ADMIN_USER:-$DEFAULT_ADMIN_USER}
 
-read -p "Database Name [$DEFAULT_DB_NAME]: " DATABASE_NAME
-DATABASE_NAME=${DATABASE_NAME:-$DEFAULT_DB_NAME}
+read -p "Database Name [$DEFAULT_DATABASE_NAME]: " DATABASE_NAME
+DATABASE_NAME=${DATABASE_NAME:-$DEFAULT_DATABASE_NAME}
 
 read -sp "Admin Password (leave empty for auto-generated): " ADMIN_PASSWORD
 echo ""
@@ -102,7 +104,7 @@ az postgres flexible-server create \
   --tier GeneralPurpose \
   --storage-size 32 \
   --version 14 \
-  --high-availability Enabled \
+  --high-availability ZoneRedundant \
   --location "$LOCATION" \
   --database-name "$DATABASE_NAME" \
   --tags Environment=Production Project=ThreeHorizons \
