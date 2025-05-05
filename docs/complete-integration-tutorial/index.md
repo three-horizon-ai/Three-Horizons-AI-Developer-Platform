@@ -284,6 +284,15 @@ az keyvault create \
 # Capture the Key Vault name for future use
 KEY_VAULT_NAME=$(az keyvault list --resource-group three-horizons-shared --query "[0].name" -o tsv)
 
+# Important: Assign yourself the necessary permissions to manage secrets
+az role assignment create \
+  --role "Key Vault Secrets Officer" \
+  --assignee "$(az account show --query user.name -o tsv)" \
+  --scope "$(az keyvault show --name "$KEY_VAULT_NAME" --resource-group three-horizons-shared --query id -o tsv)"
+
+# Note: The RBAC role assignment may take 5-15 minutes to propagate through the system
+echo "Key Vault permission assigned. Please wait 5-15 minutes for RBAC permissions to propagate."
+
 # Configure networking (optional for higher security)
 # First, enable KeyVault service endpoint on the subnet
 az network vnet subnet update \
@@ -311,6 +320,10 @@ az keyvault network-rule add \
 ```
 
 > 🔐 **Note on Key Vault Names:** Azure Key Vault names must be globally unique and cannot contain hyphens or spaces. We're using a timestamp to ensure name uniqueness. In production environments, consider using a more planned naming scheme for your resources.
+>
+> ⚠️ **Important - Key Vault Permissions:** When using RBAC for Key Vault, you must explicitly assign the "Key Vault Secrets Officer" role to any user or service principal that needs to manage secrets. Without this permission, you'll receive a "Caller is not authorized to perform action on resource" error when trying to access or modify secrets.
+>
+> 💡 **Troubleshooting - Permission Delay:** After assigning RBAC permissions, there is typically a 5-15 minute delay before they become effective. If you receive permission errors immediately after assigning a role, wait several minutes and try again.
 
 ### <span style="color: #0366d6;">Step 1.4: Create Container Registry</span>
 
@@ -835,6 +848,14 @@ fi
 # Set your Key Vault name - replace with your actual Key Vault name
 KEY_VAULT_NAME="your-key-vault-name"
 
+# Verify you have the required Key Vault permissions
+# If you receive permission errors, run this command:
+az role assignment create \
+  --role "Key Vault Secrets Officer" \
+  --assignee "$(az account show --query user.name -o tsv)" \
+  --scope "$(az keyvault show --name "$KEY_VAULT_NAME" --resource-group three-horizons-shared --query id -o tsv)"
+# Then wait 5-15 minutes for the permissions to propagate
+
 # Generate a unique timestamp for the server name to avoid naming conflicts
 TIMESTAMP=$(date +"%m%d%H%M")
 DB_SERVER_NAME="backstagedb-${TIMESTAMP}"
@@ -895,7 +916,13 @@ kubectl get secret developer-hub-postgres -n developer-hub
 > - Using a timestamp in the name prevents conflicts when multiple users follow this guide
 > - The format is `backstagedb-MMDDHHMM` (month, day, hour, minute)
 >
-> **Troubleshooting:**
+> **Key Vault Permission Troubleshooting:**
+> - If you receive "Caller is not authorized" errors when accessing Key Vault, verify your permissions
+> - The required role for managing secrets is "Key Vault Secrets Officer"
+> - After assigning permissions, wait 5-15 minutes for RBAC propagation before retrying
+> - For immediate progress, you can temporarily skip Key Vault integration by using passwords directly in secrets
+>
+> **General Troubleshooting:**
 > - If you face issues with multiline commands, try running each command separately
 > - If you see "dquote>" prompts, press Ctrl+C and restart the command
 > - For ARM-based Mac users, ensure Azure CLI is installed via Homebrew or the official installer
@@ -905,6 +932,27 @@ kubectl get secret developer-hub-postgres -n developer-hub
 ### <span style="color: #0366d6;">Step 3.4: Deploy Developer Hub Instance</span>
 
 ```bash
+# Get the PostgreSQL password from Key Vault
+# Note: If you encounter permission errors here, ensure you have "Key Vault Secrets User" role or use an alternative approach
+DB_PASSWORD=$(az keyvault secret show --name db-password --vault-name "$KEY_VAULT_NAME" --query value -o tsv 2>/dev/null)
+
+# If retrieving from Key Vault fails, use alternative approach
+if [ -z "$DB_PASSWORD" ]; then
+  echo "Warning: Could not retrieve password from Key Vault. Using alternative approach."
+  echo "This could be due to permission issues or Key Vault configuration."
+  echo "For production environments, resolve Key Vault permissions before proceeding."
+  
+  # Use an environment variable or prompt for password instead
+  read -sp "Enter PostgreSQL password (same as used in database creation): " DB_PASSWORD
+  echo ""
+fi
+
+# Create Kubernetes secret for database connection using the password from Key Vault
+kubectl create secret generic developer-hub-postgres \
+  --namespace developer-hub \
+  --from-literal=postgres-password="$DB_PASSWORD" \
+  --dry-run=client -o yaml | kubectl apply -f -
+
 # Deploy Red Hat Developer Hub instance v1.5
 kubectl apply -f - <<EOF
 apiVersion: rhdh.redhat.com/v1alpha1
@@ -940,6 +988,14 @@ spec:
 EOF
 ```
 
+> 🔐 **Security Best Practice:** Instead of hardcoding passwords, we're retrieving the database password from Key Vault, following the security principle of not storing credentials in plain text files.
+>
+> ⚠️ **Troubleshooting - Key Vault Access:** If you encounter "Caller is not authorized" errors when trying to access Key Vault secrets:
+> 1. Verify you have at least "Key Vault Secrets User" role (for reading secrets) assigned
+> 2. Run: `az role assignment create --role "Key Vault Secrets User" --assignee "$(az account show --query user.name -o tsv)" --scope "$(az keyvault show --name "$KEY_VAULT_NAME" --query id -o tsv)"`
+> 3. Wait 5-15 minutes for RBAC permissions to propagate
+> 4. If you need to proceed immediately, you can manually create the Kubernetes secret with the database password you set previously
+>
 > 🔗 **Internal Document:** See our [Developer Hub architecture](images/three-horizons-complete.svg) for a visualization of how these components interconnect.
 
 ### <span style="color: #0366d6;">Step 3.5: Create Ingress for Developer Hub</span>
