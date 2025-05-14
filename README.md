@@ -1,4 +1,4 @@
-# <img src="assets/images/small-icon-black-belt.png" alt="Black Belt" width="40" style="vertical-align: middle;"/> Enterprise Mainframe Modernization Playbook
+# <img src="assets/images/small-icon-black-belt.png" alt="Black Belt" width="40" style="vertical-align: middle;"/> 🚀 Azure AI Foundry Mainframe Modernization Playbook for IBM z/OS
 
 <div align="center">
 
