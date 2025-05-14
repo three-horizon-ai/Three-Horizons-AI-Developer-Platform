@@ -1,4 +1,4 @@
-# <img src="assets/images/small-icon-black-belt.png" alt="Black Belt" width="40" style="vertical-align: middle;"/> Three Horizons Platform
+# <img src="assets/images/small-icon-black-belt.png" alt="Black Belt" width="40" style="vertical-align: middle;"/> Enterprise Mainframe Modernization Playbook
 
 <div align="center">
 
@@ -6,7 +6,7 @@
 ![License](https://img.shields.io/badge/license-MIT-green)
 [![Documentation](https://img.shields.io/badge/docs-latest-brightgreen.svg)](docs/)
 
-**A comprehensive platform integrating Microsoft Azure, Red Hat Developer Hub, and GitHub Enterprise to create a superior developer experience.**
+**A comprehensive platform integrating Microsoft Azure AI Foundry, Red Hat Developer Hub, and GitHub Enterprise to modernize mainframe applications across IBM z/OS, Unisys, and other legacy systems.**
 
 <p align="center">
 <img src="assets/images/Grey_logo.png" alt="Three Horizons Platform" width="500"/>
@@ -16,7 +16,7 @@
 
 ## 🔍 Overview
 
-The Three Horizons Platform integrates Microsoft Azure, Red Hat Developer Hub, and GitHub Enterprise to create a unified developer experience that accelerates innovation while maintaining governance and quality.
+The Enterprise Mainframe Modernization Playbook integrates Microsoft Azure AI Foundry, Red Hat Developer Hub, and GitHub Enterprise to create a unified CI/CD experience that accelerates mainframe modernization while maintaining governance and quality across legacy systems including IBM z/OS, Unisys, and other mainframe environments.
 
 ![Three Horizons Platform Overview](assets/images/three-horizons-diagram.svg)
 
@@ -28,19 +28,20 @@ This platform evolves your organization's capabilities across three horizons:
 
 ## ✨ Key Benefits
 
-- **🚀 Accelerated Onboarding** - Developers become productive in minutes
-- **🧠 Reduced Cognitive Load** - Golden Paths guide developers through common workflows
-- **🤖 AI-Assisted Development** - GitHub Copilot integration enhances productivity
-- **🔒 Integrated Security** - Unified security controls across the platform
-- **📈 Streamlined Lifecycle** - Seamless transitions from development to deployment
+- **🚀 Accelerated Modernization** - Transform legacy mainframe applications with modern CI/CD practices
+- **🧠 AI-Powered Migration** - Leverage Azure AI Foundry to analyze and modernize legacy code
+- **🤖 Automated Refactoring** - GitHub Copilot integration enhances code conversion productivity
+- **🔒 Cross-Platform Security** - Unified security controls across mainframe and cloud environments
+- **📈 Streamlined DevOps** - Seamless integration between mainframe development and cloud deployment
 
 ## 🏗️ Architecture
 
-The platform combines three key technology pillars:
+The platform combines four key technology pillars:
 
-1. **Microsoft Azure** - Cloud infrastructure and services (AKS/ARO)
-2. **Red Hat Developer Hub** - Developer portal and experience platform
-3. **GitHub Enterprise** - Source control, collaboration and CI/CD
+1. **Microsoft Azure AI Foundry** - AI-powered code analysis and migration tools
+2. **Red Hat Developer Hub** - Developer portal and mainframe integration platform
+3. **GitHub Enterprise** - Source control, collaboration and mainframe CI/CD
+4. **Mainframe Connectors** - Integration components for IBM z/OS, Unisys, and other legacy systems
 
 ![Developer Hub Portal Example](assets/images/dev-hub-portal-sample.png)
 
