@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.4] - 2024-12-22
+
+### Changed - Architecture Diagrams Update
+
+Updated the Complete Integration Tutorial to use the better architecture diagrams from the documentation folder:
+
+#### Improvements
+- Replaced mermaid diagram with professional SVG architecture diagrams
+- Added Three Horizons Architecture diagram
+- Added Platform Overview diagram  
+- Added Developer Hub Architecture diagram
+- Added CI/CD Pipeline Architecture diagram
+- Added Integration Workflow diagram
+- Added Security Architecture diagram
+- Updated Complete Platform Diagram reference to use the correct path
+
+All diagrams now reference the professional SVG files in `docs/documentation/architecture/` folder.
+
 ## [1.0.3] - 2024-12-22
 
 ### Changed - Complete Integration Scenario Reorganization

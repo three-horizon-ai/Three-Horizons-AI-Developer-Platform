@@ -50,28 +50,11 @@ The Three Horizons Platform represents a transformative approach to developer ex
 
 ### High-Level Architecture
 
-```mermaid
-graph TB
-    subgraph "Developer Experience Layer"
-        A[Developer Workstation] --> B[GitHub Codespaces/DevBox]
-        B --> C[Red Hat Developer Hub]
-    end
-    
-    subgraph "AI & Automation Layer"
-        D[GitHub Copilot] --> E[Agentic DevOps]
-        E --> F[Self-Healing Systems]
-    end
-    
-    subgraph "Platform Layer"
-        G[Azure Kubernetes Service] --> H[Azure Red Hat OpenShift]
-        H --> I[Container Registry]
-    end
-    
-    subgraph "Security & Governance"
-        J[Microsoft Entra ID] --> K[Azure Policy]
-        K --> L[GitHub Advanced Security]
-    end
-```
+![Three Horizons Architecture](../documentation/architecture/three-horizons-architecture.svg)
+
+### Platform Overview
+
+![Platform Overview](../documentation/architecture/overview-diagram.svg)
 
 ### Component Overview
 
@@ -131,6 +114,8 @@ helm version
 ## 🗺️ Implementation Roadmap
 
 ### Three Horizons Approach
+
+![Three Horizons Diagram](../documentation/architecture/three-horizons-diagram.svg)
 
 | Horizon | Focus | Duration | Outcome |
 |---------|-------|----------|---------|
@@ -319,6 +304,8 @@ az aro create \
 
 ### Step 2.2: Configure Platform Security
 
+![Security Architecture](../documentation/architecture/security-architecture.svg)
+
 ```bash
 # Create namespace for platform components
 kubectl create namespace platform-system
@@ -341,6 +328,8 @@ EOF
 ---
 
 ## 👥 Phase 3: Developer Experience
+
+![Developer Hub Architecture](../documentation/architecture/developer-hub-architecture.svg)
 
 ### Step 3.1: Deploy Red Hat Developer Hub
 
@@ -413,6 +402,8 @@ See [Golden Paths Guide](../documentation/guides/golden-paths.md) for detailed i
 
 ## 🤖 Phase 4: Automation & AI
 
+![CI/CD Pipeline Architecture](../documentation/architecture/cicd-pipeline.svg)
+
 ### Step 4.1: Enable GitHub Copilot
 
 ```bash
@@ -432,6 +423,8 @@ gh api /orgs/YOUR_ORG/copilot/billing/seats \
 See [Inner Loop Development](../documentation/guides/inner-loop.md) and [Outer Loop Development](../documentation/guides/outer-loop.md) for detailed workflows.
 
 ### Step 4.3: Setup GitOps
+
+![Integration Workflow](../documentation/architecture/integration-workflow.svg)
 
 ```bash
 # Install Flux
@@ -577,7 +570,7 @@ kubectl logs -n platform-system deployment/devops-agent
 
 ### Complete Platform Diagram
 
-![Three Horizons Complete Architecture](./images/three-horizons-complete.svg)
+![Three Horizons Complete Architecture](../documentation/architecture/three-horizons-complete.svg)
 
 ### External References
 
