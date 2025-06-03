@@ -141,11 +141,11 @@ az aks enable-addons \
   --workspace-resource-id <workspace-id>
 ```
 
-### Azure Active Directory Integration
+### Microsoft Entra ID Integration
 
 Configure identity management:
 
-1. Set up enterprise application in Azure AD
+1. Set up enterprise application in Microsoft Entra ID
 2. Configure OIDC or SAML authentication
 3. Set up user provisioning
 4. Configure role assignments
@@ -260,7 +260,7 @@ Common implementation issues:
 | Issue | Solution |
 |-------|----------|
 | **Network connectivity problems** | Check NSGs, firewall rules, and VNet peering |
-| **Authentication failures** | Verify Azure AD application settings and permissions |
+| **Authentication failures** | Verify Microsoft Entra ID application settings and permissions |
 | **Deployment failures** | Check pod logs and GitHub Actions workflow logs |
 | **Performance issues** | Review resource allocation and scaling configuration |
 

@@ -30,7 +30,7 @@ The Three Horizons Platform uses a multi-layer architecture designed with the fo
 
 - **Azure Red Hat OpenShift (ARO)**: Enterprise Kubernetes platform
 - **Azure Kubernetes Service (AKS)**: Alternative Kubernetes platform
-- **Azure Active Directory**: Identity management
+- **Microsoft Entra ID**: Identity management
 - **Azure Monitor**: Monitoring and observability
 - **Azure Network Security**: Network policies and protections
 
@@ -104,7 +104,7 @@ When implementing the Three Horizons Platform architecture:
 
 1. **Sizing**: Size your clusters based on expected workloads and growth projections
 2. **Network Design**: Plan network topology carefully, especially for hybrid environments
-3. **Identity Integration**: Configure AAD integration early in the implementation
+3. **Identity Integration**: Configure Microsoft Entra ID integration early in the implementation
 4. **Security Controls**: Implement security at each layer of the architecture
 5. **Monitoring Strategy**: Design monitoring and alerting before deployment
 

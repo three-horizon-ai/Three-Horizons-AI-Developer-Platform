@@ -40,7 +40,7 @@ Three Horizons implementation includes several security measures:
 
 When implementing Three Horizons, we recommend the following security best practices:
 
-1. Use Azure Active Directory for identity management
+1. Use Microsoft Entra ID for identity management
 2. Enable Just-in-Time (JIT) VM access for management
 3. Implement network security groups and application security groups
 4. Use Azure Policy to enforce security controls

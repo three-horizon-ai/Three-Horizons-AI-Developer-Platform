@@ -5,7 +5,7 @@ This example demonstrates a React TypeScript application built using the Three H
 ## Features
 
 - **React 18 with TypeScript**: Modern frontend development with type safety
-- **Azure AD Authentication**: Secure user authentication and authorization
+- **Microsoft Entra ID Authentication**: Secure user authentication and authorization
 - **Responsive Design**: Mobile-friendly UI with Tailwind CSS
 - **API Integration**: Consumption of backend services
 - **CI/CD Pipeline**: Automated build, test, and deployment workflows
@@ -16,7 +16,7 @@ This example demonstrates a React TypeScript application built using the Three H
 - Node.js 18.x or later
 - npm 9.x or later
 - Access to the Three Horizons Developer Hub
-- Azure AD account for authentication
+- Microsoft Entra ID account for authentication
 
 ## Getting Started
 
@@ -100,7 +100,7 @@ react-typescript-app/
 
 ### Authentication
 
-Authentication is implemented using Microsoft Authentication Library (MSAL) for React, which provides integration with Azure AD:
+Authentication is implemented using Microsoft Authentication Library (MSAL) for React, which provides integration with Microsoft Entra ID:
 
 ```typescript
 // src/contexts/AuthContext.tsx

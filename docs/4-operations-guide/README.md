@@ -358,7 +358,7 @@ Common operational issues and solutions:
 |-------|----------|
 | **Cluster connectivity issues** | Check network security groups, firewall rules, and API server availability |
 | **Pod scheduling failures** | Verify resource quotas, node capacity, and taint configurations |
-| **Authentication problems** | Check Azure AD integration, service principal credentials, and certificate validity |
+| **Authentication problems** | Check Microsoft Entra ID integration, service principal credentials, and certificate validity |
 | **Performance degradation** | Analyze node metrics, check for resource contention, and review application logs |
 | **Failed deployments** | Inspect deployment events, check container image availability, and validate Kubernetes manifests |
 

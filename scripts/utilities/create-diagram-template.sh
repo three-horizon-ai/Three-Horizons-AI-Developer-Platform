@@ -282,7 +282,7 @@ EOF
         <text x="200" y="175" class="label" fill="white">AKS</text>
         
         <rect x="125" y="225" width="150" height="50" class="component azure" />
-        <text x="200" y="250" class="label" fill="white">Azure AD</text>
+        <text x="200" y="250" class="label" fill="white">Microsoft Entra ID</text>
         
         <rect x="125" y="300" width="150" height="50" class="component azure" />
         <text x="200" y="325" class="label" fill="white">Azure Monitor</text>

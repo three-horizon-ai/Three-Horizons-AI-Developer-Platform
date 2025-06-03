@@ -145,7 +145,7 @@ These KQL examples integrate with other Three Horizons Platform components:
 
 - AKS and ARO logs for infrastructure insights
 - Application Insights for application telemetry
-- Azure AD logs for identity and security
+- Microsoft Entra ID logs for identity and security
 - Azure Firewall and NSG logs for network security
 - Azure Activity Logs for control plane operations
 

@@ -13,10 +13,10 @@ param masterSubnetName string = 'master-subnet'
 @description('Name of the worker node subnet.')
 param workerSubnetName string = 'worker-subnet'
 
-@description('Client ID of the Azure AD service principal.')
+@description('Client ID of the Microsoft Entra ID service principal.')
 param clientId string
 
-@description('Client Secret of the Azure AD service principal.')
+@description('Client Secret of the Microsoft Entra ID service principal.')
 @secure()
 param clientSecret string
 

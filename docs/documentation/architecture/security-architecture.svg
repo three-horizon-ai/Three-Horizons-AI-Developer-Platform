@@ -67,7 +67,7 @@
   
   <!-- Identity Components -->
   <rect x="420" y="350" width="140" height="30" rx="5" ry="5" fill="url(#identity-gradient)" filter="url(#shadow)" opacity="0.8"/>
-  <text x="490" y="370" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">Azure AD Integration</text>
+  <text x="490" y="370" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">Microsoft Entra ID Integration</text>
   
   <rect x="420" y="390" width="140" height="30" rx="5" ry="5" fill="url(#identity-gradient)" filter="url(#shadow)" opacity="0.8"/>
   <text x="490" y="410" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">Role-Based Access Control</text>

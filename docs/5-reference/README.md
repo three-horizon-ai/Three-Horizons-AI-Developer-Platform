@@ -224,8 +224,8 @@ Comprehensive security controls:
 
 | Control Category | Control | Implementation |
 |------------------|---------|----------------|
-| **Identity & Access** | Authentication | Azure AD with MFA |
-| **Identity & Access** | Authorization | RBAC, Azure AD Groups |
+| **Identity & Access** | Authentication | Microsoft Entra ID with MFA |
+| **Identity & Access** | Authorization | RBAC, Microsoft Entra ID Groups |
 | **Network Security** | Network Isolation | NSGs, Azure Firewall |
 | **Network Security** | Ingress Control | App Gateway WAF, Network Policies |
 | **Data Protection** | Encryption at Rest | Azure Storage Encryption, Key Vault |
@@ -239,7 +239,7 @@ Mapping to common compliance frameworks:
 
 | Framework | Control ID | Platform Implementation |
 |-----------|------------|-------------------------|
-| **NIST 800-53** | AC-2 | AAD Access Management |
+| **NIST 800-53** | AC-2 | Microsoft Entra ID Access Management |
 | **NIST 800-53** | AC-3 | RBAC Configuration |
 | **NIST 800-53** | AU-2 | Azure Monitor Logging |
 | **ISO 27001** | A.9.2 | User Access Management |

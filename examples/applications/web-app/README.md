@@ -57,7 +57,7 @@ The Angular Dashboard example demonstrates:
 The .NET MVC Application example demonstrates:
 
 - .NET Core 7+ MVC architecture
-- Integration with Azure AD B2C for authentication
+- Integration with Microsoft Entra ID B2C for authentication
 - Server-side rendering with Razor views
 - API controllers for AJAX operations
 - Entity Framework Core for data access

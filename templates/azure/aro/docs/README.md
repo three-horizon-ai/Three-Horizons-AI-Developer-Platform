@@ -18,7 +18,7 @@ The deployment uses the following Azure resources:
 - Azure Container Registry (ACR)
 - Azure Key Vault
 - Azure Monitor
-- Azure Active Directory
+- Microsoft Entra ID
 - Azure Virtual Network and Subnets
 
 ## Deployment Steps
@@ -235,10 +235,10 @@ EOF
 oc wait --for=condition=ready pod -l app=developer-hub -n developer-hub --timeout=300s
 ```
 
-### 12. Configure Azure AD Integration
+### 12. Configure Microsoft Entra ID Integration
 
 ```bash
-# Register an application in Azure AD for Developer Hub
+# Register an application in Microsoft Entra ID for Developer Hub
 APP_ID=$(az ad app create \
   --display-name "Developer Hub" \
   --available-to-other-tenants false \
@@ -263,13 +263,13 @@ metadata:
   name: cluster
 spec:
   identityProviders:
-  - name: AAD
+  - name: Microsoft Entra ID
     mappingMethod: claim
     type: OpenID
     openID:
       clientID: $APP_ID
       clientSecret: 
-        name: aad-client-secret
+        name: entra-id-client-secret
       extraScopes: 
       - email
       - profile

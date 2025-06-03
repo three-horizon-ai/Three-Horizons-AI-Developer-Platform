@@ -51,7 +51,7 @@ During Horizon 1 implementation, you'll need to make several key architectural d
 |----------------|---------|----------------|
 | Kubernetes Platform | AKS vs ARO | Operational model, OpenShift requirements |
 | Network Architecture | Hub-spoke vs flat | Complexity, security boundaries |
-| Identity Provider | Azure AD vs GitHub | SSO requirements, existing identity infrastructure |
+| Identity Provider | Microsoft Entra ID vs GitHub | SSO requirements, existing identity infrastructure |
 | Deployment Strategy | Terraform vs ARM | Team skills, infrastructure-as-code preferences |
 | Monitoring Approach | Azure Monitor vs custom | Operational capabilities, existing investments |
 

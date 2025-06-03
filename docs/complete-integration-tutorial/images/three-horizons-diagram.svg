@@ -50,7 +50,7 @@
     
     <!-- Azure Core Services -->
     <rect x="820" y="190" width="280" height="60" stroke="#0078d4" stroke-width="1" fill="#ffffff" rx="5" ry="5"/>
-    <text x="960" y="225" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Azure Active Directory</text>
+    <text x="960" y="225" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Microsoft Entra ID</text>
     
     <rect x="820" y="260" width="280" height="60" stroke="#0078d4" stroke-width="1" fill="#ffffff" rx="5" ry="5"/>
     <text x="960" y="295" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Azure Key Vault</text>

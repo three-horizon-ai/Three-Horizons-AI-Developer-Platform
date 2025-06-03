@@ -25,7 +25,7 @@
   <text x="150" y="150" class="box-text">Microsoft Azure</text>
   <text x="150" y="180" class="box-text" font-size="14">Azure Kubernetes Service</text>
   <text x="150" y="210" class="box-text" font-size="14">Azure Red Hat OpenShift</text>
-  <text x="150" y="240" class="box-text" font-size="14">Azure Active Directory</text>
+  <text x="150" y="240" class="box-text" font-size="14">Microsoft Entra ID</text>
   <text x="150" y="270" class="box-text" font-size="14">Azure Monitor</text>
   
   <!-- Red Hat Section -->

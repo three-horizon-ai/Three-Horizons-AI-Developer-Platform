@@ -48,7 +48,7 @@
     <text x="180" y="275" font-family="Arial, sans-serif" font-size="15" text-anchor="middle" font-weight="bold">OpenShift</text>
     
     <rect x="100" y="285" width="160" height="40" rx="5" ry="5" fill="#ffffff" stroke="#0078D4" stroke-width="2" />
-    <text x="180" y="310" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold">Azure Active Directory</text>
+    <text x="180" y="310" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold">Microsoft Entra ID</text>
     
     <rect x="100" y="335" width="160" height="40" rx="5" ry="5" fill="#ffffff" stroke="#0078D4" stroke-width="2" />
     <text x="180" y="360" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold">Azure Monitor</text>

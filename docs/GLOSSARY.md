@@ -18,7 +18,7 @@ Microsoft's managed Kubernetes service that simplifies the deployment, managemen
 ### Azure Red Hat OpenShift (ARO)
 A jointly managed enterprise-grade Kubernetes service on Azure, powered by Red Hat OpenShift.
 
-### Azure Active Directory (AAD)
+### Microsoft Entra ID
 Microsoft's enterprise identity service that provides single sign-on, multi-factor authentication, and conditional access.
 
 ## <span style="color: #0366d6;">D</span>

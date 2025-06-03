@@ -57,7 +57,7 @@
   
   <!-- Authentication Service -->
   <rect x="700" y="240" width="60" height="200" rx="10" ry="10" fill="url(#auth-gradient)" filter="url(#shadow)"/>
-  <text x="730" y="345" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white" font-weight="bold" transform="rotate(90, 730, 345)">Azure AD / Auth Service</text>
+  <text x="730" y="345" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white" font-weight="bold" transform="rotate(90, 730, 345)">Microsoft Entra ID / Auth Service</text>
   
   <!-- Connection Lines -->
   <line x1="400" y1="190" x2="400" y2="240" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>

@@ -246,10 +246,10 @@ spec:
 EOF
 ```
 
-## <span style="color: #0366d6;">🔄 Step 4: Configure Azure AD Integration</span>
+## <span style="color: #0366d6;">🔄 Step 4: Configure Microsoft Entra ID Integration</span>
 
 ```bash
-# Register an application in Azure AD
+# Register an application in Microsoft Entra ID
 az ad app create \
   --display-name "Three Horizons Platform" \
   --web-redirect-uris "https://devhub.yourdomain.com/oauth/callback" \
@@ -350,7 +350,7 @@ kubectl get pods -n developer-hub
 # Open https://devhub.yourdomain.com in your browser
 
 # Test authentication
-# Try logging in with your Azure AD credentials
+# Try logging in with your Microsoft Entra ID credentials
 
 # Verify GitHub integration
 # Check that repositories are available in Developer Hub

@@ -6,7 +6,7 @@ This directory contains sample applications that demonstrate the use of various 
 
 ### Web Applications
 
-- [**react-typescript-app**](./react-typescript-app): A React/TypeScript frontend application with Azure AD authentication
+- [**react-typescript-app**](./react-typescript-app): A React/TypeScript frontend application with Microsoft Entra ID authentication
 - [**node-express-api**](./node-express-api): A Node.js Express API with OpenAPI documentation
 
 ### Microservices
