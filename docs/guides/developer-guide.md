@@ -407,7 +407,7 @@ jobs:
 1. Fork the templates repository
 2. Create your template structure:
    ```
-   templates/
+   resources/
    └── my-template/
        ├── template.yaml      # Template definition
        ├── skeleton/         # Template files

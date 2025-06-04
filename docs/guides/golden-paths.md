@@ -383,7 +383,7 @@ spec:
       name: Fetch Template
       action: fetch:template
       input:
-        url: ./templates/web-app
+        url: ./resources/web-app
         values:
           name: ${{ parameters.name }}
           description: ${{ parameters.description }}
@@ -530,7 +530,7 @@ spec:
 ### Directory Layout
 
 ```
-templates/
+resources/
 ├── web-app/
 │   ├── template.yaml
 │   ├── skeleton/
@@ -895,10 +895,10 @@ export const customProcessAction = createTemplateAction<{
 npm run test:template -- --template web-app
 
 # Validate template syntax
-backstage-cli template:validate ./templates/web-app
+backstage-cli template:validate ./resources/web-app
 
 # Dry run template
-backstage-cli template:dry-run ./templates/web-app
+backstage-cli template:dry-run ./resources/web-app
 ```
 
 ## Integration with CI/CD
@@ -912,7 +912,7 @@ name: Validate Templates
 on:
   pull_request:
     paths:
-      - 'templates/**'
+      - 'resources/**'
 
 jobs:
   validate:
@@ -928,7 +928,7 @@ jobs:
       
     - name: Validate Templates
       run: |
-        for template in templates/*/; do
+        for template in resources/*/; do
           backstage-cli template:validate "$template"
         done
 ```

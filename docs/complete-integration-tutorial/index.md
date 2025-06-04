@@ -1460,7 +1460,7 @@ data:
       description: Templates Repository
     spec:
       targets:
-        - https://github.com/your-org-name/templates/blob/main/catalog-info.yaml
+        - https://github.com/your-org-name/resources/blob/main/catalog-info.yaml
 EOF
 
 # Configure the Software Templates plugin

@@ -106,7 +106,7 @@ Every template in your journey is designed to work seamlessly with the Three Hor
 Each template in the Three Horizons Platform follows a consistent, well-organized structure designed for clarity and extensibility:
 
 ```
-templates/
+resources/
 └── [category]/
     └── [template-name]/
         ├── template.yaml    # Template definition with metadata and parameters
