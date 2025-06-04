@@ -81,10 +81,11 @@ Leverage Azure-specific capabilities to enhance your platform:
 
 ### Horizon 3: Advanced Capabilities
 
-#### ARM Templates
+#### Bicep Templates
 Implement sophisticated infrastructure-as-code patterns:
-- **ARM Service Infrastructure Template**: Create composable service architectures
-- **ARM Network Configuration Template**: Deploy complex network configurations
+- **Complete Infrastructure Template**: Deploy the entire Three Horizons Platform infrastructure
+- **Modular Service Templates**: Create composable service architectures with reusable modules
+- **Network Configuration Template**: Deploy complex network configurations with security built-in
 
 ## Begin Your Template-Driven Development
 
@@ -107,13 +108,19 @@ Each template in the Three Horizons Platform follows a consistent, well-organize
 
 ```
 resources/
-└── [category]/
-    └── [template-name]/
-        ├── template.yaml    # Template definition with metadata and parameters
-        ├── README.md        # Comprehensive template documentation
-        └── skeleton/        # Source files for your new project
-            ├── ...          # Configuration files
-            └── ...          # Application code
+├── applications/            # Application templates (web, Kubernetes)
+│   └── [template-name]/
+│       ├── template.yaml    # Template definition with metadata and parameters
+│       ├── README.md        # Comprehensive template documentation
+│       └── skeleton/        # Source files for your new project
+├── bicep/                   # Infrastructure as Code templates
+│   ├── main/               # Main deployment templates
+│   ├── modules/            # Reusable Bicep modules
+│   └── parameters/         # Environment-specific parameters
+├── azure/                   # Azure-specific resources and scripts
+├── devbox/                  # Developer environment configurations
+├── infrastructure/          # General infrastructure templates
+└── scripts/                 # Automation and helper scripts
 ```
 
 The architecture ensures:

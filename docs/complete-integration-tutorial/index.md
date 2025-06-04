@@ -198,7 +198,7 @@ For detailed implementation of specific components, refer to these guides:
 - [**Red Hat Developer Hub Guide**](#phase-3-developer-hub-deployment) - Comprehensive guide for implementing the Developer Hub
 - [**GitHub Platform Integration Guide**](#phase-4-github-integration) - Detailed steps for GitHub Enterprise integration
 - [**Microsoft DevBox Guide**](#phase-8-microsoft-devbox-configuration) - Complete guide for setting up developer environments
-- [**Azure Integration Guide**](#phase-1-infrastructure-provisioning) - Guide for ARM templates and Terraform infrastructure
+- [**Azure Integration Guide**](#phase-1-infrastructure-provisioning) - Guide for Bicep templates and infrastructure provisioning
 
 Let's start with the first phase.
 
@@ -1861,7 +1861,7 @@ Below are checklists for each component to ensure complete implementation of the
 - [ ] Service connections created
 - [ ] Pipeline templates created
 - [ ] Terraform configurations added
-- [ ] ARM templates configured
+- [ ] Bicep templates configured
 - [ ] Azure DevOps repositories initialized
 - [ ] GitHub-to-Azure DevOps integration configured
 - [ ] Release gates and approvals set up

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "baseName": {
+      "value": "threehorizons"
+    },
+    "environment": {
+      "value": "prod"
+    },
+    "location": {
+      "value": "centralus"
+    },
+    "secondaryLocation": {
+      "value": "eastus2"
+    },
+    "deployAKS": {
+      "value": true
+    },
+    "deployARO": {
+      "value": true
+    },
+    "tags": {
+      "value": {
+        "Environment": "prod",
+        "Project": "ThreeHorizons",
+        "ManagedBy": "Bicep",
+        "CostCenter": "Production",
+        "BusinessUnit": "Platform",
+        "SLA": "99.95"
+      }
+    }
+  }
+} 
