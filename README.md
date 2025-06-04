@@ -81,13 +81,6 @@ Our comprehensive playbook includes these key documentation resources:
 ### Developer Resources
 
 - [Developer Guide](docs/3-developer-guide/README.md) - Guidance for application developers
-- [GitHub Actions Examples](docs/examples/github-actions/README.md) - CI/CD workflow templates
-- [Logic Apps Examples](docs/examples/logic-apps/README.md) - Integration automation patterns
-
-### Navigation Resources
-
-- [Documentation Map](docs/DOCUMENTATION_MAP.md) - Complete guide to all documentation
-- [Glossary](docs/GLOSSARY.md) - Definition of platform-specific terms
 
 ## 🔧 Prerequisites
 
@@ -99,10 +92,6 @@ Our comprehensive playbook includes these key documentation resources:
 ## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🤝 Contributing
-
-We welcome contributions! Please see [.github/CONTRIBUTING.md](.github/CONTRIBUTING.md) for guidelines.
 
 ---
 
