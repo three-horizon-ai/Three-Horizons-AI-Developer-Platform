@@ -103,7 +103,7 @@ Introduces transformative capabilities:
 
 ### <span style="color: #0366d6;">Architecture Diagram</span>
 
-![Three Horizons Platform Architecture](images/architecture-diagram.svg)
+![Three Horizons Platform Architecture](docs/images/architecture-diagram.svg)
 
 > 🔍 **Architecture Note:** The diagram above illustrates the interconnected nature of the Three Horizons Platform components and the workflow across different zones. The Red Hat Developer Hub serves as the central developer portal unifying the experience.
 
@@ -111,7 +111,7 @@ Introduces transformative capabilities:
 
 The following diagram illustrates the complete implementation workflow for the Three Horizons Platform, organized by phases and aligned with the Three Horizons model:
 
-![Three Horizons Integration Workflow](images/implementation-workflow.png)
+![Three Horizons Integration Workflow](docs/images/implementation-workflow.png)
 
 > **Note on Diagrams**: All architecture diagrams in this documentation reflect the latest Three Horizons Platform architecture as of April 2025, using a consistent styling and nomenclature. Each diagram includes a version indicator to help track changes over time.
 
@@ -137,12 +137,12 @@ Before beginning this tutorial, ensure you have:
    - GitHub Enterprise account
    - Azure AD administrator access
    - OpenShift Pull Secret (for ARO)
-   - [Identity management documentation](../documentation/architecture/security-architecture.svg)
+   - [Identity management documentation](../images/security-architecture.svg)
 
 4. **Network Requirements**:
    - Ability to create VNets and subnets
    - Outbound internet access
-   - [Network architecture documentation](../documentation/architecture/network-diagram.svg)
+   - [Network architecture documentation](../images/network-diagram.svg)
 
 ## <span style="color: #0366d6;">📋 Implementation Phases</span>
 
@@ -163,7 +163,7 @@ The complete implementation is divided into 8 phases:
 
 The Three Horizons Platform connects multiple technologies to create a cohesive developer experience. The diagram below shows the primary integration points between components:
 
-![Integration Architecture Diagram](images/integration-architecture-corrected.png)
+![Integration Architecture Diagram](docs/images/integration-architecture-corrected.png)
 
 ### <span style="color: #0366d6;">Authentication Flows</span>
 
@@ -174,7 +174,7 @@ Authentication between services uses modern protocols to ensure secure access:
    - GitHub Apps with fine-grained permissions for system-to-system communication
    - Personal Access Tokens (PATs) for CI/CD workflows (transitional, moving to GitHub Apps)
 
-![Authentication Flow (v1.0, April 2025)](images/authentication-flow.svg)
+![Authentication Flow (v1.0, April 2025)](docs/images/authentication-flow.svg)
 
 2. **Microsoft Entra ID Integration**:
    - OIDC-based authentication for AKS/ARO
@@ -263,7 +263,7 @@ az network vnet subnet create \
   --disable-private-endpoint-network-policies true
 ```
 
-> 🔗 **Reference:** See our [network architecture documentation](../documentation/architecture/network-diagram.svg) for the recommended network topology and Microsoft's [private endpoint documentation](https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview).
+> 🔗 **Reference:** See our [network architecture documentation](../images/network-diagram.svg) for the recommended network topology and Microsoft's [private endpoint documentation](https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview).
 
 ### <span style="color: #0366d6;">Step 1.3: Create Key Vault</span>
 
@@ -480,7 +480,7 @@ az identity federated-credential create \
   --subject system:serviceaccount:default:workload-identity-sa
 ```
 
-> 🔍 **Learn More:** Review our [AKS architecture documentation](../documentation/architecture/three-horizons-diagram.svg) for details on how AKS fits into the Three Horizons architecture and [Azure Workload Identity documentation](https://learn.microsoft.com/en-us/azure/aks/workload-identity-overview).
+> 🔍 **Learn More:** Review our [AKS architecture documentation](../images/three-horizons-diagram.svg) for details on how AKS fits into the Three Horizons architecture and [Azure Workload Identity documentation](https://learn.microsoft.com/en-us/azure/aks/workload-identity-overview).
 
 ### <span style="color: #0366d6;">Option B: ARO Installation</span>
 
@@ -800,7 +800,7 @@ Red Hat Developer Hub 1.5 introduces several important enhancements and features
    - Enhanced Kubernetes resource visualization
    - Improved CI/CD integration
 
-![RHDH 1.5 Features (v1.0, April 2025)](images/rhdh-features.png)
+![RHDH 1.5 Features (v1.0, April 2025)](docs/images/rhdh-features.png)
 
 ### <span style="color: #0366d6;">Available RHDH Plugins</span>
 
@@ -994,7 +994,7 @@ EOF
 > 3. Wait 5-15 minutes for RBAC permissions to propagate
 > 4. If you need to proceed immediately, you can manually create the Kubernetes secret with the database password you set previously
 >
-> 🔗 **Internal Document:** See our [Developer Hub architecture](images/three-horizons-complete.svg) for a visualization of how these components interconnect.
+> 🔗 **Internal Document:** See our [Developer Hub architecture](docs/images/three-horizons-complete.svg) for a visualization of how these components interconnect.
 
 ### <span style="color: #0366d6;">Step 3.5: Create Ingress for Developer Hub</span>
 
@@ -2189,10 +2189,10 @@ Congratulations on implementing the complete Three Horizons Platform! Here are r
 
 ### Internal Documentation
 
-- [Architecture Overview](images/three-horizons-complete.svg)
+- [Architecture Overview](docs/images/three-horizons-complete.svg)
 - [Developer Hub Guide](#phase-3-developer-hub-deployment)
 - [GitHub Platform Guide](#phase-4-github-integration)
-- [Security Architecture](../documentation/architecture/security-architecture.svg)
+- [Security Architecture](../images/security-architecture.svg)
 
 ### External Documentation
 
@@ -2218,7 +2218,7 @@ Integrating security and compliance into the Three Horizons Platform is critical
 
 The Three Horizons Platform security architecture follows defense-in-depth principles:
 
-![Security Architecture (v1.0, April 2025)](images/security-architecture.svg)
+![Security Architecture (v1.0, April 2025)](docs/images/security-architecture.svg)
 
 ### <span style="color: #0366d6;">Zero Trust Implementation</span>
 

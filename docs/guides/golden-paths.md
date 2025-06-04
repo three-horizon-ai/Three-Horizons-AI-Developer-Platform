@@ -4,7 +4,7 @@
 
 Golden Paths are curated, well-supported development workflows that enable developers to build, deploy, and operate applications efficiently on the Three Horizons Platform. They represent the organization's recommended practices and provide streamlined experiences for common development scenarios.
 
-![Golden Paths Overview](../architecture/three-horizons-architecture.svg)
+![Golden Paths Overview](../images/three-horizons-architecture.svg)
 
 > 🔍 **Golden Paths Concept:** The diagram illustrates how Golden Paths provide standardized, well-supported pathways for different application types across the Three Horizons Platform.
 
@@ -34,7 +34,7 @@ While Golden Paths are recommended, they are not mandatory—developers maintain
 
 The Three Horizons Platform offers several Golden Paths designed for different application types and use cases:
 
-![Available Golden Paths](../architecture/web-application-standard.svg)
+![Available Golden Paths](../images/web-application-standard.svg)
 
 > 💡 **Path Selection:** This diagram shows the different Golden Paths available in the platform, each tailored for specific application types and technology stacks. Select the path that best matches your project requirements.
 
@@ -64,7 +64,7 @@ devhub create --template web-application --name mywebapp
 
 Designed for building backend services and APIs.
 
-![Microservice Architecture](../architecture/web-application-microservices.svg)
+![Microservice Architecture](../images/web-application-microservices.svg)
 
 > 🔍 **Microservice Architecture:** This diagram illustrates the typical architecture of applications built using the Microservice Golden Path, showing service boundaries and interactions.
 
@@ -90,7 +90,7 @@ devhub create --template microservice --language java --name myservice
 
 Designed for building data processing and analytics applications.
 
-![Data Processing Architecture](../architecture/web-application-serverless.svg)
+![Data Processing Architecture](../images/web-application-serverless.svg)
 
 > 📊 **Data Flow:** This diagram shows how data flows through applications built with the Data Processing Golden Path, from ingestion through processing to insights.
 
@@ -177,7 +177,7 @@ git push -u origin main
 
 Each Golden Path includes tooling for efficient local development:
 
-![Golden Path Lifecycle](../architecture/integration-diagram.svg)
+![Golden Path Lifecycle](../images/integration-diagram.svg)
 
 > 🔄 **Lifecycle Flow:** This diagram illustrates the complete lifecycle of applications built with Golden Paths, from local development through to production deployment and ongoing operations.
 
@@ -266,8 +266,8 @@ While possible, migration between paths can be challenging. It's best to select 
 
 - [Inner Loop Development Guide](./inner-loop-development.md)
 - [Outer Loop Deployment Guide](./outer-loop-deployment.md)
-- [Architecture Decision Records](../architecture/adrs.md)
-- [Platform Engineering Strategy](../architecture/platform-engineering.md) 
+- [Architecture Decision Records](../images/adrs.md)
+- [Platform Engineering Strategy](../images/platform-engineering.md) 
 
 ## <span style="color: #0366d6;">📊 Diagram Key</span>
 

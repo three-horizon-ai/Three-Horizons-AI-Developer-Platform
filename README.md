@@ -1,4 +1,4 @@
-# <img src="assets/images/small-icon-black-belt.png" alt="Black Belt" width="40" style="vertical-align: middle;"/> Three Horizons Platform
+# <img src="docs/images/small-icon-black-belt.png" alt="Black Belt" width="40" style="vertical-align: middle;"/> Three Horizons Platform
 
 <div align="center">
 
@@ -9,7 +9,7 @@
 **A comprehensive platform integrating Microsoft Azure, Red Hat Developer Hub, and GitHub Enterprise to create a superior developer experience.**
 
 <p align="center">
-<img src="assets/images/Grey_logo.png" alt="Three Horizons Platform" width="500"/>
+<img src="docs/images/Grey_logo.png" alt="Three Horizons Platform" width="500"/>
 </p>
 
 </div>
@@ -18,7 +18,7 @@
 
 The Three Horizons Platform integrates Microsoft Azure, Red Hat Developer Hub, and GitHub Enterprise to create a unified developer experience that accelerates innovation while maintaining governance and quality.
 
-![Three Horizons Platform Overview](assets/images/three-horizons-diagram.svg)
+![Three Horizons Platform Overview](docs/images/three-horizons-diagram.svg)
 
 This platform evolves your organization's capabilities across three horizons:
 
@@ -42,7 +42,7 @@ The platform combines three key technology pillars:
 2. **Red Hat Developer Hub** - Developer portal and experience platform
 3. **GitHub Enterprise** - Source control, collaboration and CI/CD
 
-![Developer Hub Portal Example](assets/images/dev-hub-portal-sample.png)
+![Developer Hub Portal Example](docs/images/dev-hub-portal-sample.png)
 
 ## 🚀 Implementation Guide
 
@@ -67,9 +67,9 @@ Our comprehensive playbook includes these key documentation resources:
 ### Core Implementation Resources
 
 - [Complete Integration Tutorial](docs/complete-integration-tutorial/index.md) - Primary step-by-step implementation guide
-- [Inner Loop Development Guide](docs/documentation/guides/inner-loop-development.md) - Optimizing developer workflows
-- [Outer Loop Deployment Guide](docs/documentation/guides/outer-loop-deployment.md) - Implementing continuous deployment
-- [Golden Paths Guide](docs/documentation/guides/golden-paths.md) - Standardized developer workflows
+- [Inner Loop Development Guide](docs/guides/inner-loop-development.md) - Optimizing developer workflows
+- [Outer Loop Deployment Guide](docs/guides/outer-loop-deployment.md) - Implementing continuous deployment
+- [Golden Paths Guide](docs/guides/golden-paths.md) - Standardized developer workflows
 
 ### Operational Resources
 
@@ -80,7 +80,7 @@ Our comprehensive playbook includes these key documentation resources:
 
 ### Developer Resources
 
-- [Developer Guide](docs/documentation/guides/developer-guide.md) - Guidance for application developers
+- [Developer Guide](docs/guides/developer-guide.md) - Guidance for application developers
 
 ## 🔧 Prerequisites
 

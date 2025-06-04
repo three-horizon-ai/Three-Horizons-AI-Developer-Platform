@@ -4,7 +4,7 @@
 
 The Outer Loop Deployment process is a critical component of the Three Horizons Platform that handles the continuous integration and delivery of code from development to production environments. This guide explains the outer loop concepts, workflows, and best practices to ensure reliable deployments.
 
-![Outer Loop Deployment Workflow](../architecture/integration-workflow.svg)
+![Outer Loop Deployment Workflow](../images/integration-workflow.svg)
 
 > 🔍 **Architecture Note:** The diagram above illustrates the complete Outer Loop deployment workflow, showing how code moves from development through testing, staging, and into production environments.
 
@@ -138,7 +138,7 @@ Rollbacks are automatically triggered if health checks fail, or can be manually 
 
 The Three Horizons Platform leverages GitOps principles for infrastructure and deployment:
 
-![GitOps Workflow for Infrastructure](../architecture/cicd-pipeline.svg)
+![GitOps Workflow for Infrastructure](../images/cicd-pipeline.svg)
 
 > 🔄 **GitOps Principle:** Infrastructure changes follow the same workflow as application code, with Git as the single source of truth and automated deployments triggered by commits.
 
@@ -158,7 +158,7 @@ The Three Horizons Platform leverages GitOps principles for infrastructure and d
 
 The Outer Loop includes comprehensive monitoring:
 
-![Monitoring and Observability](../architecture/overview-diagram.svg)
+![Monitoring and Observability](../images/overview-diagram.svg)
 
 > 📈 **Monitoring Architecture:** This diagram shows how monitoring and observability components integrate with the deployment pipeline to provide real-time insights into application health and performance.
 

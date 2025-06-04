@@ -32,14 +32,14 @@ This tutorial guides you through the entire implementation process from infrastr
   - Phase 8: Microsoft DevBox Configuration
 
 ### <span style="color: #0366d6;">Supporting Documentation</span>
-- **[Architecture Diagrams](documentation/architecture/)** - Visual representations of platform architecture
-- **[Implementation Guides](documentation/guides/)** - Specific implementation patterns
-  - [Golden Paths Guide](documentation/guides/golden-paths.md)
-  - [Inner Loop Development](documentation/guides/inner-loop-development.md)
-  - [Outer Loop Deployment](documentation/guides/outer-loop-deployment.md)
+- **[Architecture Diagrams](images/)** - Visual representations of platform architecture
+- **[Implementation Guides](guides/)** - Specific implementation patterns
+  - [Golden Paths Guide](guides/golden-paths.md)
+  - [Inner Loop Development](guides/inner-loop-development.md)
+  - [Outer Loop Deployment](guides/outer-loop-deployment.md)
+  - [Developer Guide](guides/developer-guide.md)
 
-### <span style="color: #0366d6;">Resources</span>
-- **[Additional Resources](resources/)** - Reference materials and e-books
+
 
 ## <span style="color: #0366d6;">🔄 Quick Links</span>
 

@@ -4,7 +4,7 @@
 
 The Inner Loop Development process is a core component of the Three Horizons Platform, providing developers with a streamlined workflow for local development, testing, and validation before code is integrated into the main codebase. This guide explains the inner loop concepts, tools, and best practices to help you become productive quickly.
 
-![Inner Loop Development Workflow](../architecture/workflow-diagram.svg)
+![Inner Loop Development Workflow](../images/workflow-diagram.svg)
 
 > 🔍 **Note:** The diagram above illustrates the developer's Inner Loop workflow, showing the cycle of writing, building, running, testing, and debugging code locally before committing to shared repositories.
 
@@ -166,7 +166,7 @@ The Inner Loop connects to the Outer Loop (CI/CD) workflow when:
 3. Code is reviewed and approved
 4. Changes are merged and deployed through the CD pipeline
 
-![Inner to Outer Loop Integration](../architecture/cicd-pipeline.svg)
+![Inner to Outer Loop Integration](../images/cicd-pipeline.svg)
 
 > 📝 **Integration Note:** This diagram shows how the Inner Loop development workflow connects to the Outer Loop CI/CD process, creating a complete development lifecycle.
 
@@ -203,7 +203,7 @@ See the [Outer Loop Deployment Guide](./outer-loop-deployment.md) for more infor
 - **Document Changes**: Update documentation alongside code changes
 - **Peer Review**: Consider informal peer reviews before creating a PR
 
-![Inner Loop Best Practices](../architecture/three-horizons-diagram.svg)
+![Inner Loop Best Practices](../images/three-horizons-diagram.svg)
 
 > 🔍 **Best Practices Note:** This diagram highlights how the Inner Loop development practices integrate with the broader Three Horizons architecture, emphasizing the developer's role in the platform ecosystem.
 
