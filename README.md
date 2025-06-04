@@ -71,13 +71,6 @@ Our comprehensive playbook includes these key documentation resources:
 - [Outer Loop Deployment Guide](docs/guides/outer-loop-deployment.md) - Implementing continuous deployment
 - [Golden Paths Guide](docs/guides/golden-paths.md) - Standardized developer workflows
 
-### Operational Resources
-
-- [Operations Guide](docs/4-operations-guide/README.md) - Day-to-day platform management
-- [KQL Query Examples](docs/examples/kql-queries/README.md) - Monitoring and analysis queries
-- [Monitoring Dashboards](docs/examples/dashboards/README.md) - Pre-configured visualizations
-- [Reference Guide](docs/5-reference/README.md) - Technical specifications and references
-
 ### Developer Resources
 
 - [Developer Guide](docs/guides/developer-guide.md) - Guidance for application developers
