@@ -266,8 +266,8 @@ While possible, migration between paths can be challenging. It's best to select 
 
 - [Inner Loop Development Guide](./inner-loop-development.md)
 - [Outer Loop Deployment Guide](./outer-loop-deployment.md)
-- [Architecture Decision Records](../images/adrs.md)
-- [Platform Engineering Strategy](../images/platform-engineering.md) 
+- [Complete Integration Tutorial](../complete-integration-tutorial/index.md)
+- [Developer Guide](./developer-guide.md) 
 
 ## <span style="color: #0366d6;">📊 Diagram Key</span>
 
