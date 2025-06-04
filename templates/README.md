@@ -2,7 +2,7 @@
 title: "Three Horizons Templates Library"
 description: "Collection of standardized templates to accelerate development across the Three Horizons Platform"
 position_in_journey: 25
-previous_doc: "/docs/documentation/developer/README.md"
+previous_doc: "/docs/documentation/guides/developer-guide.md"
 next_doc: "/examples/configurations/README.md"
 last_updated: "2025-04-10"
 ---
@@ -191,6 +191,6 @@ By following these principles, you'll create templates that provide significant 
 
 Now that you understand the template ecosystem, continue exploring the Three Horizons Platform with these resources:
 
-- [Developer Guide](/docs/documentation/developer/README.md) - Learn how to use templates in your development workflow
-- [Golden Paths](/docs/documentation/developer/golden-paths.md) - Discover standardized development workflows
+- [Developer Guide](/docs/documentation/guides/developer-guide.md) - Learn how to use templates in your development workflow
+- [Golden Paths](/docs/documentation/guides/golden-paths.md) - Discover standardized development workflows
 - [Example Configurations](/examples/configurations/README.md) - See real-world uses of templates

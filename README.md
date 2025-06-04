@@ -80,7 +80,7 @@ Our comprehensive playbook includes these key documentation resources:
 
 ### Developer Resources
 
-- [Developer Guide](docs/3-developer-guide/README.md) - Guidance for application developers
+- [Developer Guide](docs/documentation/guides/developer-guide.md) - Guidance for application developers
 
 ## 🔧 Prerequisites
 
