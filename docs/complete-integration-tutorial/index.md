@@ -137,12 +137,12 @@ Before beginning this tutorial, ensure you have:
    - GitHub Enterprise account
    - Azure AD administrator access
    - OpenShift Pull Secret (for ARO)
-   - [Identity management documentation](../images/security-architecture.svg)
+   - Identity management - see [Security Architecture diagram](../images/security-architecture.svg)
 
 4. **Network Requirements**:
    - Ability to create VNets and subnets
    - Outbound internet access
-   - [Network architecture documentation](../images/network-diagram.svg)
+   - Network architecture - see [Network Diagram](../images/network-diagram.svg)
 
 ## <span style="color: #0366d6;">📋 Implementation Phases</span>
 
@@ -263,7 +263,7 @@ az network vnet subnet create \
   --disable-private-endpoint-network-policies true
 ```
 
-> 🔗 **Reference:** See our [network architecture documentation](../images/network-diagram.svg) for the recommended network topology and Microsoft's [private endpoint documentation](https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview).
+> 🔗 **Reference:** See our [network architecture diagram](../images/network-diagram.svg) for the recommended network topology and Microsoft's [private endpoint documentation](https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview).
 
 ### <span style="color: #0366d6;">Step 1.3: Create Key Vault</span>
 
@@ -480,7 +480,7 @@ az identity federated-credential create \
   --subject system:serviceaccount:default:workload-identity-sa
 ```
 
-> 🔍 **Learn More:** Review our [AKS architecture documentation](../images/three-horizons-diagram.svg) for details on how AKS fits into the Three Horizons architecture and [Azure Workload Identity documentation](https://learn.microsoft.com/en-us/azure/aks/workload-identity-overview).
+> 🔍 **Learn More:** Review our [AKS architecture diagram](../images/three-horizons-diagram.svg) for details on how AKS fits into the Three Horizons architecture and [Azure Workload Identity documentation](https://learn.microsoft.com/en-us/azure/aks/workload-identity-overview).
 
 ### <span style="color: #0366d6;">Option B: ARO Installation</span>
 
