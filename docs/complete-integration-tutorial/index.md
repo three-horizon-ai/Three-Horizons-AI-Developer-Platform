@@ -4,7 +4,7 @@ description: "Comprehensive, step-by-step tutorial for implementing a complete T
 position_in_journey: "1. Primary Implementation Guide"
 previous_doc: "../README.md"
 next_doc: "security-guide.md"
-last_updated: "April 2025"
+last_updated: "June 2025"
 ---
 
 # <span style="color: #0366d6;">🚀 Complete Integration Tutorial</span>
@@ -3429,5 +3429,5 @@ In case of critical issues that require rollback:
 ---
 
 <footer>
-  <p align="center">🔄 Last updated: April 2025 | Contribute to this document through <a href="../../.github/CONTRIBUTING.md">Pull Requests</a></p>
+  <p align="center">🔄 Last updated: June 2025 | Contribute to this document through <a href="../../.github/CONTRIBUTING.md">Pull Requests</a></p>
 </footer>
