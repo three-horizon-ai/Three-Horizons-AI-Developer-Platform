@@ -3,51 +3,56 @@ title: "Three Horizons Platform Documentation"
 description: "Central documentation hub for the Three Horizons Platform"
 position_in_journey: "1. Getting Started"
 next_doc: "complete-integration-tutorial/index.md"
-last_updated: "April 2025"
+last_updated: "June 2025"
 ---
 
 # <span style="color: #0366d6;">📚 Three Horizons Platform Documentation</span>
 
-Welcome to the Three Horizons Platform documentation. This documentation hub provides all the resources you need to implement, use, and maintain the platform.
+Welcome to the Three Horizons Platform documentation. This documentation provides comprehensive guidance for implementing, using, and maintaining the platform.
 
 ## <span style="color: #0366d6;">🚀 Start Here: Complete Integration Tutorial</span>
 
-For the most comprehensive and straightforward implementation experience, we recommend following our step-by-step tutorial:
+For the most comprehensive implementation experience, follow our step-by-step tutorial:
 
 👉 [**Complete Integration Tutorial**](complete-integration-tutorial/index.md)
 
-This tutorial will guide you through the entire implementation process from infrastructure provisioning to platform validation, with clear instructions, code examples, and illustrations.
+This tutorial guides you through the entire implementation process from infrastructure provisioning to platform validation, with clear instructions, code examples, and illustrations.
 
-## <span style="color: #0366d6;">🗺️ Documentation Navigation</span>
+## <span style="color: #0366d6;">📂 Documentation Structure</span>
 
-Use our [Documentation Map](DOCUMENTATION_MAP.md) to navigate the complete documentation structure. The map provides a visual overview of all available resources and their relationships.
+### <span style="color: #0366d6;">Primary Documentation</span>
+- **[Complete Integration Tutorial](complete-integration-tutorial/index.md)** - Comprehensive implementation guide
+  - Phase 1: Infrastructure Provisioning
+  - Phase 2: Platform Installation
+  - Phase 3: Developer Hub Deployment
+  - Phase 4: GitHub Integration
+  - Phase 5: CI/CD Pipeline Setup
+  - Phase 6: Monitoring & Observability
+  - Phase 7: Platform Validation
+  - Phase 8: Microsoft DevBox Configuration
 
-## <span style="color: #0366d6;">📂 Key Documentation Sections</span>
+### <span style="color: #0366d6;">Supporting Documentation</span>
+- **[Architecture Diagrams](documentation/architecture/)** - Visual representations of platform architecture
+- **[Implementation Guides](documentation/guides/)** - Specific implementation patterns
+  - [Golden Paths Guide](documentation/guides/golden-paths.md)
+  - [Inner Loop Development](documentation/guides/inner-loop-development.md)
+  - [Outer Loop Deployment](documentation/guides/outer-loop-deployment.md)
 
-### <span style="color: #0366d6;">Implementation Guides</span>
-- [Developer Hub Guide](complete-integration-tutorial/index.md#phase-3-developer-hub-deployment)
-- [GitHub Platform Guide](complete-integration-tutorial/index.md#phase-4-github-integration)
-- [Microsoft DevBox Guide](complete-integration-tutorial/index.md#phase-8-microsoft-devbox-configuration)
-- [Azure Integration Guide](complete-integration-tutorial/index.md#phase-1-infrastructure-provisioning)
+### <span style="color: #0366d6;">Resources</span>
+- **[Additional Resources](resources/)** - Reference materials and e-books
 
-### <span style="color: #0366d6;">Architecture</span>
-- [Architecture Overview](documentation/architecture/overview-diagram.svg)
-- [Three Horizons Model](documentation/architecture/three-horizons-diagram.svg)
-- [Implementation Workflow](documentation/architecture/integration-workflow.svg)
+## <span style="color: #0366d6;">🔄 Quick Links</span>
 
-### <span style="color: #0366d6;">Reference</span>
-- [Deployment Checklists](complete-integration-tutorial/index.md#implementation-checklists)
-- [GitHub Integration](complete-integration-tutorial/index.md#phase-4-github-integration)
-- [Glossary](GLOSSARY.md)
-
-## <span style="color: #0366d6;">🔄 Documentation Changes</span>
-
-This documentation has been reorganized to provide a more focused and streamlined experience. Our primary recommendation is to follow the [Complete Integration Tutorial](complete-integration-tutorial/index.md) for the most straightforward implementation path.
-
-Previous documentation versions and additional resources have been moved to the [Additional Documentation](documentation/appendices/additional-documentation/) section for reference.
+| Topic | Link | Description |
+|-------|------|-------------|
+| **Getting Started** | [Complete Tutorial](complete-integration-tutorial/index.md) | Start your implementation journey |
+| **Architecture** | [Architecture Overview](complete-integration-tutorial/index.md#architecture) | Understand the platform design |
+| **Developer Hub** | [Developer Hub Guide](complete-integration-tutorial/index.md#phase-3-developer-hub-deployment) | Deploy Red Hat Developer Hub |
+| **GitHub Integration** | [GitHub Guide](complete-integration-tutorial/index.md#phase-4-github-integration) | Integrate GitHub Enterprise |
+| **DevBox Setup** | [DevBox Guide](complete-integration-tutorial/index.md#phase-8-microsoft-devbox-configuration) | Configure developer environments |
 
 ---
 
 <footer>
-  <p align="center">🔄 Last updated: April 2025 | <a href="../.github/CONTRIBUTING.md">Contribute to this documentation</a></p>
+  <p align="center">🔄 Last updated: June 2025 | <a href="../.github/CONTRIBUTING.md">Contribute to this documentation</a></p>
 </footer>
