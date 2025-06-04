@@ -1,0 +1,13 @@
+apiVersion: rhdh.redhat.com/v1alpha3
+kind: Backstage
+metadata:
+  name: developer-hub
+  namespace: developer-hub
+spec:
+  deployment:
+    replicas: 1
+  database:
+    enableLocalDb: false
+    authSecretName: developer-hub-postgres
+  route:
+    enabled: true 

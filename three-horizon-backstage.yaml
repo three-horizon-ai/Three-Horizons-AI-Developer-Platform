@@ -1,0 +1,16 @@
+apiVersion: rhdh.redhat.com/v1alpha3
+kind: Backstage
+metadata:
+  name: three-horizon
+  namespace: three-horizon
+spec:
+  deployment:
+    replicas: 3  # Vejo que já existem 3 pods rodando
+  database:
+    enableLocalDb: false  # Recomendado para produção
+    authSecretName: three-horizon-postgres  # Precisará ser criado
+  route:
+    enabled: true  # Para OpenShift
+  ingress:
+    enabled: true  # Habilitar acesso externo via Ingress
+    host: three-horizon.example.com  # Ajuste para o seu domínio 

@@ -26,10 +26,12 @@ fi
 
 # Default values
 DEFAULT_RESOURCE_GROUP="three-horizons-shared"
-DEFAULT_DB_NAME="three-horizons-psql"
+# Add timestamp to database name for uniqueness
+TIMESTAMP=$(date +"%m%d%H%M")
+DEFAULT_DB_NAME="backstagedb-${TIMESTAMP}"
 DEFAULT_LOCATION="centralus"
 DEFAULT_ADMIN_USER="backstage"
-DEFAULT_DB_NAME="backstage"
+DEFAULT_DATABASE_NAME="backstage"
 DEFAULT_KEY_VAULT_NAME=""
 
 # Get configuration from user
@@ -47,8 +49,8 @@ LOCATION=${LOCATION:-$DEFAULT_LOCATION}
 read -p "Admin Username [$DEFAULT_ADMIN_USER]: " ADMIN_USER
 ADMIN_USER=${ADMIN_USER:-$DEFAULT_ADMIN_USER}
 
-read -p "Database Name [$DEFAULT_DB_NAME]: " DATABASE_NAME
-DATABASE_NAME=${DATABASE_NAME:-$DEFAULT_DB_NAME}
+read -p "Database Name [$DEFAULT_DATABASE_NAME]: " DATABASE_NAME
+DATABASE_NAME=${DATABASE_NAME:-$DEFAULT_DATABASE_NAME}
 
 read -sp "Admin Password (leave empty for auto-generated): " ADMIN_PASSWORD
 echo ""
@@ -102,7 +104,7 @@ az postgres flexible-server create \
   --tier GeneralPurpose \
   --storage-size 32 \
   --version 14 \
-  --high-availability Enabled \
+  --high-availability ZoneRedundant \
   --location "$LOCATION" \
   --database-name "$DATABASE_NAME" \
   --tags Environment=Production Project=ThreeHorizons \
@@ -126,13 +128,48 @@ if [ -n "$KEY_VAULT_NAME" ]; then
     az keyvault create --name "$KEY_VAULT_NAME" --resource-group "$RESOURCE_GROUP" --location "$LOCATION"
   fi
   
+  # Check RBAC permissions and assign if needed
+  if ! az keyvault secret show --name "test-permission" --vault-name "$KEY_VAULT_NAME" &>/dev/null; then
+    # Failed to read a secret, might not exist or might be permission issue
+    echo "Checking Key Vault permissions..."
+    
+    # Try to set a test secret to verify permissions
+    if ! az keyvault secret set --name "test-permission" --vault-name "$KEY_VAULT_NAME" --value "test" &>/dev/null; then
+      echo "You don't have sufficient permissions to store secrets in this Key Vault."
+      echo "Attempting to assign Key Vault Secrets Officer role to your account..."
+      
+      CURRENT_USER=$(az account show --query user.name -o tsv)
+      KEYVAULT_SCOPE=$(az keyvault show --name "$KEY_VAULT_NAME" --resource-group "$RESOURCE_GROUP" --query id -o tsv)
+      
+      az role assignment create \
+        --role "Key Vault Secrets Officer" \
+        --assignee "$CURRENT_USER" \
+        --scope "$KEYVAULT_SCOPE"
+      
+      echo "Role assigned successfully. Note that it may take 5-15 minutes for the permissions to fully propagate."
+      echo "You can proceed with the script, but if you encounter permission errors,"
+      echo "you may need to wait and run the script again later."
+      sleep 5 # Give user a chance to read the message
+    else
+      echo "Permissions verified successfully."
+      # Clean up the test secret
+      az keyvault secret delete --name "test-permission" --vault-name "$KEY_VAULT_NAME" &>/dev/null
+    fi
+  fi
+  
   # Store credentials
-  az keyvault secret set \
+  echo "Storing database password in Key Vault..."
+  if ! az keyvault secret set \
     --name db-password \
     --vault-name "$KEY_VAULT_NAME" \
-    --value "$ADMIN_PASSWORD"
-  
-  echo "Credentials stored in Key Vault successfully."
+    --value "$ADMIN_PASSWORD" &>/dev/null; then
+    
+    echo "Warning: Unable to store password in Key Vault. This is likely a permission issue."
+    echo "RBAC permissions can take 5-15 minutes to propagate after assignment."
+    echo "Continuing deployment, but you may need to manually store the password later."
+  else
+    echo "Credentials stored in Key Vault successfully."
+  fi
 else
   echo -e "\n[3/4] Skipping Key Vault storage."
 fi

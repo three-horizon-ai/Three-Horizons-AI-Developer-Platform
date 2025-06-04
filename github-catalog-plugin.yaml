@@ -1,0 +1,30 @@
+apiVersion: rhdh.redhat.com/v1alpha1
+kind: DynamicPlugin
+metadata:
+  name: github-catalog-plugin
+  namespace: backstage-rhdh
+spec:
+  disabled: false
+  package:
+    name: '@backstage/plugin-catalog-backend-module-github'
+    version: '0.3.9'
+  pluginConfig:
+  - name: catalog.providers.github
+    data: |
+      {
+        "allowedInstances": ["github.com"],
+        "organization": "three-horizon",
+        "schedule": {
+          "frequency": { "minutes": 30 },
+          "timeout": { "minutes": 3 }
+        },
+        "catalogPath": "/catalog-info.yaml",
+        "validateLocationsExist": true
+      }
+  deployment:
+    env:
+    - name: GITHUB_ORGANIZATION
+      valueFrom:
+        secretKeyRef:
+          name: github-app-credentials
+          key: GITHUB_ORGANIZATION 
