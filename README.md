@@ -1,4 +1,4 @@
-# <img src="docs/images/small-icon-black-belt.png" alt="Black Belt" width="40" style="vertical-align: middle;"/> Three Horizons Platform
+# Three Horizons Platform
 
 <div align="center">
 
