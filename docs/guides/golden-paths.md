@@ -994,6 +994,6 @@ export async function trackTemplateUsage(
 
 ## Next Steps
 
-- [Inner Loop Development Guide](./inner-loop.md)
-- [Outer Loop Development Guide](./outer-loop.md)
-- [Platform Engineering Best Practices](./platform-engineering.md) 
+- [Inner Loop Development Guide](./inner-loop-development.md)
+- [Outer Loop Development Guide](./outer-loop-deployment.md)
+- [Developer Guide](./developer-guide.md) 

@@ -131,7 +131,7 @@ Before beginning this tutorial, ensure you have:
    - kubectl v1.28.0 or later
    - Git v2.42.0 or later
    - GitHub CLI v2.40.0 or later
-   - [Installation guide for development tools](../getting-started/installation.md#development-tools)
+   - [Installation guide for development tools](../guides/README.md#prerequisites)
 
 3. **Access Credentials**:
    - GitHub Enterprise account
@@ -618,7 +618,7 @@ mountOptions:
 EOF
 ```
 
-> 📊 **Resource Planning:** For production environments, see our [resource planning guide](../getting-started/installation.md#resource-planning) for storage recommendations. Consider using zone-redundant storage (ZRS) for high availability.
+> 📊 **Resource Planning:** For production environments, consider using zone-redundant storage (ZRS) for high availability. See [Azure storage documentation](https://learn.microsoft.com/en-us/azure/storage/common/storage-redundancy) for more details.
 
 ### <span style="color: #0366d6;">Step 2.5: Install Ingress Controller</span>
 
@@ -1741,7 +1741,7 @@ data:
 EOF
 ```
 
-> 📈 **Dashboard Examples:** For more dashboard examples, see our [monitoring dashboards](../examples/dashboards/).
+> 📈 **Dashboard Examples:** For more dashboard examples, see our [Grafana documentation](https://grafana.com/docs/grafana/latest/dashboards/).
 
 ### <span style="color: #0366d6;">Horizon 2 (Enhancement) Validation</span>
 

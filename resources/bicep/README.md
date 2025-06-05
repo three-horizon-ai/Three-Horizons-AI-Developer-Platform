@@ -203,7 +203,7 @@ az deployment sub validate \
 ## 📚 References
 
 - [Bicep Documentation](https://docs.microsoft.com/azure/azure-resource-manager/bicep/)
-- [Three Horizons Complete Integration Tutorial](../../docs/complete-integration-tutorial/)
+- [Three Horizons Complete Integration Tutorial](../../docs/complete-integration-tutorial/index.md)
 - [Azure Architecture Center](https://docs.microsoft.com/azure/architecture/)
 
 ## 🤝 Contributing
@@ -222,4 +222,4 @@ After infrastructure deployment:
 3. Configure CI/CD pipelines
 4. Implement sample applications
 
-For more details, see the [Complete Integration Tutorial](../../docs/complete-integration-tutorial/). 
+For more details, see the [Complete Integration Tutorial](../../docs/complete-integration-tutorial/index.md). 

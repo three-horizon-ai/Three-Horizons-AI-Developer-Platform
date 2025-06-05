@@ -643,7 +643,7 @@ spec:
 
 1. **Documentation**:
    - This guide
-   - [Complete Integration Tutorial](../../complete-integration-tutorial/index.md)
+   - [Complete Integration Tutorial](../complete-integration-tutorial/index.md)
    - Platform runbooks
 
 2. **Support Channels**:

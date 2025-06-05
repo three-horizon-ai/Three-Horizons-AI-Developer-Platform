@@ -376,10 +376,10 @@ oc get route -n developer-hub
 
 ## Next Steps
 
-- [Configure Monitoring and Alerts](monitoring-guide.md)
-- [Set Up CI/CD Pipelines](cicd-pipeline-guide.md)
-- [Configure User Management](user-management-guide.md)
-- [Customize Developer Hub](customization-guide.md)
+- [Configure Monitoring and Alerts](troubleshooting.md)
+- [Set Up CI/CD Pipelines](../complete-integration-tutorial/index.md#ci-cd-pipeline-setup)
+- [Configure User Management](../complete-integration-tutorial/index.md#authentication-and-authorization)
+- [Customize Developer Hub](../complete-integration-tutorial/index.md#red-hat-developer-hub-rhdh-setup)
 
 ## References
 

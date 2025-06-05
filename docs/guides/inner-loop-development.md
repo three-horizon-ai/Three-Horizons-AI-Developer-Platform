@@ -25,7 +25,7 @@ This cycle is repeated frequently as you develop features or fix bugs, all befor
 Before starting with the inner loop development process, ensure you have:
 
 - **Developer Hub Access**: Authenticated access to the Red Hat Developer Hub
-- **Local Development Environment**: Configured according to the standards (see [Environment Setup](../getting-started/environment-setup.md))
+- **Local Development Environment**: Configured according to the standards (see [Complete Integration Tutorial](../complete-integration-tutorial/index.md))
 - **Required CLI Tools**: 
   - Git
   - Azure CLI
@@ -226,8 +226,8 @@ See the [Outer Loop Deployment Guide](./outer-loop-deployment.md) for more infor
 
 - [Outer Loop Deployment Guide](./outer-loop-deployment.md)
 - [Golden Paths Guide](./golden-paths.md)
-- [Local Development Setup](../implementation/local-development.md)
-- [Testing Best Practices](../implementation/testing-best-practices.md)
+- [Complete Integration Tutorial](../complete-integration-tutorial/index.md)
+- [Troubleshooting Guide](./troubleshooting.md)
 
 ## <span style="color: #0366d6;">📊 Diagram Key</span>
 

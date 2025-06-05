@@ -220,8 +220,8 @@ Security is integrated throughout the deployment pipeline:
 
 - [Inner Loop Development Guide](./inner-loop-development.md)
 - [Golden Paths Guide](./golden-paths.md)
-- [Continuous Integration Strategies](../implementation/continuous-integration.md)
-- [Deployment Strategy](../implementation/deployment-strategy.md) 
+- [Complete Integration Tutorial](../complete-integration-tutorial/index.md)
+- [Developer Guide](./developer-guide.md) 
 
 ## <span style="color: #0366d6;">📊 Diagram Key</span>
 
