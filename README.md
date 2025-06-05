@@ -47,6 +47,22 @@ The platform combines three key technology pillars:
 
 ![Developer Hub Portal Example](docs/images/dev-hub-portal-sample.png)
 
+## 🆕 Red Hat Developer Hub 1.6 Features
+
+The Three Horizons Platform leverages the latest Red Hat Developer Hub 1.6 capabilities, featuring advanced centralization, standardization, and security enhancements:
+
+![Red Hat Developer Hub 1.6 Architecture](docs/images/rhdh-16-svg-only.svg)
+
+### Key v1.6 Enhancements:
+
+- **🏠 RHDH Local (Preview)** - Run Developer Hub locally for development and testing
+- **🔒 Air-gapped Installation** - Deploy in secure, disconnected environments
+- **📚 Enhanced Documentation** - Improved user guides and technical documentation
+- **🔐 Advanced RBAC Delegation** - Fine-grained role-based access controls
+- **🛡️ Supply Chain Security** - Integrated security scanning and compliance
+- **🔌 Dynamic Plugins System** - Hot-swappable extensions with no downtime updates
+- **☁️ Multi-Cloud Support** - Enhanced integrations with AWS, Azure, Google Cloud, and OpenShift
+
 ## 🚀 Implementation Guide
 
 For a comprehensive, step-by-step guide to implementing the complete Three Horizons Platform, follow our detailed tutorial:

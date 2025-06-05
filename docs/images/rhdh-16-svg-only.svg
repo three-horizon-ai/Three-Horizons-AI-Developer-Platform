@@ -1,0 +1,144 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#f5f5f5"/>
+  
+  <!-- Title -->
+  <text x="600" y="40" font-family="Red Hat Display, Arial, sans-serif" font-size="32" font-weight="bold" text-anchor="middle" fill="#000">
+    Red Hat Developer Hub 1.6 Architecture
+  </text>
+  <text x="600" y="70" font-family="Red Hat Text, Arial, sans-serif" font-size="18" text-anchor="middle" fill="#666">
+    Centralization • Standardization • Security
+  </text>
+  
+  <!-- Main Container -->
+  <rect x="50" y="100" width="1100" height="650" rx="10" fill="#ffffff" stroke="#ddd" stroke-width="2"/>
+  
+  <!-- Red Hat Developer Hub Core -->
+  <rect x="100" y="140" width="1000" height="400" rx="10" fill="#EE0000" />
+  <text x="600" y="170" font-family="Red Hat Display, Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" fill="#ffffff">
+    Red Hat Developer Hub 1.6
+  </text>
+  
+  <!-- Component Boxes -->
+  <!-- Software Catalog -->
+  <g transform="translate(150, 200)">
+    <rect width="200" height="280" rx="8" fill="#0066CC" opacity="0.9"/>
+    <text x="100" y="30" font-family="Red Hat Text, Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#ffffff">
+      Software Catalog
+    </text>
+    <rect x="20" y="50" width="160" height="40" rx="5" fill="#ffffff" opacity="0.2"/>
+    <text x="100" y="75" font-family="Red Hat Text, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#ffffff">API Services</text>
+    <rect x="20" y="100" width="160" height="40" rx="5" fill="#ffffff" opacity="0.2"/>
+    <text x="100" y="125" font-family="Red Hat Text, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#ffffff">Microservices</text>
+    <rect x="20" y="150" width="160" height="40" rx="5" fill="#ffffff" opacity="0.2"/>
+    <text x="100" y="175" font-family="Red Hat Text, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#ffffff">Libraries</text>
+    <rect x="20" y="200" width="160" height="40" rx="5" fill="#ffffff" opacity="0.2"/>
+    <text x="100" y="225" font-family="Red Hat Text, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#ffffff">Resources</text>
+  </g>
+  
+  <!-- Self-Service Portal (updated from Create) -->
+  <g transform="translate(380, 200)">
+    <rect width="200" height="280" rx="8" fill="#28A745" opacity="0.9"/>
+    <text x="100" y="30" font-family="Red Hat Text, Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#ffffff">
+      Self-Service Portal
+    </text>
+    <rect x="20" y="50" width="160" height="40" rx="5" fill="#ffffff" opacity="0.2"/>
+    <text x="100" y="75" font-family="Red Hat Text, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#ffffff">Golden Path Templates</text>
+    <rect x="20" y="100" width="160" height="40" rx="5" fill="#ffffff" opacity="0.2"/>
+    <text x="100" y="125" font-family="Red Hat Text, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#ffffff">Standardized Projects</text>
+    <rect x="20" y="150" width="160" height="40" rx="5" fill="#ffffff" opacity="0.2"/>
+    <text x="100" y="175" font-family="Red Hat Text, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#ffffff">Automated Workflows</text>
+    <rect x="20" y="200" width="160" height="40" rx="5" fill="#ffffff" opacity="0.2"/>
+    <text x="100" y="225" font-family="Red Hat Text, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#ffffff">Quick Start Guides</text>
+  </g>
+  
+  <!-- Extensions Catalog -->
+  <g transform="translate(610, 200)">
+    <rect width="200" height="280" rx="8" fill="#6F42C1" opacity="0.9"/>
+    <text x="100" y="30" font-family="Red Hat Text, Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#ffffff">
+      Extensions Catalog
+    </text>
+    <rect x="20" y="50" width="160" height="40" rx="5" fill="#ffffff" opacity="0.2"/>
+    <text x="100" y="75" font-family="Red Hat Text, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#ffffff">Dynamic Plugins</text>
+    <rect x="20" y="100" width="160" height="40" rx="5" fill="#ffffff" opacity="0.2"/>
+    <text x="100" y="125" font-family="Red Hat Text, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#ffffff">Copy YAML Config</text>
+    <rect x="20" y="150" width="160" height="40" rx="5" fill="#ffffff" opacity="0.2"/>
+    <text x="100" y="175" font-family="Red Hat Text, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#ffffff">Private Registry</text>
+    <rect x="20" y="200" width="160" height="40" rx="5" fill="#ffffff" opacity="0.2"/>
+    <text x="100" y="225" font-family="Red Hat Text, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#ffffff">No-downtime Updates</text>
+  </g>
+  
+  <!-- Security & RBAC -->
+  <g transform="translate(840, 200)">
+    <rect width="200" height="280" rx="8" fill="#DC3545" opacity="0.9"/>
+    <text x="100" y="30" font-family="Red Hat Text, Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#ffffff">
+      Security & RBAC
+    </text>
+    <rect x="20" y="50" width="160" height="40" rx="5" fill="#ffffff" opacity="0.2"/>
+    <text x="100" y="75" font-family="Red Hat Text, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#ffffff">RBAC Delegation</text>
+    <rect x="20" y="100" width="160" height="40" rx="5" fill="#ffffff" opacity="0.2"/>
+    <text x="100" y="125" font-family="Red Hat Text, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#ffffff">Supply Chain Security</text>
+    <rect x="20" y="150" width="160" height="40" rx="5" fill="#ffffff" opacity="0.2"/>
+    <text x="100" y="175" font-family="Red Hat Text, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#ffffff">Trusted Pipelines</text>
+    <rect x="20" y="200" width="160" height="40" rx="5" fill="#ffffff" opacity="0.2"/>
+    <text x="100" y="225" font-family="Red Hat Text, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#ffffff">Compliance Auditing</text>
+  </g>
+  
+  <!-- Platform Integrations -->
+  <rect x="100" y="570" width="1000" height="120" rx="10" fill="#f8f9fa" stroke="#ddd" stroke-width="1"/>
+  <text x="600" y="595" font-family="Red Hat Text, Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">
+    Multi-Cloud & Platform Integrations
+  </text>
+  
+  <!-- Integration Boxes -->
+  <g transform="translate(150, 610)">
+    <rect width="140" height="50" rx="5" fill="#FF9900" opacity="0.8"/>
+    <text x="70" y="30" font-family="Red Hat Text, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#ffffff">AWS EKS</text>
+  </g>
+  
+  <g transform="translate(310, 610)">
+    <rect width="140" height="50" rx="5" fill="#0078D4" opacity="0.8"/>
+    <text x="70" y="30" font-family="Red Hat Text, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#ffffff">Azure AKS + HA</text>
+  </g>
+  
+  <g transform="translate(470, 610)">
+    <rect width="140" height="50" rx="5" fill="#4285F4" opacity="0.8"/>
+    <text x="70" y="30" font-family="Red Hat Text, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#ffffff">Google GKE</text>
+  </g>
+  
+  <g transform="translate(630, 610)">
+    <rect width="140" height="50" rx="5" fill="#000000" opacity="0.8"/>
+    <text x="70" y="30" font-family="Red Hat Text, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#ffffff">GitHub Enterprise</text>
+  </g>
+  
+  <g transform="translate(790, 610)">
+    <rect width="140" height="50" rx="5" fill="#CC0000" opacity="0.8"/>
+    <text x="70" y="30" font-family="Red Hat Text, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#ffffff">OpenShift</text>
+  </g>
+  
+  <!-- New Features Badge -->
+  <g transform="translate(950, 120)">
+    <rect width="180" height="80" rx="5" fill="#FFC107" stroke="#FFA000" stroke-width="2"/>
+    <text x="90" y="25" font-family="Red Hat Text, Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#000">
+      v1.6 Features
+    </text>
+    <text x="90" y="45" font-family="Red Hat Text, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#333">• RHDH Local (Preview)</text>
+    <text x="90" y="60" font-family="Red Hat Text, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#333">• Air-gapped Install</text>
+    <text x="90" y="75" font-family="Red Hat Text, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#333">• Enhanced Docs</text>
+  </g>
+  
+  <!-- Connection Lines -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#666" />
+    </marker>
+  </defs>
+  
+  <!-- Bidirectional arrows between components -->
+  <line x1="350" y1="340" x2="380" y2="340" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)" stroke-dasharray="5,5"/>
+  <line x1="580" y1="340" x2="610" y2="340" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)" stroke-dasharray="5,5"/>
+  <line x1="810" y1="340" x2="840" y2="340" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)" stroke-dasharray="5,5"/>
+  
+  <!-- Connection to platforms -->
+  <line x1="600" y1="540" x2="600" y2="570" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+</svg>
