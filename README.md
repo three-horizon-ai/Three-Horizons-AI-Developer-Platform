@@ -51,7 +51,7 @@ The platform combines three key technology pillars:
 
 The Three Horizons Platform leverages the latest Red Hat Developer Hub 1.6 capabilities, featuring advanced centralization, standardization, and security enhancements:
 
-![Red Hat Developer Hub 1.6 Architecture](docs/images/rhdh-16-svg-only.svg)
+![Red Hat Developer Hub 1.6 Architecture](docs/images/rhdh-16.png)
 
 ### Key v1.6 Enhancements:
 
