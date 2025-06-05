@@ -1,12 +1,15 @@
-# Three Horizons Platform
+# 🚀 Three Horizons Platform
 
 <div align="center">
 
+[![Official Website](https://img.shields.io/badge/Official_Website-threehorizon.ai-blue)](https://threehorizon.ai) [![GitHub Stars]
 ![Version](https://img.shields.io/badge/version-1.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 [![Documentation](https://img.shields.io/badge/docs-latest-brightgreen.svg)](docs/)
 
 **A comprehensive platform integrating Microsoft Azure, Red Hat Developer Hub, and GitHub Enterprise to create a superior developer experience.**
+
+![Three Horizons Platform Overview](docs/images/Three Horizon.svg)
 
 </div>
 
