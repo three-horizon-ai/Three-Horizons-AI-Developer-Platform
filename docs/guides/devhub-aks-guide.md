@@ -359,7 +359,7 @@ metadata:
 spec: {}
 EOF
 
-# Deploy Red Hat Developer Hub Operator v1.5
+# Deploy Red Hat Developer Hub Operator v1.6
 cat <<EOF | kubectl apply -f -
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
@@ -367,7 +367,7 @@ metadata:
   name: rhdh-operator
   namespace: developer-hub
 spec:
-  channel: fast-1.5
+      channel: fast-1.6
   name: rhdh
   source: redhat-operators
   sourceNamespace: olm
@@ -385,7 +385,7 @@ kubectl create secret generic developer-hub-postgres \
   --namespace developer-hub \
   --from-literal=postgres-password="$DB_PASSWORD"
 
-# Deploy Red Hat Developer Hub instance v1.5
+# Deploy Red Hat Developer Hub instance v1.6
 cat <<EOF | kubectl apply -f -
 apiVersion: rhdh.redhat.com/v1alpha1
 kind: Backstage
@@ -621,7 +621,7 @@ kubectl run test-pod --image=postgres:14 --rm -it -- psql -h $DB_HOST -U backsta
 
 - [Complete Integration Tutorial](../complete-integration-tutorial/index.md)
 - [AKS Documentation](https://learn.microsoft.com/en-us/azure/aks/)
-- [Red Hat Developer Hub 1.5 Documentation](https://developers.redhat.com/rhdh/1.5/getting_started)
+- [Red Hat Developer Hub 1.6 Documentation](https://developers.redhat.com/rhdh/1.6/getting_started)
 - [Azure Workload Identity](https://learn.microsoft.com/en-us/azure/aks/workload-identity-overview)
 - [Kubernetes Best Practices](https://kubernetes.io/docs/concepts/configuration/overview/)
 

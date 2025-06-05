@@ -175,7 +175,7 @@ oc login $API_SERVER -u kubeadmin -p <password>
 # Create project for Developer Hub
 oc new-project developer-hub
 
-# Install the Red Hat Developer Hub Operator v1.5 from OperatorHub
+# Install the Red Hat Developer Hub Operator v1.6 from OperatorHub
 oc apply -f - << EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
@@ -187,7 +187,7 @@ spec:
   name: rhdh-operator
   source: redhat-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: rhdh-operator.v1.5.0
+      startingCSV: rhdh-operator.v1.6.0
 EOF
 
 # Wait for the operator to be installed
@@ -197,7 +197,7 @@ oc wait --for=condition=ready pod -l name=rhdh-operator-controller-manager -n op
 ### 11. Deploy Developer Hub
 
 ```bash
-# Create Developer Hub instance v1.5
+# Create Developer Hub instance v1.6
 oc apply -f - << EOF
 apiVersion: rhdh.redhat.com/v1alpha1
 kind: Backstage

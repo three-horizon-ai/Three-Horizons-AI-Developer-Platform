@@ -371,7 +371,7 @@ echo "Database Host: $DB_HOST"
 # Create project for Developer Hub
 oc new-project developer-hub
 
-# Install the Red Hat Developer Hub Operator v1.5 from OperatorHub
+# Install the Red Hat Developer Hub Operator v1.6 from OperatorHub
 oc apply -f - <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
@@ -379,7 +379,7 @@ metadata:
   name: rhdh-operator
   namespace: openshift-operators
 spec:
-  channel: fast-1.5
+      channel: fast-1.6
   name: rhdh
   source: redhat-operators
   sourceNamespace: openshift-marketplace
@@ -402,7 +402,7 @@ oc create secret generic developer-hub-postgres \
   --namespace developer-hub \
   --from-literal=postgres-password="$DB_PASSWORD"
 
-# Deploy Red Hat Developer Hub instance v1.5
+# Deploy Red Hat Developer Hub instance v1.6
 oc apply -f - <<EOF
 apiVersion: rhdh.redhat.com/v1alpha1
 kind: Backstage
@@ -738,7 +738,7 @@ oc get csv -n openshift-operators
 - [Complete Integration Tutorial](../complete-integration-tutorial/index.md)
 - [Azure Red Hat OpenShift Documentation](https://learn.microsoft.com/en-us/azure/openshift/)
 - [OpenShift Container Platform Documentation](https://docs.openshift.com/container-platform/4.13/)
-- [Red Hat Developer Hub 1.5 Documentation](https://access.redhat.com/documentation/en-us/red_hat_developer_hub/1.5)
+- [Red Hat Developer Hub 1.6 Documentation](https://access.redhat.com/documentation/en-us/red_hat_developer_hub/1.6)
 - [ARO Network Requirements](https://learn.microsoft.com/en-us/azure/openshift/tutorial-create-cluster#before-you-begin)
 - [OpenShift Operator Lifecycle Manager](https://docs.openshift.com/container-platform/4.13/operators/understanding/olm/olm-understanding-olm.html)
 - [Azure Database for PostgreSQL](https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/)

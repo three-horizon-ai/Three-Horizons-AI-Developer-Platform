@@ -706,7 +706,7 @@ kubectl get pods -n kube-system -l component=oms-agent
 
 ## <span style="color: #0366d6;">🚀 Phase 3: Developer Hub Deployment</span>
 
-Now let's deploy the Red Hat Developer Hub (RHDH) version 1.5, which is the central component for the Three Horizons Platform.
+Now let's deploy the Red Hat Developer Hub (RHDH) version 1.6, which is the central component for the Three Horizons Platform.
 
 ### <span style="color: #0366d6;">Step 3.1: Install Operator Lifecycle Manager</span>
 
@@ -751,7 +751,7 @@ metadata:
 spec: {}
 EOF
 
-# Deploy Developer Hub Operator v1.5
+# Deploy Developer Hub Operator v1.6
 cat <<EOF | kubectl apply -f -
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
@@ -759,7 +759,7 @@ metadata:
   name: rhdh-operator
   namespace: developer-hub
 spec:
-  channel: fast-1.5
+      channel: fast-1.6
   name: rhdh
   source: redhat-operators
   sourceNamespace: openshift-marketplace
@@ -770,43 +770,178 @@ EOF
 kubectl wait --for=condition=ready pod -l app=rhdh-operator -n developer-hub --timeout=300s
 ```
 
-> 📘 **Note:** For ARO/OpenShift clusters, the Operator Lifecycle Manager (OLM) is already installed. You only need to create the OperatorGroup and Subscription. The correct channel for RHDH 1.5 is "fast-1.5".
+> 📘 **Note:** For ARO/OpenShift clusters, the Operator Lifecycle Manager (OLM) is already installed. You only need to create the OperatorGroup and Subscription. The correct channel for RHDH 1.6 is "fast-1.6".
 
-> 📘 **Reference:** For detailed operator configuration, see the [Red Hat Developer Hub documentation](https://developers.redhat.com/rhdh/1.5/getting_started).
+> 📘 **Reference:** For detailed operator configuration, see the [Red Hat Developer Hub documentation](https://developers.redhat.com/rhdh/1.6/getting_started).
 
-### <span style="color: #0366d6;">RHDH 1.5 Key Features</span>
+### <span style="color: #0366d6;">RHDH 1.6 Key Features</span>
 
-Red Hat Developer Hub 1.5 introduces several important enhancements and features:
+Red Hat Developer Hub 1.6 introduces several important enhancements and features:
 
-> 📊 **Enhanced Architecture:** View our updated [Three Horizons Developer Hub Architecture](../images/developer-hub-architecture.svg) to see how RHDH 1.5 integrates with AI services, modern DevOps tools, and GitHub Copilot.
+> 📊 **Enhanced Architecture:** View our updated [Three Horizons Developer Hub Architecture](../images/developer-hub-architecture.svg) to see how RHDH 1.6 integrates with AI services, modern DevOps tools, and GitHub Copilot.
 
-1. **Dynamic Plugins Architecture**:
+### **🆕 Version 1.6 New Features:**
+
+1. **🏠 RHDH Local (Preview)**:
+   - Run Developer Hub locally for development and testing
+   - Simplified setup for developers working on platform customizations
+   - Local development environment with hot-reload capabilities
+
+2. **🔒 Air-gapped Installation Support**:
+   - Deploy in secure, disconnected environments
+   - Offline installation capabilities for high-security environments
+   - Support for private registries and mirrors
+
+3. **📚 Enhanced Documentation**:
+   - Improved user guides and technical documentation
+   - Enhanced TechDocs integration
+   - Better onboarding experiences
+
+4. **🔐 Advanced RBAC Delegation**:
+   - Fine-grained role-based access controls
+   - Delegated permission management
+   - Enhanced security model for enterprise environments
+
+5. **🛡️ Supply Chain Security**:
+   - Integrated security scanning and compliance
+   - SLSA (Supply-chain Levels for Software Artifacts) compliance
+   - Enhanced vulnerability management
+
+6. **🔌 Dynamic Plugins System**:
+   - Hot-swappable extensions with no downtime updates
    - Plugin loading without container rebuilds
-   - Hot-swappable plugins for runtime customization
    - Simplified plugin management through Kubernetes resources
+   - Copy YAML configuration features
 
-2. **Enhanced Software Catalog**:
+7. **☁️ Multi-Cloud Support**:
+   - Enhanced integrations with AWS, Azure, Google Cloud, and OpenShift
+   - Improved cloud-native resource management
+   - Better cross-cloud deployment strategies
+
+### **🔧 Core Platform Enhancements:**
+
+8. **Enhanced Software Catalog**:
    - Improved component discovery
    - Automatic relationship mapping
    - Advanced filtering and search capabilities
    - Extended metadata support
 
-3. **Template Improvements**:
+9. **Template Improvements**:
    - Template parameters validation
    - Conditional template steps
    - Enhanced template authoring experience
    - Output preview capabilities
 
-4. **Integration Improvements**:
-   - Native OpenShift integration
-   - Enhanced Kubernetes resource visualization
-   - Improved CI/CD integration
+10. **Integration Improvements**:
+    - Native OpenShift integration
+    - Enhanced Kubernetes resource visualization
+    - Improved CI/CD integration
 
-![RHDH 1.5 Features (v1.0, April 2025)](../images/rhdh-features.png)
+## 🎯 **Red Hat Developer Hub 1.6: Centralization, Standardization, and Security**
+
+### **🚀 Key Improvements in Version 1.6**
+
+Red Hat Developer Hub 1.6 represents a significant advancement in developer experience, focusing on three core pillars:
+
+#### **🔧 Enhanced Platform Capabilities:**
+- **High Availability on Azure AKS**: Enhanced support for running the portal on AKS clusters with increased resilience and enterprise-grade reliability
+- **Easier Plugin Configuration**: Copy plugin YAML configurations directly from the Extensions Catalog, dramatically speeding up integrations and reducing configuration errors
+- **RBAC Delegation**: Platform engineers can delegate permission controls, making administration more agile and decentralized while maintaining security governance
+- **RHDH Local (Developer Preview)**: Run the portal locally for testing and fast onboarding, enabling developers to experiment and validate configurations before production deployment
+- **Usability Improvements**: The "Create" menu is now "Self-Service," and the navigation sidebar is more customizable for better user experience
+- **Expanded Documentation**: Detailed guides for end users, air-gapped installation via Helm, and using plugins from private registries
+
+### **🎯 How Developer Hub Centralizes and Streamlines Access**
+
+The Three Horizons Platform leverages RHDH 1.6's centralization capabilities to create a unified developer experience:
+
+#### **🏢 Unified Self-Service Portal**
+- All tools, documentation, and project templates are accessible from one place, eliminating scattered searches across multiple systems
+- Integrated dashboard providing real-time visibility into development workflows, deployments, and platform health
+- Single sign-on (SSO) integration with Microsoft Entra ID for seamless authentication across all platform components
+
+#### **📋 Standardized Templates**
+- Validated "Golden Path" templates accelerate new project creation while enforcing organizational standards
+- Templates incorporate security best practices, compliance requirements, and architectural patterns
+- Automated scaffolding with pre-configured CI/CD pipelines, monitoring, and governance controls
+
+#### **🔌 Dynamic Plugin Management**
+- Install, update, or remove plugins without downtime, adapting the environment as development needs evolve
+- Hot-swappable architecture enables real-time platform customization
+- Plugin marketplace with verified, Red Hat-supported extensions
+
+#### **🔐 Centralized Access Control (RBAC)**
+- Permissions are managed centrally and securely, aligned with user roles and organizational structure
+- Fine-grained access controls with delegation capabilities for distributed teams
+- Integration with existing identity providers and security frameworks
+
+#### **☁️ Multi-Cloud Integration**
+- Access and manage resources across OpenShift, AWS, Azure, Google Cloud, and hybrid environments from a single portal
+- Unified resource visualization and management across different cloud providers
+- Consistent deployment patterns regardless of target infrastructure
+
+#### **📚 Centralized Documentation**
+- TechDocs integration enables quick reference and reduces operational uncertainty
+- Living documentation that stays synchronized with code changes
+- Searchable knowledge base with contextual help and troubleshooting guides
+
+### **🛡️ Project Standardization Benefits**
+
+#### **🛤️ "Golden Path" Templates**
+- Validated templates incorporate industry best practices and organizational standards
+- Accelerated onboarding for new team members with pre-configured development environments
+- Consistent project structure across teams and business units
+
+#### **📦 Centralized Resources**
+- Software catalog, documentation, and development consoles unified in one environment
+- Elimination of scattered links, tools, and knowledge silos
+- Simplified tool discovery and adoption for development teams
+
+#### **⚖️ Consistency and Governance**
+- All projects share a common, well-documented foundation
+- Simplified maintenance, evolution, and cost/time estimation across the portfolio
+- Standardized metrics and KPIs for measuring development effectiveness
+
+### **🔒 Enhanced Project Security**
+
+#### **🛡️ Robust RBAC and Access Control**
+- Role-based access control with dedicated plugins for granular administration
+- Principle of least privilege enforced across all platform components
+- Audit trails and compliance reporting for security governance
+
+#### **✅ Verified Components and Supply Chain Security**
+- Plugins and integrations are supported and validated by Red Hat, reducing vulnerability risks
+- Integration with Red Hat Trusted Application Pipelines for secure software delivery
+- Profile Analyzer and Artifact Signer for automated curation, attestation, and compliance
+- SLSA (Supply-chain Levels for Software Artifacts) compliance for enhanced security posture
+
+#### **🤖 Standardization and Automation**
+- Reduction of configuration errors and insecure practices through validated templates
+- Automated security scanning and compliance checks in CI/CD pipelines
+- Policy-as-code implementation for consistent security controls
+
+#### **📊 Centralized Governance**
+- Comprehensive monitoring, auditing, and workflow management
+- Integration management aligned with security and compliance requirements
+- Real-time visibility into security posture and compliance status
+
+### **🏆 Platform Summary**
+
+Red Hat Developer Hub 1.6 transforms the Three Horizons Platform by:
+
+- **🎯 Centralizing Access**: Unifying development tools, documentation, and resources in a single, intuitive environment
+- **📏 Standardizing Processes**: Accelerating onboarding and project creation through validated templates and best practices
+- **🔐 Enhancing Security**: Implementing robust controls, automation, and integration with specialized supply chain security solutions
+- **⚡ Improving Efficiency**: Reducing cognitive load and context switching for developers
+- **🌟 Enabling Innovation**: Providing a stable foundation that allows teams to focus on business value rather than platform complexity
+
+This comprehensive approach aligns with industry best practices while providing the flexibility and scalability needed for modern enterprise development environments.
+
+![RHDH 1.6 Features (v1.0, April 2025)](../images/rhdh-features.png)
 
 ### <span style="color: #0366d6;">Available RHDH Plugins</span>
 
-RHDH 1.5 includes the following plugins that can be enabled as needed:
+RHDH 1.6 includes the following plugins that can be enabled as needed:
 
 | Plugin Name | Description | Configuration |
 |-------------|-------------|---------------|
@@ -953,7 +1088,7 @@ kubectl create secret generic developer-hub-postgres \
   --from-literal=postgres-password="$DB_PASSWORD" \
   --dry-run=client -o yaml | kubectl apply -f -
 
-# Deploy Red Hat Developer Hub instance v1.5
+# Deploy Red Hat Developer Hub instance v1.6
 kubectl apply -f - <<EOF
 apiVersion: rhdh.redhat.com/v1alpha1
 kind: Backstage
@@ -1264,7 +1399,7 @@ spec:
 
 ### <span style="color: #0366d6;">Step 4.6: Configure GitHub Integration Plugins</span>
 
-Red Hat Developer Hub 1.5 supports dynamic plugins for GitHub integration. Set up the catalog and scaffolder plugins:
+Red Hat Developer Hub 1.6 supports dynamic plugins for GitHub integration. Set up the catalog and scaffolder plugins:
 
 ```bash
 # Configure GitHub catalog integration plugin
@@ -1347,11 +1482,11 @@ kubectl logs -n developer-hub deployment/developer-hub | grep "GithubMultiOrgEnt
 
 A successful GitHub integration will show user authentication events and repository discovery in the logs.
 
-> 📚 **Reference Documentation:** For comprehensive details on GitHub authentication with Red Hat Developer Hub, refer to the [official Red Hat documentation](https://docs.redhat.com/en/documentation/red_hat_developer_hub/1.5/html/authentication_in_red_hat_developer_hub/authenticating-with-github).
+> 📚 **Reference Documentation:** For comprehensive details on GitHub authentication with Red Hat Developer Hub, refer to the [official Red Hat documentation](https://docs.redhat.com/en/documentation/red_hat_developer_hub/1.6/html/authentication_in_red_hat_developer_hub/authenticating-with-github).
 
 ### <span style="color: #0366d6;">Step 4.8: Configure Technical Documentation with TechDocs</span>
 
-TechDocs is an essential component of Red Hat Developer Hub 1.5 that enables creating and managing documentation as code.
+TechDocs is an essential component of Red Hat Developer Hub 1.6 that enables creating and managing documentation as code.
 
 ```bash
 # Create bucket for technical documentation storage
@@ -1372,7 +1507,7 @@ spec:
       storage: 10Gi
 EOF
 
-# Configure TechDocs plugin using RHDH 1.5 Dynamic Plugins
+# Configure TechDocs plugin using RHDH 1.6 Dynamic Plugins
 kubectl apply -f - <<EOF
 apiVersion: rhdh.redhat.com/v1alpha1
 kind: DynamicPlugin
@@ -2200,8 +2335,8 @@ Congratulations on implementing the complete Three Horizons Platform! Here are r
 
 - [Azure Kubernetes Service Documentation](https://learn.microsoft.com/en-us/azure/aks/)
 - [Azure Red Hat OpenShift Documentation](https://learn.microsoft.com/en-us/azure/openshift/)
-- [Red Hat Developer Hub Documentation](https://developers.redhat.com/rhdh/1.5/getting_started)
-- [Red Hat Developer Hub Operator Guide](https://access.redhat.com/documentation/en-us/red_hat_developer_hub/1.5)
+- [Red Hat Developer Hub Documentation](https://developers.redhat.com/rhdh/1.6/getting_started)
+- [Red Hat Developer Hub Operator Guide](https://access.redhat.com/documentation/en-us/red_hat_developer_hub/1.6)
 - [Workload Identity for AKS](https://learn.microsoft.com/en-us/azure/aks/workload-identity-overview)
 - [Flux CD Documentation](https://fluxcd.io/flux/concepts/)
 - [Prometheus Operator Documentation](https://prometheus-operator.dev/docs/operator/)

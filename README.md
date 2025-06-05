@@ -55,13 +55,31 @@ The Three Horizons Platform leverages the latest Red Hat Developer Hub 1.6 capab
 
 ### Key v1.6 Enhancements:
 
+#### **🚀 Platform Evolution:**
 - **🏠 RHDH Local (Preview)** - Run Developer Hub locally for development and testing
-- **🔒 Air-gapped Installation** - Deploy in secure, disconnected environments
-- **📚 Enhanced Documentation** - Improved user guides and technical documentation
-- **🔐 Advanced RBAC Delegation** - Fine-grained role-based access controls
-- **🛡️ Supply Chain Security** - Integrated security scanning and compliance
+- **🔒 Air-gapped Installation** - Deploy in secure, disconnected environments  
+- **⚡ High Availability on Azure AKS** - Enhanced resilience and enterprise-grade reliability
 - **🔌 Dynamic Plugins System** - Hot-swappable extensions with no downtime updates
+
+#### **🎯 Developer Experience:**
+- **🖱️ Easier Plugin Configuration** - Copy YAML configurations directly from Extensions Catalog
+- **🏢 Self-Service Portal** - Renamed "Create" menu with improved navigation and customization
+- **📚 Enhanced Documentation** - Comprehensive guides for air-gapped installations and private registries
+- **⚡ Faster Onboarding** - Streamlined setup and golden path templates
+
+#### **🔐 Security & Governance:**
+- **🔐 Advanced RBAC Delegation** - Platform engineers can delegate permission controls
+- **🛡️ Supply Chain Security** - SLSA compliance with Trusted Application Pipelines
+- **📊 Centralized Governance** - Unified monitoring, auditing, and compliance management
+- **✅ Verified Components** - Red Hat-validated plugins and integrations
+
+#### **☁️ Enterprise Integration:**
 - **☁️ Multi-Cloud Support** - Enhanced integrations with AWS, Azure, Google Cloud, and OpenShift
+- **🔗 Unified Access** - Single portal for all development tools and resources
+- **📋 Standardized Templates** - "Golden Path" templates with built-in best practices
+- **🎯 Centralized Documentation** - TechDocs integration with living documentation
+
+> 💡 **Business Impact**: Version 1.6 reduces developer cognitive load, accelerates time-to-market, and enhances security posture while maintaining the flexibility needed for modern enterprise development.
 
 ## 🚀 Implementation Guide
 
