@@ -30,7 +30,7 @@ Before you begin development on the Three Horizons Platform, ensure you have:
 
 1. **Developer Account Access**:
    - GitHub Enterprise account in your organization
-   - Azure AD credentials
+   - Microsoft Entra ID credentials
    - Access to Red Hat Developer Hub
    - Kubernetes cluster access (if required)
 

@@ -26,7 +26,7 @@ The Three Horizons Platform integrates three main technology pillars to create a
 #### <span style="color: #0078D4;">Microsoft Azure</span> - Cloud infrastructure and platform services
 - Azure Kubernetes Service (AKS)
 - Azure Red Hat OpenShift (ARO)
-- Azure Active Directory
+- Microsoft Entra ID
 - Azure Monitor and Log Analytics
 - Azure Container Registry
 
@@ -135,7 +135,7 @@ Before beginning this tutorial, ensure you have:
 
 3. **Access Credentials**:
    - GitHub Enterprise account
-   - Azure AD administrator access
+   - Microsoft Entra ID administrator access
    - OpenShift Pull Secret (for ARO)
    - Identity management - see [Security Architecture diagram](../images/security-architecture.svg)
 
@@ -386,7 +386,7 @@ az role assignment create \
   --scope $(az keyvault show --name "$KEY_VAULT_NAME" --resource-group three-horizons-shared --query id -o tsv)
 ```
 
-> ⚠️ **Important:** Managed identities are the preferred method for service authentication in Azure. They provide better security than service principals as they don't require secret management. [Learn more about managed identities](https://learn.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview).
+> ⚠️ **Important:** Managed identities are the preferred method for service authentication in Azure. They provide better security than service principals as they don't require secret management. [Learn more about managed identities](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/overview).
 
 ### <span style="color: #0366d6;">Horizon 1 (Foundation) Validation</span>
 
@@ -557,7 +557,7 @@ oc login "$(az aro show --name three-horizons-aro --resource-group three-horizon
 oc get nodes
 ```
 
-> 📝 **Note:** The ARO console URL will open the web UI. Use the kubeadmin credentials to log in. For production environments, configure Azure AD integration for authentication. See [ARO Azure AD integration](https://learn.microsoft.com/en-us/azure/openshift/configure-azure-ad-ui).
+> 📝 **Note:** The ARO console URL will open the web UI. Use the kubeadmin credentials to log in. For production environments, configure Microsoft Entra ID integration for authentication. See [ARO Microsoft Entra ID integration](https://learn.microsoft.com/en-us/azure/openshift/configure-azure-ad-ui).
 
 ### <span style="color: #0366d6;">Step 2.3: Configure RBAC</span>
 
@@ -1833,7 +1833,7 @@ Below are checklists for each component to ensure complete implementation of the
 - [ ] RBAC configured for cluster access
 - [ ] Storage classes created for persistent data
 - [ ] Ingress controller installed and configured
-- [ ] Azure AD integration for authentication
+- [ ] Microsoft Entra ID integration for authentication
 - [ ] Cluster monitoring enabled
 
 ### <span style="color: #0366d6;">Developer Hub Checklist</span>
@@ -1957,7 +1957,7 @@ az devcenter admin networkconnection create \
   --devcenter-name three-horizons-devcenter \
   --subnet-id $(az network vnet subnet show --resource-group three-horizons-platform --vnet-name three-horizons-vnet --name services-subnet --query id -o tsv) \
   --network-connection-type Subnet \
-  --domain-join-type AAD \
+  --domain-join-type AzureAD \
   --log-analytics-workspace-id $WORKSPACE_ID
 ```
 

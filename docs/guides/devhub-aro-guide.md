@@ -495,10 +495,10 @@ oc create secret generic github-app-credentials \
   --from-literal=private-key="$(cat your-private-key.pem)"
 ```
 
-### Step 4.3: Configure Azure AD Integration (Optional)
+### Step 4.3: Configure Microsoft Entra ID Integration (Optional)
 
 ```bash
-# Register an application in Azure AD for Developer Hub
+# Register an application in Microsoft Entra ID for Developer Hub
 APP_ID=$(az ad app create \
   --display-name "Three Horizons Developer Hub ARO" \
   --query appId -o tsv)
@@ -522,13 +522,13 @@ metadata:
   name: cluster
 spec:
   identityProviders:
-  - name: AAD
+  - name: EntraID
     mappingMethod: claim
     type: OpenID
     openID:
       clientID: $APP_ID
       clientSecret: 
-        name: aad-client-secret
+        name: entraid-client-secret
       extraScopes: 
       - email
       - profile
@@ -544,7 +544,7 @@ spec:
 EOF
 
 # Create the client secret
-oc create secret generic aad-client-secret \
+oc create secret generic entraid-client-secret \
   --from-literal=clientSecret="$CLIENT_SECRET" \
   -n openshift-config
 ```
