@@ -1,4 +1,4 @@
-# 🚀 Three Horizons Platform
+# 🚀 Three Horizon AI Development Platform
 
 <div align="center">
 
