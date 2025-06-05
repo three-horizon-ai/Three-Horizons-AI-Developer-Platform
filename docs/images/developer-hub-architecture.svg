@@ -1,134 +1,191 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="800" height="600" viewBox="0 0 800 600">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700">
   <defs>
-    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.3"/>
-    </filter>
-    <linearGradient id="redhat-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#EE0000;stop-opacity:1"/>
-      <stop offset="100%" style="stop-color:#CC0000;stop-opacity:1"/>
+    <style>
+      .title-text { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 24px; font-weight: bold; fill: #2c3e50; }
+      .section-title { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 16px; font-weight: bold; fill: white; }
+      .component-text { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 12px; fill: white; }
+      .legend-text { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 11px; fill: #34495e; }
+      .github-text { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 14px; font-weight: bold; fill: white; }
+      
+      /* Gradients */
+      .catalog-gradient { fill: linear-gradient(135deg, #3498db, #2980b9); }
+      .template-gradient { fill: linear-gradient(135deg, #27ae60, #229954); }
+      .plugin-gradient { fill: linear-gradient(135deg, #8e44ad, #7d3c98); }
+      .portal-gradient { fill: linear-gradient(135deg, #e67e22, #d35400); }
+      .header-gradient { fill: linear-gradient(135deg, #e74c3c, #c0392b); }
+      .github-gradient { fill: linear-gradient(135deg, #2c3e50, #34495e); }
+      
+      /* Shadows */
+      .shadow { filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1)); }
+      
+      /* Animations */
+      .hover-animation { transition: transform 0.3s ease; }
+      .hover-animation:hover { transform: scale(1.02); }
+      
+      /* Modern card styles */
+      .modern-card { rx: 8; ry: 8; }
+      .component-card { rx: 4; ry: 4; }
+    </style>
+    
+    <!-- Gradients -->
+    <linearGradient id="catalogGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3498db;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2980b9;stop-opacity:1" />
     </linearGradient>
-    <linearGradient id="catalog-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#0078D4;stop-opacity:1"/>
-      <stop offset="100%" style="stop-color:#0063B1;stop-opacity:1"/>
+    <linearGradient id="templateGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#27ae60;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#229954;stop-opacity:1" />
     </linearGradient>
-    <linearGradient id="template-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#83B81A;stop-opacity:1"/>
-      <stop offset="100%" style="stop-color:#5A8010;stop-opacity:1"/>
+    <linearGradient id="pluginGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8e44ad;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7d3c98;stop-opacity:1" />
     </linearGradient>
-    <linearGradient id="plugin-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#8661C5;stop-opacity:1"/>
-      <stop offset="100%" style="stop-color:#6B4C9E;stop-opacity:1"/>
+    <linearGradient id="portalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e67e22;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d35400;stop-opacity:1" />
     </linearGradient>
-    <linearGradient id="portal-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#FF8C00;stop-opacity:1"/>
-      <stop offset="100%" style="stop-color:#DD7B00;stop-opacity:1"/>
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e74c3c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#c0392b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="githubGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2c3e50;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#34495e;stop-opacity:1" />
     </linearGradient>
   </defs>
   
+  <!-- Background -->
+  <rect width="1000" height="700" fill="#f8f9fa"/>
+  
+  <!-- Main container -->
+  <rect x="50" y="50" width="900" height="600" fill="white" class="modern-card shadow" stroke="#e9ecef" stroke-width="1"/>
+  
   <!-- Title -->
-  <text x="400" y="50" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" font-weight="bold" fill="#333">Red Hat Developer Hub Architecture</text>
+  <text x="500" y="90" text-anchor="middle" class="title-text">Red Hat Developer Hub Architecture</text>
+  <text x="500" y="110" text-anchor="middle" class="legend-text" style="font-size: 14px;">Three Horizons AI Development Platform</text>
   
-  <!-- Red Hat Developer Hub Main Platform -->
-  <rect x="100" y="100" width="600" height="400" rx="10" ry="10" fill="#F8F8F8" stroke="#EE0000" stroke-width="2"/>
-  <rect x="100" y="100" width="600" height="40" rx="10" ry="10" fill="url(#redhat-gradient)" filter="url(#shadow)"/>
-  <text x="400" y="125" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" fill="white" font-weight="bold">Red Hat Developer Hub</text>
+  <!-- Header - Red Hat Developer Hub -->
+  <rect x="100" y="140" width="800" height="60" fill="url(#headerGrad)" class="modern-card shadow"/>
+  <text x="500" y="175" text-anchor="middle" class="section-title" style="font-size: 20px;">Red Hat Developer Hub 1.5</text>
   
-  <!-- Component Catalog -->
-  <rect x="120" y="160" width="250" height="150" rx="5" ry="5" fill="url(#catalog-gradient)" filter="url(#shadow)" opacity="0.9"/>
-  <text x="245" y="185" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white" font-weight="bold">Component Catalog</text>
+  <!-- Component Catalog (Blue) -->
+  <rect x="120" y="230" width="180" height="150" fill="url(#catalogGrad)" class="modern-card shadow hover-animation"/>
+  <text x="210" y="255" text-anchor="middle" class="section-title">Component Catalog</text>
   
-  <!-- Component Catalog Items -->
-  <rect x="140" y="200" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
-  <text x="190" y="220" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#0078D4">API Services</text>
+  <!-- Component items -->
+  <rect x="135" y="270" width="70" height="25" fill="rgba(255,255,255,0.2)" class="component-card"/>
+  <text x="170" y="287" text-anchor="middle" class="component-text">API Services</text>
+  <rect x="215" y="270" width="70" height="25" fill="rgba(255,255,255,0.2)" class="component-card"/>
+  <text x="250" y="287" text-anchor="middle" class="component-text">Web Services</text>
+  <rect x="135" y="305" width="70" height="25" fill="rgba(255,255,255,0.2)" class="component-card"/>
+  <text x="170" y="322" text-anchor="middle" class="component-text">Libraries</text>
+  <rect x="215" y="305" width="70" height="25" fill="rgba(255,255,255,0.2)" class="component-card"/>
+  <text x="250" y="322" text-anchor="middle" class="component-text">Databases</text>
+  <rect x="135" y="340" width="70" height="25" fill="rgba(255,255,255,0.2)" class="component-card"/>
+  <text x="170" y="357" text-anchor="middle" class="component-text">Microservices</text>
+  <rect x="215" y="340" width="70" height="25" fill="rgba(255,255,255,0.2)" class="component-card"/>
+  <text x="250" y="357" text-anchor="middle" class="component-text">AI Models</text>
   
-  <rect x="250" y="200" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
-  <text x="300" y="220" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#0078D4">Web Services</text>
+  <!-- Template Library (Green) -->
+  <rect x="320" y="230" width="180" height="150" fill="url(#templateGrad)" class="modern-card shadow hover-animation"/>
+  <text x="410" y="255" text-anchor="middle" class="section-title">Template Library</text>
   
-  <rect x="140" y="240" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
-  <text x="190" y="260" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#0078D4">Libraries</text>
+  <!-- Template items -->
+  <rect x="335" y="270" width="70" height="25" fill="rgba(255,255,255,0.2)" class="component-card"/>
+  <text x="370" y="287" text-anchor="middle" class="component-text">React App</text>
+  <rect x="415" y="270" width="70" height="25" fill="rgba(255,255,255,0.2)" class="component-card"/>
+  <text x="450" y="287" text-anchor="middle" class="component-text">Spring Boot</text>
+  <rect x="335" y="305" width="70" height="25" fill="rgba(255,255,255,0.2)" class="component-card"/>
+  <text x="370" y="322" text-anchor="middle" class="component-text">Python API</text>
+  <rect x="415" y="305" width="70" height="25" fill="rgba(255,255,255,0.2)" class="component-card"/>
+  <text x="450" y="322" text-anchor="middle" class="component-text">Microservice</text>
+  <rect x="335" y="340" width="70" height="25" fill="rgba(255,255,255,0.2)" class="component-card"/>
+  <text x="370" y="357" text-anchor="middle" class="component-text">AI Workflow</text>
+  <rect x="415" y="340" width="70" height="25" fill="rgba(255,255,255,0.2)" class="component-card"/>
+  <text x="450" y="357" text-anchor="middle" class="component-text">MLOps</text>
   
-  <rect x="250" y="240" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
-  <text x="300" y="260" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#0078D4">Databases</text>
+  <!-- Plugin Ecosystem (Purple) -->
+  <rect x="520" y="230" width="180" height="150" fill="url(#pluginGrad)" class="modern-card shadow hover-animation"/>
+  <text x="610" y="255" text-anchor="middle" class="section-title">Plugin Ecosystem</text>
   
-  <!-- Template Library -->
-  <rect x="430" y="160" width="250" height="150" rx="5" ry="5" fill="url(#template-gradient)" filter="url(#shadow)" opacity="0.9"/>
-  <text x="555" y="185" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white" font-weight="bold">Template Library</text>
+  <!-- Plugin items -->
+  <rect x="535" y="270" width="70" height="25" fill="rgba(255,255,255,0.2)" class="component-card"/>
+  <text x="570" y="287" text-anchor="middle" class="component-text">GitHub</text>
+  <rect x="615" y="270" width="70" height="25" fill="rgba(255,255,255,0.2)" class="component-card"/>
+  <text x="650" y="287" text-anchor="middle" class="component-text">Azure</text>
+  <rect x="535" y="305" width="70" height="25" fill="rgba(255,255,255,0.2)" class="component-card"/>
+  <text x="570" y="322" text-anchor="middle" class="component-text">Kubernetes</text>
+  <rect x="615" y="305" width="70" height="25" fill="rgba(255,255,255,0.2)" class="component-card"/>
+  <text x="650" y="322" text-anchor="middle" class="component-text">Argo CD</text>
+  <rect x="535" y="340" width="70" height="25" fill="rgba(255,255,255,0.2)" class="component-card"/>
+  <text x="570" y="357" text-anchor="middle" class="component-text">TechDocs</text>
+  <rect x="615" y="340" width="70" height="25" fill="rgba(255,255,255,0.2)" class="component-card"/>
+  <text x="650" y="357" text-anchor="middle" class="component-text">Copilot</text>
   
-  <!-- Template Library Items -->
-  <rect x="450" y="200" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
-  <text x="500" y="220" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#5A8010">Node.js App</text>
+  <!-- Developer Portal (Orange) -->
+  <rect x="720" y="230" width="180" height="150" fill="url(#portalGrad)" class="modern-card shadow hover-animation"/>
+  <text x="810" y="255" text-anchor="middle" class="section-title">Developer Portal</text>
   
-  <rect x="560" y="200" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
-  <text x="610" y="220" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#5A8010">Java App</text>
+  <!-- Portal items -->
+  <rect x="735" y="270" width="70" height="25" fill="rgba(255,255,255,0.2)" class="component-card"/>
+  <text x="770" y="287" text-anchor="middle" class="component-text">Documentation</text>
+  <rect x="815" y="270" width="70" height="25" fill="rgba(255,255,255,0.2)" class="component-card"/>
+  <text x="850" y="287" text-anchor="middle" class="component-text">Golden Paths</text>
+  <rect x="735" y="305" width="70" height="25" fill="rgba(255,255,255,0.2)" class="component-card"/>
+  <text x="770" y="322" text-anchor="middle" class="component-text">Scorecards</text>
+  <rect x="815" y="305" width="70" height="25" fill="rgba(255,255,255,0.2)" class="component-card"/>
+  <text x="850" y="322" text-anchor="middle" class="component-text">Service Catalog</text>
+  <rect x="735" y="340" width="70" height="25" fill="rgba(255,255,255,0.2)" class="component-card"/>
+  <text x="770" y="357" text-anchor="middle" class="component-text">API Docs</text>
+  <rect x="815" y="340" width="70" height="25" fill="rgba(255,255,255,0.2)" class="component-card"/>
+  <text x="850" y="357" text-anchor="middle" class="component-text">AI Assistant</text>
   
-  <rect x="450" y="240" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
-  <text x="500" y="260" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#5A8010">Python App</text>
+  <!-- Connection arrows -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7f8c8d"/>
+    </marker>
+  </defs>
   
-  <rect x="560" y="240" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
-  <text x="610" y="260" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#5A8010">Microservice</text>
+  <!-- Horizontal connection lines -->
+  <line x1="300" y1="305" x2="320" y2="305" stroke="#7f8c8d" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
+  <line x1="500" y1="305" x2="520" y2="305" stroke="#7f8c8d" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
+  <line x1="700" y1="305" x2="720" y2="305" stroke="#7f8c8d" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
   
-  <!-- Plugin Ecosystem -->
-  <rect x="120" y="330" width="250" height="150" rx="5" ry="5" fill="url(#plugin-gradient)" filter="url(#shadow)" opacity="0.9"/>
-  <text x="245" y="355" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white" font-weight="bold">Plugin Ecosystem</text>
+  <!-- GitHub Enterprise section -->
+  <rect x="300" y="420" width="400" height="50" fill="url(#githubGrad)" class="modern-card shadow"/>
+  <text x="500" y="450" text-anchor="middle" class="github-text">GitHub Enterprise + GitHub Copilot</text>
   
-  <!-- Plugin Items -->
-  <rect x="140" y="370" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
-  <text x="190" y="390" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#6B4C9E">GitHub</text>
+  <!-- Connection from RHDH to GitHub -->
+  <line x1="500" y1="400" x2="500" y2="420" stroke="#7f8c8d" stroke-width="3" marker-end="url(#arrowhead)"/>
   
-  <rect x="250" y="370" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
-  <text x="300" y="390" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#6B4C9E">Azure</text>
+  <!-- Microsoft Azure section -->
+  <rect x="100" y="500" width="800" height="50" fill="#0078d4" class="modern-card shadow"/>
+  <text x="500" y="530" text-anchor="middle" class="section-title" style="font-size: 18px;">Microsoft Azure (AKS/ARO + AI Services)</text>
   
-  <rect x="140" y="410" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
-  <text x="190" y="430" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#6B4C9E">Kubernetes</text>
-  
-  <rect x="250" y="410" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
-  <text x="300" y="430" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#6B4C9E">Tekton</text>
-  
-  <!-- Developer Portal -->
-  <rect x="430" y="330" width="250" height="150" rx="5" ry="5" fill="url(#portal-gradient)" filter="url(#shadow)" opacity="0.9"/>
-  <text x="555" y="355" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white" font-weight="bold">Developer Portal</text>
-  
-  <!-- Portal Features -->
-  <rect x="450" y="370" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
-  <text x="500" y="390" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#DD7B00">Documentation</text>
-  
-  <rect x="560" y="370" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
-  <text x="610" y="390" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#DD7B00">Golden Paths</text>
-  
-  <rect x="450" y="410" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
-  <text x="500" y="430" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#DD7B00">Scorecards</text>
-  
-  <rect x="560" y="410" width="100" height="30" rx="5" ry="5" fill="white" opacity="0.8"/>
-  <text x="610" y="430" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#DD7B00">Service Catalog</text>
-  
-  <!-- Integration Arrows -->
-  <path d="M 245 310 L 245 330" stroke="#6B4C9E" stroke-width="2" stroke-dasharray="5,5"/>
-  <polygon points="240,325 245,330 250,325" fill="#6B4C9E"/>
-  
-  <path d="M 555 310 L 555 330" stroke="#DD7B00" stroke-width="2" stroke-dasharray="5,5"/>
-  <polygon points="550,325 555,330 560,325" fill="#DD7B00"/>
-  
-  <path d="M 370 235 L 430 235" stroke="#5A8010" stroke-width="2" stroke-dasharray="5,5"/>
-  <polygon points="425,230 430,235 425,240" fill="#5A8010"/>
-  
-  <path d="M 370 405 L 430 405" stroke="#DD7B00" stroke-width="2" stroke-dasharray="5,5"/>
-  <polygon points="425,400 430,405 425,410" fill="#DD7B00"/>
-  
-  <!-- External Connections -->
-  <rect x="290" y="520" width="220" height="40" rx="10" ry="10" fill="#24292E" filter="url(#shadow)"/>
-  <text x="400" y="545" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white" font-weight="bold">GitHub Enterprise</text>
-  
-  <line x1="400" y1="500" x2="400" y2="520" stroke="#24292E" stroke-width="3" stroke-dasharray="5,5"/>
-  <polygon points="395,515 400,520 405,515" fill="#24292E"/>
+  <!-- Connection from GitHub to Azure -->
+  <line x1="500" y1="470" x2="500" y2="500" stroke="#7f8c8d" stroke-width="3" marker-end="url(#arrowhead)"/>
   
   <!-- Legend -->
-  <rect x="580" y="500" width="170" height="80" rx="5" ry="5" fill="white" stroke="#ccc" stroke-width="1"/>
-  <text x="665" y="520" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold" fill="#333">Components</text>
+  <rect x="100" y="580" width="300" height="80" fill="#ecf0f1" class="modern-card" stroke="#bdc3c7" stroke-width="1"/>
+  <text x="110" y="600" class="legend-text" style="font-weight: bold;">Three Horizons Components:</text>
   
-  <rect x="600" y="535" width="15" height="15" fill="url(#catalog-gradient)"/>
-  <text x="665" y="547" font-family="Arial, sans-serif" font-size="12" fill="#333">Software Catalog</text>
+  <!-- Legend items -->
+  <rect x="110" y="610" width="15" height="15" fill="url(#catalogGrad)"/>
+  <text x="135" y="622" class="legend-text">Software Catalog & APIs</text>
   
-  <rect x="600" y="560" width="15" height="15" fill="url(#template-gradient)"/>
-  <text x="665" y="572" font-family="Arial, sans-serif" font-size="12" fill="#333">Templates</text>
+  <rect x="110" y="635" width="15" height="15" fill="url(#templateGrad)"/>
+  <text x="135" y="647" class="legend-text">Golden Path Templates</text>
+  
+  <rect x="250" y="610" width="15" height="15" fill="url(#pluginGrad)"/>
+  <text x="275" y="622" class="legend-text">Integrations & Plugins</text>
+  
+  <rect x="250" y="635" width="15" height="15" fill="url(#portalGrad)"/>
+  <text x="275" y="647" class="legend-text">Developer Experience</text>
+  
+  <!-- AI Enhancement badge -->
+  <rect x="750" y="580" width="150" height="30" fill="#f39c12" class="modern-card shadow"/>
+  <text x="825" y="600" text-anchor="middle" class="section-title" style="font-size: 12px;">AI-Enhanced Platform</text>
+  
 </svg> 

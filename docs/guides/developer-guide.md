@@ -159,6 +159,8 @@ The platform organizes development into four distinct zones:
 
 ## <span style="color: #0366d6;">📱 Using Red Hat Developer Hub</span>
 
+> 🎯 **Platform Architecture:** For a comprehensive view of the Developer Hub components and their integration with Azure AI services and GitHub Copilot, see our [Three Horizons Developer Hub Architecture](../images/developer-hub-architecture.svg).
+
 ### Accessing Developer Hub
 
 1. Navigate to `https://devhub.example.com`

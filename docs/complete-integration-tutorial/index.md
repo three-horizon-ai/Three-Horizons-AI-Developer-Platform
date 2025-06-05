@@ -778,6 +778,8 @@ kubectl wait --for=condition=ready pod -l app=rhdh-operator -n developer-hub --t
 
 Red Hat Developer Hub 1.5 introduces several important enhancements and features:
 
+> 📊 **Enhanced Architecture:** View our updated [Three Horizons Developer Hub Architecture](../images/developer-hub-architecture.svg) to see how RHDH 1.5 integrates with AI services, modern DevOps tools, and GitHub Copilot.
+
 1. **Dynamic Plugins Architecture**:
    - Plugin loading without container rebuilds
    - Hot-swappable plugins for runtime customization
@@ -994,7 +996,7 @@ EOF
 > 3. Wait 5-15 minutes for RBAC permissions to propagate
 > 4. If you need to proceed immediately, you can manually create the Kubernetes secret with the database password you set previously
 >
-> 🔗 **Internal Document:** See our [Developer Hub architecture](../images/developer-hub-architecture.svg) for a visualization of how these components interconnect.
+> 🔗 **Architecture Reference:** See our [Three Horizons Developer Hub Architecture](../images/developer-hub-architecture.svg) for a comprehensive visualization of the AI-enhanced platform components, including GitHub Copilot integration, Azure AI services, and modern DevOps workflows.
 
 ### <span style="color: #0366d6;">Step 3.5: Create Ingress for Developer Hub</span>
 

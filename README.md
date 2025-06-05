@@ -41,6 +41,10 @@ The platform combines three key technology pillars:
 2. **Red Hat Developer Hub** - Developer portal and experience platform
 3. **GitHub Enterprise** - Source control, collaboration and CI/CD
 
+![Three Horizons Developer Hub Architecture](docs/images/developer-hub-architecture.svg)
+
+> 🏗️ **Architecture Overview:** The diagram above shows how these components integrate with AI services, modern DevOps workflows, and the comprehensive developer experience platform.
+
 ![Developer Hub Portal Example](docs/images/dev-hub-portal-sample.png)
 
 ## 🚀 Implementation Guide
