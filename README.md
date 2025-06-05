@@ -9,7 +9,7 @@
 
 **A comprehensive platform integrating Microsoft Azure, Red Hat Developer Hub, and GitHub Enterprise to create a superior developer experience.**
 
-(docs/images/Three Horizon.ong)
+![Three Horizons Platform](docs/images/Three Horizon.png)
 
 </div>
 
