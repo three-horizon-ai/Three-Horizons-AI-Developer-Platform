@@ -2682,6 +2682,29 @@ In case of critical issues that require rollback:
 
 > 🔧 **Troubleshooting Tip:** Always collect and preserve logs before making changes when troubleshooting issues. Use `kubectl logs` with the `--previous` flag to see logs from crashed containers.
 
+## <span style="color: #0366d6;">📚 Platform Documentation</span>
+
+### <span style="color: #0366d6;">Zone-Specific Guides</span>
+
+The Three Horizons Platform is organized into four operational zones, each with dedicated documentation:
+
+- **[Development Zone (Inner Loop)](../guides/inner-loop-development.md)** - Local development workflow and best practices
+- **[Integration Zone (CI/CD)](../guides/integration-zone-cicd.md)** - Continuous integration and delivery pipelines  
+- **[Runtime Zone (Outer Loop)](../guides/outer-loop-deployment.md)** - Deployment and runtime management
+- **[Operations Zone (Monitoring)](../guides/operations-zone-monitoring.md)** - Monitoring, observability, and Datadog integration
+
+### <span style="color: #0366d6;">Troubleshooting & Support</span>
+
+- **[Complete Integration Troubleshooting & FAQ](./troubleshooting-faq.md)** - Comprehensive troubleshooting guide and frequently asked questions
+- **[ARO-Specific Troubleshooting](../guides/troubleshooting.md)** - Azure Red Hat OpenShift specific issues and solutions
+
+### <span style="color: #0366d6;">Other Platform Guides</span>
+
+- **[Golden Paths Guide](../guides/golden-paths.md)** - Standardized developer workflows and templates
+- **[Developer Guide](../guides/developer-guide.md)** - Guide for application developers using the platform
+- **[AKS Deployment Guide](../guides/devhub-aks-guide.md)** - Azure Kubernetes Service specific deployment
+- **[ARO Deployment Guide](../guides/devhub-aro-guide.md)** - Azure Red Hat OpenShift specific deployment
+
 ## <span style="color: #0366d6;">📚 External References</span>
 
 ### <span style="color: #0366d6;">Official Documentation</span>

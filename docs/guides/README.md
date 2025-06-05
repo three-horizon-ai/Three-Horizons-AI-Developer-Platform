@@ -1,388 +1,174 @@
-# Deploying Developer Hub on Azure Red Hat OpenShift (ARO)
+# 📚 Three Horizons Platform - Guides
 
-This guide provides step-by-step instructions for deploying the Three Horizons Platform's Developer Hub on Azure Red Hat OpenShift.
+Welcome to the comprehensive guide collection for the Three Horizons Platform. These guides provide detailed instructions for implementing, operating, and optimizing your platform deployment.
 
-## Prerequisites
+## 🗂️ Guide Categories
 
-- Azure subscription with Owner or Contributor access
-- Red Hat account with appropriate entitlements
-- Azure CLI installed and configured
-- OpenShift CLI (oc) installed
-- GitHub account with administrative access to your organization
+### 🚀 Deployment Guides
 
-## Architecture
+#### [Developer Hub on AKS Guide](./devhub-aks-guide.md)
+Complete guide for deploying Red Hat Developer Hub on Azure Kubernetes Service (AKS). This guide covers:
+- Infrastructure provisioning with Terraform
+- AKS cluster deployment and configuration
+- Red Hat Developer Hub installation
+- GitHub integration setup
+- Monitoring and security configuration
 
-The deployment uses the following Azure resources:
+#### [Developer Hub on ARO Guide](./devhub-aro-guide.md)
+Comprehensive guide for deploying Red Hat Developer Hub on Azure Red Hat OpenShift (ARO). This guide includes:
+- ARO cluster provisioning
+- OpenShift-specific configurations
+- Developer Hub deployment on OpenShift
+- Integration with OpenShift security features
+- GitOps implementation with OpenShift
 
-- Azure Red Hat OpenShift cluster
-- Azure Container Registry (ACR)
-- Azure Key Vault
-- Azure Monitor
-- Microsoft Entra ID
-- Azure Virtual Network and Subnets
+### 🔄 Zone-Based Architecture Guides
 
-## Deployment Steps
+The Three Horizons Platform is organized into four operational zones:
 
-### 1. Set up Environment Variables
+#### [Development Zone - Inner Loop](./inner-loop-development.md)
+Local development workflows and best practices:
+- Local development environment setup
+- Integration with Developer Hub templates
+- Testing and debugging strategies
+- Code quality tools and practices
+- Pre-commit hooks and validation
 
-```bash
-# Set environment variables
-RESOURCE_GROUP="three-horizons-devhub"
-LOCATION="centralus"
-ARO_CLUSTER_NAME="devhub-aro"
-ACR_NAME="devhubacr$(date +%s)"
-KEYVAULT_NAME="th3horizons$(date +%s)"
-VNET_NAME="devhub-vnet"
-MASTER_SUBNET="master-subnet"
-WORKER_SUBNET="worker-subnet"
-ARO_DOMAIN="devhub.example.com"
+#### [Integration Zone - CI/CD Pipeline](./integration-zone-cicd.md)
+Comprehensive CI/CD implementation guide:
+- GitHub Actions configuration
+- Azure DevOps integration
+- GitOps with Flux/ArgoCD
+- Security scanning and quality gates
+- Progressive delivery strategies
+- DORA metrics collection
+
+#### [Runtime Zone - Outer Loop](./outer-loop-deployment.md)
+Production deployment and runtime management:
+- Continuous deployment workflows
+- Environment promotion strategies
+- Deployment verification tests
+- Rollback procedures
+- Blue/Green and Canary deployments
+
+#### [Operations Zone - Monitoring](./operations-zone-monitoring.md)
+Complete monitoring and observability setup:
+- Prometheus/Grafana stack deployment
+- Datadog multi-cloud monitoring
+- Azure Monitor integration
+- SLO/SLI configuration
+- Alerting and incident management
+- APM and distributed tracing
+
+### 📖 Development Guides
+
+#### [Golden Paths Guide](./golden-paths.md)
+Standardized development workflows and templates:
+- Understanding Golden Paths concept
+- Available templates and their use cases
+- Creating custom Golden Path templates
+- Best practices for template development
+- Template governance and versioning
+
+#### [Developer Guide](./developer-guide.md)
+Comprehensive guide for developers using the Three Horizons Platform:
+- Getting started with the platform
+- Using Developer Hub effectively
+- Integrating with platform services
+- Development best practices
+- Common development patterns
+
+### 🛠️ Troubleshooting
+
+#### [ARO Troubleshooting Guide](./troubleshooting.md)
+Specific troubleshooting for Azure Red Hat OpenShift deployments:
+- Common ARO issues and solutions
+- Network troubleshooting
+- Developer Hub on ARO issues
+- Performance optimization
+
+#### [Complete Integration Troubleshooting & FAQ](../complete-integration-tutorial/troubleshooting-faq.md)
+Comprehensive troubleshooting for the entire platform:
+- Common error messages and solutions
+- Infrastructure troubleshooting
+- CI/CD pipeline issues
+- Monitoring problems
+- Performance optimization
+- Frequently asked questions
+
+## 🚦 Getting Started
+
+If you're new to the Three Horizons Platform, we recommend following this path:
+
+1. Start with the [Complete Integration Tutorial](../complete-integration-tutorial/index.md)
+2. Choose your deployment path:
+   - [AKS Deployment](./devhub-aks-guide.md) for Kubernetes-native approach
+   - [ARO Deployment](./devhub-aro-guide.md) for OpenShift platform
+3. Set up your development workflow:
+   - [Inner Loop Development](./inner-loop-development.md)
+   - [Golden Paths](./golden-paths.md)
+4. Configure CI/CD:
+   - [Integration Zone Guide](./integration-zone-cicd.md)
+   - [Outer Loop Deployment](./outer-loop-deployment.md)
+5. Set up monitoring:
+   - [Operations Zone Guide](./operations-zone-monitoring.md)
+
+## 📊 Architecture Overview
+
+The Three Horizons Platform follows a zone-based architecture:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    Three Horizons Platform                   │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  ┌─────────────────┐  ┌─────────────────┐                 │
+│  │ Development Zone│  │ Integration Zone │                 │
+│  │   (Inner Loop)  │  │    (CI/CD)      │                 │
+│  └────────┬────────┘  └────────┬────────┘                 │
+│           │                     │                           │
+│  ┌────────▼────────┐  ┌────────▼────────┐                 │
+│  │  Runtime Zone   │  │ Operations Zone  │                 │
+│  │  (Outer Loop)   │  │  (Monitoring)    │                 │
+│  └─────────────────┘  └─────────────────┘                 │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-### 2. Create Resource Group
+## 🔄 Version Compatibility
 
-```bash
-# Create resource group
-az group create --name $RESOURCE_GROUP --location $LOCATION
-```
+| Component | Version | Notes |
+|-----------|---------|-------|
+| Red Hat Developer Hub | 1.6+ | Required for all features |
+| Azure Kubernetes Service | 1.28+ | Latest stable version recommended |
+| Azure Red Hat OpenShift | 4.14+ | ARO deployment option |
+| GitHub Enterprise | Latest | GitHub.com also supported |
+| Prometheus | 2.45+ | For monitoring stack |
+| Grafana | 10.0+ | For visualization |
+| Datadog Agent | 7.45+ | For multi-cloud monitoring |
 
-### 3. Deploy Network Infrastructure
+## 📝 Contributing
 
-```bash
-# Create virtual network and subnets
-az network vnet create \
-  --resource-group $RESOURCE_GROUP \
-  --name $VNET_NAME \
-  --address-prefixes 10.0.0.0/16
+We welcome contributions to improve these guides! Please:
 
-# Create master subnet
-az network vnet subnet create \
-  --resource-group $RESOURCE_GROUP \
-  --vnet-name $VNET_NAME \
-  --name $MASTER_SUBNET \
-  --address-prefixes 10.0.0.0/24 \
-  --service-endpoints Microsoft.ContainerRegistry
+1. Fork the repository
+2. Create a feature branch
+3. Make your improvements
+4. Submit a pull request
 
-# Create worker subnet
-az network vnet subnet create \
-  --resource-group $RESOURCE_GROUP \
-  --vnet-name $VNET_NAME \
-  --name $WORKER_SUBNET \
-  --address-prefixes 10.0.1.0/24 \
-  --service-endpoints Microsoft.ContainerRegistry
-```
+See our [Contributing Guide](../../.github/CONTRIBUTING.md) for detailed instructions.
 
-### 4. Deploy Azure Container Registry
+## 📞 Support
 
-```bash
-# Create container registry
-az acr create \
-  --resource-group $RESOURCE_GROUP \
-  --name $ACR_NAME \
-  --sku Standard \
-  --admin-enabled false
-```
+If you encounter issues:
 
-### 5. Deploy Key Vault
+1. Check the [Troubleshooting Guide](./troubleshooting.md)
+2. Review the [FAQ](../complete-integration-tutorial/troubleshooting-faq.md)
+3. Open an issue in the GitHub repository
+4. Contact platform support
 
-```bash
-# Create key vault
-az keyvault create \
-  --resource-group $RESOURCE_GROUP \
-  --name $KEYVAULT_NAME \
-  --location $LOCATION \
-  --enable-rbac-authorization true
-```
+---
 
-### 6. Register the ARO Resource Provider
-
-```bash
-# Register resource providers if not already registered
-az provider register -n Microsoft.RedHatOpenShift --wait
-az provider register -n Microsoft.Compute --wait
-az provider register -n Microsoft.Storage --wait
-az provider register -n Microsoft.Network --wait
-```
-
-### 7. Create Service Principal for ARO
-
-```bash
-# Create service principal
-SP=$(az ad sp create-for-rbac --name "devhub-aro-sp" --output json)
-SP_ID=$(echo $SP | jq -r .appId)
-SP_SECRET=$(echo $SP | jq -r .password)
-
-# Store service principal credentials in Key Vault
-az keyvault secret set \
-  --vault-name $KEYVAULT_NAME \
-  --name "aro-sp-id" \
-  --value "$SP_ID"
-
-az keyvault secret set \
-  --vault-name $KEYVAULT_NAME \
-  --name "aro-sp-secret" \
-  --value "$SP_SECRET"
-```
-
-### 8. Deploy ARO Cluster
-
-```bash
-# Get master subnet ID
-MASTER_SUBNET_ID=$(az network vnet subnet show \
-  --resource-group $RESOURCE_GROUP \
-  --vnet-name $VNET_NAME \
-  --name $MASTER_SUBNET \
-  --query id -o tsv)
-
-# Get worker subnet ID
-WORKER_SUBNET_ID=$(az network vnet subnet show \
-  --resource-group $RESOURCE_GROUP \
-  --vnet-name $VNET_NAME \
-  --name $WORKER_SUBNET \
-  --query id -o tsv)
-
-# Create ARO cluster
-az aro create \
-  --resource-group $RESOURCE_GROUP \
-  --name $ARO_CLUSTER_NAME \
-  --master-subnet $MASTER_SUBNET_ID \
-  --worker-subnet $WORKER_SUBNET_ID \
-  --pull-secret @pull-secret.txt \
-  --domain $ARO_DOMAIN
-```
-
-### 9. Get Cluster Credentials
-
-```bash
-# Get ARO cluster credentials
-az aro list-credentials \
-  --resource-group $RESOURCE_GROUP \
-  --name $ARO_CLUSTER_NAME \
-  --query "{username: kubeadminUsername, password: kubeadminPassword}" -o json
-
-# Get ARO API server URL
-API_SERVER=$(az aro show \
-  --resource-group $RESOURCE_GROUP \
-  --name $ARO_CLUSTER_NAME \
-  --query apiserverProfile.url -o tsv)
-
-# Login with oc CLI
-oc login $API_SERVER -u kubeadmin -p <password>
-```
-
-### 10. Install Developer Hub Operator
-
-```bash
-# Create project for Developer Hub
-oc new-project developer-hub
-
-# Install the Red Hat Developer Hub Operator v1.6 from OperatorHub
-oc apply -f - << EOF
-apiVersion: operators.coreos.com/v1alpha1
-kind: Subscription
-metadata:
-  name: rhdh-operator
-  namespace: openshift-operators
-spec:
-  channel: stable
-  name: rhdh-operator
-  source: redhat-operators
-  sourceNamespace: openshift-marketplace
-      startingCSV: rhdh-operator.v1.6.0
-EOF
-
-# Wait for the operator to be installed
-oc wait --for=condition=ready pod -l name=rhdh-operator-controller-manager -n openshift-operators --timeout=300s
-```
-
-### 11. Deploy Developer Hub
-
-```bash
-# Create Developer Hub instance v1.6
-oc apply -f - << EOF
-apiVersion: rhdh.redhat.com/v1alpha1
-kind: Backstage
-metadata:
-  name: developer-hub
-  namespace: developer-hub
-spec:
-  application:
-    replicas: 2
-    resources:
-      requests:
-        memory: 1Gi
-        cpu: 500m
-      limits:
-        memory: 2Gi
-        cpu: 1
-  database:
-    enableLocalPostgres: true
-  rbac:
-    enabled: true
-  route:
-    enabled: true
-    host: devhub.$ARO_DOMAIN
-    tls:
-      insecureEdgeTerminationPolicy: Redirect
-      termination: edge
-  extraEnvs:
-    - name: RHDH_CONFIG_APP_CONFIG_app_baseUrl
-      value: "https://devhub.$ARO_DOMAIN"
-    - name: RHDH_DYNAMIC_PLUGINS_BACKEND_DYNAMIC_PLUGINS
-      value: "true"
-EOF
-
-# Wait for the deployment to be ready
-oc wait --for=condition=ready pod -l app=developer-hub -n developer-hub --timeout=300s
-```
-
-### 12. Configure Microsoft Entra ID Integration
-
-```bash
-# Register an application in Microsoft Entra ID for Developer Hub
-APP_ID=$(az ad app create \
-  --display-name "Developer Hub" \
-  --available-to-other-tenants false \
-  --query appId -o tsv)
-
-# Create a service principal
-az ad sp create --id $APP_ID
-
-# Get the tenant ID
-TENANT_ID=$(az account show --query tenantId -o tsv)
-
-# Configure the OAuth settings
-az ad app update \
-  --id $APP_ID \
-  --reply-urls "https://devhub.$ARO_DOMAIN/api/auth/callback/azure-ad"
-
-# Configure identity provider in OpenShift
-oc apply -f - << EOF
-apiVersion: config.openshift.io/v1
-kind: OAuth
-metadata:
-  name: cluster
-spec:
-  identityProviders:
-  - name: Microsoft Entra ID
-    mappingMethod: claim
-    type: OpenID
-    openID:
-      clientID: $APP_ID
-      clientSecret: 
-        name: entra-id-client-secret
-      extraScopes: 
-      - email
-      - profile
-      extraAuthorizeParameters:
-        include_granted_scopes: "true"
-      claims:
-        preferredUsername:
-        - preferred_username
-        - email
-        name:
-        - name
-        email:
-        - email
-      issuer: https://login.microsoftonline.com/$TENANT_ID/v2.0
-EOF
-```
-
-### 13. Configure GitHub Integration
-
-```bash
-# Register a GitHub App
-# Follow the instructions at https://docs.github.com/en/developers/apps/creating-a-github-app
-
-# Store GitHub App credentials as a secret
-oc create secret generic github-app-credentials \
-  --namespace developer-hub \
-  --from-literal=app-id=your-github-app-id \
-  --from-literal=private-key="your-github-app-private-key"
-
-# Update Developer Hub configuration to use GitHub integration
-oc apply -f - << EOF
-apiVersion: rhdh.redhat.com/v1alpha1
-kind: DynamicPlugin
-metadata:
-  name: github-catalog-plugin
-  namespace: developer-hub
-spec:
-  disabled: false
-  package:
-    name: '@backstage/plugin-catalog-backend-module-github'
-    version: '0.3.9'
-  pluginConfig:
-  - name: catalog.providers.github
-    data: |
-      {
-        "allowedInstances": ["github.com"],
-        "organization": "your-github-org",
-        "schedule": {
-          "frequency": { "minutes": 30 },
-          "timeout": { "minutes": 3 }
-        },
-        "catalogPath": "/catalog-info.yaml",
-        "visibilityLevel": "all"
-      }
-EOF
-```
-
-### 14. Verify Installation
-
-```bash
-# Check Developer Hub deployment status
-oc get pods -n developer-hub
-
-# Get the Developer Hub URL
-oc get route -n developer-hub
-```
-
-## Post-Installation Configuration
-
-### Set Up Golden Paths
-
-1. Navigate to the Developer Hub admin interface
-2. Go to Scaffolder > Templates
-3. Create new templates for your golden paths:
-   - Web Application Template
-   - API Service Template
-   - Kubernetes Deployment Template
-   - CI/CD Pipeline Template
-
-### Configure Service Catalog
-
-1. Navigate to the Developer Hub admin interface
-2. Go to Catalog > Settings
-3. Configure the catalog with your organization's services and components
-
-### Set Up Documentation
-
-1. Configure TechDocs backend
-2. Set up documentation sources
-3. Import existing documentation
-
-## Troubleshooting
-
-### Common Issues
-
-#### Issue: Pods are in CrashLoopBackOff
-**Solution**: Check the logs with `oc logs -n developer-hub [pod-name]`
-
-#### Issue: Cannot access Developer Hub UI
-**Solution**: Verify route configuration and DNS settings
-
-#### Issue: GitHub integration not working
-**Solution**: Check GitHub App credentials and permissions
-
-## Next Steps
-
-- [Configure Monitoring and Alerts](troubleshooting.md)
-- [Set Up CI/CD Pipelines](../complete-integration-tutorial/index.md#ci-cd-pipeline-setup)
-- [Configure User Management](../complete-integration-tutorial/index.md#authentication-and-authorization)
-- [Customize Developer Hub](../complete-integration-tutorial/index.md#red-hat-developer-hub-rhdh-setup)
-
-## References
-
-- [ARO Documentation](https://docs.microsoft.com/en-us/azure/openshift/)
-- [OpenShift Documentation](https://docs.openshift.com/)
-- [Developer Hub Documentation](https://developer-hub-docs.example.com)
+<footer>
+  <p align="center">🔄 Last updated: June 2025 | Platform Version: 1.6</p>
+</footer> 
