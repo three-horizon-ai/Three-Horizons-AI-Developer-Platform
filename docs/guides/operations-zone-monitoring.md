@@ -2,11 +2,11 @@
 
 ## 🎯 Overview
 
-The Operations Zone provides comprehensive monitoring, observability, and operational intelligence for the Three Horizons Platform. This zone enables proactive monitoring, incident detection, and performance optimization across all platform components, supporting both cloud-native (Prometheus/Grafana) and enterprise multi-cloud (Datadog) scenarios.
+The Operations Zone provides comprehensive monitoring, observability, and operational intelligence for the Three Horizons Platform. This zone enables proactive monitoring, incident detection, and performance optimization across all platform components, supporting cloud-native (Prometheus/Grafana), enterprise multi-cloud (Datadog), and AI-powered incident response with Azure SRE Agent.
 
 ![Operations Zone Architecture](../images/security-architecture.svg)
 
-> 🔍 **Note:** The Operations Zone integrates multiple monitoring solutions to provide full-stack observability from infrastructure to application performance.
+> 🔍 **Note:** The Operations Zone integrates multiple monitoring solutions including Azure Monitor, Prometheus, Grafana, Datadog, and Azure SRE Agent to provide full-stack observability and automated incident response.
 
 ## 🤔 What is the Operations Zone?
 
@@ -632,6 +632,456 @@ data:
             url: '/prometheus'
           - name: 'Dashboards'
             url: '/grafana'
+```
+
+## 🤖 Azure SRE Agent Integration
+
+### Overview
+
+Azure SRE Agent is an AI-powered tool that revolutionizes incident response and infrastructure management. It leverages Large Language Models (LLMs) to provide automated incident detection, root cause analysis, and remediation capabilities.
+
+### Key Benefits
+
+- **80% Faster MTTR**: Reduces Mean Time To Recovery through automated investigation
+- **60% Less False Alerts**: Intelligent alert correlation and noise reduction
+- **40% Cost Reduction**: Proactive optimization and automated remediation
+- **24/7 Monitoring**: Continuous learning and monitoring of Azure resources
+
+### SRE Agent Setup
+
+```bash
+# Prerequisites
+az extension add --name sre-agent
+
+# Create SRE Agent instance
+az sre-agent create \
+  --name three-horizons-sre \
+  --resource-group three-horizons-platform \
+  --location eastus \
+  --sku standard
+
+# Configure SRE Agent with Azure Monitor
+az sre-agent config set \
+  --name three-horizons-sre \
+  --resource-group three-horizons-platform \
+  --azure-monitor-workspace $(az monitor log-analytics workspace show \
+    --resource-group three-horizons-platform \
+    --workspace-name three-horizons-logs \
+    --query id -o tsv)
+
+# Enable Kubernetes integration
+az sre-agent integration create \
+  --agent-name three-horizons-sre \
+  --resource-group three-horizons-platform \
+  --integration-type kubernetes \
+  --cluster-resource-id $(az aks show \
+    --resource-group three-horizons-platform \
+    --name three-horizons-aks \
+    --query id -o tsv)
+```
+
+### Configure SRE Agent Capabilities
+
+```yaml
+# sre-agent-config.yaml
+apiVersion: sre.azure.com/v1
+kind: SREAgentConfiguration
+metadata:
+  name: three-horizons-sre-config
+spec:
+  capabilities:
+    # Automated incident response
+    incidentResponse:
+      enabled: true
+      autoRemediation:
+        enabled: true
+        requiresApproval: true
+        allowedActions:
+          - restart-pod
+          - scale-deployment
+          - rollback-deployment
+          - clear-cache
+          - rotate-credentials
+      
+    # Proactive security scanning
+    securityScanning:
+      enabled: true
+      checks:
+        - tls-version-compliance
+        - managed-identity-enabled
+        - network-exposure
+        - vulnerability-scanning
+      autoRemediation: true
+    
+    # Performance optimization
+    performanceOptimization:
+      enabled: true
+      metrics:
+        - cpu-utilization
+        - memory-usage
+        - request-latency
+        - error-rate
+      thresholds:
+        cpuUtilization: 80
+        memoryUsage: 85
+        requestLatency: 500ms
+        errorRate: 5
+    
+    # Integration with external tools
+    integrations:
+      github:
+        enabled: true
+        organization: "your-org"
+        createIssues: true
+        linkToIncidents: true
+      
+      pagerduty:
+        enabled: true
+        apiKey: "${PAGERDUTY_API_KEY}"
+        escalationPolicy: "platform-team"
+      
+      slack:
+        enabled: true
+        webhookUrl: "${SLACK_WEBHOOK_URL}"
+        channels:
+          alerts: "#platform-alerts"
+          incidents: "#platform-incidents"
+```
+
+### SRE Agent Prompts and Use Cases
+
+```bash
+# Example interactions with SRE Agent
+
+# 1. Investigate performance issues
+az sre-agent query \
+  --agent-name three-horizons-sre \
+  --prompt "What changed in my AKS cluster in the last day that could affect performance?"
+
+# 2. Set up proactive monitoring
+az sre-agent query \
+  --agent-name three-horizons-sre \
+  --prompt "What alerts should I set up for my web applications?"
+
+# 3. Visualize metrics
+az sre-agent query \
+  --agent-name three-horizons-sre \
+  --prompt "Visualize CPU usage and memory consumption for my developer-hub namespace over the last week"
+
+# 4. Security audit
+az sre-agent query \
+  --agent-name three-horizons-sre \
+  --prompt "Check all my resources for TLS compliance and managed identity configuration"
+
+# 5. Incident investigation
+az sre-agent query \
+  --agent-name three-horizons-sre \
+  --prompt "Investigate the root cause of 500 errors in the API gateway service"
+```
+
+### Automated Incident Response Workflow
+
+```yaml
+# incident-response-workflow.yaml
+apiVersion: sre.azure.com/v1
+kind: IncidentResponseWorkflow
+metadata:
+  name: automated-incident-response
+spec:
+  triggers:
+    - type: alert
+      source: azure-monitor
+      severity: [critical, high]
+    
+    - type: metric-threshold
+      metrics:
+        - name: error_rate
+          threshold: 10
+          duration: 5m
+  
+  workflow:
+    - name: initial-investigation
+      action: investigate
+      parameters:
+        depth: comprehensive
+        includeMetrics: true
+        includeLogs: true
+        includeChanges: true
+    
+    - name: notification
+      action: notify
+      channels:
+        - slack
+        - pagerduty
+      includeInvestigation: true
+    
+    - name: auto-remediation
+      condition: "severity == 'critical' && confidence > 0.8"
+      actions:
+        - type: restart-pod
+          requireApproval: false
+          maxRetries: 3
+        
+        - type: scale-out
+          requireApproval: true
+          parameters:
+            increment: 2
+            maxReplicas: 10
+    
+    - name: create-github-issue
+      action: create-issue
+      repository: "three-horizons-platform"
+      template: incident-report
+      includeRCA: true
+```
+
+## 🌐 Azure Arc for Containers - Multi-Cloud Strategy
+
+### Overview
+
+Azure Arc for Containers enables unified management and monitoring across multi-cloud and on-premises Kubernetes clusters, providing a single control plane for all container workloads.
+
+### Arc-enabled Kubernetes Setup
+
+```bash
+# Prerequisites
+az extension add --name connectedk8s
+az extension add --name k8s-configuration
+az extension add --name k8s-extension
+
+# Connect non-Azure Kubernetes clusters
+# For AWS EKS
+aws eks update-kubeconfig --name production-cluster --region us-west-2
+az connectedk8s connect \
+  --name aws-production-cluster \
+  --resource-group three-horizons-multicloud \
+  --location eastus
+
+# For GCP GKE
+gcloud container clusters get-credentials production-cluster --zone us-central1-a
+az connectedk8s connect \
+  --name gcp-production-cluster \
+  --resource-group three-horizons-multicloud \
+  --location eastus
+
+# For on-premises clusters
+az connectedk8s connect \
+  --name onprem-production-cluster \
+  --resource-group three-horizons-multicloud \
+  --location eastus \
+  --proxy-https "http://proxy.company.com:8080"
+```
+
+### Deploy Azure Monitor Container Insights to Arc Clusters
+
+```bash
+# Enable Container Insights on Arc-enabled clusters
+az k8s-extension create \
+  --name azuremonitor-containers \
+  --cluster-name aws-production-cluster \
+  --resource-group three-horizons-multicloud \
+  --cluster-type connectedClusters \
+  --extension-type Microsoft.AzureMonitor.Containers \
+  --configuration-settings \
+    "logAnalyticsWorkspaceResourceID=$(az monitor log-analytics workspace show \
+      --resource-group three-horizons-platform \
+      --workspace-name three-horizons-logs \
+      --query id -o tsv)"
+
+# Deploy Prometheus collector for Arc clusters
+az k8s-extension create \
+  --name azuremonitor-metrics \
+  --cluster-name aws-production-cluster \
+  --resource-group three-horizons-multicloud \
+  --cluster-type connectedClusters \
+  --extension-type Microsoft.AzureMonitor.Containers.Metrics \
+  --configuration-settings \
+    "azure-monitor-workspace-resource-id=$(az monitor account show \
+      --name three-horizons-metrics \
+      --resource-group three-horizons-platform \
+      --query id -o tsv)"
+```
+
+### Multi-Cloud GitOps with Arc
+
+```yaml
+# arc-gitops-config.yaml
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: arc-multicloud-apps
+  namespace: flux-system
+spec:
+  interval: 10m
+  path: ./clusters/arc-enabled
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: three-horizons-gitops
+  postBuild:
+    substitute:
+      cluster_type: "arc-enabled"
+      monitoring_enabled: "true"
+  patches:
+    - patch: |
+        apiVersion: v1
+        kind: ConfigMap
+        metadata:
+          name: cluster-config
+          namespace: default
+        data:
+          azure_arc_enabled: "true"
+          monitoring_workspace: "${AZURE_MONITOR_WORKSPACE}"
+```
+
+### Arc Policy Engine for Compliance
+
+```bash
+# Apply Azure Policy to Arc-enabled clusters
+az policy assignment create \
+  --name "arc-kubernetes-compliance" \
+  --display-name "Arc Kubernetes Compliance Standards" \
+  --policy-set-definition "/providers/Microsoft.Authorization/policySetDefinitions/42b8ef37-b724-4e24-bbc8-7a7708edfe00" \
+  --scope "/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/three-horizons-multicloud" \
+  --params '{
+    "effect": {"value": "audit"},
+    "excludedNamespaces": {"value": ["kube-system", "kube-public", "flux-system"]}
+  }'
+```
+
+## 🎯 Developer Hub Azure Monitor Integration
+
+### Add Azure Monitor Dashboard Tab
+
+Create a custom Developer Hub plugin to display Azure Monitor dashboards:
+
+```typescript
+// plugins/azure-monitor-dashboard/src/components/AzureMonitorDashboard.tsx
+import React from 'react';
+import { InfoCard, Progress } from '@backstage/core-components';
+import { useApi, configApiRef } from '@backstage/core-plugin-api';
+import { Grid } from '@material-ui/core';
+
+export const AzureMonitorDashboard = () => {
+  const config = useApi(configApiRef);
+  const dashboardUrl = config.getString('azureMonitor.dashboardUrl');
+  const workspaceId = config.getString('azureMonitor.workspaceId');
+
+  return (
+    <Grid container spacing={3}>
+      <Grid item xs={12}>
+        <InfoCard title="Platform Health Overview">
+          <iframe
+            src={`${dashboardUrl}?workspaceId=${workspaceId}`}
+            width="100%"
+            height="600"
+            frameBorder="0"
+          />
+        </InfoCard>
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <InfoCard title="SRE Agent Insights">
+          <SREAgentMetrics />
+        </InfoCard>
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <InfoCard title="Multi-Cloud Status">
+          <MultiCloudStatus />
+        </InfoCard>
+      </Grid>
+    </Grid>
+  );
+};
+```
+
+### Configure Dashboard Plugin
+
+```yaml
+# app-config.yaml additions for Developer Hub
+azureMonitor:
+  dashboardUrl: https://portal.azure.com/#dashboard
+  workspaceId: ${AZURE_MONITOR_WORKSPACE_ID}
+  subscriptionId: ${AZURE_SUBSCRIPTION_ID}
+  resourceGroup: three-horizons-platform
+  
+  dashboards:
+    - id: platform-overview
+      name: "Platform Overview"
+      embedded: true
+      permissions:
+        - type: role
+          role: platform-engineer
+    
+    - id: sre-operations
+      name: "SRE Operations"
+      embedded: true
+      permissions:
+        - type: role
+          role: sre-team
+    
+    - id: developer-metrics
+      name: "Developer Metrics"
+      embedded: true
+      permissions:
+        - type: role
+          role: developer
+
+# Register the plugin
+catalog:
+  rules:
+    - allow: [Component, API, Location, Template, User, Group]
+  processors:
+    - AzureMonitorDashboardProcessor
+
+plugins:
+  - package: '@internal/plugin-azure-monitor-dashboard'
+    disabled: false
+```
+
+### Create Unified Monitoring API
+
+```typescript
+// plugins/azure-monitor-dashboard/src/api/MonitoringAPI.ts
+import { createApiRef } from '@backstage/core-plugin-api';
+
+export const monitoringApiRef = createApiRef<MonitoringAPI>({
+  id: 'plugin.monitoring.api',
+});
+
+export interface MonitoringAPI {
+  getMetrics(query: MetricQuery): Promise<MetricResult[]>;
+  getAlerts(severity?: string): Promise<Alert[]>;
+  getSREAgentInsights(): Promise<SREInsight[]>;
+  getMultiCloudStatus(): Promise<CloudStatus[]>;
+}
+
+export class UnifiedMonitoringClient implements MonitoringAPI {
+  constructor(
+    private readonly azureMonitorClient: AzureMonitorClient,
+    private readonly prometheusClient: PrometheusClient,
+    private readonly datadogClient: DatadogClient,
+  ) {}
+
+  async getMetrics(query: MetricQuery): Promise<MetricResult[]> {
+    const results = await Promise.all([
+      this.azureMonitorClient.query(query),
+      this.prometheusClient.query(query),
+      this.datadogClient.query(query),
+    ]);
+    
+    return this.mergeResults(results);
+  }
+
+  async getSREAgentInsights(): Promise<SREInsight[]> {
+    const response = await fetch('/api/sre-agent/insights', {
+      headers: {
+        'Authorization': `Bearer ${await this.getToken()}`,
+      },
+    });
+    
+    return response.json();
+  }
+}
 ```
 
 ## 🛠️ Troubleshooting
