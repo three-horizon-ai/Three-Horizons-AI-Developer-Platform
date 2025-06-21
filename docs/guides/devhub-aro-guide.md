@@ -445,14 +445,14 @@ oc wait --for=condition=ready pod -l rhdh.redhat.com/app=backstage-developer-hub
 
 ```bash
 # Create a route for Developer Hub (OpenShift automatically creates routes)
-oc expose service developer-hub -n developer-hub
+# oc expose service developer-hub -n developer-hub
 
 # Get the route URL
-DEVHUB_URL=$(oc get route developer-hub -n developer-hub -o jsonpath='{.spec.host}')
+DEVHUB_URL=$(oc get route backstage-developer-hub -n developer-hub -o jsonpath='{.spec.host}')
 echo "Developer Hub URL: https://$DEVHUB_URL"
 
 # Verify route is working
-curl -k https://$DEVHUB_URL/api/health
+curl -k https://$DEVHUB_URL
 ```
 
 ## Phase 4: GitHub Integration
