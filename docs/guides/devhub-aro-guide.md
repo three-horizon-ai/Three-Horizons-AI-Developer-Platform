@@ -516,7 +516,7 @@ TENANT_ID=$(az account show --query tenantId -o tsv)
 # Configure the OAuth settings
 az ad app update \
   --id $APP_ID \
-  --web-redirect-uris "https://oauth-openshift.apps.${ARO_DOMAIN}.${LOCATION}.aroapp.io/api/auth/callback/EntraID"
+  --web-redirect-uris "https://oauth-openshift.apps.${ARO_DOMAIN}.${LOCATION}.aroapp.io/oauth2callback/EntraID"
 
 # Create client secret
 CLIENT_SECRET=$(az ad app credential reset --id $APP_ID --query password -o tsv)
