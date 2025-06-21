@@ -438,7 +438,7 @@ EOF
 
 # Wait for Developer Hub to be ready
 echo "Waiting for Developer Hub to be ready..."
-oc wait --for=condition=ready pod -l app=backstage -n developer-hub --timeout=600s
+oc wait --for=condition=ready pod -l rhdh.redhat.com/app=backstage-developer-hub -n developer-hub --timeout=600s
 ```
 
 ### Step 3.4: Configure Route
