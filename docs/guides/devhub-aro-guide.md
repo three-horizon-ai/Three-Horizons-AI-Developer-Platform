@@ -327,6 +327,8 @@ DB_SERVER_NAME="backstagedb-${DB_TIMESTAMP}"
 DB_PASSWORD="StrongPassword123!"
 
 # Create Azure Database for PostgreSQL flexible server
+# It requires register to provider Microsoft.DBforPostgreSQL
+# az provider register --namespace Microsoft.DBforPostgreSQL
 az postgres flexible-server create \
   --resource-group $RESOURCE_GROUP_SHARED \
   --name ${DB_SERVER_NAME} \
