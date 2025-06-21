@@ -470,11 +470,16 @@ Follow the [Complete Integration Tutorial GitHub section](../complete-integratio
 ### Step 4.2: Configure GitHub Integration
 
 ```bash
+# Set variables
+export GITHUB_APP_ID="your-github-app-id"
+export GITHUB_CLIENT_SECRET="your-github-client-secret"
+export GITHUB_CLIENT_ID="your-github-client-id"
+
 # Store GitHub App credentials in Key Vault
 az keyvault secret set \
   --vault-name "$KEY_VAULT_NAME" \
   --name "github-app-id" \
-  --value "your-github-app-id"
+  --value $GITHUB_APP_ID
 
 az keyvault secret set \
   --vault-name "$KEY_VAULT_NAME" \
@@ -484,14 +489,14 @@ az keyvault secret set \
 az keyvault secret set \
   --vault-name "$KEY_VAULT_NAME" \
   --name "github-client-secret" \
-  --value "your-github-client-secret"
+  --value $GITHUB_CLIENT_SECRET
 
 # Create OpenShift secrets
 oc create secret generic github-app-credentials \
   --namespace developer-hub \
-  --from-literal=app-id="your-github-app-id" \
-  --from-literal=client-id="your-github-client-id" \
-  --from-literal=client-secret="your-github-client-secret" \
+  --from-literal=app-id="$GITHUB_APP_ID" \
+  --from-literal=client-id="$GITHUB_CLIENT_ID" \
+  --from-literal=client-secret="$GITHUB_CLIENT_SECRET" \
   --from-literal=private-key="$(cat your-private-key.pem)"
 ```
 
