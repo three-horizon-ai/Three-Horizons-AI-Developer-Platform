@@ -379,7 +379,7 @@ metadata:
   name: rhdh-operator
   namespace: openshift-operators
 spec:
-      channel: fast-1.6
+  channel: fast-1.6
   name: rhdh
   source: redhat-operators
   sourceNamespace: openshift-marketplace
