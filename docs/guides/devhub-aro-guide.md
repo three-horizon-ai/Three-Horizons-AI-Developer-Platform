@@ -388,7 +388,7 @@ EOF
 
 # Wait for the operator to be installed
 echo "Waiting for Red Hat Developer Hub Operator to be ready..."
-oc wait --for=condition=ready pod -l name=rhdh-operator -n openshift-operators --timeout=600s
+oc wait --for=condition=ready pod -l app=rhdh-operator -n openshift-operators --timeout=600s
 
 # Verify operator installation
 oc get csv -n openshift-operators | grep rhdh
