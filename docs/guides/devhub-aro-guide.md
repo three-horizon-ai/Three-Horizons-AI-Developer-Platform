@@ -587,10 +587,10 @@ oc get pods -n developer-hub
 curl -k https://$DEVHUB_URL/api/health
 
 # Check Developer Hub logs
-oc logs -n developer-hub -l app=backstage --tail=50
+oc logs -n developer-hub -l rhdh.redhat.com/app=backstage-developer-hub --tail=50
 
 # Verify database connection
-oc exec -it -n developer-hub $(oc get pods -n developer-hub -l app=backstage -o jsonpath='{.items[0].metadata.name}') -- wget -qO- http://localhost:7007/api/health
+oc exec -it -n developer-hub $(oc get pods -n developer-hub -l rhdh.redhat.com/app=backstage-developer-hub -o jsonpath='{.items[0].metadata.name}') -- curl -qO- http://localhost:7007
 
 # Check route status
 oc get route -n developer-hub
