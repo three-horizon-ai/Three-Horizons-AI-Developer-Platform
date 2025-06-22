@@ -476,6 +476,11 @@ Follow the [Complete Integration Tutorial GitHub section](../complete-integratio
 export GITHUB_APP_ID="your-github-app-id"
 export GITHUB_CLIENT_SECRET="your-github-client-secret"
 export GITHUB_CLIENT_ID="your-github-client-id"
+export GITHUB_ORGANIZATION="your-github-organization"
+export GITHUB_ORG_URL="your-github-org-url"
+export GITHUB_WEBHOOK_URL="your-github-webhook-url"
+export GITHUB_WEBHOOK_SECRET="your-github-webhook-secret"
+
 
 # Store GitHub App credentials in Key Vault
 az keyvault secret set \
@@ -496,10 +501,17 @@ az keyvault secret set \
 # Create OpenShift secrets
 oc create secret generic github-app-credentials \
   --namespace developer-hub \
-  --from-literal=app-id="$GITHUB_APP_ID" \
-  --from-literal=client-id="$GITHUB_CLIENT_ID" \
-  --from-literal=client-secret="$GITHUB_CLIENT_SECRET" \
-  --from-literal=private-key="$(cat your-private-key.pem)"
+  --from-literal=AUTH_GITHUB_APP_ID="$GITHUB_APP_ID" \
+  --from-literal=AUTH_GITHUB_CLIENT_ID="$GITHUB_CLIENT_ID" \
+  --from-literal=GITHUB_CLIENT_SECRET="$GITHUB_CLIENT_SECRET" \
+  --from-literal=GITHUB_ORGANIZATION="$GITHUB_ORGANIZATION" \
+  --from-literal=GITHUB_ORG_URL="$GITHUB_ORG_URL" \
+  --from-literal=GITHUB_WEBHOOK_URL="$GITHUB_WEBHOOK_URL"\
+  --from-literal=GITHUB_WEBHOOK_SECRET="$GITHUB_WEBHOOK_SECRET" \
+  --from-literal=GITHUB_PRIVATE_KEY_FILE="$(cat your-private-key.pem)" 
+
+
+
 ```
 
 ### Step 4.3: Configure Microsoft Entra ID Integration (Optional)
