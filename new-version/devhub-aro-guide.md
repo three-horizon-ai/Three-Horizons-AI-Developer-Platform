@@ -2,8 +2,6 @@
 
 <div align="center">
 
-![Developer Hub ARO](../../images/devhub-aro-banner.svg)
-
 **Enterprise-Grade Developer Portal on OpenShift**
 
 </div>
