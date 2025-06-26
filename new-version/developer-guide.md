@@ -2,8 +2,6 @@
 
 <div align="center">
 
-![Developer Guide](../../images/developer-guide-banner.svg)
-
 **Your Complete Guide to AI-Powered Development**
 
 </div>
