@@ -2,8 +2,6 @@
 
 <div align="center">
 
-![Demo Environment](../../images/demo-environment-banner.svg)
-
 **Showcasing the Three Horizons AI Platform Capabilities**
 
 </div>
