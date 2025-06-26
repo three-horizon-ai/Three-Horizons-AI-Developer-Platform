@@ -2,8 +2,6 @@
 
 <div align="center">
 
-![Comprehensive Monitoring](../../images/comprehensive-monitoring-banner.svg)
-
 **Implementing Full-Stack Observability with AI-Powered Insights**
 
 </div>
