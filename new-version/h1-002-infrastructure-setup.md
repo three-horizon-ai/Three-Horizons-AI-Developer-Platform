@@ -2,8 +2,6 @@
 
 <div align="center">
 
-![Infrastructure Setup](../../images/infrastructure-setup-banner.svg)
-
 **Step-by-Step Azure Infrastructure Provisioning for Three Horizons AI Platform**
 
 </div>
