@@ -2,8 +2,6 @@
 
 <div align="center">
 
-![Security Foundation](../../images/security-foundation-banner.svg)
-
 **Building Enterprise-Grade Security from Day One**
 
 </div>
