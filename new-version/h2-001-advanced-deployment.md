@@ -2,8 +2,6 @@
 
 <div align="center">
 
-![Advanced Deployment](../../images/advanced-deployment-banner.svg)
-
 **Implementing GitOps, Progressive Delivery, and Multi-Cloud Deployments**
 
 </div>
