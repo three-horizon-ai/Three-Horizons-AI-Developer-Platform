@@ -2,8 +2,6 @@
 
 <div align="center">
 
-![Outer Loop Deployment](../../images/outer-loop-deployment-banner.svg)
-
 **From Code to Production with AI-Driven Automation**
 
 </div>
