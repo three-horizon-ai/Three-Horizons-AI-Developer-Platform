@@ -2,8 +2,6 @@
 
 <div align="center">
 
-![Troubleshooting Guide](../../images/troubleshooting-banner.svg)
-
 **Quick Solutions for Common Issues**
 
 </div>
