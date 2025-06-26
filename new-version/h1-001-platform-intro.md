@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Three Horizons AI Platform](../../images/three-horizons-banner.svg)
+
 
 **The Evolution from DevOps to Agentic DevOps**
 
