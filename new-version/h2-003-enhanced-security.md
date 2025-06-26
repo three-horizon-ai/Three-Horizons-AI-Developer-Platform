@@ -2,7 +2,6 @@
 
 <div align="center">
 
-![Enhanced Security](../../images/enhanced-security-banner.svg)
 
 **Implementing Zero Trust Security with AI-Powered Threat Detection**
 
