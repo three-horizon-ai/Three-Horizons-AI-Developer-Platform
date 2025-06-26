@@ -2,8 +2,6 @@
 
 <div align="center">
 
-![Golden Paths](../../images/golden-paths-banner.svg)
-
 **Accelerating Development with Proven Patterns and Templates**
 
 </div>
