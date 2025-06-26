@@ -2,8 +2,6 @@
 
 <div align="center">
 
-![GitHub Enterprise Setup](../../images/github-enterprise-banner.svg)
-
 **Configuring GitHub Enterprise for AI-Powered Development**
 
 </div>
