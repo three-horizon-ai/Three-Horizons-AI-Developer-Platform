@@ -2,8 +2,6 @@
 
 <div align="center">
 
-![Developer Hub Deployment](../../images/developer-hub-deployment-banner.svg)
-
 **Installing and Configuring Red Hat Developer Hub 1.6 on Three Horizons Platform**
 
 </div>
