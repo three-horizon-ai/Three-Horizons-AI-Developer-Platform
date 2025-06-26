@@ -2,8 +2,6 @@
 
 <div align="center">
 
-![Inner Loop Development](../../images/inner-loop-development-banner.svg)
-
 **Accelerate Development with AI Assistance and Cloud-Powered Environments**
 
 </div>
