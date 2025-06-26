@@ -1,0 +1,124 @@
+graph LR
+    %% Developer Experience - Inner Loop
+    subgraph "Inner Loop - Development"
+        DEV_START[👨‍💻 Developer Starts] 
+        DEVBOX[💻 DevBox Environment<br/>Pre-configured Security]
+        IDE[🔧 VS Code + Extensions<br/>Security Plugins]
+        COPILOT[🤖 GitHub Copilot<br/>AI Code Assistant]
+        
+        DEV_START --> DEVBOX
+        DEVBOX --> IDE
+        IDE --> COPILOT
+    end
+    
+    %% Shift-Left Security in IDE
+    subgraph "Shift-Left Security"
+        LINT[🔍 Security Linting<br/>Real-time Analysis]
+        SECRET_SCAN[🔐 Secret Detection<br/>Pre-commit Hooks]
+        VULN_CHECK[⚠️ Vulnerability Check<br/>Dependency Analysis]
+        POLICY_CHECK[📋 Policy Validation<br/>OPA Rules]
+        
+        COPILOT --> LINT
+        LINT --> SECRET_SCAN
+        SECRET_SCAN --> VULN_CHECK
+        VULN_CHECK --> POLICY_CHECK
+    end
+    
+    %% Git Operations
+    subgraph "Source Control"
+        GIT_COMMIT[📝 Git Commit]
+        BRANCH_PROTECT[🛡️ Branch Protection<br/>Rules Enforced]
+        PR_CREATE[🔄 Pull Request<br/>Created]
+        
+        POLICY_CHECK --> GIT_COMMIT
+        GIT_COMMIT --> BRANCH_PROTECT
+        BRANCH_PROTECT --> PR_CREATE
+    end
+    
+    %% Automated Security Gates
+    subgraph "Automated Security Gates"
+        CODEQL[🔍 CodeQL Analysis<br/>SAST Scanning]
+        DEPENDENCY[📦 Dependency Check<br/>SCA Analysis]
+        CONTAINER_SCAN[🐳 Container Scan<br/>Image Vulnerability]
+        COMPLIANCE_CHECK[✅ Compliance Validation<br/>Automated Audit]
+        
+        PR_CREATE --> CODEQL
+        CODEQL --> DEPENDENCY
+        DEPENDENCY --> CONTAINER_SCAN
+        CONTAINER_SCAN --> COMPLIANCE_CHECK
+    end
+    
+    %% Agentic DevOps - AI Automation
+    subgraph "Agentic DevOps"
+        AI_REVIEW[🤖 AI Code Review<br/>GitHub Copilot Agent]
+        AUTO_FIX[🔧 Auto-remediation<br/>Security Issues]
+        RISK_ASSESS[📊 Risk Assessment<br/>ML-based Scoring]
+        AUTO_APPROVE[✅ Auto-approval<br/>Low-risk Changes]
+        
+        COMPLIANCE_CHECK --> AI_REVIEW
+        AI_REVIEW --> AUTO_FIX
+        AUTO_FIX --> RISK_ASSESS
+        RISK_ASSESS --> AUTO_APPROVE
+    end
+    
+    %% Human Review Gate
+    HUMAN_REVIEW{👥 Human Review<br/>Required?}
+    AUTO_APPROVE --> HUMAN_REVIEW
+    HUMAN_REVIEW -->|High Risk| MANUAL_REVIEW[👨‍💼 Manual Security Review]
+    HUMAN_REVIEW -->|Low Risk| MERGE_APPROVED[✅ Merge Approved]
+    MANUAL_REVIEW --> MERGE_APPROVED
+    
+    %% Outer Loop - Deployment
+    subgraph "Outer Loop - Deployment"
+        BUILD[🏗️ Build Process<br/>Secure Pipeline]
+        TEST_ENV[🧪 Test Environment<br/>Security Validation]
+        STAGING[🎭 Staging Deploy<br/>Full Security Stack]
+        PROD_DEPLOY[🚀 Production Deploy<br/>Zero-trust Network]
+        
+        MERGE_APPROVED --> BUILD
+        BUILD --> TEST_ENV
+        TEST_ENV --> STAGING
+        STAGING --> PROD_DEPLOY
+    end
+    
+    %% Runtime Security
+    subgraph "Runtime Protection"
+        RUNTIME_SCAN[🔍 Runtime Scanning<br/>Behavior Analysis]
+        THREAT_DETECT[⚠️ Threat Detection<br/>AI-powered SOC]
+        AUTO_RESPONSE[🤖 Automated Response<br/>Incident Mitigation]
+        
+        PROD_DEPLOY --> RUNTIME_SCAN
+        RUNTIME_SCAN --> THREAT_DETECT
+        THREAT_DETECT --> AUTO_RESPONSE
+    end
+    
+    %% Continuous Monitoring
+    subgraph "Continuous Monitoring"
+        METRICS[📊 Security Metrics<br/>Real-time Dashboard]
+        ALERTS[🚨 Intelligent Alerts<br/>ML-based Filtering]
+        FEEDBACK[🔄 Feedback Loop<br/>Continuous Improvement]
+        
+        AUTO_RESPONSE --> METRICS
+        METRICS --> ALERTS
+        ALERTS --> FEEDBACK
+    end
+    
+    %% Feedback to Development
+    FEEDBACK -.-> DEVBOX
+    THREAT_DETECT -.-> POLICY_CHECK
+    METRICS -.-> AI_REVIEW
+    
+    %% Styling
+    classDef innerloop fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef security fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef automation fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef deployment fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef monitoring fill:#fce4ec,stroke:#880e4f,stroke-width:2px
+    classDef decision fill:#fff9c4,stroke:#f59e0b,stroke-width:3px
+    
+    class DEV_START,DEVBOX,IDE,COPILOT innerloop
+    class LINT,SECRET_SCAN,VULN_CHECK,POLICY_CHECK,CODEQL,DEPENDENCY,CONTAINER_SCAN,COMPLIANCE_CHECK security
+    class AI_REVIEW,AUTO_FIX,RISK_ASSESS,AUTO_APPROVE,AUTO_RESPONSE automation
+    class GIT_COMMIT,BRANCH_PROTECT,PR_CREATE,BUILD,TEST_ENV,STAGING,PROD_DEPLOY deployment
+    class RUNTIME_SCAN,THREAT_DETECT,METRICS,ALERTS,FEEDBACK monitoring
+    class HUMAN_REVIEW decision

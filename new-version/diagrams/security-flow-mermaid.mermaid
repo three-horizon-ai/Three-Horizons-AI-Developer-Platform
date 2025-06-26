@@ -1,0 +1,82 @@
+graph TB
+    %% User and Entry Points
+    DEV[👤 Developer] --> AUTH{🔐 Authentication}
+    ADMIN[👥 Platform Admin] --> AUTH
+    SERVICE[🤖 AI Service] --> AUTH
+    
+    %% Identity and Access Management Layer
+    AUTH --> ENTRA[Microsoft Entra ID<br/>🆔 Identity Provider]
+    ENTRA --> MFA{🔑 MFA Required?}
+    MFA -->|Yes| MFA_CHECK[📱 Multi-Factor<br/>Authentication]
+    MFA -->|No| CONDITIONAL[⚡ Conditional Access]
+    MFA_CHECK --> CONDITIONAL
+    
+    CONDITIONAL --> WORKLOAD_ID[🏷️ Workload Identity<br/>K8s Service Account]
+    CONDITIONAL --> MANAGED_ID[🔗 Managed Identity<br/>Azure Resources]
+    
+    %% Network Security Layer
+    WORKLOAD_ID --> NETWORK_POLICY[🌐 Network Policies<br/>K8s Network Controls]
+    MANAGED_ID --> PRIVATE_EP[🔒 Private Endpoints<br/>Service Isolation]
+    NETWORK_POLICY --> FIREWALL[🛡️ Azure Firewall<br/>NSG Rules]
+    PRIVATE_EP --> FIREWALL
+    
+    %% Platform Security Layer
+    FIREWALL --> K8S_RBAC[🎭 Kubernetes RBAC<br/>Role-Based Access]
+    FIREWALL --> GITHUB_SEC[🐙 GitHub Advanced Security<br/>Code Scanning]
+    FIREWALL --> DEVBOX[💻 DevBox Environment<br/>Secure Development]
+    
+    K8S_RBAC --> OPA[📋 OPA Gatekeeper<br/>Policy Enforcement]
+    GITHUB_SEC --> CODE_SCAN[🔍 CodeQL Analysis<br/>SAST/DAST]
+    DEVBOX --> COPILOT[🤖 GitHub Copilot<br/>AI Security Assistant]
+    
+    %% Data Security Layer
+    OPA --> KEY_VAULT[🗝️ Azure Key Vault<br/>Secrets Management]
+    CODE_SCAN --> CONTAINER_REG[📦 Container Registry<br/>Image Scanning]
+    COPILOT --> ENCRYPTED_STORAGE[💾 Encrypted Storage<br/>Data at Rest]
+    
+    KEY_VAULT --> DATA_CLASS[🏷️ Data Classification<br/>Microsoft Purview]
+    CONTAINER_REG --> DATA_CLASS
+    ENCRYPTED_STORAGE --> DATA_CLASS
+    
+    %% Application Layer
+    DATA_CLASS --> AI_APP[🧠 AI Application<br/>Secure Runtime]
+    DATA_CLASS --> MICROSERVICE[⚙️ Microservices<br/>Service Mesh]
+    DATA_CLASS --> API_GATEWAY[🚪 API Gateway<br/>Rate Limiting]
+    
+    %% Monitoring and Security Operations
+    AI_APP --> MONITOR[📊 Azure Monitor<br/>Log Analytics]
+    MICROSERVICE --> PROMETHEUS[📈 Prometheus<br/>Metrics Collection]
+    API_GATEWAY --> DEFENDER[🛡️ Defender for Cloud<br/>Threat Detection]
+    
+    MONITOR --> SENTINEL[🔍 Microsoft Sentinel<br/>SIEM/SOAR]
+    PROMETHEUS --> GRAFANA[📊 Grafana<br/>Visualization]
+    DEFENDER --> INCIDENT[🚨 Security Incident<br/>Response]
+    
+    SENTINEL --> INCIDENT
+    GRAFANA --> INCIDENT
+    
+    %% Compliance and Audit
+    INCIDENT --> AUDIT[📝 Audit Trail<br/>Compliance Reporting]
+    AUDIT --> COMPLIANCE[✅ Compliance Check<br/>PCI/HIPAA/SOC2]
+    
+    %% Feedback Loops
+    COMPLIANCE -.-> AUTH
+    INCIDENT -.-> CONDITIONAL
+    DEFENDER -.-> NETWORK_POLICY
+    
+    %% Styling
+    classDef identity fill:#e6f7ff,stroke:#0078d4,stroke-width:2px
+    classDef network fill:#fff4e6,stroke:#c77f1a,stroke-width:2px
+    classDef platform fill:#f0eeff,stroke:#4d44ab,stroke-width:2px
+    classDef data fill:#f0fff0,stroke:#568c1c,stroke-width:2px
+    classDef monitoring fill:#fff0f0,stroke:#b54369,stroke-width:2px
+    classDef decision fill:#fff9c4,stroke:#f59e0b,stroke-width:2px
+    classDef endpoint fill:#f0f9ff,stroke:#0891b2,stroke-width:2px
+    
+    class DEV,ADMIN,SERVICE,AUTH,ENTRA,MFA_CHECK,CONDITIONAL,WORKLOAD_ID,MANAGED_ID identity
+    class NETWORK_POLICY,PRIVATE_EP,FIREWALL network
+    class K8S_RBAC,GITHUB_SEC,DEVBOX,OPA,CODE_SCAN,COPILOT platform
+    class KEY_VAULT,CONTAINER_REG,ENCRYPTED_STORAGE,DATA_CLASS data
+    class MONITOR,PROMETHEUS,DEFENDER,SENTINEL,GRAFANA,INCIDENT,AUDIT,COMPLIANCE monitoring
+    class MFA decision
+    class AI_APP,MICROSERVICE,API_GATEWAY endpoint

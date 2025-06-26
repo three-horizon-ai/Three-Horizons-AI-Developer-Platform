@@ -1,0 +1,54 @@
+flowchart TD
+    subgraph "Starting a Project"
+        A[Developer] --> B[Access Developer Hub Portal]
+        B --> C{Choose Action}
+        C -->|"Create New Project"| D[Select Software Template]
+        C -->|"Access Existing"| E[View Projects]
+        D --> F[Configure Project Parameters]
+        F --> G[Generate Project]
+    end
+    
+    subgraph "Development Environment"
+        G --> H[Provision DevBox Environment]
+        H --> I[Clone Repository]
+        I --> J[Open in VS Code/IDE]
+        J --> K[Development with GitHub Copilot]
+        K --> L[Local Testing]
+        L --> M{Continue Development?}
+        M -->|Yes| K
+        M -->|No| N[Commit Changes]
+    end
+    
+    subgraph "CI/CD Workflow"
+        N --> O[Push to GitHub]
+        O --> P[Create Pull Request]
+        P --> Q[Automated Checks Run]
+        Q --> R[Security Scanning]
+        R --> S[Code Review]
+        S --> T{Approved?}
+        T -->|No| K
+        T -->|Yes| U[Merge to Main Branch]
+        U --> V[CI/CD Pipeline Triggered]
+    end
+    
+    subgraph "Deployment"
+        V --> W{Deploy to Environment}
+        W -->|Development| X[Deploy to Dev Environment]
+        W -->|Staging| Y[Deploy to QA Environment]
+        W -->|Production| Z[Deploy to Production]
+        X --> AA[Collect Feedback]
+        Y --> AA
+        Z --> AA
+        AA --> AB[Monitor Application]
+        AB --> AC{Issues Found?}
+        AC -->|Yes| K
+        AC -->|No| AD[Continue Monitoring]
+    end
+    
+    classDef primaryPath fill:#e6f7ff,stroke:#0078d4,stroke-width:2px
+    classDef secondaryPath fill:#f0f0f0,stroke:#555555
+    classDef decisionPoint fill:#fffae6,stroke:#d4b106,stroke-width:2px
+    
+    class A,B,C,D,F,G,H,I,J,K,L,N,O,P,Q,R,S,U,V,X,Y,Z,AA,AB primaryPath
+    class E,AD secondaryPath
+    class C,M,T,W,AC decisionPoint

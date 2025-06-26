@@ -1,0 +1,53 @@
+flowchart TD
+    subgraph "Source Control"
+        A[GitHub Repository] --> B{CI/CD Path}
+    end
+    
+    subgraph "Primary Path: GitHub Actions"
+        B -->|GitHub Actions| C[GitHub Actions Workflow]
+        C --> D[Build Application]
+        D --> E[Run Tests]
+        E --> F[Security Scanning]
+        F --> G[Build Container]
+        G --> H[Push to Container Registry]
+        H --> I[Generate Deployment Manifests]
+        I --> J[GitHub Actions Deploy Step]
+    end
+    
+    subgraph "Alternative: Azure DevOps"
+        B -->|Azure DevOps| K[Azure Pipelines]
+        K --> L[Build Pipeline]
+        L --> M[Run Tests]
+        M --> N[Security Scanning]
+        N --> O[Build Container]
+        O --> P[Push to Container Registry]
+        P --> Q[Generate Deployment Manifests]
+        Q --> R[Release Pipeline]
+    end
+    
+    subgraph "Deployment Targets"
+        J --> S{Deployment Target}
+        R --> S
+        S -->|ARO| T[Deploy to Azure Red Hat OpenShift]
+        S -->|AKS| U[Deploy to Azure Kubernetes Service]
+        T --> V[Application Running]
+        U --> V
+    end
+    
+    subgraph "Monitoring & Feedback"
+        V --> W[Azure Monitor]
+        W --> X[Application Insights]
+        X --> Y[Dashboard in Developer Hub]
+        Y --> Z[Feedback to Developer]
+        Z --> A
+    end
+    
+    classDef primaryPath fill:#f0f8ff,stroke:#0078d4,stroke-width:2px
+    classDef secondaryPath fill:#f9f9f9,stroke:#666666
+    classDef deployTarget fill:#f0fff0,stroke:#2e8540,stroke-width:1px
+    classDef decisionPoint fill:#fff8e6,stroke:#d4b106,stroke-width:2px
+    
+    class A,C,D,E,F,G,H,I,J primaryPath
+    class K,L,M,N,O,P,Q,R secondaryPath
+    class T,U,V,W,X,Y,Z deployTarget
+    class B,S decisionPoint

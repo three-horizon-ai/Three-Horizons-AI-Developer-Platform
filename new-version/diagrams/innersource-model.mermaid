@@ -1,0 +1,57 @@
+flowchart TD
+    subgraph "InnerSource Discovery"
+        A[Developer] --> B[Access Developer Hub]
+        B --> C[Browse Software Catalog]
+        C --> D[Find Component to Contribute To]
+        D --> E[Review Documentation]
+        E --> F[Check Contribution Guidelines]
+    end
+    
+    subgraph "Contribution Process"
+        F --> G[Fork Repository]
+        G --> H[Create Feature Branch]
+        H --> I[Make Code Changes]
+        I --> J[Run Local Tests]
+        J --> K{Tests Pass?}
+        K -->|No| I
+        K -->|Yes| L[Submit Pull Request]
+    end
+    
+    subgraph "Review Process"
+        L --> M[Automated Checks Run]
+        M --> N[Code Owners Notified]
+        N --> O[Code Review]
+        O --> P{Approved?}
+        P -->|No| Q[Address Feedback]
+        Q --> I
+        P -->|Yes| R[Merge Contribution]
+    end
+    
+    subgraph "Recognition & Metrics"
+        R --> S[Update Contributor List]
+        S --> T[Contribution Metrics Updated]
+        T --> U[Visualize in Developer Hub]
+        U --> V[InnerSource Champions Board]
+    end
+    
+    subgraph "Knowledge Sharing"
+        R --> W[Documentation Updated]
+        W --> X[Knowledge Base Article]
+        X --> Y[Community Discussion]
+        Y --> Z[Tech Talks/Demos]
+        Z --> A
+    end
+    
+    classDef discovery fill:#e6f7ff,stroke:#0078d4,stroke-width:1px
+    classDef contribution fill:#f0fff0,stroke:#2e8540,stroke-width:1px
+    classDef review fill:#fff0f0,stroke:#d83b01,stroke-width:1px
+    classDef metrics fill:#f0f0ff,stroke:#5c2d91,stroke-width:1px
+    classDef knowledge fill:#fff8e6,stroke:#d4b106,stroke-width:1px
+    classDef decision fill:#f9f9f9,stroke:#333333,stroke-width:2px
+    
+    class A,B,C,D,E,F discovery
+    class G,H,I,J contribution
+    class L,M,N,O review
+    class S,T,U,V metrics
+    class W,X,Y,Z knowledge
+    class K,P decision

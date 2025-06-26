@@ -1,0 +1,146 @@
+graph TB
+    %% Azure AI Foundry Components
+    subgraph "Azure AI Foundry"
+        AI_STUDIO[🎨 Azure AI Studio<br/>Model Development]
+        AI_SEARCH[🔍 Azure AI Search<br/>Vector Database]
+        OPENAI[🧠 Azure OpenAI<br/>LLM Services]
+        ML_COMPUTE[⚡ ML Compute<br/>Training Infrastructure]
+        
+        AI_STUDIO --> AI_SEARCH
+        AI_STUDIO --> OPENAI
+        AI_STUDIO --> ML_COMPUTE
+    end
+    
+    %% AI Security Layer
+    subgraph "AI Security Controls"
+        CONTENT_FILTER[🛡️ Content Safety<br/>Harmful Content Detection]
+        PROMPT_INJECTION[⚠️ Prompt Injection<br/>Defense]
+        MODEL_VALIDATION[✅ Model Validation<br/>Responsible AI Gates]
+        DATA_PRIVACY[🔒 Data Privacy<br/>PII Protection]
+        
+        OPENAI --> CONTENT_FILTER
+        CONTENT_FILTER --> PROMPT_INJECTION
+        PROMPT_INJECTION --> MODEL_VALIDATION
+        MODEL_VALIDATION --> DATA_PRIVACY
+    end
+    
+    %% GitHub Integration
+    subgraph "GitHub AI Security"
+        COPILOT_ENTERPRISE[🤖 GitHub Copilot<br/>Enterprise]
+        COPILOT_SPACES[🏠 Copilot Spaces<br/>Collaborative AI]
+        CODE_AGENTS[👥 Code Agents<br/>Issue Management]
+        MODELS_MARKETPLACE[🏪 GitHub Models<br/>Marketplace]
+        
+        COPILOT_ENTERPRISE --> COPILOT_SPACES
+        COPILOT_SPACES --> CODE_AGENTS
+        CODE_AGENTS --> MODELS_MARKETPLACE
+    end
+    
+    %% Red Hat Developer Hub Integration
+    subgraph "RHDH AI Templates"
+        AI_TEMPLATES[📋 AI App Templates<br/>Golden Paths]
+        GENAIOPS[🔄 GenAIOps<br/>AI Lifecycle]
+        AI_CATALOG[📚 AI Service Catalog<br/>Reusable Components]
+        PLUGIN_ECOSYSTEM[🔌 Dynamic Plugins<br/>AI Extensions]
+        
+        AI_TEMPLATES --> GENAIOPS
+        GENAIOPS --> AI_CATALOG
+        AI_CATALOG --> PLUGIN_ECOSYSTEM
+    end
+    
+    %% Secure AI Development Pipeline
+    subgraph "Secure AI Pipeline"
+        DATA_INGESTION[📥 Data Ingestion<br/>Secure Sources]
+        FEATURE_STORE[🏪 Feature Store<br/>Controlled Access]
+        MODEL_TRAINING[🎯 Model Training<br/>Secure Compute]
+        MODEL_REGISTRY[📦 Model Registry<br/>Version Control]
+        
+        DATA_INGESTION --> FEATURE_STORE
+        FEATURE_STORE --> MODEL_TRAINING
+        MODEL_TRAINING --> MODEL_REGISTRY
+    end
+    
+    %% AI Model Deployment Security
+    subgraph "AI Deployment Security"
+        MODEL_SERVING[🚀 Model Serving<br/>Secure Endpoints]
+        API_MANAGEMENT[🔗 API Management<br/>Rate Limiting]
+        INFERENCE_MONITOR[📊 Inference Monitoring<br/>Performance & Security]
+        A_B_TESTING[🧪 A/B Testing<br/>Safe Rollouts]
+        
+        MODEL_REGISTRY --> MODEL_SERVING
+        MODEL_SERVING --> API_MANAGEMENT
+        API_MANAGEMENT --> INFERENCE_MONITOR
+        INFERENCE_MONITOR --> A_B_TESTING
+    end
+    
+    %% Multi-Cloud Protocol (MCP) Integration
+    subgraph "MCP Integration"
+        MCP_SERVER[🌐 MCP Server<br/>Azure Integration]
+        MCP_GITHUB[🐙 GitHub MCP<br/>Code Integration]
+        MCP_MULTI[☁️ Multi-Server MCP<br/>Cross-platform]
+        
+        MCP_SERVER --> MCP_GITHUB
+        MCP_GITHUB --> MCP_MULTI
+    end
+    
+    %% Security Monitoring for AI
+    subgraph "AI Security Monitoring"
+        AI_AUDIT[📋 AI Audit Trail<br/>Model Usage Logs]
+        BIAS_DETECTION[⚖️ Bias Detection<br/>Fairness Monitoring]
+        DRIFT_MONITORING[📈 Model Drift<br/>Performance Tracking]
+        COMPLIANCE_AI[✅ AI Compliance<br/>Regulatory Adherence]
+        
+        AI_AUDIT --> BIAS_DETECTION
+        BIAS_DETECTION --> DRIFT_MONITORING
+        DRIFT_MONITORING --> COMPLIANCE_AI
+    end
+    
+    %% Integration Flows
+    AI_STUDIO -.-> COPILOT_ENTERPRISE
+    OPENAI -.-> AI_TEMPLATES
+    ML_COMPUTE -.-> DATA_INGESTION
+    DATA_PRIVACY -.-> MODEL_SERVING
+    
+    COPILOT_ENTERPRISE -.-> MCP_SERVER
+    AI_TEMPLATES -.-> MODEL_TRAINING
+    MODEL_SERVING -.-> AI_AUDIT
+    
+    %% Security Integration Points
+    CONTENT_FILTER -.-> INFERENCE_MONITOR
+    MODEL_VALIDATION -.-> COMPLIANCE_AI
+    CODE_AGENTS -.-> AI_AUDIT
+    
+    %% DevBox Integration
+    DEVBOX_AI[💻 DevBox AI<br/>Pre-configured Environment]
+    DEVBOX_AI --> AI_STUDIO
+    DEVBOX_AI --> COPILOT_ENTERPRISE
+    DEVBOX_AI --> AI_TEMPLATES
+    
+    %% Unified Security Dashboard
+    SECURITY_DASHBOARD[📊 Unified Security<br/>AI Dashboard]
+    AI_AUDIT --> SECURITY_DASHBOARD
+    INFERENCE_MONITOR --> SECURITY_DASHBOARD
+    COMPLIANCE_AI --> SECURITY_DASHBOARD
+    
+    %% Styling
+    classDef aifoundry fill:#0078d4,color:white,stroke:#005299,stroke-width:2px
+    classDef aisecurity fill:#ff6b35,color:white,stroke:#d63031,stroke-width:2px
+    classDef github fill:#6e5494,color:white,stroke:#5a4b7c,stroke-width:2px
+    classDef rhdh fill:#ee0000,color:white,stroke:#c0392b,stroke-width:2px
+    classDef pipeline fill:#27ae60,color:white,stroke:#229954,stroke-width:2px
+    classDef deployment fill:#8e44ad,color:white,stroke:#7d3c98,stroke-width:2px
+    classDef mcp fill:#f39c12,color:white,stroke:#e67e22,stroke-width:2px
+    classDef monitoring fill:#e91e63,color:white,stroke:#c2185b,stroke-width:2px
+    classDef devbox fill:#607d8b,color:white,stroke:#546e7a,stroke-width:2px
+    classDef dashboard fill:#795548,color:white,stroke:#6d4c41,stroke-width:2px
+    
+    class AI_STUDIO,AI_SEARCH,OPENAI,ML_COMPUTE aifoundry
+    class CONTENT_FILTER,PROMPT_INJECTION,MODEL_VALIDATION,DATA_PRIVACY aisecurity
+    class COPILOT_ENTERPRISE,COPILOT_SPACES,CODE_AGENTS,MODELS_MARKETPLACE github
+    class AI_TEMPLATES,GENAIOPS,AI_CATALOG,PLUGIN_ECOSYSTEM rhdh
+    class DATA_INGESTION,FEATURE_STORE,MODEL_TRAINING,MODEL_REGISTRY pipeline
+    class MODEL_SERVING,API_MANAGEMENT,INFERENCE_MONITOR,A_B_TESTING deployment
+    class MCP_SERVER,MCP_GITHUB,MCP_MULTI mcp
+    class AI_AUDIT,BIAS_DETECTION,DRIFT_MONITORING,COMPLIANCE_AI monitoring
+    class DEVBOX_AI devbox
+    class SECURITY_DASHBOARD dashboard
