@@ -2,8 +2,6 @@
 
 <div align="center">
 
-![Complete Integration Tutorial](../../images/integration-tutorial-banner.svg)
-
 **From Zero to Production: Complete Platform Integration Guide**
 
 </div>
