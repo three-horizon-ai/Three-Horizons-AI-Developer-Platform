@@ -1454,14 +1454,6 @@ You have successfully deployed the Three Horizons AI Platform! Your platform now
 - [Platform Architecture](../architecture/)
 - [Troubleshooting Guide](troubleshooting.md)
 
-### Support
-
-- Slack: #platform-support
-- Email: platform@${DOMAIN_NAME}
-- Docs: https://devhub.${DOMAIN_NAME}/docs
-
----
-
 <div align="center">
 
 **Platform Successfully Deployed! 🚀**
