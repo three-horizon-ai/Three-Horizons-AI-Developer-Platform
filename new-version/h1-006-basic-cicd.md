@@ -2,8 +2,6 @@
 
 <div align="center">
 
-![CI/CD Pipeline Setup](../../images/cicd-pipeline-banner.svg)
-
 **Building Automated Pipelines for the Three Horizons AI Platform**
 
 </div>
