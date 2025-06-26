@@ -2,8 +2,6 @@
 
 <div align="center">
 
-![Developer Hub Advanced](../../images/developer-hub-advanced-banner.svg)
-
 **Empowering Developers with Self-Service Capabilities and Unified Experience**
 
 </div>
