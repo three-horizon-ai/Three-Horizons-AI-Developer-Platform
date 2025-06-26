@@ -2,8 +2,6 @@
 
 <div align="center">
 
-![Enhanced Demo](../../images/enhanced-demo-banner.svg)
-
 **Demonstrating Advanced Platform Capabilities Across Multiple Environments**
 
 </div>
