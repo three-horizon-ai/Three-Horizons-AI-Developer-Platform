@@ -2,8 +2,6 @@
 
 <div align="center">
 
-![Performance Optimization](../../images/performance-optimization-banner.svg)
-
 **Maximizing Platform Performance with AI-Driven Optimization**
 
 </div>
