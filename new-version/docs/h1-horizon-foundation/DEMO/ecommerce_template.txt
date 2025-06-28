@@ -1,0 +1,799 @@
+# demos/ecommerce-showcase/templates/ecommerce-fullstack/template.yaml
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: ecommerce-portal
+  title: 🛍️ Modern E-commerce Portal
+  description: |
+    Cria uma plataforma completa de e-commerce incluindo:
+    - 🌐 Portal frontend em Next.js 14 com Tailwind CSS
+    - ⚙️ Microsserviços backend (Node.js, Go, Java, Python, .NET)
+    - ☁️ Infraestrutura Azure automatizada com Terraform
+    - 🚀 Pipelines CI/CD configurados
+    - 📊 Monitoramento e observabilidade completa
+    - 🔒 Segurança integrada com GitHub Advanced Security
+    - 🤖 AI/ML capabilities com Azure OpenAI
+  tags:
+    - recommended
+    - ecommerce
+    - fullstack
+    - microservices
+    - azure
+    - ai-powered
+    - production-ready
+  links:
+    - title: Documentação
+      url: https://github.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform/blob/demo/ecommerce-showcase/demos/ecommerce-showcase/templates/ecommerce-fullstack/docs/README.md
+    - title: Arquitetura
+      url: https://github.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform/blob/demo/ecommerce-showcase/demos/ecommerce-showcase/docs/architecture.md
+    - title: Demo Live
+      url: https://ecommerce.demo.threehorizons.io
+spec:
+  owner: platform-team
+  type: website
+  
+  parameters:
+    - title: 📋 Informações Básicas
+      required:
+        - name
+        - description
+        - owner
+      properties:
+        name:
+          title: Nome do Portal
+          type: string
+          description: Nome único para seu portal e-commerce (usado para repositório e recursos)
+          pattern: '^[a-z0-9-]+$'
+          ui:help: 'Use apenas letras minúsculas, números e hífens. Ex: minha-loja-online'
+          ui:autofocus: true
+          ui:field: EntityNamePicker
+          ui:options:
+            rules:
+              - pattern: '^[a-z0-9-]+$'
+                message: 'Deve conter apenas letras minúsculas, números e hífens'
+        
+        description:
+          title: Descrição
+          type: string
+          description: Descreva o propósito do seu portal e-commerce
+          ui:help: 'Ex: Portal de vendas online para produtos eletrônicos'
+          ui:options:
+            rows: 3
+        
+        owner:
+          title: Proprietário
+          type: string
+          description: Pessoa ou equipe responsável por este portal
+          ui:field: OwnerPicker
+          ui:options:
+            catalogFilter:
+              kind: [Group, User]
+        
+        system:
+          title: Sistema
+          type: string
+          description: Sistema ao qual este portal pertence
+          default: ecommerce-platform
+          ui:field: EntityPicker
+          ui:options:
+            catalogFilter:
+              kind: System
+            defaultKind: System
+
+    - title: 🎨 Configuração da Interface
+      properties:
+        frontend:
+          title: Configurações do Frontend
+          type: object
+          properties:
+            framework:
+              title: Framework Frontend
+              type: string
+              default: nextjs
+              enum:
+                - nextjs
+                - react
+                - vue
+              enumNames:
+                - 'Next.js 14 com App Router (Recomendado)'
+                - 'React 18 com Vite'
+                - 'Vue 3 com Nuxt'
+              ui:help: 'Next.js é recomendado para SSR e performance'
+            
+            styling:
+              title: Biblioteca de Estilos
+              type: string
+              default: tailwind
+              enum:
+                - tailwind
+                - mui
+                - chakra
+                - styled-components
+              enumNames:
+                - 'Tailwind CSS + Shadcn/ui (Recomendado)'
+                - 'Material-UI (MUI)'
+                - 'Chakra UI'
+                - 'Styled Components'
+            
+            theme:
+              title: Tema Visual
+              type: string
+              default: modern
+              enum:
+                - modern
+                - minimal
+                - corporate
+                - trendy
+              enumNames:
+                - 'Moderno (Gradientes e animações)'
+                - 'Minimalista (Clean e simples)'
+                - 'Corporativo (Formal e profissional)'
+                - 'Trendy (Cores vibrantes)'
+            
+            language:
+              title: Idioma Principal
+              type: string
+              default: pt-BR
+              enum:
+                - pt-BR
+                - en-US
+                - es-ES
+                - fr-FR
+              enumNames:
+                - 'Português Brasileiro'
+                - 'English (US)'
+                - 'Español'
+                - 'Français'
+
+    - title: 🔧 Funcionalidades do E-commerce
+      properties:
+        features:
+          title: Recursos a Habilitar
+          type: object
+          properties:
+            payments:
+              title: 🔐 Processamento de Pagamentos
+              type: boolean
+              default: true
+              ui:help: 'Integração com Stripe, PayPal e PIX'
+            
+            search:
+              title: 🔍 Busca Avançada
+              type: boolean
+              default: true
+              ui:help: 'Azure Cognitive Search com filtros inteligentes'
+            
+            recommendations:
+              title: 🤖 Recomendações com IA
+              type: boolean
+              default: true
+              ui:help: 'Azure OpenAI para recomendações personalizadas'
+            
+            analytics:
+              title: 📊 Dashboard Analytics
+              type: boolean
+              default: true
+              ui:help: 'Analytics em tempo real e relatórios'
+            
+            inventory:
+              title: 📦 Gestão de Estoque
+              type: boolean
+              default: true
+              ui:help: 'Controle automático de estoque e alertas'
+            
+            multiLanguage:
+              title: 🌍 Suporte Multi-idioma
+              type: boolean
+              default: false
+              ui:help: 'Interface em múltiplos idiomas'
+            
+            b2b:
+              title: 🏢 Recursos B2B
+              type: boolean
+              default: false
+              ui:help: 'Pedidos em massa, cotações, crédito corporativo'
+            
+            mobile:
+              title: 📱 Progressive Web App
+              type: boolean
+              default: true
+              ui:help: 'Experiência mobile otimizada e offline'
+            
+            social:
+              title: 📲 Integração Social
+              type: boolean
+              default: false
+              ui:help: 'Login social e compartilhamento'
+
+    - title: ⚙️ Configuração Técnica
+      properties:
+        backend:
+          title: Configuração dos Microsserviços
+          type: object
+          properties:
+            architecture:
+              title: Arquitetura
+              type: string
+              default: microservices
+              enum:
+                - microservices
+                - modular-monolith
+              enumNames:
+                - 'Microsserviços (Recomendado para produção)'
+                - 'Monolito Modular (Mais simples para começar)'
+            
+            apiGateway:
+              title: API Gateway
+              type: string
+              default: kong
+              enum:
+                - kong
+                - istio
+                - azure-api-management
+              enumNames:
+                - 'Kong (Recomendado)'
+                - 'Istio Service Mesh'
+                - 'Azure API Management'
+            
+            authentication:
+              title: Provedor de Autenticação
+              type: string
+              default: azure-ad
+              enum:
+                - azure-ad
+                - auth0
+                - keycloak
+                - custom-jwt
+              enumNames:
+                - 'Azure Active Directory (Recomendado)'
+                - 'Auth0'
+                - 'Keycloak (Open Source)'
+                - 'JWT Personalizado'
+            
+            database:
+              title: Estratégia de Banco de Dados
+              type: string
+              default: polyglot
+              enum:
+                - polyglot
+                - postgresql-only
+                - mongodb-only
+              enumNames:
+                - 'Polyglot (PostgreSQL + MongoDB + Redis)'
+                - 'Apenas PostgreSQL'
+                - 'Apenas MongoDB'
+
+    - title: ☁️ Configuração de Infraestrutura
+      properties:
+        azure:
+          title: Configuração Azure
+          type: object
+          required:
+            - subscription
+            - region
+          properties:
+            subscription:
+              title: Assinatura Azure
+              type: string
+              default: ME-MngEnvMCAP178642-paulasilva-1
+              ui:help: 'Selecione sua assinatura Azure'
+            
+            region:
+              title: Região Primária
+              type: string
+              default: centralus
+              enum:
+                - centralus
+                - eastus
+                - westus2
+                - brazilsouth
+                - westeurope
+              enumNames:
+                - 'Central US (Recomendado para demo)'
+                - 'East US'
+                - 'West US 2'
+                - 'Brazil South'
+                - 'West Europe'
+            
+            environment:
+              title: Ambiente Inicial
+              type: string
+              default: development
+              enum:
+                - development
+                - staging
+                - production
+              enumNames:
+                - 'Development (Recursos básicos)'
+                - 'Staging (Recursos médios)'
+                - 'Production (Recursos completos)'
+            
+            multiRegion:
+              title: 🌍 Deploy Multi-Regional
+              type: boolean
+              default: false
+              ui:help: 'Deploy em múltiplas regiões para alta disponibilidade'
+            
+            costOptimization:
+              title: 💰 Otimização de Custos
+              type: boolean
+              default: true
+              ui:help: 'Ativar recursos de otimização de custos (Spot VMs, auto-scaling)'
+
+    - title: 🚀 Configuração de Deployment
+      properties:
+        deployment:
+          title: Estratégia de Deployment
+          type: object
+          properties:
+            strategy:
+              title: Estratégia de Deploy
+              type: string
+              default: gitops
+              enum:
+                - gitops
+                - direct
+              enumNames:
+                - 'GitOps (Recomendado - ArgoCD)'
+                - 'Deploy Direto via GitHub Actions'
+            
+            environments:
+              title: Ambientes a Criar
+              type: array
+              items:
+                type: string
+                enum:
+                  - development
+                  - staging
+                  - production
+              default: ['development', 'staging']
+              ui:widget: checkboxes
+              ui:options:
+                inline: true
+            
+            monitoring:
+              title: Stack de Monitoramento
+              type: string
+              default: complete
+              enum:
+                - basic
+                - complete
+                - enterprise
+              enumNames:
+                - 'Básico (Logs + Métricas básicas)'
+                - 'Completo (Prometheus + Grafana + APM)'
+                - 'Enterprise (Datadog + Azure Monitor)'
+            
+            security:
+              title: Nível de Segurança
+              type: string
+              default: enhanced
+              enum:
+                - basic
+                - enhanced
+                - enterprise
+              enumNames:
+                - 'Básico (Scanning de código)'
+                - 'Melhorado (+ Dependency scanning + Secrets)'
+                - 'Enterprise (+ Runtime protection + Compliance)'
+
+  steps:
+    - id: fetch
+      name: 📁 Buscar Template do Projeto
+      action: fetch:template
+      input:
+        url: ./skeleton
+        copyWithoutTemplating:
+          - .github/workflows/scripts/*
+          - '**/*.png'
+          - '**/*.jpg'
+          - '**/*.svg'
+          - '**/*.ico'
+        values:
+          # Basic info
+          name: ${{ parameters.name }}
+          description: ${{ parameters.description }}
+          owner: ${{ parameters.owner }}
+          system: ${{ parameters.system }}
+          
+          # Frontend config
+          frontend: ${{ parameters.frontend }}
+          
+          # Features
+          features: ${{ parameters.features }}
+          
+          # Backend config
+          backend: ${{ parameters.backend }}
+          
+          # Azure config
+          azure: ${{ parameters.azure }}
+          
+          # Deployment config
+          deployment: ${{ parameters.deployment }}
+          
+          # Computed values
+          repositoryUrl: "github.com/three-horizon-ai/${{ parameters.name }}"
+          dockerRegistry: "acr${{ parameters.name }}${{ parameters.azure.region }}.azurecr.io"
+          appDomain: "${{ parameters.name }}.demo.threehorizons.io"
+          
+          # Environment-specific
+          isDevelopment: ${{ parameters.azure.environment === 'development' }}
+          isProduction: ${{ parameters.azure.environment === 'production' }}
+          
+          # Current timestamp for unique naming
+          timestamp: ${{ parameters.timestamp || '20250101' }}
+
+    - id: generate-secrets
+      name: 🔑 Gerar Secrets de Segurança
+      action: threehorizons:generate-secrets
+      input:
+        secrets:
+          - name: jwt-secret
+            type: random
+            length: 64
+          - name: database-password
+            type: random
+            length: 32
+            charset: alphanumeric
+          - name: redis-password
+            type: random
+            length: 24
+            charset: alphanumeric
+          - name: api-key
+            type: uuid
+          - name: webhook-secret
+            type: random
+            length: 32
+          - name: session-secret
+            type: random
+            length: 48
+
+    - id: publish
+      name: 📚 Publicar no GitHub
+      action: publish:github
+      input:
+        description: ${{ parameters.description }}
+        repoUrl: github.com?owner=three-horizon-ai&repo=${{ parameters.name }}
+        defaultBranch: main
+        gitCommitMessage: |
+          🎉 Initial commit: ${{ parameters.name }}
+          
+          Created with Three Horizons AI Platform template
+          
+          Features enabled:
+          - Frontend: ${{ parameters.frontend.framework }}
+          - Styling: ${{ parameters.frontend.styling }}
+          - Payments: ${{ parameters.features.payments }}
+          - Search: ${{ parameters.features.search }}
+          - AI Recommendations: ${{ parameters.features.recommendations }}
+          - Analytics: ${{ parameters.features.analytics }}
+          
+          Architecture:
+          - Backend: ${{ parameters.backend.architecture }}
+          - API Gateway: ${{ parameters.backend.apiGateway }}
+          - Auth: ${{ parameters.backend.authentication }}
+          - Database: ${{ parameters.backend.database }}
+          
+          Infrastructure:
+          - Azure Region: ${{ parameters.azure.region }}
+          - Environment: ${{ parameters.azure.environment }}
+          - Deploy Strategy: ${{ parameters.deployment.strategy }}
+          
+          Ready for development! 🚀
+        gitAuthorName: 'Three Horizons Platform'
+        gitAuthorEmail: 'platform@threehorizons.io'
+        topics:
+          - ecommerce
+          - threehorizons
+          - ${{ parameters.frontend.framework }}
+          - ${{ parameters.backend.architecture }}
+          - azure
+          - ${{ parameters.azure.region }}
+          - demo
+        repoVariables:
+          AZURE_SUBSCRIPTION: ${{ parameters.azure.subscription }}
+          AZURE_REGION: ${{ parameters.azure.region }}
+          AZURE_ENVIRONMENT: ${{ parameters.azure.environment }}
+          APP_NAME: ${{ parameters.name }}
+          APP_DOMAIN: ${{ parameters.name }}.demo.threehorizons.io
+          FEATURES_PAYMENTS: ${{ parameters.features.payments }}
+          FEATURES_SEARCH: ${{ parameters.features.search }}
+          FEATURES_AI: ${{ parameters.features.recommendations }}
+        secrets:
+          JWT_SECRET: ${{ steps['generate-secrets'].output.secrets['jwt-secret'] }}
+          DATABASE_PASSWORD: ${{ steps['generate-secrets'].output.secrets['database-password'] }}
+          REDIS_PASSWORD: ${{ steps['generate-secrets'].output.secrets['redis-password'] }}
+          API_KEY: ${{ steps['generate-secrets'].output.secrets['api-key'] }}
+          WEBHOOK_SECRET: ${{ steps['generate-secrets'].output.secrets['webhook-secret'] }}
+          SESSION_SECRET: ${{ steps['generate-secrets'].output.secrets['session-secret'] }}
+
+    - id: create-azure-resources
+      name: ☁️ Provisionar Recursos Azure
+      action: threehorizons:azure-provision
+      input:
+        subscription: ${{ parameters.azure.subscription }}
+        resourceGroup: rg-${{ parameters.name }}-${{ parameters.azure.environment }}
+        location: ${{ parameters.azure.region }}
+        environment: ${{ parameters.azure.environment }}
+        appName: ${{ parameters.name }}
+        resources:
+          containerRegistry:
+            name: acr${{ parameters.name }}${{ parameters.azure.region }}
+            sku: ${{ parameters.azure.environment === 'production' && 'Premium' || 'Standard' }}
+            adminEnabled: true
+          
+          keyVault:
+            name: kv-${{ parameters.name }}-${{ parameters.azure.environment }}
+            sku: standard
+            secrets:
+              - name: jwt-secret
+                value: ${{ steps['generate-secrets'].output.secrets['jwt-secret'] }}
+              - name: database-password
+                value: ${{ steps['generate-secrets'].output.secrets['database-password'] }}
+              - name: redis-password
+                value: ${{ steps['generate-secrets'].output.secrets['redis-password'] }}
+          
+          database:
+            type: postgresql
+            name: psql-${{ parameters.name }}-${{ parameters.azure.environment }}
+            sku: ${{ parameters.azure.environment === 'production' && 'GP_Gen5_2' || 'B_Gen5_1' }}
+            storage: ${{ parameters.azure.environment === 'production' && '100' || '32' }}
+            adminUser: ${{ parameters.name }}admin
+            adminPassword: ${{ steps['generate-secrets'].output.secrets['database-password'] }}
+          
+          redis:
+            name: redis-${{ parameters.name }}-${{ parameters.azure.environment }}
+            sku: ${{ parameters.azure.environment === 'production' && 'Premium' || 'Basic' }}
+            capacity: ${{ parameters.azure.environment === 'production' && '1' || '0' }}
+          
+          storage:
+            name: st${{ parameters.name }}${{ parameters.azure.environment }}
+            type: StorageV2
+            tier: ${{ parameters.azure.environment === 'production' && 'Premium_LRS' || 'Standard_LRS' }}
+            containers:
+              - name: products
+                publicAccess: blob
+              - name: uploads
+                publicAccess: none
+          
+          logAnalytics:
+            name: law-${{ parameters.name }}-${{ parameters.azure.environment }}
+            sku: PerGB2018
+            retentionDays: ${{ parameters.azure.environment === 'production' && '90' || '30' }}
+          
+          applicationInsights:
+            name: ai-${{ parameters.name }}-${{ parameters.azure.environment }}
+            kind: web
+
+    - id: setup-kubernetes
+      name: ⚓ Configurar Recursos Kubernetes
+      action: threehorizons:k8s-deploy
+      input:
+        cluster: threehorizons-aks
+        namespace: ${{ parameters.name }}-${{ parameters.azure.environment }}
+        manifests:
+          - apiVersion: v1
+            kind: Namespace
+            metadata:
+              name: ${{ parameters.name }}-${{ parameters.azure.environment }}
+              labels:
+                app: ${{ parameters.name }}
+                environment: ${{ parameters.azure.environment }}
+                managed-by: three-horizons
+                owner: ${{ parameters.owner }}
+                backstage.io/managed-by-location: url:${{ steps['publish'].output.remoteUrl }}
+          
+          - apiVersion: v1
+            kind: Secret
+            metadata:
+              name: app-secrets
+              namespace: ${{ parameters.name }}-${{ parameters.azure.environment }}
+            type: Opaque
+            stringData:
+              JWT_SECRET: ${{ steps['generate-secrets'].output.secrets['jwt-secret'] }}
+              DATABASE_URL: "postgresql://${{ parameters.name }}admin:${{ steps['generate-secrets'].output.secrets['database-password'] }}@psql-${{ parameters.name }}-${{ parameters.azure.environment }}.postgres.database.azure.com/${{ parameters.name }}"
+              REDIS_URL: "redis://redis-${{ parameters.name }}-${{ parameters.azure.environment }}.redis.cache.windows.net:6380?password=${{ steps['generate-secrets'].output.secrets['redis-password'] }}&ssl=true"
+              API_KEY: ${{ steps['generate-secrets'].output.secrets['api-key'] }}
+              WEBHOOK_SECRET: ${{ steps['generate-secrets'].output.secrets['webhook-secret'] }}
+              SESSION_SECRET: ${{ steps['generate-secrets'].output.secrets['session-secret'] }}
+          
+          - apiVersion: v1
+            kind: ConfigMap
+            metadata:
+              name: app-config
+              namespace: ${{ parameters.name }}-${{ parameters.azure.environment }}
+            data:
+              APP_NAME: ${{ parameters.name }}
+              APP_ENV: ${{ parameters.azure.environment }}
+              APP_DOMAIN: ${{ parameters.name }}.demo.threehorizons.io
+              AZURE_REGION: ${{ parameters.azure.region }}
+              FRONTEND_FRAMEWORK: ${{ parameters.frontend.framework }}
+              FEATURES_PAYMENTS: "${{ parameters.features.payments }}"
+              FEATURES_SEARCH: "${{ parameters.features.search }}"
+              FEATURES_AI: "${{ parameters.features.recommendations }}"
+              FEATURES_ANALYTICS: "${{ parameters.features.analytics }}"
+
+    - id: create-argocd-app
+      name: 🔄 Configurar GitOps (ArgoCD)
+      action: threehorizons:argocd-create-app
+      input:
+        appName: ${{ parameters.name }}-${{ parameters.azure.environment }}
+        namespace: ${{ parameters.name }}-${{ parameters.azure.environment }}
+        repoUrl: ${{ steps['publish'].output.remoteUrl }}
+        path: k8s/overlays/${{ parameters.azure.environment }}
+        targetRevision: main
+        syncPolicy:
+          automated:
+            prune: true
+            selfHeal: true
+          syncOptions:
+            - CreateNamespace=true
+            - ApplyOutOfSyncOnly=true
+
+    - id: setup-monitoring
+      name: 📊 Configurar Monitoramento
+      action: threehorizons:monitoring-setup
+      input:
+        namespace: ${{ parameters.name }}-${{ parameters.azure.environment }}
+        appName: ${{ parameters.name }}
+        environment: ${{ parameters.azure.environment }}
+        dashboards:
+          - name: application-overview
+            type: grafana
+            panels:
+              - requests-per-second
+              - response-times
+              - error-rates
+              - database-connections
+          - name: infrastructure
+            type: grafana
+            panels:
+              - cpu-usage
+              - memory-usage
+              - disk-usage
+              - network-io
+        alerts:
+          - name: high-error-rate
+            condition: error_rate > 5%
+            severity: warning
+          - name: high-response-time
+            condition: response_time > 2s
+            severity: warning
+          - name: service-down
+            condition: up == 0
+            severity: critical
+
+    - id: trigger-initial-build
+      name: 🚀 Disparar Build Inicial
+      action: github:actions:dispatch
+      input:
+        repoUrl: github.com?owner=three-horizon-ai&repo=${{ parameters.name }}
+        workflowId: ci.yml
+        branchOrTagName: main
+        workflowInputs:
+          environment: ${{ parameters.azure.environment }}
+          deploy: 'true'
+
+    - id: register
+      name: 📝 Registrar no Catálogo de Software
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps['publish'].output.repoContentsUrl }}
+        catalogInfoPath: '/catalog-info.yaml'
+
+  output:
+    links:
+      - title: 📁 Repositório no GitHub
+        url: ${{ steps['publish'].output.remoteUrl }}
+        icon: github
+      
+      - title: 🌐 Abrir no VS Code
+        url: vscode://vscode.git/clone?url=${{ steps['publish'].output.remoteUrl }}
+        icon: vscode
+      
+      - title: 🏠 Ver no Developer Hub
+        url: ${{ parameters.catalogUrl || 'https://backstage-rhdh-rhdh-operator.apps.txl952sg.centralus.aroapp.io' }}/catalog/default/component/${{ parameters.name }}
+        icon: catalog
+      
+      - title: 🔄 GitOps Dashboard (ArgoCD)
+        url: https://argocd.demo.threehorizons.io/applications/${{ parameters.name }}-${{ parameters.azure.environment }}
+        icon: dashboard
+      
+      - title: 📊 Monitoramento (Grafana)
+        url: https://grafana.demo.threehorizons.io/d/${{ parameters.name }}-overview
+        icon: grafana
+      
+      - title: ☁️ Recursos Azure
+        url: https://portal.azure.com/#@/resource/subscriptions/${{ parameters.azure.subscription }}/resourceGroups/rg-${{ parameters.name }}-${{ parameters.azure.environment }}
+        icon: azure
+      
+      - title: 🚀 GitHub Actions
+        url: ${{ steps['publish'].output.remoteUrl }}/actions
+        icon: github
+      
+      - title: 🔐 Secrets (Key Vault)
+        url: https://portal.azure.com/#@/resource/subscriptions/${{ parameters.azure.subscription }}/resourceGroups/rg-${{ parameters.name }}-${{ parameters.azure.environment }}/providers/Microsoft.KeyVault/vaults/kv-${{ parameters.name }}-${{ parameters.azure.environment }}
+        icon: key
+    
+    text:
+      - title: 🎉 Portal E-commerce Criado com Sucesso!
+        content: |
+          Seu portal e-commerce **${{ parameters.name }}** foi criado com sucesso! 
+          
+          **🔗 URLs Importantes:**
+          - **Repositório**: ${{ steps['publish'].output.remoteUrl }}
+          - **Aplicação**: https://${{ parameters.name }}.demo.threehorizons.io (disponível em ~10 minutos)
+          - **Admin**: https://admin-${{ parameters.name }}.demo.threehorizons.io
+          
+          **⚡ Próximos Passos:**
+          1. **Clone o repositório** e explore o código gerado
+          2. **Acompanhe o deploy** no GitHub Actions
+          3. **Acesse sua aplicação** quando o deploy completar
+          4. **Configure dados iniciais** através do painel admin
+          
+          **🛠️ Recursos Habilitados:**
+          - Frontend: ${{ parameters.frontend.framework }} com ${{ parameters.frontend.styling }}
+          - Pagamentos: ${{ parameters.features.payments && '✅ Habilitado' || '❌ Desabilitado' }}
+          - Busca IA: ${{ parameters.features.search && '✅ Habilitado' || '❌ Desabilitado' }}
+          - Recomendações: ${{ parameters.features.recommendations && '✅ Habilitado' || '❌ Desabilitado' }}
+          - Analytics: ${{ parameters.features.analytics && '✅ Habilitado' || '❌ Desabilitado' }}
+          
+          **🔧 Ambiente: ${{ parameters.azure.environment }}**
+          **📍 Região: ${{ parameters.azure.region }}**
+          
+          **📚 Documentação:**
+          - [Guia de Desenvolvimento](https://github.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform/blob/demo/ecommerce-showcase/demos/ecommerce-showcase/docs/04-application-development.md)
+          - [API Documentation](https://api-${{ parameters.name }}.demo.threehorizons.io/docs)
+          - [Runbook Operacional](https://github.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform/blob/demo/ecommerce-showcase/demos/ecommerce-showcase/docs/runbook.md)
+          
+          **🎯 Tempo estimado para deploy completo: 8-12 minutos**
+          
+          Bem-vindo ao futuro do desenvolvimento! 🚀
+      
+      - title: 🛡️ Segurança e Compliance
+        content: |
+          **🔒 Segurança Integrada:**
+          - GitHub Advanced Security habilitado
+          - Scanning automático de vulnerabilidades
+          - Secrets detection ativo
+          - Dependency scanning configurado
+          
+          **📋 Compliance:**
+          - Todas as políticas de segurança aplicadas
+          - Logs de auditoria habilitados
+          - GDPR compliance ready
+          - SOC 2 Type II controls implementados
+          
+          **🔑 Gestão de Secrets:**
+          - Secrets armazenados no Azure Key Vault
+          - Rotação automática configurada
+          - Acesso baseado em identidades gerenciadas
+          
+          Sua aplicação está segura por design! 🛡️
+      
+      - title: 💰 Otimização de Custos
+        content: |
+          **💸 Estimativa de Custos (USD/mês):**
+          
+          **Ambiente Development:**
+          - AKS: ~$73 (2 nodes B2s)
+          - PostgreSQL Basic: ~$24
+          - Redis Basic: ~$16
+          - Storage + Outros: ~$10
+          - **Total: ~$123/mês**
+          
+          **Ambiente Production:**
+          - AKS: ~$365 (auto-scaling)
+          - PostgreSQL GP: ~$180
+          - Redis Premium: ~$290
+          - Storage + CDN: ~$50
+          - **Total: ~$885/mês**
+          
+          **💡 Otimizações Ativas:**
+          - Auto-scaling baseado em CPU/memória
+          - Spot VMs para cargas dev/test
+          - Retenção otimizada de logs
+          - Compressão automática de storage
+          
+          **📊 Monitore custos em:** 
+          https://portal.azure.com/#blade/Microsoft_Azure_CostManagement/Menu/costanalysis
