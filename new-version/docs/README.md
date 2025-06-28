@@ -2,8 +2,6 @@
 
 <div align="center">
 
-![Three Horizons AI Platform](../assets/images/Three-Horizon.svg)
-
 **The Industry's First AI-Enabled Development Platform with Agentic DevOps**
 
 *Integrating Microsoft Azure, Red Hat Developer Hub 1.6, GitHub Enterprise, and Azure AI Foundry*
@@ -159,13 +157,6 @@ gantt
 3. **Start Implementation**: Begin with Horizon 1 Foundation
 4. **Track Progress**: Use the implementation roadmap and checklists
 5. **Get Support**: Reference troubleshooting guide when needed
-
-## 📞 Support & Community
-
-- **Documentation Issues**: [Report documentation problems](https://github.com/issues)
-- **Technical Support**: Contact your vendor representatives
-- **Community**: Join the Three Horizons AI Platform community
-- **Training**: Access comprehensive training materials
 
 ---
 
