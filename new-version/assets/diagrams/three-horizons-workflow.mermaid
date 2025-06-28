@@ -1,0 +1,94 @@
+flowchart TD
+    subgraph "🏗️ Horizon 1: Foundation Discovery"
+        A[👨‍💻 Developer] --> B[📚 Access Developer Hub]
+        B --> C[🗄️ Browse Software Catalog]
+        C --> D[🔍 Find Component/Golden Path]
+        D --> E[📖 Review Documentation]
+        E --> F[📋 Check Contribution Guidelines]
+        F --> G[🛠️ Select Template/Scaffold]
+    end
+    
+    subgraph "⚡ Horizon 2: Enhanced Development Process"
+        G --> H[🔀 Fork Repository from Template]
+        H --> I[🌿 Create Feature Branch]
+        I --> J[🤖 AI-Assisted Code Generation]
+        J --> K[💻 Develop with GitHub Copilot]
+        K --> L[🧪 Run Local Tests & Quality Gates]
+        L --> M{✅ Tests Pass?}
+        M -->|❌ No| N[🔧 AI-Suggested Fixes]
+        N --> K
+        M -->|✅ Yes| O[📤 Submit Pull Request]
+    end
+    
+    subgraph "🤖 Horizon 3: AI-Driven Review & CI/CD"
+        O --> P[🔄 Automated Checks Run]
+        P --> Q[🤖 AI Code Analysis]
+        Q --> R[🔒 Security Scanning]
+        R --> S[📊 Performance Analysis]
+        S --> T[👥 Code Owners Notified]
+        T --> U[👀 Human + AI Review]
+        U --> V{✨ Approved?}
+        V -->|❌ No| W[💬 AI-Enhanced Feedback]
+        W --> K
+        V -->|✅ Yes| X[🔗 Merge to Main]
+    end
+    
+    subgraph "🚀 Automated Deployment Pipeline"
+        X --> Y[🏗️ Build Container Image]
+        Y --> Z[📦 Push to Registry]
+        Z --> AA[🔍 Image Security Scan]
+        AA --> BB[📋 Update Manifests]
+        BB --> CC[🚀 Deploy to Dev Environment]
+        CC --> DD[🧪 Automated Integration Tests]
+        DD --> EE{🎯 Tests Pass?}
+        EE -->|❌ No| FF[📧 Alert & Rollback]
+        FF --> K
+        EE -->|✅ Yes| GG[✅ Promote to Staging]
+    end
+    
+    subgraph "📊 Monitoring & AI Insights"
+        GG --> HH[📈 Performance Monitoring]
+        HH --> II[🚨 Alert Management]
+        II --> JJ[🤖 AI Anomaly Detection]
+        JJ --> KK[📊 Metrics Dashboard]
+        KK --> LL[🔄 Feedback to Developer]
+        LL --> MM[🎯 Approve for Production]
+        MM --> NN[🌐 Production Deployment]
+        NN --> OO[📱 User Experience Monitoring]
+        OO --> PP[🔄 Continuous Optimization]
+    end
+    
+    subgraph "🏆 Recognition & Analytics"
+        PP --> QQ[📈 Developer Productivity Metrics]
+        QQ --> RR[🏅 InnerSource Champions Board]
+        RR --> SS[🎓 Learning Recommendations]
+        SS --> TT[🔮 AI-Driven Insights]
+        TT --> UU[📚 Knowledge Base Updates]
+        UU --> B
+    end
+    
+    %% AI Enhancement Connections
+    J -.->|🤖 AI Assistance| K
+    Q -.->|🧠 AI Analysis| U
+    JJ -.->|🔍 AI Monitoring| LL
+    TT -.->|📊 AI Insights| A
+    
+    %% Feedback Loops
+    FF -.->|🔄 Learning Loop| J
+    LL -.->|📈 Metrics| QQ
+    PP -.->|🎯 Optimization| G
+    
+    %% Styling
+    classDef h1 fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef h2 fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef h3 fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef deploy fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef monitor fill:#fff8e1,stroke:#f57f17,stroke-width:2px
+    classDef ai fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    
+    class A,B,C,D,E,F,G h1
+    class H,I,J,K,L,M,N,O h2
+    class P,Q,R,S,T,U,V,W,X h3
+    class Y,Z,AA,BB,CC,DD,EE,FF,GG deploy
+    class HH,II,JJ,KK,LL,MM,NN,OO,PP monitor
+    class QQ,RR,SS,TT,UU ai

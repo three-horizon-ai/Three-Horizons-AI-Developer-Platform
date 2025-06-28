@@ -1,0 +1,100 @@
+flowchart LR
+    subgraph "🎯 User Journey Through Three Horizons"
+        direction TB
+        
+        subgraph H1["🏗️ Horizon 1: Foundation (Day 1-30)"]
+            direction TB
+            H1A[📖 Platform Introduction] --> H1B[🏗️ Infrastructure Setup]
+            H1B --> H1C[🔒 Security Foundation]
+            H1C --> H1D[🐙 GitHub Setup]
+            H1D --> H1E[📚 Developer Hub Deployment]
+            H1E --> H1F[🔄 Basic CI/CD]
+            H1F --> H1G[🎬 Demo Environment]
+        end
+        
+        subgraph H2["⚡ Horizon 2: Optimization (Day 31-90)"]
+            direction TB
+            H2A[🚀 Advanced Deployment] --> H2B[📊 Comprehensive Monitoring]
+            H2B --> H2C[🛡️ Enhanced Security]
+            H2C --> H2D[⚡ Performance Optimization]
+            H2D --> H2E[🛣️ Golden Paths]
+            H2E --> H2F[🏛️ Advanced Developer Hub]
+            H2F --> H2G[🎭 Enhanced Demo]
+        end
+        
+        subgraph H3["🤖 Horizon 3: Innovation (Day 91+)"]
+            direction TB
+            H3A[🧠 AI-Driven Development] --> H3B[🧪 Azure AI Foundry]
+            H3B --> H3C[🤖 Autonomous Operations]
+            H3C --> H3D[🔌 MCP Implementation]
+            H3D --> H3E[📈 Advanced Analytics]
+            H3E --> H3F[🎯 Unified Experience]
+            H3F --> H3G[🎪 Innovation Showcase]
+        end
+    end
+    
+    subgraph "🛠️ Supporting Resources"
+        direction TB
+        R1[👨‍💻 Developer Guide]
+        R2[💻 Inner Loop Development]
+        R3[🚀 Outer Loop Deployment]
+        R4[📖 Complete Integration Tutorial]
+        R5[🔧 Troubleshooting & FAQ]
+        
+        R1 --> R2
+        R2 --> R3
+        R3 --> R4
+        R4 --> R5
+    end
+    
+    subgraph "📁 Assets & Templates"
+        direction TB
+        A1[🔧 Scripts by Horizon]
+        A2[📄 Bicep Templates]
+        A3[⚙️ GitHub Actions Templates]
+        A4[📊 Helm Charts]
+        A5[📚 Documentation Templates]
+        
+        A1 --> A2
+        A2 --> A3
+        A3 --> A4
+        A4 --> A5
+    end
+    
+    %% Main Flow Connections
+    H1 ==> H2
+    H2 ==> H3
+    
+    %% Support Connections
+    H1 -.-> R1
+    H2 -.-> R2
+    H3 -.-> R3
+    
+    %% Asset Connections
+    H1 -.-> A1
+    H2 -.-> A2
+    H3 -.-> A3
+    
+    %% Quick Paths
+    H1A -.->|🚀 Decision Makers| H1G
+    H1A -.->|👨‍💻 Developers| R1
+    H1A -.->|🏗️ Platform Engineers| H1B
+    H1A -.->|🔒 Security Teams| H1C
+    
+    %% Feedback Loops
+    H3G -.->|🔄 Continuous Learning| H1A
+    R5 -.->|📚 Knowledge Update| H1A
+    A5 -.->|📖 Documentation Improvement| R1
+    
+    %% Styling
+    classDef h1 fill:#e1f5fe,stroke:#01579b,stroke-width:3px
+    classDef h2 fill:#fff3e0,stroke:#e65100,stroke-width:3px
+    classDef h3 fill:#f3e5f5,stroke:#4a148c,stroke-width:3px
+    classDef support fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef assets fill:#fff8e1,stroke:#f57f17,stroke-width:2px
+    
+    class H1,H1A,H1B,H1C,H1D,H1E,H1F,H1G h1
+    class H2,H2A,H2B,H2C,H2D,H2E,H2F,H2G h2
+    class H3,H3A,H3B,H3C,H3D,H3E,H3F,H3G h3
+    class R1,R2,R3,R4,R5 support
+    class A1,A2,A3,A4,A5 assets

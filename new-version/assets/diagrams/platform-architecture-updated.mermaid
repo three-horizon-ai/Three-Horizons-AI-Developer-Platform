@@ -1,0 +1,166 @@
+flowchart TB
+    subgraph "🌐 Three Horizons AI Platform Architecture"
+        
+        subgraph "👨‍💻 Developer Experience Layer"
+            IDE[💻 VS Code + Copilot]
+            CLI[⌨️ CLI Tools + AI Assistants]
+            Portal[🌐 Developer Hub Portal]
+            
+            IDE -.->|🤖 AI Code Generation| Portal
+            CLI -.->|🔧 Automation| Portal
+        end
+        
+        subgraph "🏗️ Horizon 1: Foundation Platform"
+            direction TB
+            
+            subgraph "Infrastructure"
+                AKS[☸️ Azure Kubernetes Service]
+                ACR[📦 Azure Container Registry]
+                KeyVault[🔐 Azure Key Vault]
+                Network[🌐 Virtual Network]
+            end
+            
+            subgraph "Developer Hub Core"
+                RHDH[🏛️ Red Hat Developer Hub 1.6]
+                Backstage[📚 Backstage Catalog]
+                Templates[📄 Software Templates]
+                TechDocs[📖 TechDocs]
+            end
+            
+            subgraph "Basic CI/CD"
+                GitHub[🐙 GitHub Enterprise]
+                Actions[⚙️ GitHub Actions]
+                Scanner[🔍 Security Scanning]
+            end
+        end
+        
+        subgraph "⚡ Horizon 2: Optimization Platform"
+            direction TB
+            
+            subgraph "Advanced Deployment"
+                ArgoCD[🚀 ArgoCD GitOps]
+                Flux[🔄 Flux CD]
+                Helm[📦 Helm Charts]
+                Kustomize[⚙️ Kustomize]
+            end
+            
+            subgraph "Monitoring & Observability"
+                Prometheus[📊 Prometheus]
+                Grafana[📈 Grafana]
+                Jaeger[🔍 Jaeger Tracing]
+                AlertManager[🚨 Alert Manager]
+            end
+            
+            subgraph "Enhanced Security"
+                Falco[🛡️ Falco Runtime Security]
+                OPA[📋 Open Policy Agent]
+                Vault[🔒 HashiCorp Vault]
+                Trivy[🔍 Trivy Scanner]
+            end
+        end
+        
+        subgraph "🤖 Horizon 3: AI Innovation Platform"
+            direction TB
+            
+            subgraph "AI Services"
+                OpenAI[🧠 Azure OpenAI Service]
+                AIFoundry[🧪 Azure AI Foundry]
+                CognitiveServices[🎯 Cognitive Services]
+                MLOps[🤖 MLOps Pipeline]
+            end
+            
+            subgraph "Autonomous Operations"
+                AIOps[🤖 AIOps Platform]
+                AutoHealing[🔄 Auto-healing Systems]
+                PredictiveScaling[📈 Predictive Scaling]
+                SmartAlerts[💡 Smart Alerting]
+            end
+            
+            subgraph "Analytics & Insights"
+                DataLake[🏊 Azure Data Lake]
+                Synapse[📊 Azure Synapse]
+                PowerBI[📈 Power BI]
+                CopilotAnalytics[🤖 Copilot Analytics]
+            end
+        end
+        
+        subgraph "🔄 Integration Layer"
+            direction LR
+            EventGrid[⚡ Azure Event Grid]
+            ServiceBus[🚌 Azure Service Bus]
+            LogicApps[🔗 Azure Logic Apps]
+            Functions[⚡ Azure Functions]
+        end
+        
+        subgraph "💾 Data & Storage"
+            direction LR
+            CosmosDB[🌍 Cosmos DB]
+            BlobStorage[📁 Blob Storage]
+            FileStorage[📂 File Storage]
+            Redis[⚡ Redis Cache]
+        end
+    end
+    
+    %% Layer Connections
+    Portal --> RHDH
+    Portal --> GitHub
+    Portal --> ArgoCD
+    Portal --> OpenAI
+    
+    %% Horizon 1 Internal Connections
+    RHDH --> Backstage
+    RHDH --> Templates
+    RHDH --> TechDocs
+    GitHub --> Actions
+    Actions --> ACR
+    AKS --> ACR
+    AKS --> KeyVault
+    
+    %% Horizon 2 Internal Connections
+    ArgoCD --> AKS
+    Prometheus --> Grafana
+    Prometheus --> AlertManager
+    Falco --> OPA
+    
+    %% Horizon 3 Internal Connections
+    OpenAI --> AIFoundry
+    AIOps --> AutoHealing
+    AIOps --> PredictiveScaling
+    DataLake --> Synapse
+    Synapse --> PowerBI
+    
+    %% Cross-Horizon Integrations
+    Actions -.->|📦 Build & Deploy| ArgoCD
+    Prometheus -.->|📊 Metrics| DataLake
+    AutoHealing -.->|🔄 Self-Repair| AKS
+    CopilotAnalytics -.->|🤖 AI Insights| Portal
+    
+    %% Integration Layer Connections
+    EventGrid --> ServiceBus
+    ServiceBus --> Functions
+    Functions --> LogicApps
+    
+    %% Data Layer Connections
+    CosmosDB --> DataLake
+    BlobStorage --> DataLake
+    Redis --> AKS
+    
+    %% External Connections
+    Portal -.->|🔗 External APIs| EventGrid
+    GitHub -.->|📝 Source Code| BlobStorage
+    AIFoundry -.->|🧠 AI Models| CognitiveServices
+    
+    %% Styling
+    classDef h1 fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef h2 fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef h3 fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef integration fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef data fill:#fff8e1,stroke:#f57f17,stroke-width:2px
+    classDef dev fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    
+    class AKS,ACR,KeyVault,Network,RHDH,Backstage,Templates,TechDocs,GitHub,Actions,Scanner h1
+    class ArgoCD,Flux,Helm,Kustomize,Prometheus,Grafana,Jaeger,AlertManager,Falco,OPA,Vault,Trivy h2
+    class OpenAI,AIFoundry,CognitiveServices,MLOps,AIOps,AutoHealing,PredictiveScaling,SmartAlerts,DataLake,Synapse,PowerBI,CopilotAnalytics h3
+    class EventGrid,ServiceBus,LogicApps,Functions integration
+    class CosmosDB,BlobStorage,FileStorage,Redis data
+    class IDE,CLI,Portal dev

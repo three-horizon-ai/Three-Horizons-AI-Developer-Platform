@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 2200" width="1800" height="2200">
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#666"/>
+    </marker>
+    <marker id="feedbackArrow" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ff9800"/>
+    </marker>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1800" height="2200" fill="#fafafa"/>
+  
+  <!-- Title -->
+  <text x="900" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#1a1a1a">
+    Three Horizons AI Development Workflow
+  </text>
+  <text x="900" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#666">
+    AI-Enhanced Developer Experience from Discovery to Production
+  </text>
+
+  <!-- Horizon 1: Foundation Discovery -->
+  <g id="horizon1">
+    <rect x="50" y="110" width="500" height="350" rx="15" fill="#e1f5fe" stroke="#01579b" stroke-width="3"/>
+    <text x="300" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#01579b">
+      🏗️ Horizon 1: Foundation Discovery
+    </text>
+    
+    <!-- H1 Nodes with better spacing -->
+    <rect x="80" y="170" width="180" height="45" rx="20" fill="#fff" stroke="#01579b" stroke-width="2"/>
+    <text x="170" y="198" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#01579b">👨‍💻 Developer</text>
+    
+    <rect x="290" y="170" width="180" height="45" rx="20" fill="#fff" stroke="#01579b" stroke-width="2"/>
+    <text x="380" y="198" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#01579b">📚 Access Hub</text>
+    
+    <rect x="80" y="240" width="180" height="45" rx="20" fill="#fff" stroke="#01579b" stroke-width="2"/>
+    <text x="170" y="268" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#01579b">🗄️ Browse Catalog</text>
+    
+    <rect x="290" y="240" width="180" height="45" rx="20" fill="#fff" stroke="#01579b" stroke-width="2"/>
+    <text x="380" y="268" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#01579b">🔍 Find Component</text>
+    
+    <rect x="80" y="310" width="180" height="45" rx="20" fill="#fff" stroke="#01579b" stroke-width="2"/>
+    <text x="170" y="338" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#01579b">📖 Review Docs</text>
+    
+    <rect x="290" y="310" width="180" height="45" rx="20" fill="#fff" stroke="#01579b" stroke-width="2"/>
+    <text x="380" y="338" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#01579b">🛠️ Select Template</text>
+    
+    <!-- H1 Arrows -->
+    <path d="M260 192 L290 192" stroke="#01579b" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+    <path d="M170 215 L170 240" stroke="#01579b" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+    <path d="M260 262 L290 262" stroke="#01579b" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+    <path d="M170 285 L170 310" stroke="#01579b" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+    <path d="M260 332 L290 332" stroke="#01579b" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  </g>
+
+  <!-- Horizon 2: Enhanced Development -->
+  <g id="horizon2">
+    <rect x="600" y="110" width="500" height="350" rx="15" fill="#fff3e0" stroke="#e65100" stroke-width="3"/>
+    <text x="850" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#e65100">
+      ⚡ Horizon 2: Enhanced Development
+    </text>
+    
+    <!-- H2 Nodes with better spacing -->
+    <rect x="630" y="170" width="180" height="45" rx="20" fill="#fff" stroke="#e65100" stroke-width="2"/>
+    <text x="720" y="198" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#e65100">🔀 Fork Template</text>
+    
+    <rect x="840" y="170" width="180" height="45" rx="20" fill="#fff" stroke="#e65100" stroke-width="2"/>
+    <text x="930" y="198" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#e65100">🌿 Feature Branch</text>
+    
+    <rect x="630" y="240" width="180" height="45" rx="20" fill="#fff" stroke="#e65100" stroke-width="2"/>
+    <text x="720" y="268" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#e65100">🤖 AI Generation</text>
+    
+    <rect x="840" y="240" width="180" height="45" rx="20" fill="#fff" stroke="#e65100" stroke-width="2"/>
+    <text x="930" y="268" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#e65100">💻 GitHub Copilot</text>
+    
+    <rect x="630" y="310" width="180" height="45" rx="20" fill="#fff" stroke="#e65100" stroke-width="2"/>
+    <text x="720" y="338" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#e65100">🧪 Local Tests</text>
+    
+    <rect x="840" y="310" width="180" height="45" rx="20" fill="#fff" stroke="#e65100" stroke-width="2"/>
+    <text x="930" y="338" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#e65100">📤 Pull Request</text>
+    
+    <!-- H2 Arrows -->
+    <path d="M810 192 L840 192" stroke="#e65100" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+    <path d="M720 215 L720 240" stroke="#e65100" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+    <path d="M810 262 L840 262" stroke="#e65100" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+    <path d="M720 285 L720 310" stroke="#e65100" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+    <path d="M810 332 L840 332" stroke="#e65100" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  </g>
+
+  <!-- Horizon 3: AI-Driven Review -->
+  <g id="horizon3">
+    <rect x="1150" y="110" width="500" height="350" rx="15" fill="#f3e5f5" stroke="#4a148c" stroke-width="3"/>
+    <text x="1400" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#4a148c">
+      🤖 Horizon 3: AI-Driven Review
+    </text>
+    
+    <!-- H3 Nodes with better spacing -->
+    <rect x="1180" y="170" width="180" height="45" rx="20" fill="#fff" stroke="#4a148c" stroke-width="2"/>
+    <text x="1270" y="198" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#4a148c">🔄 Auto Checks</text>
+    
+    <rect x="1390" y="170" width="180" height="45" rx="20" fill="#fff" stroke="#4a148c" stroke-width="2"/>
+    <text x="1480" y="198" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#4a148c">🤖 AI Analysis</text>
+    
+    <rect x="1180" y="240" width="180" height="45" rx="20" fill="#fff" stroke="#4a148c" stroke-width="2"/>
+    <text x="1270" y="268" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#4a148c">🔒 Security Scan</text>
+    
+    <rect x="1390" y="240" width="180" height="45" rx="20" fill="#fff" stroke="#4a148c" stroke-width="2"/>
+    <text x="1480" y="268" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#4a148c">👀 Human Review</text>
+    
+    <rect x="1180" y="310" width="180" height="45" rx="20" fill="#fff" stroke="#4a148c" stroke-width="2"/>
+    <text x="1270" y="338" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#4a148c">✨ Approval</text>
+    
+    <rect x="1390" y="310" width="180" height="45" rx="20" fill="#fff" stroke="#4a148c" stroke-width="2"/>
+    <text x="1480" y="338" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#4a148c">🔗 Merge</text>
+    
+    <!-- H3 Arrows -->
+    <path d="M1360 192 L1390 192" stroke="#4a148c" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+    <path d="M1270 215 L1270 240" stroke="#4a148c" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+    <path d="M1360 262 L1390 262" stroke="#4a148c" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+    <path d="M1270 285 L1270 310" stroke="#4a148c" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+    <path d="M1360 332 L1390 332" stroke="#4a148c" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  </g>
+
+  <!-- Deployment Pipeline -->
+  <g id="deployment">
+    <rect x="50" y="520" width="1100" height="300" rx="15" fill="#e8f5e8" stroke="#2e7d32" stroke-width="3"/>
+    <text x="600" y="550" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#2e7d32">
+      🚀 Automated Deployment Pipeline
+    </text>
+    
+    <!-- Deployment Nodes with better spacing -->
+    <rect x="80" y="580" width="150" height="45" rx="20" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+    <text x="155" y="608" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#2e7d32">🏗️ Build Image</text>
+    
+    <rect x="260" y="580" width="150" height="45" rx="20" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+    <text x="335" y="608" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#2e7d32">📦 Push Registry</text>
+    
+    <rect x="440" y="580" width="150" height="45" rx="20" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+    <text x="515" y="608" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#2e7d32">🔍 Image Scan</text>
+    
+    <rect x="620" y="580" width="150" height="45" rx="20" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+    <text x="695" y="608" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#2e7d32">🚀 Deploy Dev</text>
+    
+    <rect x="80" y="650" width="150" height="45" rx="20" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+    <text x="155" y="678" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#2e7d32">🧪 Integration Tests</text>
+    
+    <rect x="260" y="650" width="150" height="45" rx="20" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+    <text x="335" y="678" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#2e7d32">✅ Promote Stage</text>
+    
+    <rect x="440" y="650" width="150" height="45" rx="20" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+    <text x="515" y="678" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#2e7d32">🌐 Production</text>
+    
+    <rect x="620" y="650" width="150" height="45" rx="20" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+    <text x="695" y="678" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#2e7d32">📊 Monitor</text>
+    
+    <!-- Deployment Arrows -->
+    <path d="M230 602 L260 602" stroke="#2e7d32" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+    <path d="M410 602 L440 602" stroke="#2e7d32" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+    <path d="M590 602 L620 602" stroke="#2e7d32" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+    <path d="M155 625 L155 650" stroke="#2e7d32" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+    <path d="M230 672 L260 672" stroke="#2e7d32" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+    <path d="M410 672 L440 672" stroke="#2e7d32" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+    <path d="M590 672 L620 672" stroke="#2e7d32" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  </g>
+
+  <!-- Monitoring & AI Insights -->
+  <g id="monitoring">
+    <rect x="50" y="880" width="1600" height="300" rx="15" fill="#fff8e1" stroke="#f57f17" stroke-width="3"/>
+    <text x="850" y="910" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#f57f17">
+      📊 Monitoring &amp; AI Insights
+    </text>
+    
+    <!-- Monitoring Nodes with better spacing -->
+    <rect x="80" y="940" width="200" height="45" rx="20" fill="#fff" stroke="#f57f17" stroke-width="2"/>
+    <text x="180" y="968" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#f57f17">📈 Performance</text>
+    
+    <rect x="310" y="940" width="200" height="45" rx="20" fill="#fff" stroke="#f57f17" stroke-width="2"/>
+    <text x="410" y="968" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#f57f17">🚨 Alerts</text>
+    
+    <rect x="540" y="940" width="200" height="45" rx="20" fill="#fff" stroke="#f57f17" stroke-width="2"/>
+    <text x="640" y="968" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#f57f17">🤖 AI Detection</text>
+    
+    <rect x="770" y="940" width="200" height="45" rx="20" fill="#fff" stroke="#f57f17" stroke-width="2"/>
+    <text x="870" y="968" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#f57f17">📊 Dashboard</text>
+    
+    <rect x="1000" y="940" width="200" height="45" rx="20" fill="#fff" stroke="#f57f17" stroke-width="2"/>
+    <text x="1100" y="968" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#f57f17">🌐 Production</text>
+    
+    <rect x="1230" y="940" width="200" height="45" rx="20" fill="#fff" stroke="#f57f17" stroke-width="2"/>
+    <text x="1330" y="968" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#f57f17">🔄 Optimization</text>
+    
+    <!-- Additional monitoring features -->
+    <rect x="310" y="1010" width="200" height="45" rx="20" fill="#fff" stroke="#f57f17" stroke-width="2"/>
+    <text x="410" y="1038" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#f57f17">📱 User Feedback</text>
+    
+    <rect x="540" y="1010" width="200" height="45" rx="20" fill="#fff" stroke="#f57f17" stroke-width="2"/>
+    <text x="640" y="1038" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#f57f17">🔍 Analytics</text>
+    
+    <rect x="770" y="1010" width="200" height="45" rx="20" fill="#fff" stroke="#f57f17" stroke-width="2"/>
+    <text x="870" y="1038" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#f57f17">🎯 Insights</text>
+  </g>
+
+  <!-- Recognition & Analytics -->
+  <g id="recognition">
+    <rect x="50" y="1240" width="1600" height="220" rx="15" fill="#fce4ec" stroke="#c2185b" stroke-width="3"/>
+    <text x="850" y="1270" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#c2185b">
+      🏆 Recognition &amp; Analytics
+    </text>
+    
+    <!-- Recognition Nodes with better spacing -->
+    <rect x="80" y="1300" width="240" height="45" rx="20" fill="#fff" stroke="#c2185b" stroke-width="2"/>
+    <text x="200" y="1328" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#c2185b">📈 Productivity Metrics</text>
+    
+    <rect x="350" y="1300" width="240" height="45" rx="20" fill="#fff" stroke="#c2185b" stroke-width="2"/>
+    <text x="470" y="1328" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#c2185b">🏅 Champions Board</text>
+    
+    <rect x="620" y="1300" width="240" height="45" rx="20" fill="#fff" stroke="#c2185b" stroke-width="2"/>
+    <text x="740" y="1328" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#c2185b">🎓 Learning Recs</text>
+    
+    <rect x="890" y="1300" width="240" height="45" rx="20" fill="#fff" stroke="#c2185b" stroke-width="2"/>
+    <text x="1010" y="1328" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#c2185b">🔮 AI Insights</text>
+    
+    <rect x="1160" y="1300" width="240" height="45" rx="20" fill="#fff" stroke="#c2185b" stroke-width="2"/>
+    <text x="1280" y="1328" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#c2185b">📚 Knowledge Base</text>
+    
+    <rect x="350" y="1370" width="240" height="45" rx="20" fill="#fff" stroke="#c2185b" stroke-width="2"/>
+    <text x="470" y="1398" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#c2185b">🎯 Innovation Hub</text>
+    
+    <rect x="620" y="1370" width="240" height="45" rx="20" fill="#fff" stroke="#c2185b" stroke-width="2"/>
+    <text x="740" y="1398" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#c2185b">🔄 Feedback Loop</text>
+    
+    <rect x="890" y="1370" width="240" height="45" rx="20" fill="#fff" stroke="#c2185b" stroke-width="2"/>
+    <text x="1010" y="1398" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#c2185b">🚀 Platform Evolution</text>
+  </g>
+
+  <!-- Cross-Horizon Connections with better positioning -->
+  <path d="M550 285 L600 285" stroke="#666" stroke-width="3" fill="none" marker-end="url(#arrowhead)" stroke-dasharray="8,8"/>
+  <path d="M1100 285 L1150 285" stroke="#666" stroke-width="3" fill="none" marker-end="url(#arrowhead)" stroke-dasharray="8,8"/>
+  <path d="M850 460 L600 520" stroke="#666" stroke-width="3" fill="none" marker-end="url(#arrowhead)" stroke-dasharray="8,8"/>
+  <path d="M600 820 L850 880" stroke="#666" stroke-width="3" fill="none" marker-end="url(#arrowhead)" stroke-dasharray="8,8"/>
+  <path d="M850 1180 L850 1240" stroke="#666" stroke-width="3" fill="none" marker-end="url(#arrowhead)" stroke-dasharray="8,8"/>
+  
+  <!-- Feedback loops -->
+  <path d="M1400 460 L300 110" stroke="#ff9800" stroke-width="2" fill="none" marker-end="url(#feedbackArrow)" stroke-dasharray="4,4"/>
+  <text x="850" y="320" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#ff9800" transform="rotate(-25 850 320)">📈 Continuous Improvement</text>
+
+  <!-- Legend -->
+  <g id="legend">
+    <rect x="50" y="1520" width="1600" height="320" rx="15" fill="#f5f5f5" stroke="#ccc" stroke-width="2"/>
+    <text x="850" y="1550" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#333">
+      Workflow Legend &amp; Key Features
+    </text>
+    
+    <!-- Legend Items with better spacing -->
+    <rect x="80" y="1580" width="25" height="20" fill="#e1f5fe" stroke="#01579b" stroke-width="2"/>
+    <text x="120" y="1595" font-family="Arial, sans-serif" font-size="14" fill="#333">Foundation Horizon - Basic platform setup and developer onboarding</text>
+    
+    <rect x="80" y="1610" width="25" height="20" fill="#fff3e0" stroke="#e65100" stroke-width="2"/>
+    <text x="120" y="1625" font-family="Arial, sans-serif" font-size="14" fill="#333">Enhancement Horizon - AI-assisted development and optimization</text>
+    
+    <rect x="80" y="1640" width="25" height="20" fill="#f3e5f5" stroke="#4a148c" stroke-width="2"/>
+    <text x="120" y="1655" font-family="Arial, sans-serif" font-size="14" fill="#333">Innovation Horizon - Advanced AI-driven review and automation</text>
+    
+    <rect x="80" y="1670" width="25" height="20" fill="#e8f5e8" stroke="#2e7d32" stroke-width="2"/>
+    <text x="120" y="1685" font-family="Arial, sans-serif" font-size="14" fill="#333">Deployment Pipeline - Automated build, test, and deployment processes</text>
+    
+    <rect x="80" y="1700" width="25" height="20" fill="#fff8e1" stroke="#f57f17" stroke-width="2"/>
+    <text x="120" y="1715" font-family="Arial, sans-serif" font-size="14" fill="#333">Monitoring &amp; Insights - Performance tracking and AI-powered analytics</text>
+    
+    <line x1="850" y1="1590" x2="880" y2="1590" stroke="#666" stroke-width="3" stroke-dasharray="8,8"/>
+    <text x="890" y="1595" font-family="Arial, sans-serif" font-size="14" fill="#333">Cross-horizon integration and feedback loops</text>
+    
+    <line x1="850" y1="1620" x2="880" y2="1620" stroke="#ff9800" stroke-width="2" stroke-dasharray="4,4"/>
+    <text x="890" y="1625" font-family="Arial, sans-serif" font-size="14" fill="#333">Continuous improvement feedback</text>
+    
+    <text x="120" y="1750" font-family="Arial, sans-serif" font-size="14" fill="#333">🤖 <tspan font-weight="bold">AI-Enhanced Features:</tspan> Code generation, review automation, anomaly detection</text>
+    <text x="120" y="1770" font-family="Arial, sans-serif" font-size="14" fill="#333">🔄 <tspan font-weight="bold">Continuous Feedback:</tspan> Performance metrics feed back into development process</text>
+    <text x="120" y="1790" font-family="Arial, sans-serif" font-size="14" fill="#333">🏆 <tspan font-weight="bold">Recognition System:</tspan> Developer productivity tracking and community building</text>
+    <text x="120" y="1810" font-family="Arial, sans-serif" font-size="14" fill="#333">📊 <tspan font-weight="bold">Advanced Analytics:</tspan> Real-time insights for optimization and innovation</text>
+  </g>
+
+  <!-- Footer -->
+  <text x="900" y="1890" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#666">
+    Three Horizons AI Platform - Transforming Enterprise Software Development
+  </text>
+  <text x="900" y="1920" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#999">
+    Progressive enhancement from traditional workflows to AI-driven autonomous development
+  </text>
+</svg>

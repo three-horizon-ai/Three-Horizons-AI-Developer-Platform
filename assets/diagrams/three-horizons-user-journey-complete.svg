@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1400" height="1000" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradients for different user types -->
+    <linearGradient id="developerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e3f2fd;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#90caf9;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="architectGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fff3e0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffb74d;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="opsGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8f5e8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#81c784;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="leaderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f3e5f5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ba68c8;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Arrow markers -->
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+    </marker>
+    <marker id="journeyArrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 3, 0 6" fill="#2196f3" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="700" y="30" text-anchor="middle" font-size="26" font-weight="bold" fill="#333">
+    Three Horizons AI Platform - User Journey Map
+  </text>
+  <text x="700" y="55" text-anchor="middle" font-size="14" fill="#666">
+    Comprehensive experience across all user personas and platform interactions
+  </text>
+
+  <!-- Developer Journey -->
+  <g id="developer-journey">
+    <rect x="50" y="80" width="1300" height="180" rx="10" fill="url(#developerGradient)" stroke="#1976d2" stroke-width="2"/>
+    <text x="700" y="105" text-anchor="middle" font-size="18" font-weight="bold" fill="#1976d2">
+      👨‍💻 Developer Journey
+    </text>
+    
+    <!-- Journey Steps -->
+    <g id="dev-steps">
+      <!-- Step 1 -->
+      <rect x="80" y="120" width="140" height="120" rx="8" fill="#ffffff" stroke="#1976d2" stroke-width="1"/>
+      <text x="150" y="140" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">1. Discovery</text>
+      <text x="150" y="160" text-anchor="middle" font-size="10" fill="#666">Access Developer Hub</text>
+      <text x="150" y="175" text-anchor="middle" font-size="10" fill="#666">Browse Software Catalog</text>
+      <text x="150" y="190" text-anchor="middle" font-size="10" fill="#666">Find Golden Paths</text>
+      <text x="150" y="205" text-anchor="middle" font-size="10" fill="#666">Review Documentation</text>
+      <text x="150" y="220" text-anchor="middle" font-size="9" fill="#999">Time: 15-30 min</text>
+      <text x="150" y="232" text-anchor="middle" font-size="9" fill="#999">Experience: 😊 Easy</text>
+      
+      <!-- Step 2 -->
+      <rect x="240" y="120" width="140" height="120" rx="8" fill="#ffffff" stroke="#1976d2" stroke-width="1"/>
+      <text x="310" y="140" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">2. Setup</text>
+      <text x="310" y="160" text-anchor="middle" font-size="10" fill="#666">Clone Template</text>
+      <text x="310" y="175" text-anchor="middle" font-size="10" fill="#666">Configure IDE</text>
+      <text x="310" y="190" text-anchor="middle" font-size="10" fill="#666">Install Extensions</text>
+      <text x="310" y="205" text-anchor="middle" font-size="10" fill="#666">Setup Dev Environment</text>
+      <text x="310" y="220" text-anchor="middle" font-size="9" fill="#999">Time: 10-20 min</text>
+      <text x="310" y="232" text-anchor="middle" font-size="9" fill="#999">Experience: 🤖 Automated</text>
+      
+      <!-- Step 3 -->
+      <rect x="400" y="120" width="140" height="120" rx="8" fill="#ffffff" stroke="#1976d2" stroke-width="1"/>
+      <text x="470" y="140" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">3. Development</text>
+      <text x="470" y="160" text-anchor="middle" font-size="10" fill="#666">AI-Assisted Coding</text>
+      <text x="470" y="175" text-anchor="middle" font-size="10" fill="#666">GitHub Copilot</text>
+      <text x="470" y="190" text-anchor="middle" font-size="10" fill="#666">Local Testing</text>
+      <text x="470" y="205" text-anchor="middle" font-size="10" fill="#666">Quality Gates</text>
+      <text x="470" y="220" text-anchor="middle" font-size="9" fill="#999">Time: 2-8 hours</text>
+      <text x="470" y="232" text-anchor="middle" font-size="9" fill="#999">Experience: ⚡ Enhanced</text>
+      
+      <!-- Step 4 -->
+      <rect x="560" y="120" width="140" height="120" rx="8" fill="#ffffff" stroke="#1976d2" stroke-width="1"/>
+      <text x="630" y="140" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">4. Collaboration</text>
+      <text x="630" y="160" text-anchor="middle" font-size="10" fill="#666">Create Pull Request</text>
+      <text x="630" y="175" text-anchor="middle" font-size="10" fill="#666">AI Code Review</text>
+      <text x="630" y="190" text-anchor="middle" font-size="10" fill="#666">Peer Review</text>
+      <text x="630" y="205" text-anchor="middle" font-size="10" fill="#666">Knowledge Sharing</text>
+      <text x="630" y="220" text-anchor="middle" font-size="9" fill="#999">Time: 30-60 min</text>
+      <text x="630" y="232" text-anchor="middle" font-size="9" fill="#999">Experience: 👥 Social</text>
+      
+      <!-- Step 5 -->
+      <rect x="720" y="120" width="140" height="120" rx="8" fill="#ffffff" stroke="#1976d2" stroke-width="1"/>
+      <text x="790" y="140" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">5. Deployment</text>
+      <text x="790" y="160" text-anchor="middle" font-size="10" fill="#666">Automated CI/CD</text>
+      <text x="790" y="175" text-anchor="middle" font-size="10" fill="#666">Environment Promotion</text>
+      <text x="790" y="190" text-anchor="middle" font-size="10" fill="#666">Security Scanning</text>
+      <text x="790" y="205" text-anchor="middle" font-size="10" fill="#666">Production Release</text>
+      <text x="790" y="220" text-anchor="middle" font-size="9" fill="#999">Time: 5-15 min</text>
+      <text x="790" y="232" text-anchor="middle" font-size="9" fill="#999">Experience: 🚀 Seamless</text>
+      
+      <!-- Step 6 -->
+      <rect x="880" y="120" width="140" height="120" rx="8" fill="#ffffff" stroke="#1976d2" stroke-width="1"/>
+      <text x="950" y="140" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">6. Monitoring</text>
+      <text x="950" y="160" text-anchor="middle" font-size="10" fill="#666">Performance Metrics</text>
+      <text x="950" y="175" text-anchor="middle" font-size="10" fill="#666">Error Tracking</text>
+      <text x="950" y="190" text-anchor="middle" font-size="10" fill="#666">User Feedback</text>
+      <text x="950" y="205" text-anchor="middle" font-size="10" fill="#666">Continuous Learning</text>
+      <text x="950" y="220" text-anchor="middle" font-size="9" fill="#999">Time: Ongoing</text>
+      <text x="950" y="232" text-anchor="middle" font-size="9" fill="#999">Experience: 📊 Data-driven</text>
+      
+      <!-- Step 7 -->
+      <rect x="1040" y="120" width="140" height="120" rx="8" fill="#ffffff" stroke="#1976d2" stroke-width="1"/>
+      <text x="1110" y="140" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">7. Growth</text>
+      <text x="1110" y="160" text-anchor="middle" font-size="10" fill="#666">Recognition</text>
+      <text x="1110" y="175" text-anchor="middle" font-size="10" fill="#666">Skill Development</text>
+      <text x="1110" y="190" text-anchor="middle" font-size="10" fill="#666">Mentoring Others</text>
+      <text x="1110" y="205" text-anchor="middle" font-size="10" fill="#666">Contribute to Platform</text>
+      <text x="1110" y="220" text-anchor="middle" font-size="9" fill="#999">Time: Long-term</text>
+      <text x="1110" y="232" text-anchor="middle" font-size="9" fill="#999">Experience: 🏆 Rewarding</text>
+      
+      <!-- Step 8 -->
+      <rect x="1200" y="120" width="140" height="120" rx="8" fill="#ffffff" stroke="#1976d2" stroke-width="1"/>
+      <text x="1270" y="140" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">8. Innovation</text>
+      <text x="1270" y="160" text-anchor="middle" font-size="10" fill="#666">Experiment with AI</text>
+      <text x="1270" y="175" text-anchor="middle" font-size="10" fill="#666">Create New Patterns</text>
+      <text x="1270" y="190" text-anchor="middle" font-size="10" fill="#666">Share Best Practices</text>
+      <text x="1270" y="205" text-anchor="middle" font-size="10" fill="#666">Platform Evolution</text>
+      <text x="1270" y="220" text-anchor="middle" font-size="9" fill="#999">Time: Continuous</text>
+      <text x="1270" y="232" text-anchor="middle" font-size="9" fill="#999">Experience: 🔮 Future-focused</text>
+    </g>
+    
+    <!-- Journey Flow Arrows -->
+    <line x1="220" y1="180" x2="240" y2="180" stroke="#2196f3" stroke-width="2" marker-end="url(#journeyArrow)"/>
+    <line x1="380" y1="180" x2="400" y2="180" stroke="#2196f3" stroke-width="2" marker-end="url(#journeyArrow)"/>
+    <line x1="540" y1="180" x2="560" y2="180" stroke="#2196f3" stroke-width="2" marker-end="url(#journeyArrow)"/>
+    <line x1="700" y1="180" x2="720" y2="180" stroke="#2196f3" stroke-width="2" marker-end="url(#journeyArrow)"/>
+    <line x1="860" y1="180" x2="880" y2="180" stroke="#2196f3" stroke-width="2" marker-end="url(#journeyArrow)"/>
+    <line x1="1020" y1="180" x2="1040" y2="180" stroke="#2196f3" stroke-width="2" marker-end="url(#journeyArrow)"/>
+    <line x1="1180" y1="180" x2="1200" y2="180" stroke="#2196f3" stroke-width="2" marker-end="url(#journeyArrow)"/>
+  </g>
+
+  <!-- Platform Architect Journey -->
+  <g id="architect-journey">
+    <rect x="50" y="280" width="1300" height="160" rx="10" fill="url(#architectGradient)" stroke="#f57c00" stroke-width="2"/>
+    <text x="700" y="305" text-anchor="middle" font-size="18" font-weight="bold" fill="#f57c00">
+      🏗️ Platform Architect Journey
+    </text>
+    
+    <!-- Architect Steps -->
+    <g id="arch-steps">
+      <!-- Step 1 -->
+      <rect x="80" y="320" width="180" height="100" rx="8" fill="#ffffff" stroke="#f57c00" stroke-width="1"/>
+      <text x="170" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">1. Assessment &amp; Planning</text>
+      <text x="170" y="360" text-anchor="middle" font-size="10" fill="#666">Analyze Current State</text>
+      <text x="170" y="375" text-anchor="middle" font-size="10" fill="#666">Define Target Architecture</text>
+      <text x="170" y="390" text-anchor="middle" font-size="10" fill="#666">Create Migration Roadmap</text>
+      <text x="170" y="405" text-anchor="middle" font-size="9" fill="#999">Duration: 2-4 weeks</text>
+      
+      <!-- Step 2 -->
+      <rect x="280" y="320" width="180" height="100" rx="8" fill="#ffffff" stroke="#f57c00" stroke-width="1"/>
+      <text x="370" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">2. Infrastructure Design</text>
+      <text x="370" y="360" text-anchor="middle" font-size="10" fill="#666">Azure Resource Planning</text>
+      <text x="370" y="375" text-anchor="middle" font-size="10" fill="#666">Security Architecture</text>
+      <text x="370" y="390" text-anchor="middle" font-size="10" fill="#666">Network Design</text>
+      <text x="370" y="405" text-anchor="middle" font-size="9" fill="#999">Duration: 1-2 weeks</text>
+      
+      <!-- Step 3 -->
+      <rect x="480" y="320" width="180" height="100" rx="8" fill="#ffffff" stroke="#f57c00" stroke-width="1"/>
+      <text x="570" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">3. Platform Implementation</text>
+      <text x="570" y="360" text-anchor="middle" font-size="10" fill="#666">Deploy Core Services</text>
+      <text x="570" y="375" text-anchor="middle" font-size="10" fill="#666">Configure CI/CD</text>
+      <text x="570" y="390" text-anchor="middle" font-size="10" fill="#666">Setup Monitoring</text>
+      <text x="570" y="405" text-anchor="middle" font-size="9" fill="#999">Duration: 3-6 weeks</text>
+      
+      <!-- Step 4 -->
+      <rect x="680" y="320" width="180" height="100" rx="8" fill="#ffffff" stroke="#f57c00" stroke-width="1"/>
+      <text x="770" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">4. Golden Path Creation</text>
+      <text x="770" y="360" text-anchor="middle" font-size="10" fill="#666">Design Templates</text>
+      <text x="770" y="375" text-anchor="middle" font-size="10" fill="#666">Create Documentation</text>
+      <text x="770" y="390" text-anchor="middle" font-size="10" fill="#666">Validate Workflows</text>
+      <text x="770" y="405" text-anchor="middle" font-size="9" fill="#999">Duration: 2-3 weeks</text>
+      
+      <!-- Step 5 -->
+      <rect x="880" y="320" width="180" height="100" rx="8" fill="#ffffff" stroke="#f57c00" stroke-width="1"/>
+      <text x="970" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">5. Team Onboarding</text>
+      <text x="970" y="360" text-anchor="middle" font-size="10" fill="#666">Training Sessions</text>
+      <text x="970" y="375" text-anchor="middle" font-size="10" fill="#666">Pilot Projects</text>
+      <text x="970" y="390" text-anchor="middle" font-size="10" fill="#666">Feedback Collection</text>
+      <text x="970" y="405" text-anchor="middle" font-size="9" fill="#999">Duration: 4-6 weeks</text>
+      
+      <!-- Step 6 -->
+      <rect x="1080" y="320" width="180" height="100" rx="8" fill="#ffffff" stroke="#f57c00" stroke-width="1"/>
+      <text x="1170" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">6. Continuous Evolution</text>
+      <text x="1170" y="360" text-anchor="middle" font-size="10" fill="#666">Platform Optimization</text>
+      <text x="1170" y="375" text-anchor="middle" font-size="10" fill="#666">Feature Enhancement</text>
+      <text x="1170" y="390" text-anchor="middle" font-size="10" fill="#666">Strategic Planning</text>
+      <text x="1170" y="405" text-anchor="middle" font-size="9" fill="#999">Duration: Ongoing</text>
+    </g>
+    
+    <!-- Architect Flow Arrows -->
+    <line x1="260" y1="370" x2="280" y2="370" stroke="#ff9800" stroke-width="2" marker-end="url(#journeyArrow)"/>
+    <line x1="460" y1="370" x2="480" y2="370" stroke="#ff9800" stroke-width="2" marker-end="url(#journeyArrow)"/>
+    <line x1="660" y1="370" x2="680" y2="370" stroke="#ff9800" stroke-width="2" marker-end="url(#journeyArrow)"/>
+    <line x1="860" y1="370" x2="880" y2="370" stroke="#ff9800" stroke-width="2" marker-end="url(#journeyArrow)"/>
+    <line x1="1060" y1="370" x2="1080" y2="370" stroke="#ff9800" stroke-width="2" marker-end="url(#journeyArrow)"/>
+  </g>
+
+  <!-- DevOps Engineer Journey -->
+  <g id="devops-journey">
+    <rect x="50" y="460" width="1300" height="160" rx="10" fill="url(#opsGradient)" stroke="#388e3c" stroke-width="2"/>
+    <text x="700" y="485" text-anchor="middle" font-size="18" font-weight="bold" fill="#388e3c">
+      ⚙️ DevOps Engineer Journey
+    </text>
+    
+    <!-- DevOps Steps -->
+    <g id="ops-steps">
+      <!-- Step 1 -->
+      <rect x="80" y="500" width="200" height="100" rx="8" fill="#ffffff" stroke="#388e3c" stroke-width="1"/>
+      <text x="180" y="520" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">1. Infrastructure Setup</text>
+      <text x="180" y="540" text-anchor="middle" font-size="10" fill="#666">Deploy Azure Resources</text>
+      <text x="180" y="555" text-anchor="middle" font-size="10" fill="#666">Configure Networking</text>
+      <text x="180" y="570" text-anchor="middle" font-size="10" fill="#666">Setup Security Controls</text>
+      <text x="180" y="585" text-anchor="middle" font-size="9" fill="#999">Time: 1-2 days</text>
+      
+      <!-- Step 2 -->
+      <rect x="300" y="500" width="200" height="100" rx="8" fill="#ffffff" stroke="#388e3c" stroke-width="1"/>
+      <text x="400" y="520" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">2. Pipeline Configuration</text>
+      <text x="400" y="540" text-anchor="middle" font-size="10" fill="#666">Setup CI/CD Pipelines</text>
+      <text x="400" y="555" text-anchor="middle" font-size="10" fill="#666">Configure Environments</text>
+      <text x="400" y="570" text-anchor="middle" font-size="10" fill="#666">Implement Quality Gates</text>
+      <text x="400" y="585" text-anchor="middle" font-size="9" fill="#999">Time: 2-3 days</text>
+      
+      <!-- Step 3 -->
+      <rect x="520" y="500" width="200" height="100" rx="8" fill="#ffffff" stroke="#388e3c" stroke-width="1"/>
+      <text x="620" y="520" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">3. Monitoring Setup</text>
+      <text x="620" y="540" text-anchor="middle" font-size="10" fill="#666">Deploy Observability Stack</text>
+      <text x="620" y="555" text-anchor="middle" font-size="10" fill="#666">Configure Alerts</text>
+      <text x="620" y="570" text-anchor="middle" font-size="10" fill="#666">Setup Dashboards</text>
+      <text x="620" y="585" text-anchor="middle" font-size="9" fill="#999">Time: 1-2 days</text>
+      
+      <!-- Step 4 -->
+      <rect x="740" y="500" width="200" height="100" rx="8" fill="#ffffff" stroke="#388e3c" stroke-width="1"/>
+      <text x="840" y="520" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">4. Operations Management</text>
+      <text x="840" y="540" text-anchor="middle" font-size="10" fill="#666">Incident Response</text>
+      <text x="840" y="555" text-anchor="middle" font-size="10" fill="#666">Performance Tuning</text>
+      <text x="840" y="570" text-anchor="middle" font-size="10" fill="#666">Capacity Planning</text>
+      <text x="840" y="585" text-anchor="middle" font-size="9" fill="#999">Time: Ongoing</text>
+      
+      <!-- Step 5 -->
+      <rect x="960" y="500" width="200" height="100" rx="8" fill="#ffffff" stroke="#388e3c" stroke-width="1"/>
+      <text x="1060" y="520" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">5. Automation &amp; Optimization</text>
+      <text x="1060" y="540" text-anchor="middle" font-size="10" fill="#666">Process Automation</text>
+      <text x="1060" y="555" text-anchor="middle" font-size="10" fill="#666">Cost Optimization</text>
+      <text x="1060" y="570" text-anchor="middle" font-size="10" fill="#666">AI-Driven Operations</text>
+      <text x="1060" y="585" text-anchor="middle" font-size="9" fill="#999">Time: Continuous</text>
+    </g>
+    
+    <!-- DevOps Flow Arrows -->
+    <line x1="280" y1="550" x2="300" y2="550" stroke="#4caf50" stroke-width="2" marker-end="url(#journeyArrow)"/>
+    <line x1="500" y1="550" x2="520" y2="550" stroke="#4caf50" stroke-width="2" marker-end="url(#journeyArrow)"/>
+    <line x1="720" y1="550" x2="740" y2="550" stroke="#4caf50" stroke-width="2" marker-end="url(#journeyArrow)"/>
+    <line x1="940" y1="550" x2="960" y2="550" stroke="#4caf50" stroke-width="2" marker-end="url(#journeyArrow)"/>
+  </g>
+
+  <!-- Leadership Journey -->
+  <g id="leadership-journey">
+    <rect x="50" y="640" width="1300" height="160" rx="10" fill="url(#leaderGradient)" stroke="#7b1fa2" stroke-width="2"/>
+    <text x="700" y="665" text-anchor="middle" font-size="18" font-weight="bold" fill="#7b1fa2">
+      👔 Leadership &amp; Business Journey
+    </text>
+    
+    <!-- Leadership Steps -->
+    <g id="leader-steps">
+      <!-- Step 1 -->
+      <rect x="80" y="680" width="240" height="100" rx="8" fill="#ffffff" stroke="#7b1fa2" stroke-width="1"/>
+      <text x="200" y="700" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">1. Strategic Planning</text>
+      <text x="200" y="720" text-anchor="middle" font-size="10" fill="#666">Define Business Objectives</text>
+      <text x="200" y="735" text-anchor="middle" font-size="10" fill="#666">Assess ROI &amp; Value</text>
+      <text x="200" y="750" text-anchor="middle" font-size="10" fill="#666">Set Success Metrics</text>
+      <text x="200" y="765" text-anchor="middle" font-size="9" fill="#999">Timeline: 2-4 weeks</text>
+      
+      <!-- Step 2 -->
+      <rect x="340" y="680" width="240" height="100" rx="8" fill="#ffffff" stroke="#7b1fa2" stroke-width="1"/>
+      <text x="460" y="700" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">2. Investment &amp; Approval</text>
+      <text x="460" y="720" text-anchor="middle" font-size="10" fill="#666">Budget Allocation</text>
+      <text x="460" y="735" text-anchor="middle" font-size="10" fill="#666">Team Formation</text>
+      <text x="460" y="750" text-anchor="middle" font-size="10" fill="#666">Governance Setup</text>
+      <text x="460" y="765" text-anchor="middle" font-size="9" fill="#999">Timeline: 1-2 weeks</text>
+      
+      <!-- Step 3 -->
+      <rect x="600" y="680" width="240" height="100" rx="8" fill="#ffffff" stroke="#7b1fa2" stroke-width="1"/>
+      <text x="720" y="700" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">3. Progress Monitoring</text>
+      <text x="720" y="720" text-anchor="middle" font-size="10" fill="#666">Track KPIs &amp; Metrics</text>
+      <text x="720" y="735" text-anchor="middle" font-size="10" fill="#666">Review Milestones</text>
+      <text x="720" y="750" text-anchor="middle" font-size="10" fill="#666">Adjust Strategy</text>
+      <text x="720" y="765" text-anchor="middle" font-size="9" fill="#999">Timeline: Ongoing</text>
+      
+      <!-- Step 4 -->
+      <rect x="860" y="680" width="240" height="100" rx="8" fill="#ffffff" stroke="#7b1fa2" stroke-width="1"/>
+      <text x="980" y="700" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">4. Value Realization</text>
+      <text x="980" y="720" text-anchor="middle" font-size="10" fill="#666">Measure Business Impact</text>
+      <text x="980" y="735" text-anchor="middle" font-size="10" fill="#666">Celebrate Successes</text>
+      <text x="980" y="750" text-anchor="middle" font-size="10" fill="#666">Scale Best Practices</text>
+      <text x="980" y="765" text-anchor="middle" font-size="9" fill="#999">Timeline: 3-6 months</text>
+    </g>
+    
+    <!-- Leadership Flow Arrows -->
+    <line x1="320" y1="730" x2="340" y2="730" stroke="#9c27b0" stroke-width="2" marker-end="url(#journeyArrow)"/>
+    <line x1="580" y1="730" x2="600" y2="730" stroke="#9c27b0" stroke-width="2" marker-end="url(#journeyArrow)"/>
+    <line x1="840" y1="730" x2="860" y2="730" stroke="#9c27b0" stroke-width="2" marker-end="url(#journeyArrow)"/>
+  </g>
+
+  <!-- Cross-Journey Interactions -->
+  <g id="interactions">
+    <text x="700" y="830" text-anchor="middle" font-size="16" font-weight="bold" fill="#333">
+      Cross-Functional Collaboration Points
+    </text>
+    
+    <!-- Interaction Lines -->
+    <line x1="570" y1="240" x2="570" y2="320" stroke="#666" stroke-width="2" stroke-dasharray="3,3"/>
+    <text x="590" y="285" font-size="10" fill="#666">Collaboration</text>
+    
+    <line x1="790" y1="240" x2="620" y2="500" stroke="#666" stroke-width="2" stroke-dasharray="3,3"/>
+    <text x="700" y="370" font-size="10" fill="#666">Deployment</text>
+    
+    <line x1="1110" y1="240" x2="840" y2="500" stroke="#666" stroke-width="2" stroke-dasharray="3,3"/>
+    <text x="970" y="370" font-size="10" fill="#666">Monitoring</text>
+    
+    <line x1="720" y1="440" x2="720" y2="680" stroke="#666" stroke-width="2" stroke-dasharray="3,3"/>
+    <text x="740" y="560" font-size="10" fill="#666">Reporting</text>
+  </g>
+
+  <!-- Success Metrics -->
+  <g id="metrics">
+    <rect x="50" y="860" width="1300" height="120" rx="5" fill="#f0f8ff" stroke="#4682b4" stroke-width="1"/>
+    <text x="700" y="885" text-anchor="middle" font-size="16" font-weight="bold" fill="#333">
+      Platform Success Metrics &amp; Outcomes
+    </text>
+    
+    <g id="metric-categories">
+      <!-- Developer Productivity -->
+      <rect x="80" y="900" width="240" height="60" rx="3" fill="#ffffff" stroke="#1976d2" stroke-width="1"/>
+      <text x="200" y="920" text-anchor="middle" font-size="12" font-weight="bold" fill="#1976d2">Developer Productivity</text>
+      <text x="200" y="935" text-anchor="middle" font-size="10" fill="#666">• 50% faster feature delivery</text>
+      <text x="200" y="948" text-anchor="middle" font-size="10" fill="#666">• 75% reduction in setup time</text>
+      
+      <!-- Quality &amp; Security -->
+      <rect x="340" y="900" width="240" height="60" rx="3" fill="#ffffff" stroke="#388e3c" stroke-width="1"/>
+      <text x="460" y="920" text-anchor="middle" font-size="12" font-weight="bold" fill="#388e3c">Quality &amp; Security</text>
+      <text x="460" y="935" text-anchor="middle" font-size="10" fill="#666">• 90% automated testing coverage</text>
+      <text x="460" y="948" text-anchor="middle" font-size="10" fill="#666">• Zero security vulnerabilities</text>
+      
+      <!-- Platform Reliability -->
+      <rect x="600" y="900" width="240" height="60" rx="3" fill="#ffffff" stroke="#f57c00" stroke-width="1"/>
+      <text x="720" y="920" text-anchor="middle" font-size="12" font-weight="bold" fill="#f57c00">Platform Reliability</text>
+      <text x="720" y="935" text-anchor="middle" font-size="10" fill="#666">• 99.9% uptime SLA</text>
+      <text x="720" y="948" text-anchor="middle" font-size="10" fill="#666">• &lt;5 min mean recovery time</text>
+      
+      <!-- Business Value -->
+      <rect x="860" y="900" width="240" height="60" rx="3" fill="#ffffff" stroke="#7b1fa2" stroke-width="1"/>
+      <text x="980" y="920" text-anchor="middle" font-size="12" font-weight="bold" fill="#7b1fa2">Business Value</text>
+      <text x="980" y="935" text-anchor="middle" font-size="10" fill="#666">• 300% ROI in first year</text>
+      <text x="980" y="948" text-anchor="middle" font-size="10" fill="#666">• 25% cost reduction</text>
+      
+      <!-- Innovation -->
+      <rect x="1120" y="900" width="180" height="60" rx="3" fill="#ffffff" stroke="#e91e63" stroke-width="1"/>
+      <text x="1210" y="920" text-anchor="middle" font-size="12" font-weight="bold" fill="#e91e63">Innovation</text>
+      <text x="1210" y="935" text-anchor="middle" font-size="10" fill="#666">• 80% AI adoption rate</text>
+      <text x="1210" y="948" text-anchor="middle" font-size="10" fill="#666">• 40+ new capabilities</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1000" width="1400" height="1000">
+  <!-- Background -->
+  <rect width="1400" height="1000" fill="#fafafa"/>
+  
+  <!-- Title -->
+  <text x="700" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" font-weight="bold" fill="#1a1a1a">
+    Three Horizons AI Platform - Updated Architecture
+  </text>
+  <text x="700" y="65" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#666">
+    Comprehensive AI-Enhanced Development Platform with Progressive Capabilities
+  </text>
+  
+  <!-- Cloud Background -->
+  <ellipse cx="700" cy="500" rx="650" ry="400" fill="#e3f2fd" stroke="#1976d2" stroke-width="2" stroke-dasharray="10,5" opacity="0.3"/>
+  <text x="700" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1976d2">
+    ☁️ Microsoft Azure Cloud Platform
+  </text>
+  
+  <!-- Horizon 1: Foundation Layer -->
+  <g id="h1-foundation">
+    <rect x="50" y="150" width="400" height="200" rx="15" fill="#e1f5fe" stroke="#01579b" stroke-width="3"/>
+    <text x="250" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#01579b">
+      🏗️ Horizon 1: Foundation Infrastructure
+    </text>
+    
+    <!-- Core Services -->
+    <rect x="70" y="190" width="110" height="40" rx="8" fill="#fff" stroke="#01579b" stroke-width="2"/>
+    <text x="125" y="207" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#01579b">Azure AKS</text>
+    <text x="125" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#01579b">Kubernetes Cluster</text>
+    
+    <rect x="190" y="190" width="110" height="40" rx="8" fill="#fff" stroke="#01579b" stroke-width="2"/>
+    <text x="245" y="207" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#01579b">Key Vault</text>
+    <text x="245" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#01579b">Security Management</text>
+    
+    <rect x="310" y="190" width="110" height="40" rx="8" fill="#fff" stroke="#01579b" stroke-width="2"/>
+    <text x="365" y="207" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#01579b">Container Registry</text>
+    <text x="365" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#01579b">Image Storage</text>
+    
+    <rect x="70" y="240" width="110" height="40" rx="8" fill="#fff" stroke="#01579b" stroke-width="2"/>
+    <text x="125" y="257" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#01579b">App Gateway</text>
+    <text x="125" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#01579b">Load Balancing</text>
+    
+    <rect x="190" y="240" width="110" height="40" rx="8" fill="#fff" stroke="#01579b" stroke-width="2"/>
+    <text x="245" y="257" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#01579b">Virtual Network</text>
+    <text x="245" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#01579b">Network Security</text>
+    
+    <rect x="310" y="240" width="110" height="40" rx="8" fill="#fff" stroke="#01579b" stroke-width="2"/>
+    <text x="365" y="257" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#01579b">Storage Account</text>
+    <text x="365" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#01579b">Data Persistence</text>
+    
+    <!-- Red Hat Developer Hub -->
+    <rect x="70" y="290" width="350" height="45" rx="8" fill="#e53935" stroke="#c62828" stroke-width="2"/>
+    <text x="245" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#fff">
+      🎭 Red Hat Developer Hub 1.6
+    </text>
+    <text x="245" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#fff">
+      Software Catalog • Templates • Developer Portal
+    </text>
+  </g>
+  
+  <!-- Horizon 2: Optimization Layer -->
+  <g id="h2-optimization">
+    <rect x="500" y="150" width="400" height="200" rx="15" fill="#fff3e0" stroke="#e65100" stroke-width="3"/>
+    <text x="700" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#e65100">
+      ⚡ Horizon 2: Optimization Services
+    </text>
+    
+    <!-- Advanced Services -->
+    <rect x="520" y="190" width="110" height="40" rx="8" fill="#fff" stroke="#e65100" stroke-width="2"/>
+    <text x="575" y="207" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#e65100">Azure Monitor</text>
+    <text x="575" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#e65100">Observability</text>
+    
+    <rect x="640" y="190" width="110" height="40" rx="8" fill="#fff" stroke="#e65100" stroke-width="2"/>
+    <text x="695" y="207" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#e65100">App Insights</text>
+    <text x="695" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#e65100">Performance</text>
+    
+    <rect x="760" y="190" width="110" height="40" rx="8" fill="#fff" stroke="#e65100" stroke-width="2"/>
+    <text x="815" y="207" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#e65100">Log Analytics</text>
+    <text x="815" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#e65100">Centralized Logging</text>
+    
+    <rect x="520" y="240" width="110" height="40" rx="8" fill="#fff" stroke="#e65100" stroke-width="2"/>
+    <text x="575" y="257" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#e65100">Security Center</text>
+    <text x="575" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#e65100">Threat Protection</text>
+    
+    <rect x="640" y="240" width="110" height="40" rx="8" fill="#fff" stroke="#e65100" stroke-width="2"/>
+    <text x="695" y="257" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#e65100">Policy Engine</text>
+    <text x="695" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#e65100">Governance</text>
+    
+    <rect x="760" y="240" width="110" height="40" rx="8" fill="#fff" stroke="#e65100" stroke-width="2"/>
+    <text x="815" y="257" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#e65100">Cost Management</text>
+    <text x="815" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#e65100">Resource Optimization</text>
+    
+    <!-- GitOps -->
+    <rect x="520" y="290" width="350" height="45" rx="8" fill="#4caf50" stroke="#2e7d32" stroke-width="2"/>
+    <text x="695" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#fff">
+      🔄 Advanced GitOps Pipeline
+    </text>
+    <text x="695" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#fff">
+      ArgoCD • Flux • Automated Deployments • Golden Paths
+    </text>
+  </g>
+  
+  <!-- Horizon 3: Innovation Layer -->
+  <g id="h3-innovation">
+    <rect x="950" y="150" width="400" height="200" rx="15" fill="#f3e5f5" stroke="#4a148c" stroke-width="3"/>
+    <text x="1150" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#4a148c">
+      🤖 Horizon 3: AI Innovation
+    </text>
+    
+    <!-- AI Services -->
+    <rect x="970" y="190" width="110" height="40" rx="8" fill="#fff" stroke="#4a148c" stroke-width="2"/>
+    <text x="1025" y="207" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#4a148c">Azure AI Foundry</text>
+    <text x="1025" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#4a148c">Model Management</text>
+    
+    <rect x="1090" y="190" width="110" height="40" rx="8" fill="#fff" stroke="#4a148c" stroke-width="2"/>
+    <text x="1145" y="207" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#4a148c">Cognitive Services</text>
+    <text x="1145" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#4a148c">AI APIs</text>
+    
+    <rect x="1210" y="190" width="110" height="40" rx="8" fill="#fff" stroke="#4a148c" stroke-width="2"/>
+    <text x="1265" y="207" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#4a148c">Machine Learning</text>
+    <text x="1265" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#4a148c">MLOps Platform</text>
+    
+    <rect x="970" y="240" width="110" height="40" rx="8" fill="#fff" stroke="#4a148c" stroke-width="2"/>
+    <text x="1025" y="257" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#4a148c">Bot Service</text>
+    <text x="1025" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#4a148c">Conversational AI</text>
+    
+    <rect x="1090" y="240" width="110" height="40" rx="8" fill="#fff" stroke="#4a148c" stroke-width="2"/>
+    <text x="1145" y="257" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#4a148c">Form Recognizer</text>
+    <text x="1145" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#4a148c">Document AI</text>
+    
+    <rect x="1210" y="240" width="110" height="40" rx="8" fill="#fff" stroke="#4a148c" stroke-width="2"/>
+    <text x="1265" y="257" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#4a148c">OpenAI Service</text>
+    <text x="1265" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#4a148c">GPT Models</text>
+    
+    <!-- GitHub Integration -->
+    <rect x="970" y="290" width="350" height="45" rx="8" fill="#6f42c1" stroke="#4a148c" stroke-width="2"/>
+    <text x="1145" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#fff">
+      🐙 GitHub Enterprise + Copilot
+    </text>
+    <text x="1145" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#fff">
+      AI-Assisted Development • Code Generation • Automated Reviews
+    </text>
+  </g>
+  
+  <!-- Developer Experience Layer -->
+  <g id="developer-experience">
+    <rect x="50" y="400" width="1300" height="150" rx="15" fill="#e8f5e8" stroke="#2e7d32" stroke-width="3"/>
+    <text x="700" y="425" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#1b5e20">
+      🧑‍💻 Developer Experience Layer
+    </text>
+    
+    <!-- Inner Loop -->
+    <rect x="80" y="450" width="200" height="80" rx="10" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+    <text x="180" y="470" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2e7d32">
+      🔄 Inner Loop
+    </text>
+    <text x="90" y="490" font-family="Arial, sans-serif" font-size="10" fill="#2e7d32">• Local development</text>
+    <text x="90" y="505" font-family="Arial, sans-serif" font-size="10" fill="#2e7d32">• AI code assistance</text>
+    <text x="90" y="520" font-family="Arial, sans-serif" font-size="10" fill="#2e7d32">• Rapid iteration</text>
+    
+    <!-- Templates & Scaffolding -->
+    <rect x="300" y="450" width="200" height="80" rx="10" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+    <text x="400" y="470" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2e7d32">
+      📄 Templates
+    </text>
+    <text x="310" y="490" font-family="Arial, sans-serif" font-size="10" fill="#2e7d32">• Golden path scaffolds</text>
+    <text x="310" y="505" font-family="Arial, sans-serif" font-size="10" fill="#2e7d32">• Best practice templates</text>
+    <text x="310" y="520" font-family="Arial, sans-serif" font-size="10" fill="#2e7d32">• Automated setup</text>
+    
+    <!-- CI/CD Pipeline -->
+    <rect x="520" y="450" width="200" height="80" rx="10" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+    <text x="620" y="470" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2e7d32">
+      🚀 CI/CD Pipeline
+    </text>
+    <text x="530" y="490" font-family="Arial, sans-serif" font-size="10" fill="#2e7d32">• Automated testing</text>
+    <text x="530" y="505" font-family="Arial, sans-serif" font-size="10" fill="#2e7d32">• Security scanning</text>
+    <text x="530" y="520" font-family="Arial, sans-serif" font-size="10" fill="#2e7d32">• Deployment automation</text>
+    
+    <!-- Monitoring & Feedback -->
+    <rect x="740" y="450" width="200" height="80" rx="10" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+    <text x="840" y="470" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2e7d32">
+      📊 Monitoring
+    </text>
+    <text x="750" y="490" font-family="Arial, sans-serif" font-size="10" fill="#2e7d32">• Real-time metrics</text>
+    <text x="750" y="505" font-family="Arial, sans-serif" font-size="10" fill="#2e7d32">• AI anomaly detection</text>
+    <text x="750" y="520" font-family="Arial, sans-serif" font-size="10" fill="#2e7d32">• Performance insights</text>
+    
+    <!-- Self-Service Portal -->
+    <rect x="960" y="450" width="200" height="80" rx="10" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+    <text x="1060" y="470" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2e7d32">
+      🌐 Self-Service
+    </text>
+    <text x="970" y="490" font-family="Arial, sans-serif" font-size="10" fill="#2e7d32">• Developer catalog</text>
+    <text x="970" y="505" font-family="Arial, sans-serif" font-size="10" fill="#2e7d32">• Resource provisioning</text>
+    <text x="970" y="520" font-family="Arial, sans-serif" font-size="10" fill="#2e7d32">• Documentation portal</text>
+    
+    <!-- AI Assistant -->
+    <rect x="1180" y="450" width="150" height="80" rx="10" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+    <text x="1255" y="470" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2e7d32">
+      🤖 AI Assistant
+    </text>
+    <text x="1190" y="490" font-family="Arial, sans-serif" font-size="10" fill="#2e7d32">• Code suggestions</text>
+    <text x="1190" y="505" font-family="Arial, sans-serif" font-size="10" fill="#2e7d32">• Auto documentation</text>
+    <text x="1190" y="520" font-family="Arial, sans-serif" font-size="10" fill="#2e7d32">• Intelligent debugging</text>
+  </g>
+  
+  <!-- Data & Analytics Layer -->
+  <g id="data-analytics">
+    <rect x="50" y="580" width="1300" height="120" rx="15" fill="#fff8e1" stroke="#f57f17" stroke-width="3"/>
+    <text x="700" y="605" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#e65100">
+      📈 Data &amp; Analytics Layer
+    </text>
+    
+    <!-- Data Sources -->
+    <rect x="80" y="630" width="180" height="50" rx="8" fill="#fff" stroke="#f57f17" stroke-width="2"/>
+    <text x="170" y="650" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#e65100">Data Sources</text>
+    <text x="170" y="665" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e65100">Metrics • Logs • Events</text>
+    
+    <!-- Data Processing -->
+    <rect x="280" y="630" width="180" height="50" rx="8" fill="#fff" stroke="#f57f17" stroke-width="2"/>
+    <text x="370" y="650" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#e65100">Stream Analytics</text>
+    <text x="370" y="665" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e65100">Real-time Processing</text>
+    
+    <!-- AI/ML Models -->
+    <rect x="480" y="630" width="180" height="50" rx="8" fill="#fff" stroke="#f57f17" stroke-width="2"/>
+    <text x="570" y="650" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#e65100">ML Models</text>
+    <text x="570" y="665" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e65100">Predictive Analytics</text>
+    
+    <!-- Insights Engine -->
+    <rect x="680" y="630" width="180" height="50" rx="8" fill="#fff" stroke="#f57f17" stroke-width="2"/>
+    <text x="770" y="650" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#e65100">Insights Engine</text>
+    <text x="770" y="665" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e65100">AI-Driven Recommendations</text>
+    
+    <!-- Dashboards -->
+    <rect x="880" y="630" width="180" height="50" rx="8" fill="#fff" stroke="#f57f17" stroke-width="2"/>
+    <text x="970" y="650" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#e65100">Dashboards</text>
+    <text x="970" y="665" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e65100">Visual Analytics</text>
+    
+    <!-- Feedback Loop -->
+    <rect x="1080" y="630" width="180" height="50" rx="8" fill="#fff" stroke="#f57f17" stroke-width="2"/>
+    <text x="1170" y="650" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#e65100">Feedback Loop</text>
+    <text x="1170" y="665" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e65100">Continuous Improvement</text>
+  </g>
+  
+  <!-- Security & Compliance Layer -->
+  <g id="security-compliance">
+    <rect x="50" y="730" width="1300" height="120" rx="15" fill="#ffebee" stroke="#c62828" stroke-width="3"/>
+    <text x="700" y="755" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#b71c1c">
+      🔒 Security &amp; Compliance Layer
+    </text>
+    
+    <!-- Identity & Access -->
+    <rect x="80" y="780" width="180" height="50" rx="8" fill="#fff" stroke="#c62828" stroke-width="2"/>
+    <text x="170" y="800" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Azure AD/Entra</text>
+    <text x="170" y="815" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#b71c1c">Identity Management</text>
+    
+    <!-- Secret Management -->
+    <rect x="280" y="780" width="180" height="50" rx="8" fill="#fff" stroke="#c62828" stroke-width="2"/>
+    <text x="370" y="800" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Key Vault</text>
+    <text x="370" y="815" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#b71c1c">Secret Management</text>
+    
+    <!-- Policy Engine -->
+    <rect x="480" y="780" width="180" height="50" rx="8" fill="#fff" stroke="#c62828" stroke-width="2"/>
+    <text x="570" y="800" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Policy Engine</text>
+    <text x="570" y="815" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#b71c1c">Governance &amp; Compliance</text>
+    
+    <!-- Security Scanning -->
+    <rect x="680" y="780" width="180" height="50" rx="8" fill="#fff" stroke="#c62828" stroke-width="2"/>
+    <text x="770" y="800" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Security Scanning</text>
+    <text x="770" y="815" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#b71c1c">Vulnerability Assessment</text>
+    
+    <!-- Threat Protection -->
+    <rect x="880" y="780" width="180" height="50" rx="8" fill="#fff" stroke="#c62828" stroke-width="2"/>
+    <text x="970" y="800" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Threat Protection</text>
+    <text x="970" y="815" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#b71c1c">AI-Powered Defense</text>
+    
+    <!-- Audit & Compliance -->
+    <rect x="1080" y="780" width="180" height="50" rx="8" fill="#fff" stroke="#c62828" stroke-width="2"/>
+    <text x="1170" y="800" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Audit Trail</text>
+    <text x="1170" y="815" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#b71c1c">Compliance Tracking</text>
+  </g>
+  
+  <!-- Integration Arrows -->
+  <path d="M450 250 L500 250" stroke="#333" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M900 250 L950 250" stroke="#333" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M700 350 L700 400" stroke="#333" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M700 550 L700 580" stroke="#333" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M700 700 L700 730" stroke="#333" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Feedback Arrows -->
+  <path d="M1200 580 Q1300 400 1200 350" stroke="#4a148c" stroke-width="2" fill="none" marker-end="url(#arrowhead)" stroke-dasharray="5,5"/>
+  <path d="M200 580 Q100 400 200 350" stroke="#01579b" stroke-width="2" fill="none" marker-end="url(#arrowhead)" stroke-dasharray="5,5"/>
+  
+  <!-- Legend -->
+  <g id="legend">
+    <rect x="50" y="870" width="1300" height="100" rx="10" fill="#f5f5f5" stroke="#ccc" stroke-width="1"/>
+    <text x="700" y="890" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#333">
+      Architecture Legend &amp; Key Features
+    </text>
+    
+    <!-- Legend Items -->
+    <rect x="80" y="905" width="15" height="15" fill="#e1f5fe" stroke="#01579b"/>
+    <text x="105" y="917" font-family="Arial, sans-serif" font-size="11" fill="#333">Foundation Infrastructure - Core Azure services and Red Hat Developer Hub</text>
+    
+    <rect x="80" y="925" width="15" height="15" fill="#fff3e0" stroke="#e65100"/>
+    <text x="105" y="937" font-family="Arial, sans-serif" font-size="11" fill="#333">Optimization Services - Advanced monitoring, security, and GitOps capabilities</text>
+    
+    <rect x="80" y="945" width="15" height="15" fill="#f3e5f5" stroke="#4a148c"/>
+    <text x="105" y="957" font-family="Arial, sans-serif" font-size="11" fill="#333">AI Innovation - Azure AI Foundry, Cognitive Services, and GitHub Copilot integration</text>
+    
+    <line x1="450" y1="912" x2="465" y2="912" stroke="#333" stroke-width="3"/>
+    <text x="475" y="917" font-family="Arial, sans-serif" font-size="11" fill="#333">Progression Flow - Each horizon builds upon the previous</text>
+    
+    <line x1="450" y1="932" x2="465" y2="932" stroke="#4a148c" stroke-width="2" stroke-dasharray="5,5"/>
+    <text x="475" y="937" font-family="Arial, sans-serif" font-size="11" fill="#333">Feedback Loops - AI insights improve platform capabilities</text>
+    
+    <text x="750" y="917" font-family="Arial, sans-serif" font-size="11" fill="#333">🔄 Cross-layer Integration: All layers work together seamlessly</text>
+    <text x="750" y="937" font-family="Arial, sans-serif" font-size="11" fill="#333">🤖 AI Enhancement: Intelligence embedded throughout the platform</text>
+    <text x="750" y="957" font-family="Arial, sans-serif" font-size="11" fill="#333">🔒 Security by Design: Comprehensive security across all horizons</text>
+  </g>
+  
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+  </defs>
+</svg>

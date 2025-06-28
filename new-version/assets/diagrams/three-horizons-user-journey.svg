@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800" width="1000" height="800">
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1000" height="800" fill="#fafafa"/>
+  
+  <!-- Title -->
+  <text x="500" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#1a1a1a">
+    Three Horizons User Journey
+  </text>
+  <text x="500" y="65" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#666">
+    Progressive Learning Path from Foundation to AI Innovation
+  </text>
+  
+  <!-- Horizon 1: Foundation -->
+  <g id="h1-journey">
+    <rect x="50" y="100" width="280" height="180" rx="15" fill="#e1f5fe" stroke="#01579b" stroke-width="3"/>
+    <text x="190" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#01579b">
+      🏗️ Horizon 1: Foundation
+    </text>
+    <text x="190" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#01579b">
+      Core Platform Setup
+    </text>
+    
+    <!-- H1 Steps -->
+    <circle cx="90" cy="180" r="20" fill="#fff" stroke="#01579b" stroke-width="2"/>
+    <text x="90" y="186" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#01579b">1</text>
+    <text x="120" y="186" font-family="Arial, sans-serif" font-size="11" fill="#01579b">Platform Introduction</text>
+    
+    <circle cx="90" cy="210" r="20" fill="#fff" stroke="#01579b" stroke-width="2"/>
+    <text x="90" y="216" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#01579b">2</text>
+    <text x="120" y="216" font-family="Arial, sans-serif" font-size="11" fill="#01579b">Infrastructure Setup</text>
+    
+    <circle cx="90" cy="240" r="20" fill="#fff" stroke="#01579b" stroke-width="2"/>
+    <text x="90" y="246" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#01579b">3</text>
+    <text x="120" y="246" font-family="Arial, sans-serif" font-size="11" fill="#01579b">Security Foundation</text>
+    
+    <!-- Time Investment -->
+    <rect x="60" y="260" width="100" height="15" rx="5" fill="#bbdefb"/>
+    <text x="110" y="271" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#01579b">8-12 hours</text>
+  </g>
+  
+  <!-- Horizon 2: Optimization -->
+  <g id="h2-journey">
+    <rect x="360" y="100" width="280" height="180" rx="15" fill="#fff3e0" stroke="#e65100" stroke-width="3"/>
+    <text x="500" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#e65100">
+      ⚡ Horizon 2: Optimization
+    </text>
+    <text x="500" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#e65100">
+      Enhanced Capabilities
+    </text>
+    
+    <!-- H2 Steps -->
+    <circle cx="400" cy="180" r="20" fill="#fff" stroke="#e65100" stroke-width="2"/>
+    <text x="400" y="186" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#e65100">4</text>
+    <text x="430" y="186" font-family="Arial, sans-serif" font-size="11" fill="#e65100">Advanced Deployment</text>
+    
+    <circle cx="400" cy="210" r="20" fill="#fff" stroke="#e65100" stroke-width="2"/>
+    <text x="400" y="216" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#e65100">5</text>
+    <text x="430" y="216" font-family="Arial, sans-serif" font-size="11" fill="#e65100">Enhanced Security</text>
+    
+    <circle cx="400" cy="240" r="20" fill="#fff" stroke="#e65100" stroke-width="2"/>
+    <text x="400" y="246" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#e65100">6</text>
+    <text x="430" y="246" font-family="Arial, sans-serif" font-size="11" fill="#e65100">Performance Optimization</text>
+    
+    <!-- Time Investment -->
+    <rect x="370" y="260" width="100" height="15" rx="5" fill="#ffcc80"/>
+    <text x="420" y="271" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e65100">15-20 hours</text>
+  </g>
+  
+  <!-- Horizon 3: Innovation -->
+  <g id="h3-journey">
+    <rect x="670" y="100" width="280" height="180" rx="15" fill="#f3e5f5" stroke="#4a148c" stroke-width="3"/>
+    <text x="810" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#4a148c">
+      🤖 Horizon 3: Innovation
+    </text>
+    <text x="810" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#4a148c">
+      AI-Driven Development
+    </text>
+    
+    <!-- H3 Steps -->
+    <circle cx="710" cy="180" r="20" fill="#fff" stroke="#4a148c" stroke-width="2"/>
+    <text x="710" y="186" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#4a148c">7</text>
+    <text x="740" y="186" font-family="Arial, sans-serif" font-size="11" fill="#4a148c">AI-Driven Development</text>
+    
+    <circle cx="710" cy="210" r="20" fill="#fff" stroke="#4a148c" stroke-width="2"/>
+    <text x="710" y="216" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#4a148c">8</text>
+    <text x="740" y="216" font-family="Arial, sans-serif" font-size="11" fill="#4a148c">Azure AI Foundry</text>
+    
+    <circle cx="710" cy="240" r="20" fill="#fff" stroke="#4a148c" stroke-width="2"/>
+    <text x="710" y="246" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#4a148c">9</text>
+    <text x="740" y="246" font-family="Arial, sans-serif" font-size="11" fill="#4a148c">Autonomous Operations</text>
+    
+    <!-- Time Investment -->
+    <rect x="680" y="260" width="100" height="15" rx="5" fill="#ce93d8"/>
+    <text x="730" y="271" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a148c">20-25 hours</text>
+  </g>
+  
+  <!-- Progress Arrows -->
+  <path d="M330 190 L360 190" stroke="#333" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M640 190 L670 190" stroke="#333" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- User Personas -->
+  <g id="personas">
+    <rect x="50" y="320" width="900" height="200" rx="10" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1"/>
+    <text x="500" y="345" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#333">
+      User Personas &amp; Learning Paths
+    </text>
+    
+    <!-- Decision Makers -->
+    <rect x="70" y="365" width="200" height="120" rx="8" fill="#fff" stroke="#007bff" stroke-width="2"/>
+    <text x="170" y="385" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#007bff">
+      🎯 Decision Makers
+    </text>
+    <text x="80" y="405" font-family="Arial, sans-serif" font-size="11" fill="#666">Time: 30 minutes</text>
+    <text x="80" y="420" font-family="Arial, sans-serif" font-size="10" fill="#666">• Platform overview</text>
+    <text x="80" y="435" font-family="Arial, sans-serif" font-size="10" fill="#666">• Business case</text>
+    <text x="80" y="450" font-family="Arial, sans-serif" font-size="10" fill="#666">• ROI demonstration</text>
+    <text x="80" y="465" font-family="Arial, sans-serif" font-size="10" fill="#666">• Innovation showcase</text>
+    
+    <!-- Developers -->
+    <rect x="290" y="365" width="200" height="120" rx="8" fill="#fff" stroke="#28a745" stroke-width="2"/>
+    <text x="390" y="385" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#28a745">
+      👨‍💻 Developers
+    </text>
+    <text x="300" y="405" font-family="Arial, sans-serif" font-size="11" fill="#666">Time: 2 hours</text>
+    <text x="300" y="420" font-family="Arial, sans-serif" font-size="10" fill="#666">• Developer guide</text>
+    <text x="300" y="435" font-family="Arial, sans-serif" font-size="10" fill="#666">• Inner loop development</text>
+    <text x="300" y="450" font-family="Arial, sans-serif" font-size="10" fill="#666">• AI-assisted coding</text>
+    <text x="300" y="465" font-family="Arial, sans-serif" font-size="10" fill="#666">• Best practices</text>
+    
+    <!-- Platform Engineers -->
+    <rect x="510" y="365" width="200" height="120" rx="8" fill="#fff" stroke="#fd7e14" stroke-width="2"/>
+    <text x="610" y="385" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#fd7e14">
+      🏗️ Platform Engineers
+    </text>
+    <text x="520" y="405" font-family="Arial, sans-serif" font-size="11" fill="#666">Time: 1 day</text>
+    <text x="520" y="420" font-family="Arial, sans-serif" font-size="10" fill="#666">• Complete implementation</text>
+    <text x="520" y="435" font-family="Arial, sans-serif" font-size="10" fill="#666">• All three horizons</text>
+    <text x="520" y="450" font-family="Arial, sans-serif" font-size="10" fill="#666">• Infrastructure setup</text>
+    <text x="520" y="465" font-family="Arial, sans-serif" font-size="10" fill="#666">• Troubleshooting</text>
+    
+    <!-- Security Teams -->
+    <rect x="730" y="365" width="200" height="120" rx="8" fill="#fff" stroke="#dc3545" stroke-width="2"/>
+    <text x="830" y="385" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#dc3545">
+      🔒 Security Teams
+    </text>
+    <text x="740" y="405" font-family="Arial, sans-serif" font-size="11" fill="#666">Time: 4 hours</text>
+    <text x="740" y="420" font-family="Arial, sans-serif" font-size="10" fill="#666">• Security foundation</text>
+    <text x="740" y="435" font-family="Arial, sans-serif" font-size="10" fill="#666">• Enhanced security</text>
+    <text x="740" y="450" font-family="Arial, sans-serif" font-size="10" fill="#666">• Monitoring setup</text>
+    <text x="740" y="465" font-family="Arial, sans-serif" font-size="10" fill="#666">• Compliance checks</text>
+  </g>
+  
+  <!-- Key Benefits -->
+  <g id="benefits">
+    <rect x="50" y="550" width="900" height="180" rx="10" fill="#e8f5e8" stroke="#28a745" stroke-width="2"/>
+    <text x="500" y="575" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1e7e34">
+      Key Benefits at Each Horizon
+    </text>
+    
+    <!-- H1 Benefits -->
+    <text x="80" y="600" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#01579b">Foundation Benefits:</text>
+    <text x="80" y="620" font-family="Arial, sans-serif" font-size="11" fill="#333">• Standardized infrastructure and security</text>
+    <text x="80" y="635" font-family="Arial, sans-serif" font-size="11" fill="#333">• Developer portal and catalog</text>
+    <text x="80" y="650" font-family="Arial, sans-serif" font-size="11" fill="#333">• Basic CI/CD pipelines</text>
+    <text x="80" y="665" font-family="Arial, sans-serif" font-size="11" fill="#333">• Team collaboration tools</text>
+    
+    <!-- H2 Benefits -->
+    <text x="350" y="600" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#e65100">Optimization Benefits:</text>
+    <text x="350" y="620" font-family="Arial, sans-serif" font-size="11" fill="#333">• Advanced GitOps workflows</text>
+    <text x="350" y="635" font-family="Arial, sans-serif" font-size="11" fill="#333">• Comprehensive monitoring</text>
+    <text x="350" y="650" font-family="Arial, sans-serif" font-size="11" fill="#333">• Performance optimization</text>
+    <text x="350" y="665" font-family="Arial, sans-serif" font-size="11" fill="#333">• Golden path templates</text>
+    
+    <!-- H3 Benefits -->
+    <text x="650" y="600" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#4a148c">Innovation Benefits:</text>
+    <text x="650" y="620" font-family="Arial, sans-serif" font-size="11" fill="#333">• AI-assisted development</text>
+    <text x="650" y="635" font-family="Arial, sans-serif" font-size="11" fill="#333">• Autonomous operations</text>
+    <text x="650" y="650" font-family="Arial, sans-serif" font-size="11" fill="#333">• Predictive analytics</text>
+    <text x="650" y="665" font-family="Arial, sans-serif" font-size="11" fill="#333">• Self-healing systems</text>
+    
+    <!-- ROI Timeline -->
+    <text x="80" y="700" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1e7e34">ROI Timeline:</text>
+    <text x="200" y="700" font-family="Arial, sans-serif" font-size="11" fill="#333">H1: 3-6 months</text>
+    <text x="350" y="700" font-family="Arial, sans-serif" font-size="11" fill="#333">H2: 6-12 months</text>
+    <text x="500" y="700" font-family="Arial, sans-serif" font-size="11" fill="#333">H3: 12-18 months</text>
+    <text x="650" y="700" font-family="Arial, sans-serif" font-size="11" fill="#333">Full Platform: 18+ months</text>
+  </g>
+  
+  <!-- Footer -->
+  <text x="500" y="760" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#666">
+    Three Horizons AI Platform - Strategic Implementation Journey
+  </text>
+  <text x="500" y="780" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#999">
+    Each horizon builds upon the previous, creating a comprehensive AI-enabled development platform
+  </text>
+</svg>
