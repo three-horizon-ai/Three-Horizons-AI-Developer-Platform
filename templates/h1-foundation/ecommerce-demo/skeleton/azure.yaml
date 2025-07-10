@@ -1,0 +1,66 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+
+name: ${{ values.name }}
+metadata:
+  template: ecommerce-demo@latest
+location: eastus
+
+variables:
+  AZURE_LOCATION: eastus
+  AZURE_RESOURCE_GROUP: rg-${{ values.name }}
+
+services:
+  web:
+    project: ./src/ECommerce.Web
+    language: dotnet
+    host: appservice
+    hooks:
+      postdeploy:
+        windows:
+          - pwsh: |
+              Write-Host "Updating database..."
+              dotnet ef database update --project src/ECommerce.Web
+        posix:
+          - shell: sh
+            run: |
+              echo "Updating database..."
+              dotnet ef database update --project src/ECommerce.Web
+
+  api:
+    project: ./src/ECommerce.API
+    language: dotnet
+    host: appservice
+    hooks:
+      postdeploy:
+        windows:
+          - pwsh: |
+              Write-Host "Seeding database..."
+              dotnet run --project src/ECommerce.API -- --seed
+        posix:
+          - shell: sh
+            run: |
+              echo "Seeding database..."
+              dotnet run --project src/ECommerce.API -- --seed
+
+hooks:
+  predeploy:
+    windows:
+      - pwsh: |
+          Write-Host "Building application..."
+          dotnet build --configuration Release
+    posix:
+      - shell: sh
+        run: |
+          echo "Building application..."
+          dotnet build --configuration Release
+
+  postdeploy:
+    windows:
+      - pwsh: |
+          Write-Host "Deployment completed successfully!"
+          Write-Host "Web App URL: https://$(azd env get-value WEB_APP_URL)"
+    posix:
+      - shell: sh
+        run: |
+          echo "Deployment completed successfully!"
+          echo "Web App URL: https://$(azd env get-value WEB_APP_URL)"

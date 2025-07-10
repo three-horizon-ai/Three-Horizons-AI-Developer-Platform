@@ -1,0 +1,353 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: h2-performance-testing
+  title: H2: Performance Testing Suite
+  description: Comprehensive performance testing and optimization suite for Horizon 2 applications
+  annotations:
+    backstage.io/managed-by-location: url:https://github.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform/blob/main/templates/h2-optimization/performance-testing/template.yaml
+  tags:
+    - horizon-2
+    - optimization
+    - performance
+    - testing
+    - load-testing
+    - monitoring
+spec:
+  owner: platform-team
+  type: testing
+  
+  parameters:
+    - title: Performance Testing Configuration
+      required:
+        - name
+        - owner
+        - testingScope
+      properties:
+        name:
+          title: Performance Testing Suite Name
+          type: string
+          pattern: '^[a-z0-9-]+$'
+          description: Unique name for your performance testing suite
+          default: h2-performance-testing
+        description:
+          title: Description
+          type: string
+          description: Description of your performance testing suite
+          default: Comprehensive performance testing and optimization suite
+        owner:
+          title: Owner
+          type: string
+          description: Owner of the performance testing suite (GitHub username or team)
+          ui:field: OwnerPicker
+          ui:options:
+            catalogFilter:
+              kind: [Group, User]
+        testingScope:
+          title: Testing Scope
+          type: string
+          description: Scope of performance testing
+          default: full-stack
+          enum:
+            - frontend-only
+            - backend-only
+            - full-stack
+            - api-only
+            - database-only
+            
+    - title: Load Testing Configuration
+      required:
+        - loadTestingTool
+        - maxUsers
+        - testDuration
+      properties:
+        loadTestingTool:
+          title: Load Testing Tool
+          type: string
+          description: Primary load testing tool
+          default: k6
+          enum:
+            - k6
+            - jmeter
+            - artillery
+            - wrk
+            - hey
+            - locust
+        maxUsers:
+          title: Maximum Concurrent Users
+          type: integer
+          description: Maximum number of concurrent users for load testing
+          default: 1000
+          minimum: 10
+          maximum: 10000
+        testDuration:
+          title: Test Duration
+          type: string
+          description: Duration for each performance test
+          default: 10m
+          enum:
+            - 1m
+            - 5m
+            - 10m
+            - 30m
+            - 1h
+        rampUpTime:
+          title: Ramp-up Time
+          type: string
+          description: Time to ramp up to maximum users
+          default: 2m
+          enum:
+            - 30s
+            - 1m
+            - 2m
+            - 5m
+            - 10m
+            
+    - title: Test Scenarios
+      required:
+        - enableStressTest
+        - enableEnduranceTest
+      properties:
+        enableStressTest:
+          title: Enable Stress Testing
+          type: boolean
+          description: Enable stress testing scenarios
+          default: true
+        enableEnduranceTest:
+          title: Enable Endurance Testing
+          type: boolean
+          description: Enable endurance/soak testing
+          default: true
+        enableSpikeTest:
+          title: Enable Spike Testing
+          type: boolean
+          description: Enable spike testing scenarios
+          default: true
+        enableVolumeTest:
+          title: Enable Volume Testing
+          type: boolean
+          description: Enable volume testing scenarios
+          default: false
+        enableSecurityTest:
+          title: Enable Security Testing
+          type: boolean
+          description: Enable security-focused performance testing
+          default: true
+        testEnvironments:
+          title: Test Environments
+          type: array
+          description: Environments to run performance tests against
+          items:
+            type: string
+            enum:
+              - dev
+              - staging
+              - pre-prod
+              - prod-mirror
+          default: ["staging", "pre-prod"]
+          ui:widget: checkboxes
+          
+    - title: Performance Metrics
+      required:
+        - enableAPM
+        - performanceTargets
+      properties:
+        enableAPM:
+          title: Enable APM Integration
+          type: boolean
+          description: Enable Application Performance Monitoring integration
+          default: true
+        performanceTargets:
+          title: Performance Targets
+          type: object
+          description: Performance SLA targets
+          properties:
+            responseTime:
+              title: Max Response Time (ms)
+              type: integer
+              default: 500
+            throughput:
+              title: Min Throughput (rps)
+              type: integer
+              default: 100
+            errorRate:
+              title: Max Error Rate (%)
+              type: number
+              default: 1.0
+            availability:
+              title: Min Availability (%)
+              type: number
+              default: 99.9
+        enableRealUserMonitoring:
+          title: Enable Real User Monitoring
+          type: boolean
+          description: Enable RUM for production insights
+          default: true
+        enableSyntheticMonitoring:
+          title: Enable Synthetic Monitoring
+          type: boolean
+          description: Enable synthetic transaction monitoring
+          default: true
+          
+    - title: Azure Integration
+      required:
+        - azureSubscription
+        - enableAzureLoadTesting
+      properties:
+        azureSubscription:
+          title: Azure Subscription ID
+          type: string
+          description: Azure subscription ID for load testing resources
+          ui:help: 'Enter your Azure subscription ID (GUID format)'
+        enableAzureLoadTesting:
+          title: Enable Azure Load Testing
+          type: boolean
+          description: Use Azure Load Testing service
+          default: true
+        enableApplicationInsights:
+          title: Enable Application Insights
+          type: boolean
+          description: Integrate with Azure Application Insights
+          default: true
+        enableAzureMonitor:
+          title: Enable Azure Monitor
+          type: boolean
+          description: Integrate with Azure Monitor for metrics
+          default: true
+        testDataLocation:
+          title: Test Data Location
+          type: string
+          description: Azure region for test execution
+          default: eastus
+          enum:
+            - eastus
+            - westus2
+            - northeurope
+            - westeurope
+            - australiaeast
+            - southeastasia
+            
+    - title: Reporting and Alerting
+      required:
+        - enableReporting
+        - reportFormat
+      properties:
+        enableReporting:
+          title: Enable Performance Reporting
+          type: boolean
+          description: Generate detailed performance reports
+          default: true
+        reportFormat:
+          title: Report Format
+          type: array
+          description: Formats for performance reports
+          items:
+            type: string
+            enum:
+              - html
+              - pdf
+              - json
+              - junit
+              - prometheus
+          default: ["html", "json"]
+          ui:widget: checkboxes
+        enableTrendAnalysis:
+          title: Enable Trend Analysis
+          type: boolean
+          description: Enable performance trend analysis over time
+          default: true
+        alertThresholds:
+          title: Alert Thresholds
+          type: object
+          description: Thresholds for performance alerts
+          properties:
+            responseTimeThreshold:
+              title: Response Time Alert (ms)
+              type: integer
+              default: 1000
+            errorRateThreshold:
+              title: Error Rate Alert (%)
+              type: number
+              default: 5.0
+            throughputThreshold:
+              title: Throughput Alert (% decrease)
+              type: number
+              default: 20.0
+        notificationChannels:
+          title: Notification Channels
+          type: array
+          description: Channels for performance alerts
+          items:
+            type: string
+            enum:
+              - email
+              - slack
+              - teams
+              - pagerduty
+          default: ["email", "slack"]
+          ui:widget: checkboxes
+
+  steps:
+    - id: template
+      name: Render Performance Testing Template
+      action: fetch:template
+      input:
+        url: ./skeleton
+        values:
+          name: ${{ parameters.name }}
+          description: ${{ parameters.description }}
+          owner: ${{ parameters.owner }}
+          testingScope: ${{ parameters.testingScope }}
+          loadTestingTool: ${{ parameters.loadTestingTool }}
+          maxUsers: ${{ parameters.maxUsers }}
+          testDuration: ${{ parameters.testDuration }}
+          rampUpTime: ${{ parameters.rampUpTime }}
+          enableStressTest: ${{ parameters.enableStressTest }}
+          enableEnduranceTest: ${{ parameters.enableEnduranceTest }}
+          enableSpikeTest: ${{ parameters.enableSpikeTest }}
+          enableVolumeTest: ${{ parameters.enableVolumeTest }}
+          enableSecurityTest: ${{ parameters.enableSecurityTest }}
+          testEnvironments: ${{ parameters.testEnvironments }}
+          enableAPM: ${{ parameters.enableAPM }}
+          performanceTargets: ${{ parameters.performanceTargets }}
+          enableRealUserMonitoring: ${{ parameters.enableRealUserMonitoring }}
+          enableSyntheticMonitoring: ${{ parameters.enableSyntheticMonitoring }}
+          azureSubscription: ${{ parameters.azureSubscription }}
+          enableAzureLoadTesting: ${{ parameters.enableAzureLoadTesting }}
+          enableApplicationInsights: ${{ parameters.enableApplicationInsights }}
+          enableAzureMonitor: ${{ parameters.enableAzureMonitor }}
+          testDataLocation: ${{ parameters.testDataLocation }}
+          enableReporting: ${{ parameters.enableReporting }}
+          reportFormat: ${{ parameters.reportFormat }}
+          enableTrendAnalysis: ${{ parameters.enableTrendAnalysis }}
+          alertThresholds: ${{ parameters.alertThresholds }}
+          notificationChannels: ${{ parameters.notificationChannels }}
+
+    - id: publish
+      name: Publish to GitHub
+      action: publish:github
+      input:
+        allowedHosts: ['github.com']
+        description: 'Performance testing suite for ${{ parameters.name }}'
+        repoUrl: github.com/three-horizon-ai/${{ parameters.name }}
+        defaultBranch: main
+        gitCommitMessage: 'Initial performance testing setup for ${{ parameters.name }}'
+        gitAuthorName: ${{ parameters.owner }}
+        gitAuthorEmail: ${{ parameters.owner }}@users.noreply.github.com
+
+    - id: register
+      name: Register in Catalog
+      action: catalog:register
+      input:
+        repoContentsUrl: https://github.com/three-horizon-ai/${{ parameters.name }}
+        catalogInfoPath: '/catalog-info.yaml'
+
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps.register.output.entityRef }}
+      - title: Performance Dashboard
+        url: https://performance-dashboard.${{ parameters.name }}.local

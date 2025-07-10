@@ -1,0 +1,283 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: h2-monitoring-stack
+  title: H2: Comprehensive Monitoring Stack
+  description: Deploy comprehensive monitoring and observability stack for Horizon 2 with Prometheus, Grafana, and Azure Monitor
+  annotations:
+    backstage.io/managed-by-location: url:https://github.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform/blob/main/templates/h2-optimization/monitoring-stack/template.yaml
+  tags:
+    - horizon-2
+    - optimization
+    - monitoring
+    - observability
+    - prometheus
+    - grafana
+    - azure-monitor
+spec:
+  owner: platform-team
+  type: monitoring
+  
+  parameters:
+    - title: Monitoring Configuration
+      required:
+        - name
+        - owner
+        - monitoringScope
+      properties:
+        name:
+          title: Monitoring Stack Name
+          type: string
+          pattern: '^[a-z0-9-]+$'
+          description: Unique name for your monitoring stack
+          default: h2-monitoring-stack
+        description:
+          title: Description
+          type: string
+          description: Description of your monitoring stack
+          default: Comprehensive monitoring and observability stack for Horizon 2
+        owner:
+          title: Owner
+          type: string
+          description: Owner of the monitoring stack (GitHub username or team)
+          ui:field: OwnerPicker
+          ui:options:
+            catalogFilter:
+              kind: [Group, User]
+        monitoringScope:
+          title: Monitoring Scope
+          type: string
+          description: Scope of monitoring deployment
+          default: cluster-wide
+          enum:
+            - cluster-wide
+            - namespace-specific
+            - multi-cluster
+            - hybrid-cloud
+            
+    - title: Components Selection
+      required:
+        - enablePrometheus
+        - enableGrafana
+      properties:
+        enablePrometheus:
+          title: Enable Prometheus
+          type: boolean
+          description: Deploy Prometheus for metrics collection
+          default: true
+        enableGrafana:
+          title: Enable Grafana
+          type: boolean
+          description: Deploy Grafana for visualization
+          default: true
+        enableAlertManager:
+          title: Enable AlertManager
+          type: boolean
+          description: Deploy AlertManager for alerting
+          default: true
+        enableJaeger:
+          title: Enable Jaeger
+          type: boolean
+          description: Deploy Jaeger for distributed tracing
+          default: true
+        enableFluentd:
+          title: Enable Fluentd
+          type: boolean
+          description: Deploy Fluentd for log collection
+          default: true
+        enableElasticsearch:
+          title: Enable Elasticsearch
+          type: boolean
+          description: Deploy Elasticsearch for log storage
+          default: false
+        enableKibana:
+          title: Enable Kibana
+          type: boolean
+          description: Deploy Kibana for log visualization
+          default: false
+          
+    - title: Azure Integration
+      required:
+        - enableAzureMonitor
+        - azureSubscription
+        - azureLocation
+      properties:
+        enableAzureMonitor:
+          title: Enable Azure Monitor
+          type: boolean
+          description: Integrate with Azure Monitor
+          default: true
+        azureSubscription:
+          title: Azure Subscription ID
+          type: string
+          description: Azure subscription ID for monitoring
+          ui:help: 'Enter your Azure subscription ID (GUID format)'
+        azureLocation:
+          title: Azure Location
+          type: string
+          description: Azure region for monitoring resources
+          default: eastus
+          enum:
+            - eastus
+            - westus2
+            - northeurope
+            - westeurope
+            - australiaeast
+            - southeastasia
+        enableApplicationInsights:
+          title: Enable Application Insights
+          type: boolean
+          description: Enable Azure Application Insights
+          default: true
+        enableLogAnalytics:
+          title: Enable Log Analytics
+          type: boolean
+          description: Enable Azure Log Analytics workspace
+          default: true
+          
+    - title: Storage Configuration
+      required:
+        - storageClass
+        - retentionPeriod
+      properties:
+        storageClass:
+          title: Storage Class
+          type: string
+          description: Kubernetes storage class for persistent volumes
+          default: managed-premium
+          enum:
+            - managed-premium
+            - managed-standard
+            - azure-disk
+            - azure-file
+        retentionPeriod:
+          title: Data Retention Period
+          type: string
+          description: How long to retain monitoring data
+          default: 30d
+          enum:
+            - 7d
+            - 15d
+            - 30d
+            - 90d
+            - 180d
+            - 1y
+        prometheusStorage:
+          title: Prometheus Storage Size
+          type: string
+          description: Storage size for Prometheus data
+          default: 50Gi
+          enum:
+            - 10Gi
+            - 25Gi
+            - 50Gi
+            - 100Gi
+            - 250Gi
+        grafanaStorage:
+          title: Grafana Storage Size
+          type: string
+          description: Storage size for Grafana data
+          default: 10Gi
+          enum:
+            - 5Gi
+            - 10Gi
+            - 25Gi
+            - 50Gi
+            
+    - title: Alerting Configuration
+      required:
+        - alertingChannels
+        - enableSLOs
+      properties:
+        alertingChannels:
+          title: Alerting Channels
+          type: array
+          description: Channels for sending alerts
+          items:
+            type: string
+            enum:
+              - email
+              - slack
+              - teams
+              - pagerduty
+              - webhook
+          default: ["email", "slack"]
+          ui:widget: checkboxes
+        enableSLOs:
+          title: Enable SLOs
+          type: boolean
+          description: Enable Service Level Objectives monitoring
+          default: true
+        slackWebhook:
+          title: Slack Webhook URL
+          type: string
+          description: Slack webhook for notifications (optional)
+          ui:help: 'Enter your Slack webhook URL for notifications'
+        teamsWebhook:
+          title: Teams Webhook URL
+          type: string
+          description: Microsoft Teams webhook for notifications (optional)
+          ui:help: 'Enter your Teams webhook URL for notifications'
+
+  steps:
+    - id: template
+      name: Render Monitoring Template
+      action: fetch:template
+      input:
+        url: ./skeleton
+        values:
+          name: ${{ parameters.name }}
+          description: ${{ parameters.description }}
+          owner: ${{ parameters.owner }}
+          monitoringScope: ${{ parameters.monitoringScope }}
+          enablePrometheus: ${{ parameters.enablePrometheus }}
+          enableGrafana: ${{ parameters.enableGrafana }}
+          enableAlertManager: ${{ parameters.enableAlertManager }}
+          enableJaeger: ${{ parameters.enableJaeger }}
+          enableFluentd: ${{ parameters.enableFluentd }}
+          enableElasticsearch: ${{ parameters.enableElasticsearch }}
+          enableKibana: ${{ parameters.enableKibana }}
+          enableAzureMonitor: ${{ parameters.enableAzureMonitor }}
+          azureSubscription: ${{ parameters.azureSubscription }}
+          azureLocation: ${{ parameters.azureLocation }}
+          enableApplicationInsights: ${{ parameters.enableApplicationInsights }}
+          enableLogAnalytics: ${{ parameters.enableLogAnalytics }}
+          storageClass: ${{ parameters.storageClass }}
+          retentionPeriod: ${{ parameters.retentionPeriod }}
+          prometheusStorage: ${{ parameters.prometheusStorage }}
+          grafanaStorage: ${{ parameters.grafanaStorage }}
+          alertingChannels: ${{ parameters.alertingChannels }}
+          enableSLOs: ${{ parameters.enableSLOs }}
+          slackWebhook: ${{ parameters.slackWebhook }}
+          teamsWebhook: ${{ parameters.teamsWebhook }}
+
+    - id: publish
+      name: Publish to GitHub
+      action: publish:github
+      input:
+        allowedHosts: ['github.com']
+        description: 'Comprehensive monitoring stack for ${{ parameters.name }}'
+        repoUrl: github.com/three-horizon-ai/${{ parameters.name }}
+        defaultBranch: main
+        gitCommitMessage: 'Initial monitoring stack setup for ${{ parameters.name }}'
+        gitAuthorName: ${{ parameters.owner }}
+        gitAuthorEmail: ${{ parameters.owner }}@users.noreply.github.com
+
+    - id: register
+      name: Register in Catalog
+      action: catalog:register
+      input:
+        repoContentsUrl: https://github.com/three-horizon-ai/${{ parameters.name }}
+        catalogInfoPath: '/catalog-info.yaml'
+
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps.register.output.entityRef }}
+      - title: Grafana Dashboard
+        url: https://grafana.${{ parameters.name }}.local
+      - title: Prometheus
+        url: https://prometheus.${{ parameters.name }}.local

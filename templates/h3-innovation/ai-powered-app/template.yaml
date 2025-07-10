@@ -1,0 +1,401 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: h3-ai-powered-app
+  title: H3: AI-Powered Application
+  description: Create AI-powered applications with Azure AI Foundry, GitHub Copilot, and advanced ML capabilities for Horizon 3
+  annotations:
+    backstage.io/managed-by-location: url:https://github.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform/blob/main/templates/h3-innovation/ai-powered-app/template.yaml
+  tags:
+    - horizon-3
+    - innovation
+    - ai
+    - machine-learning
+    - azure-ai
+    - copilot
+    - foundry
+spec:
+  owner: platform-team
+  type: ai-application
+  
+  parameters:
+    - title: AI Application Configuration
+      required:
+        - name
+        - owner
+        - aiUseCase
+      properties:
+        name:
+          title: AI Application Name
+          type: string
+          pattern: '^[a-z0-9-]+$'
+          description: Unique name for your AI-powered application
+          default: h3-ai-powered-app
+        description:
+          title: Description
+          type: string
+          description: Description of your AI application
+          default: AI-powered application with advanced ML capabilities
+        owner:
+          title: Owner
+          type: string
+          description: Owner of the AI application (GitHub username or team)
+          ui:field: OwnerPicker
+          ui:options:
+            catalogFilter:
+              kind: [Group, User]
+        aiUseCase:
+          title: AI Use Case
+          type: string
+          description: Primary AI/ML use case for the application
+          default: chatbot
+          enum:
+            - chatbot
+            - document-analysis
+            - image-recognition
+            - predictive-analytics
+            - recommendation-engine
+            - natural-language-processing
+            - computer-vision
+            - autonomous-agent
+            
+    - title: AI Models and Services
+      required:
+        - enableOpenAI
+        - aiModels
+      properties:
+        enableOpenAI:
+          title: Enable Azure OpenAI
+          type: boolean
+          description: Enable Azure OpenAI services
+          default: true
+        aiModels:
+          title: AI Models
+          type: array
+          description: AI models to integrate
+          items:
+            type: string
+            enum:
+              - gpt-4o
+              - gpt-4o-mini
+              - gpt-35-turbo
+              - claude-3-sonnet
+              - claude-3-haiku
+              - text-embedding-ada-002
+              - text-embedding-3-small
+              - text-embedding-3-large
+              - dall-e-3
+              - whisper
+              - text-to-speech
+          default: ["gpt-4o", "text-embedding-3-small"]
+          ui:widget: checkboxes
+        enableCustomModels:
+          title: Enable Custom Models
+          type: boolean
+          description: Include custom model deployment capabilities
+          default: false
+        enableMLOps:
+          title: Enable MLOps
+          type: boolean
+          description: Include MLOps pipeline for model management
+          default: true
+        enableVectorSearch:
+          title: Enable Vector Search
+          type: boolean
+          description: Include vector search capabilities
+          default: true
+          
+    - title: Azure AI Foundry Integration
+      required:
+        - enableAIFoundry
+        - azureSubscription
+        - azureLocation
+      properties:
+        enableAIFoundry:
+          title: Enable Azure AI Foundry
+          type: boolean
+          description: Integrate with Azure AI Foundry
+          default: true
+        azureSubscription:
+          title: Azure Subscription ID
+          type: string
+          description: Azure subscription ID for AI services
+          ui:help: 'Enter your Azure subscription ID (GUID format)'
+        azureLocation:
+          title: Azure Location
+          type: string
+          description: Azure region for AI services
+          default: eastus
+          enum:
+            - eastus
+            - westus2
+            - northeurope
+            - westeurope
+            - australiaeast
+            - southeastasia
+        aiFoundryWorkspace:
+          title: AI Foundry Workspace Name
+          type: string
+          description: Name for the AI Foundry workspace
+          default: ai-foundry-workspace
+        enablePromptFlow:
+          title: Enable Prompt Flow
+          type: boolean
+          description: Enable Azure AI Foundry Prompt Flow
+          default: true
+        enableModelCatalog:
+          title: Enable Model Catalog
+          type: boolean
+          description: Access to Azure AI Model Catalog
+          default: true
+          
+    - title: Application Framework
+      required:
+        - frontendFramework
+        - backendFramework
+        - database
+      properties:
+        frontendFramework:
+          title: Frontend Framework
+          type: string
+          description: Frontend framework for the AI application
+          default: react
+          enum:
+            - react
+            - vue
+            - angular
+            - svelte
+            - next-js
+            - nuxt
+        backendFramework:
+          title: Backend Framework
+          type: string
+          description: Backend framework for AI services
+          default: fastapi
+          enum:
+            - fastapi
+            - express
+            - django
+            - flask
+            - asp-net-core
+            - spring-boot
+        database:
+          title: Database
+          type: string
+          description: Database for application data
+          default: cosmos-db
+          enum:
+            - cosmos-db
+            - postgresql
+            - mongodb
+            - redis
+            - azure-sql
+            - sqlite
+        enableAuth:
+          title: Enable Authentication
+          type: boolean
+          description: Include authentication and authorization
+          default: true
+        authProvider:
+          title: Authentication Provider
+          type: string
+          description: Authentication provider
+          default: azure-ad
+          enum:
+            - azure-ad
+            - auth0
+            - clerk
+            - supabase
+            - firebase
+            
+    - title: AI Features and Capabilities
+      required:
+        - enableRAG
+        - enableCopilot
+      properties:
+        enableRAG:
+          title: Enable RAG (Retrieval Augmented Generation)
+          type: boolean
+          description: Enable RAG pattern for enhanced AI responses
+          default: true
+        enableCopilot:
+          title: Enable GitHub Copilot Integration
+          type: boolean
+          description: Integrate GitHub Copilot for development assistance
+          default: true
+        enableSemanticKernel:
+          title: Enable Semantic Kernel
+          type: boolean
+          description: Use Microsoft Semantic Kernel for AI orchestration
+          default: true
+        enableLangChain:
+          title: Enable LangChain
+          type: boolean
+          description: Use LangChain for AI application development
+          default: false
+        enableStreamingResponses:
+          title: Enable Streaming Responses
+          type: boolean
+          description: Enable streaming for real-time AI responses
+          default: true
+        enableMultiModal:
+          title: Enable Multi-Modal Capabilities
+          type: boolean
+          description: Support text, image, and audio processing
+          default: true
+          
+    - title: Data and Storage
+      required:
+        - enableVectorDB
+        - dataStorage
+      properties:
+        enableVectorDB:
+          title: Enable Vector Database
+          type: boolean
+          description: Include vector database for embeddings
+          default: true
+        vectorDBProvider:
+          title: Vector Database Provider
+          type: string
+          description: Vector database provider
+          default: azure-cosmos-db
+          enum:
+            - azure-cosmos-db
+            - azure-ai-search
+            - pinecone
+            - weaviate
+            - qdrant
+            - chroma
+        dataStorage:
+          title: Data Storage
+          type: array
+          description: Data storage services to include
+          items:
+            type: string
+            enum:
+              - azure-blob-storage
+              - azure-data-lake
+              - azure-files
+              - cosmos-db
+              - postgresql
+              - redis
+          default: ["azure-blob-storage", "cosmos-db"]
+          ui:widget: checkboxes
+        enableDataPipelines:
+          title: Enable Data Pipelines
+          type: boolean
+          description: Include data processing pipelines
+          default: true
+          
+    - title: Monitoring and Observability
+      required:
+        - enableAIMonitoring
+        - enableTelemetry
+      properties:
+        enableAIMonitoring:
+          title: Enable AI-Specific Monitoring
+          type: boolean
+          description: Monitor AI model performance and usage
+          default: true
+        enableTelemetry:
+          title: Enable Telemetry
+          type: boolean
+          description: Comprehensive telemetry and analytics
+          default: true
+        enableCostTracking:
+          title: Enable Cost Tracking
+          type: boolean
+          description: Track AI service costs and usage
+          default: true
+        enablePerformanceMetrics:
+          title: Enable Performance Metrics
+          type: boolean
+          description: Monitor AI response times and throughput
+          default: true
+        alertingChannels:
+          title: Alerting Channels
+          type: array
+          description: Channels for AI application alerts
+          items:
+            type: string
+            enum:
+              - email
+              - slack
+              - teams
+              - pagerduty
+          default: ["email", "slack"]
+          ui:widget: checkboxes
+
+  steps:
+    - id: template
+      name: Render AI Application Template
+      action: fetch:template
+      input:
+        url: ./skeleton
+        values:
+          name: ${{ parameters.name }}
+          description: ${{ parameters.description }}
+          owner: ${{ parameters.owner }}
+          aiUseCase: ${{ parameters.aiUseCase }}
+          enableOpenAI: ${{ parameters.enableOpenAI }}
+          aiModels: ${{ parameters.aiModels }}
+          enableCustomModels: ${{ parameters.enableCustomModels }}
+          enableMLOps: ${{ parameters.enableMLOps }}
+          enableVectorSearch: ${{ parameters.enableVectorSearch }}
+          enableAIFoundry: ${{ parameters.enableAIFoundry }}
+          azureSubscription: ${{ parameters.azureSubscription }}
+          azureLocation: ${{ parameters.azureLocation }}
+          aiFoundryWorkspace: ${{ parameters.aiFoundryWorkspace }}
+          enablePromptFlow: ${{ parameters.enablePromptFlow }}
+          enableModelCatalog: ${{ parameters.enableModelCatalog }}
+          frontendFramework: ${{ parameters.frontendFramework }}
+          backendFramework: ${{ parameters.backendFramework }}
+          database: ${{ parameters.database }}
+          enableAuth: ${{ parameters.enableAuth }}
+          authProvider: ${{ parameters.authProvider }}
+          enableRAG: ${{ parameters.enableRAG }}
+          enableCopilot: ${{ parameters.enableCopilot }}
+          enableSemanticKernel: ${{ parameters.enableSemanticKernel }}
+          enableLangChain: ${{ parameters.enableLangChain }}
+          enableStreamingResponses: ${{ parameters.enableStreamingResponses }}
+          enableMultiModal: ${{ parameters.enableMultiModal }}
+          enableVectorDB: ${{ parameters.enableVectorDB }}
+          vectorDBProvider: ${{ parameters.vectorDBProvider }}
+          dataStorage: ${{ parameters.dataStorage }}
+          enableDataPipelines: ${{ parameters.enableDataPipelines }}
+          enableAIMonitoring: ${{ parameters.enableAIMonitoring }}
+          enableTelemetry: ${{ parameters.enableTelemetry }}
+          enableCostTracking: ${{ parameters.enableCostTracking }}
+          enablePerformanceMetrics: ${{ parameters.enablePerformanceMetrics }}
+          alertingChannels: ${{ parameters.alertingChannels }}
+
+    - id: publish
+      name: Publish to GitHub
+      action: publish:github
+      input:
+        allowedHosts: ['github.com']
+        description: 'AI-powered application: ${{ parameters.name }}'
+        repoUrl: github.com/three-horizon-ai/${{ parameters.name }}
+        defaultBranch: main
+        gitCommitMessage: 'Initial AI application setup for ${{ parameters.name }}'
+        gitAuthorName: ${{ parameters.owner }}
+        gitAuthorEmail: ${{ parameters.owner }}@users.noreply.github.com
+
+    - id: register
+      name: Register in Catalog
+      action: catalog:register
+      input:
+        repoContentsUrl: https://github.com/three-horizon-ai/${{ parameters.name }}
+        catalogInfoPath: '/catalog-info.yaml'
+
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps.register.output.entityRef }}
+      - title: AI Application Dashboard
+        url: https://ai-dashboard.${{ parameters.name }}.local
+      - title: Azure AI Foundry
+        url: https://ai.azure.com

@@ -1,0 +1,241 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: h2-gitops-advanced
+  title: H2: Advanced GitOps Workflow
+  description: Advanced GitOps deployment patterns for Horizon 2 with ArgoCD and multi-environment management
+  annotations:
+    backstage.io/managed-by-location: url:https://github.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform/blob/main/templates/h2-optimization/gitops-advanced/template.yaml
+  tags:
+    - horizon-2
+    - optimization
+    - gitops
+    - argocd
+    - multi-environment
+    - kubernetes
+spec:
+  owner: platform-team
+  type: workflow
+  
+  parameters:
+    - title: GitOps Configuration
+      required:
+        - name
+        - owner
+        - gitopsStrategy
+      properties:
+        name:
+          title: GitOps Application Name
+          type: string
+          pattern: '^[a-z0-9-]+$'
+          description: Unique name for your GitOps application
+          default: gitops-advanced-app
+        description:
+          title: Description
+          type: string
+          description: Description of your GitOps application
+          default: Advanced GitOps workflow with multi-environment deployment
+        owner:
+          title: Owner
+          type: string
+          description: Owner of the application (GitHub username or team)
+          ui:field: OwnerPicker
+          ui:options:
+            catalogFilter:
+              kind: [Group, User]
+        gitopsStrategy:
+          title: GitOps Strategy
+          type: string
+          description: GitOps deployment strategy
+          default: app-of-apps
+          enum:
+            - app-of-apps
+            - applicationset
+            - multi-source
+            - helm-umbrella
+            
+    - title: Environment Configuration
+      required:
+        - environments
+        - promotionStrategy
+      properties:
+        environments:
+          title: Target Environments
+          type: array
+          description: List of environments to deploy to
+          items:
+            type: string
+            enum:
+              - dev
+              - staging
+              - prod
+              - preview
+          default: ["dev", "staging", "prod"]
+          ui:widget: checkboxes
+        promotionStrategy:
+          title: Promotion Strategy
+          type: string
+          description: How to promote between environments
+          default: auto-dev-manual-prod
+          enum:
+            - fully-automated
+            - auto-dev-manual-prod
+            - fully-manual
+            - branch-based
+        enableCanary:
+          title: Enable Canary Deployments
+          type: boolean
+          description: Enable canary deployment strategy
+          default: true
+        enableBlueGreen:
+          title: Enable Blue-Green Deployments
+          type: boolean
+          description: Enable blue-green deployment strategy
+          default: false
+          
+    - title: Azure Configuration
+      required:
+        - azureSubscription
+        - azureLocation
+        - aksClusterName
+      properties:
+        azureSubscription:
+          title: Azure Subscription ID
+          type: string
+          description: Azure subscription ID for deployment
+          ui:help: 'Enter your Azure subscription ID (GUID format)'
+        azureLocation:
+          title: Azure Location
+          type: string
+          description: Azure region for deployment
+          default: eastus
+          enum:
+            - eastus
+            - westus2
+            - northeurope
+            - westeurope
+            - australiaeast
+            - southeastasia
+        aksClusterName:
+          title: AKS Cluster Name
+          type: string
+          description: Name of the AKS cluster for deployment
+          default: aks-cluster
+          
+    - title: ArgoCD Configuration
+      required:
+        - argoCDNamespace
+        - syncPolicy
+      properties:
+        argoCDNamespace:
+          title: ArgoCD Namespace
+          type: string
+          description: Kubernetes namespace for ArgoCD
+          default: argocd
+        syncPolicy:
+          title: Sync Policy
+          type: string
+          description: ArgoCD sync policy
+          default: automated
+          enum:
+            - automated
+            - manual
+            - automated-prune
+            - automated-selfheal
+        enableWebhooks:
+          title: Enable Webhooks
+          type: boolean
+          description: Enable GitHub webhooks for faster sync
+          default: true
+        enableNotifications:
+          title: Enable Notifications
+          type: boolean
+          description: Enable ArgoCD notifications
+          default: true
+          
+    - title: Security Configuration
+      required:
+        - enableRBAC
+        - enableOPA
+      properties:
+        enableRBAC:
+          title: Enable RBAC
+          type: boolean
+          description: Enable Role-Based Access Control
+          default: true
+        enableOPA:
+          title: Enable OPA Policies
+          type: boolean
+          description: Enable Open Policy Agent policies
+          default: true
+        enableSecretManagement:
+          title: Enable Secret Management
+          type: boolean
+          description: Enable external secret management
+          default: true
+        secretProvider:
+          title: Secret Provider
+          type: string
+          description: External secret provider
+          default: azure-keyvault
+          enum:
+            - azure-keyvault
+            - hashicorp-vault
+            - aws-secrets-manager
+            - kubernetes-secrets
+
+  steps:
+    - id: template
+      name: Render GitOps Template
+      action: fetch:template
+      input:
+        url: ./skeleton
+        values:
+          name: ${{ parameters.name }}
+          description: ${{ parameters.description }}
+          owner: ${{ parameters.owner }}
+          gitopsStrategy: ${{ parameters.gitopsStrategy }}
+          environments: ${{ parameters.environments }}
+          promotionStrategy: ${{ parameters.promotionStrategy }}
+          enableCanary: ${{ parameters.enableCanary }}
+          enableBlueGreen: ${{ parameters.enableBlueGreen }}
+          azureSubscription: ${{ parameters.azureSubscription }}
+          azureLocation: ${{ parameters.azureLocation }}
+          aksClusterName: ${{ parameters.aksClusterName }}
+          argoCDNamespace: ${{ parameters.argoCDNamespace }}
+          syncPolicy: ${{ parameters.syncPolicy }}
+          enableWebhooks: ${{ parameters.enableWebhooks }}
+          enableNotifications: ${{ parameters.enableNotifications }}
+          enableRBAC: ${{ parameters.enableRBAC }}
+          enableOPA: ${{ parameters.enableOPA }}
+          enableSecretManagement: ${{ parameters.enableSecretManagement }}
+          secretProvider: ${{ parameters.secretProvider }}
+
+    - id: publish
+      name: Publish to GitHub
+      action: publish:github
+      input:
+        allowedHosts: ['github.com']
+        description: 'Advanced GitOps workflow for ${{ parameters.name }}'
+        repoUrl: github.com/three-horizon-ai/${{ parameters.name }}
+        defaultBranch: main
+        gitCommitMessage: 'Initial GitOps setup for ${{ parameters.name }}'
+        gitAuthorName: ${{ parameters.owner }}
+        gitAuthorEmail: ${{ parameters.owner }}@users.noreply.github.com
+
+    - id: register
+      name: Register in Catalog
+      action: catalog:register
+      input:
+        repoContentsUrl: https://github.com/three-horizon-ai/${{ parameters.name }}
+        catalogInfoPath: '/catalog-info.yaml'
+
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps.register.output.entityRef }}
+      - title: ArgoCD Dashboard
+        url: https://argocd.${{ parameters.aksClusterName }}.local

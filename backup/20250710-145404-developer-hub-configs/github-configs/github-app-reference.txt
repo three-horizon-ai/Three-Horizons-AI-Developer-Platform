@@ -1,0 +1,9 @@
+# GitHub App Credentials (BASE64 encoded - for reference only)
+# DO NOT SHARE OR COMMIT THESE VALUES
+AUTH_GITHUB_APP_ID: MTM2Nzk1Mg== (1367952)
+AUTH_GITHUB_CLIENT_ID: SXYyM2xpR2dYdlRmWjBkUmlWVzI= 
+GITHUB_HOST_DOMAIN: Z2l0aHViLmNvbQ== (github.com)
+GITHUB_ORG_URL: aHR0cHM6Ly9naXRodWIuY29tL3RocmVlLWhvcml6b24tYWk= (https://github.com/three-horizon-ai)
+GITHUB_ORGANIZATION: dGhyZWUtaG9yaXpvbi1haQ== (three-horizon-ai)
+
+# Secret values exist but not shown for security

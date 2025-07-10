@@ -1,0 +1,64 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: three-horizons-templates
+  title: Three Horizons AI Platform Templates
+  description: Templates and components for the Three Horizons AI Development Platform
+  annotations:
+    backstage.io/managed-by-location: url:https://github.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform/blob/main/templates/catalog-info.yaml
+  tags:
+    - templates
+    - platform
+    - three-horizons
+    - azure
+    - developer-hub
+spec:
+  targets:
+    # H1: Foundation Demo Templates
+    - ./h1-foundation/ecommerce-demo/template.yaml
+    - ./h1-foundation/microservices-starter/template.yaml
+    - ./h1-foundation/azure-infrastructure/template.yaml
+    - ./h1-foundation/basic-cicd/template.yaml
+    
+    # H2: Optimization Demo Templates  
+    - ./h2-optimization/gitops-advanced/template.yaml
+    - ./h2-optimization/monitoring-stack/template.yaml
+    - ./h2-optimization/security-pipeline/template.yaml
+    - ./h2-optimization/performance-testing/template.yaml
+    
+    # H3: Innovation Demo Templates
+    - ./h3-innovation/ai-powered-app/template.yaml
+    - ./h3-innovation/copilot-agent/template.yaml
+    - ./h3-innovation/autonomous-devops/template.yaml
+    - ./h3-innovation/mcp-integration/template.yaml
+    
+    # External Template Repositories
+    - https://github.com/three-horizon-ai/ecommerce-templates/blob/main/catalog-info.yaml
+    - https://github.com/three-horizon-ai/demo-angular-app/blob/master/catalog-info.yaml
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: three-horizons-platform
+  title: Three Horizons AI Platform
+  description: A comprehensive platform integrating Microsoft Azure, Red Hat Developer Hub, and GitHub Enterprise
+  annotations:
+    github.com/project-slug: three-horizon-ai/Three-Horizons-AI-Developer-Platform
+    backstage.io/source-location: url:https://github.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform
+spec:
+  type: platform
+  lifecycle: production
+  owner: platform-team
+  system: three-horizons
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: three-horizons
+  title: Three Horizons AI Development Platform
+  description: Enterprise-grade development platform with AI-powered capabilities
+spec:
+  owner: platform-team
+  domain: development-platform

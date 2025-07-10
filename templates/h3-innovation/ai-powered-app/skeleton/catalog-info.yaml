@@ -1,0 +1,19 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ${{ values.name }}
+  title: ${{ values.name }}
+  description: ${{ values.description }}
+  annotations:
+    github.com/project-slug: three-horizon-ai/${{ values.name }}
+    backstage.io/source-location: url:https://github.com/three-horizon-ai/${{ values.name }}
+  tags:
+    - horizon-3
+    - innovation
+    - ai
+    - azure-ai
+spec:
+  type: ai-application
+  lifecycle: experimental
+  owner: ${{ values.owner }}
+  system: three-horizons

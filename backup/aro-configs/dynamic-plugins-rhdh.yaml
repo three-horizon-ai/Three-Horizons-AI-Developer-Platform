@@ -1,0 +1,69 @@
+apiVersion: v1
+data:
+  dynamic-plugins.yaml: "includes:\n  - dynamic-plugins.default.yaml\nplugins:\n  -
+    package: './dynamic-plugins/dist/backstage-plugin-catalog-backend-module-github-dynamic'\n
+    \   disabled: false\n    pluginConfig:\n      catalog:\n        providers:\n          github:\n
+    \           organization: \"${GITHUB_ORGANIZATION}\"\n            schedule:\n
+    \             frequency: { minutes: 1 }\n              timeout: { minutes: 1 }\n
+    \             initialDelay: { seconds: 100 }\n  - package: ./dynamic-plugins/dist/backstage-community-plugin-rbac\n
+    \   disabled: false\n    pluginConfig:\n      dynamicPlugins:\n        frontend:\n
+    \         backstage-community.plugin-rbac:\n            appIcons:\n              -
+    name: rbacIcon\n                importName: RbacIcon\n            dynamicRoutes:\n
+    \             - path: /rbac\n                importName: RbacPage\n                menuItem:\n
+    \                 icon: rbacIcon\n                  text: RBAC\n            menuItems:\n
+    \             rbac:\n                parent: admin\n                icon: rbacIcon\n
+    \ - package: ./dynamic-plugins/dist/backstage-plugin-catalog-backend-module-github-org-dynamic\n
+    \   disabled: false\n  - package: ./dynamic-plugins/dist/backstage-community-plugin-github-actions\n
+    \   disabled: false\n    pluginConfig:\n      dynamicPlugins:\n        frontend:\n
+    \         backstage-community.plugin-github-actions:\n        mountPoints:\n          -
+    mountPoint: entity.page.ci/cards\n            importName: EntityGithubActionsContent\n
+    \           config:\n              layout:\n                gridColumn: 1 / -1\n
+    \             if:\n                allOf:\n                  - isGithubActionsAvailable
+    \       \n  - package: './dynamic-plugins/dist/backstage-community-plugin-topology'\n
+    \   disabled: false\n  - package: './dynamic-plugins/dist/backstage-plugin-scaffolder-backend-module-github-dynamic'\n
+    \   disabled: false\n  - package: ./dynamic-plugins/dist/backstage-plugin-notifications\n
+    \   disabled: false\n    pluginConfig:\n      dynamicPlugins:\n        frontend:\n
+    \         backstage.plugin-notifications:\n            dynamicRoutes:\n              -
+    importName: NotificationsPage\n                menuItem:\n                  config:\n
+    \                   props:\n                      titleCounterEnabled: true\n
+    \                     webNotificationsEnabled: false\n                  importName:
+    NotificationsSidebarItem\n                path: /notifications\n  - package: ./dynamic-plugins/dist/backstage-plugin-notifications-backend-dynamic\n
+    \   disabled: false\n  - package: './dynamic-plugins/dist/backstage-community-plugin-redhat-argocd'\n
+    \   disabled: false\n  - package: ./dynamic-plugins/dist/red-hat-developer-hub-backstage-plugin-global-header\n
+    \   disabled: false\n    pluginConfig:\n      app:\n        sidebar:\n          search:
+    false    \n          settings: false  \n      dynamicPlugins:\n        frontend:\n
+    \         default.main-menu-items: \n            menuItems:\n              default.create:\n
+    \               title: ''\n          red-hat-developer-hub.backstage-plugin-global-header:
+    # the default enabled dynamic header plugin\n            mountPoints:\n              -
+    mountPoint: application/header\n                importName: GlobalHeader\n                config:\n
+    \                 position: above-main-content \n              - mountPoint: global.header/component\n
+    \               importName: SearchComponent\n                config:\n                  priority:
+    100\n              - mountPoint: global.header/component\n                importName:
+    Spacer\n                config:\n                  priority: 99\n                  props:\n
+    \                   growFactor: 0\n              - mountPoint: global.header/component\n
+    \               importName: HeaderIconButton\n                config:\n                  priority:
+    90\n                  props:\n                    title: Self-service\n                    icon:
+    add\n                    to: create\n              - mountPoint: global.header/component\n
+    \               importName: SupportButton\n                config:\n                  priority:
+    80\n              - mountPoint: global.header/component\n                importName:
+    NotificationButton\n                config:\n                  priority: 70\n
+    \             - mountPoint: global.header/component\n                importName:
+    Divider\n                config:\n                  priority: 50\n              -
+    mountPoint: global.header/component\n                importName: ProfileDropdown\n
+    \               config:\n                  priority: 10\n              - mountPoint:
+    global.header/profile\n                importName: MenuItemLink\n                config:\n
+    \                 priority: 100\n                  props:\n                    title:
+    Settings\n                    link: /settings\n                    icon: manageAccounts\n
+    \             - mountPoint: global.header/profile\n                importName:
+    LogoutButton\n                config:\n                  priority: 10\n"
+kind: ConfigMap
+metadata:
+  annotations:
+    rhdh.redhat.com/backstage-name: developer-hub
+  creationTimestamp: "2025-07-07T23:41:36Z"
+  labels:
+    rhdh.redhat.com/ext-config-sync: "true"
+  name: dynamic-plugins-rhdh
+  namespace: developer-hub
+  resourceVersion: "52958342"
+  uid: 5c5fbc24-2b30-4603-874c-85dc455be688

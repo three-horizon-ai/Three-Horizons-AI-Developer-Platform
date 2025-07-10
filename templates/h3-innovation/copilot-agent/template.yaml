@@ -1,0 +1,450 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: h3-copilot-agent
+  title: H3: GitHub Copilot Agent
+  description: Create custom GitHub Copilot agents with advanced AI capabilities and MCP integration for Horizon 3
+  annotations:
+    backstage.io/managed-by-location: url:https://github.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform/blob/main/templates/h3-innovation/copilot-agent/template.yaml
+  tags:
+    - horizon-3
+    - innovation
+    - copilot
+    - agent
+    - ai-assistant
+    - mcp
+    - automation
+spec:
+  owner: platform-team
+  type: ai-agent
+  
+  parameters:
+    - title: Copilot Agent Configuration
+      required:
+        - name
+        - owner
+        - agentType
+      properties:
+        name:
+          title: Copilot Agent Name
+          type: string
+          pattern: '^[a-z0-9-]+$'
+          description: Unique name for your Copilot agent
+          default: h3-copilot-agent
+        description:
+          title: Description
+          type: string
+          description: Description of your Copilot agent
+          default: Custom GitHub Copilot agent with advanced AI capabilities
+        owner:
+          title: Owner
+          type: string
+          description: Owner of the Copilot agent (GitHub username or team)
+          ui:field: OwnerPicker
+          ui:options:
+            catalogFilter:
+              kind: [Group, User]
+        agentType:
+          title: Agent Type
+          type: string
+          description: Type of Copilot agent to create
+          default: development-assistant
+          enum:
+            - development-assistant
+            - code-reviewer
+            - documentation-generator
+            - testing-assistant
+            - deployment-helper
+            - security-advisor
+            - performance-optimizer
+            - architecture-consultant
+            
+    - title: Agent Capabilities
+      required:
+        - enableCodeGeneration
+        - enableCodeReview
+      properties:
+        enableCodeGeneration:
+          title: Enable Code Generation
+          type: boolean
+          description: Enable intelligent code generation capabilities
+          default: true
+        enableCodeReview:
+          title: Enable Code Review
+          type: boolean
+          description: Enable automated code review capabilities
+          default: true
+        enableDocumentation:
+          title: Enable Documentation Generation
+          type: boolean
+          description: Generate and maintain documentation automatically
+          default: true
+        enableTesting:
+          title: Enable Test Generation
+          type: boolean
+          description: Generate unit tests and integration tests
+          default: true
+        enableRefactoring:
+          title: Enable Code Refactoring
+          type: boolean
+          description: Suggest and perform code refactoring
+          default: true
+        enableSecurity:
+          title: Enable Security Analysis
+          type: boolean
+          description: Perform security vulnerability analysis
+          default: true
+        capabilities:
+          title: Additional Capabilities
+          type: array
+          description: Additional agent capabilities
+          items:
+            type: string
+            enum:
+              - multi-language-support
+              - api-integration
+              - database-operations
+              - cloud-deployment
+              - infrastructure-management
+              - monitoring-setup
+              - ci-cd-optimization
+              - performance-analysis
+          default: ["multi-language-support", "api-integration"]
+          ui:widget: checkboxes
+          
+    - title: MCP Integration
+      required:
+        - enableMCP
+        - mcpServers
+      properties:
+        enableMCP:
+          title: Enable MCP Integration
+          type: boolean
+          description: Enable Model Context Protocol integration
+          default: true
+        mcpServers:
+          title: MCP Servers
+          type: array
+          description: MCP servers to integrate with
+          items:
+            type: string
+            enum:
+              - azure-mcp-server
+              - github-mcp-server
+              - file-system-mcp
+              - database-mcp
+              - web-search-mcp
+              - slack-mcp
+              - email-mcp
+              - calendar-mcp
+          default: ["azure-mcp-server", "github-mcp-server"]
+          ui:widget: checkboxes
+        enableCustomMCP:
+          title: Enable Custom MCP Servers
+          type: boolean
+          description: Include capability for custom MCP servers
+          default: true
+        mcpTooling:
+          title: MCP Tooling
+          type: array
+          description: MCP tooling to include
+          items:
+            type: string
+            enum:
+              - tool-discovery
+              - tool-composition
+              - context-management
+              - session-persistence
+              - tool-analytics
+          default: ["tool-discovery", "context-management"]
+          ui:widget: checkboxes
+          
+    - title: AI Models and Services
+      required:
+        - primaryModel
+        - enableMultiModel
+      properties:
+        primaryModel:
+          title: Primary AI Model
+          type: string
+          description: Primary AI model for the agent
+          default: gpt-4o
+          enum:
+            - gpt-4o
+            - gpt-4o-mini
+            - claude-3-sonnet
+            - claude-3-haiku
+            - codellama
+            - deepseek-coder
+            - phi-3
+        enableMultiModel:
+          title: Enable Multi-Model Support
+          type: boolean
+          description: Support multiple AI models for different tasks
+          default: true
+        fallbackModels:
+          title: Fallback Models
+          type: array
+          description: Fallback models for redundancy
+          items:
+            type: string
+            enum:
+              - gpt-4o-mini
+              - gpt-35-turbo
+              - claude-3-haiku
+              - phi-3
+          default: ["gpt-4o-mini"]
+          ui:widget: checkboxes
+        enableEmbeddings:
+          title: Enable Embeddings
+          type: boolean
+          description: Enable text embeddings for context understanding
+          default: true
+        embeddingModel:
+          title: Embedding Model
+          type: string
+          description: Model for text embeddings
+          default: text-embedding-3-small
+          enum:
+            - text-embedding-3-small
+            - text-embedding-3-large
+            - text-embedding-ada-002
+            
+    - title: Azure Integration
+      required:
+        - azureSubscription
+        - azureLocation
+      properties:
+        azureSubscription:
+          title: Azure Subscription ID
+          type: string
+          description: Azure subscription ID for AI services
+          ui:help: 'Enter your Azure subscription ID (GUID format)'
+        azureLocation:
+          title: Azure Location
+          type: string
+          description: Azure region for AI services
+          default: eastus
+          enum:
+            - eastus
+            - westus2
+            - northeurope
+            - westeurope
+            - australiaeast
+            - southeastasia
+        enableAzureOpenAI:
+          title: Enable Azure OpenAI
+          type: boolean
+          description: Use Azure OpenAI services
+          default: true
+        enableCognitiveServices:
+          title: Enable Cognitive Services
+          type: boolean
+          description: Include Azure Cognitive Services
+          default: true
+        enableKeyVault:
+          title: Enable Azure Key Vault
+          type: boolean
+          description: Use Azure Key Vault for secrets management
+          default: true
+        enableCosmosDB:
+          title: Enable Cosmos DB
+          type: boolean
+          description: Use Cosmos DB for agent data storage
+          default: true
+          
+    - title: Development Environment
+      required:
+        - targetIDEs
+        - programmingLanguages
+      properties:
+        targetIDEs:
+          title: Target IDEs
+          type: array
+          description: IDEs to support with the agent
+          items:
+            type: string
+            enum:
+              - vscode
+              - visual-studio
+              - jetbrains
+              - vim-neovim
+              - emacs
+              - sublime-text
+          default: ["vscode", "visual-studio"]
+          ui:widget: checkboxes
+        programmingLanguages:
+          title: Programming Languages
+          type: array
+          description: Programming languages to specialize in
+          items:
+            type: string
+            enum:
+              - javascript
+              - typescript
+              - python
+              - csharp
+              - java
+              - go
+              - rust
+              - php
+              - ruby
+              - swift
+          default: ["javascript", "typescript", "python", "csharp"]
+          ui:widget: checkboxes
+        enableLSP:
+          title: Enable LSP Integration
+          type: boolean
+          description: Integrate with Language Server Protocol
+          default: true
+        enableGitIntegration:
+          title: Enable Git Integration
+          type: boolean
+          description: Deep integration with Git workflows
+          default: true
+          
+    - title: Deployment and Infrastructure
+      required:
+        - deploymentType
+        - enableContainerization
+      properties:
+        deploymentType:
+          title: Deployment Type
+          type: string
+          description: How to deploy the agent
+          default: cloud-service
+          enum:
+            - cloud-service
+            - on-premises
+            - hybrid
+            - edge-computing
+        enableContainerization:
+          title: Enable Containerization
+          type: boolean
+          description: Deploy agent in containers
+          default: true
+        enableKubernetes:
+          title: Enable Kubernetes
+          type: boolean
+          description: Deploy on Kubernetes cluster
+          default: true
+        enableScaling:
+          title: Enable Auto Scaling
+          type: boolean
+          description: Enable automatic scaling based on load
+          default: true
+        enableLoadBalancing:
+          title: Enable Load Balancing
+          type: boolean
+          description: Enable load balancing for high availability
+          default: true
+          
+    - title: Monitoring and Analytics
+      required:
+        - enableTelemetry
+        - enableUsageAnalytics
+      properties:
+        enableTelemetry:
+          title: Enable Telemetry
+          type: boolean
+          description: Collect telemetry data for improvement
+          default: true
+        enableUsageAnalytics:
+          title: Enable Usage Analytics
+          type: boolean
+          description: Track agent usage and performance
+          default: true
+        enableCostTracking:
+          title: Enable Cost Tracking
+          type: boolean
+          description: Track AI service costs
+          default: true
+        enablePerformanceMetrics:
+          title: Enable Performance Metrics
+          type: boolean
+          description: Monitor agent response times and accuracy
+          default: true
+        enableUserFeedback:
+          title: Enable User Feedback
+          type: boolean
+          description: Collect user feedback for continuous improvement
+          default: true
+
+  steps:
+    - id: template
+      name: Render Copilot Agent Template
+      action: fetch:template
+      input:
+        url: ./skeleton
+        values:
+          name: ${{ parameters.name }}
+          description: ${{ parameters.description }}
+          owner: ${{ parameters.owner }}
+          agentType: ${{ parameters.agentType }}
+          enableCodeGeneration: ${{ parameters.enableCodeGeneration }}
+          enableCodeReview: ${{ parameters.enableCodeReview }}
+          enableDocumentation: ${{ parameters.enableDocumentation }}
+          enableTesting: ${{ parameters.enableTesting }}
+          enableRefactoring: ${{ parameters.enableRefactoring }}
+          enableSecurity: ${{ parameters.enableSecurity }}
+          capabilities: ${{ parameters.capabilities }}
+          enableMCP: ${{ parameters.enableMCP }}
+          mcpServers: ${{ parameters.mcpServers }}
+          enableCustomMCP: ${{ parameters.enableCustomMCP }}
+          mcpTooling: ${{ parameters.mcpTooling }}
+          primaryModel: ${{ parameters.primaryModel }}
+          enableMultiModel: ${{ parameters.enableMultiModel }}
+          fallbackModels: ${{ parameters.fallbackModels }}
+          enableEmbeddings: ${{ parameters.enableEmbeddings }}
+          embeddingModel: ${{ parameters.embeddingModel }}
+          azureSubscription: ${{ parameters.azureSubscription }}
+          azureLocation: ${{ parameters.azureLocation }}
+          enableAzureOpenAI: ${{ parameters.enableAzureOpenAI }}
+          enableCognitiveServices: ${{ parameters.enableCognitiveServices }}
+          enableKeyVault: ${{ parameters.enableKeyVault }}
+          enableCosmosDB: ${{ parameters.enableCosmosDB }}
+          targetIDEs: ${{ parameters.targetIDEs }}
+          programmingLanguages: ${{ parameters.programmingLanguages }}
+          enableLSP: ${{ parameters.enableLSP }}
+          enableGitIntegration: ${{ parameters.enableGitIntegration }}
+          deploymentType: ${{ parameters.deploymentType }}
+          enableContainerization: ${{ parameters.enableContainerization }}
+          enableKubernetes: ${{ parameters.enableKubernetes }}
+          enableScaling: ${{ parameters.enableScaling }}
+          enableLoadBalancing: ${{ parameters.enableLoadBalancing }}
+          enableTelemetry: ${{ parameters.enableTelemetry }}
+          enableUsageAnalytics: ${{ parameters.enableUsageAnalytics }}
+          enableCostTracking: ${{ parameters.enableCostTracking }}
+          enablePerformanceMetrics: ${{ parameters.enablePerformanceMetrics }}
+          enableUserFeedback: ${{ parameters.enableUserFeedback }}
+
+    - id: publish
+      name: Publish to GitHub
+      action: publish:github
+      input:
+        allowedHosts: ['github.com']
+        description: 'GitHub Copilot Agent: ${{ parameters.name }}'
+        repoUrl: github.com/three-horizon-ai/${{ parameters.name }}
+        defaultBranch: main
+        gitCommitMessage: 'Initial Copilot agent setup for ${{ parameters.name }}'
+        gitAuthorName: ${{ parameters.owner }}
+        gitAuthorEmail: ${{ parameters.owner }}@users.noreply.github.com
+
+    - id: register
+      name: Register in Catalog
+      action: catalog:register
+      input:
+        repoContentsUrl: https://github.com/three-horizon-ai/${{ parameters.name }}
+        catalogInfoPath: '/catalog-info.yaml'
+
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps.register.output.entityRef }}
+      - title: Agent Dashboard
+        url: https://agent-dashboard.${{ parameters.name }}.local
+      - title: MCP Console
+        url: https://mcp-console.${{ parameters.name }}.local

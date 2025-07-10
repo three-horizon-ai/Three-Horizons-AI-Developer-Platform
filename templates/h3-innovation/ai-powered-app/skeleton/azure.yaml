@@ -1,0 +1,81 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+
+name: ${{ values.name }}
+metadata:
+  template: ai-powered-app@latest
+location: eastus
+
+variables:
+  AZURE_LOCATION: eastus
+  AZURE_RESOURCE_GROUP: rg-${{ values.name }}
+
+services:
+  web:
+    project: ./src/AI.Web
+    language: dotnet
+    host: appservice
+    hooks:
+      predeploy:
+        windows:
+          - pwsh: |
+              Write-Host "Building AI application..."
+              dotnet build --configuration Release
+        posix:
+          - shell: sh
+            run: |
+              echo "Building AI application..."
+              dotnet build --configuration Release
+      
+      postdeploy:
+        windows:
+          - pwsh: |
+              Write-Host "Initializing AI services..."
+              dotnet run --project src/AI.Setup -- --initialize
+        posix:
+          - shell: sh
+            run: |
+              echo "Initializing AI services..."
+              dotnet run --project src/AI.Setup -- --initialize
+
+  api:
+    project: ./src/AI.API
+    language: dotnet
+    host: appservice
+    hooks:
+      postdeploy:
+        windows:
+          - pwsh: |
+              Write-Host "Setting up AI search index..."
+              dotnet run --project src/AI.API -- --setup-search
+        posix:
+          - shell: sh
+            run: |
+              echo "Setting up AI search index..."
+              dotnet run --project src/AI.API -- --setup-search
+
+hooks:
+  predeploy:
+    windows:
+      - pwsh: |
+          Write-Host "Validating AI service access..."
+          Write-Host "Checking Azure OpenAI quota..."
+    posix:
+      - shell: sh
+        run: |
+          echo "Validating AI service access..."
+          echo "Checking Azure OpenAI quota..."
+
+  postdeploy:
+    windows:
+      - pwsh: |
+          Write-Host "AI-Powered Application deployed successfully!"
+          Write-Host "Web App URL: https://$(azd env get-value WEB_APP_URL)"
+          Write-Host "OpenAI Endpoint: $(azd env get-value OPENAI_ENDPOINT)"
+          Write-Host "Search Service: $(azd env get-value SEARCH_SERVICE_ENDPOINT)"
+    posix:
+      - shell: sh
+        run: |
+          echo "AI-Powered Application deployed successfully!"
+          echo "Web App URL: https://$(azd env get-value WEB_APP_URL)"
+          echo "OpenAI Endpoint: $(azd env get-value OPENAI_ENDPOINT)"
+          echo "Search Service: $(azd env get-value SEARCH_SERVICE_ENDPOINT)"

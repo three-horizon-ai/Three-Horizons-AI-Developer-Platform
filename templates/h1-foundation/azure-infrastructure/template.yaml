@@ -1,0 +1,139 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: h1-azure-infrastructure
+  title: "H1: Azure Infrastructure Setup"
+  description: "Horizon 1 - Foundation: Deploy basic Azure infrastructure (AKS, ACR, Key Vault)"
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+  tags:
+    - h1-foundation
+    - infrastructure
+    - azure
+    - bicep
+    - aks
+    - recommended
+spec:
+  owner: platform-team
+  type: resource
+  parameters:
+    - title: Infrastructure Information
+      required:
+        - name
+        - environment
+        - owner
+      properties:
+        name:
+          title: Infrastructure Name
+          type: string
+          description: Base name for all Azure resources
+          pattern: '^([a-z0-9\-]+)$'
+        environment:
+          title: Environment
+          type: string
+          description: Target environment
+          default: dev
+          enum:
+            - dev
+            - test
+            - prod
+        owner:
+          title: Owner
+          type: string
+          description: Owner of the infrastructure
+          ui:field: OwnerPicker
+          ui:options:
+            allowedKinds:
+              - Group
+              - User
+    - title: Azure Configuration
+      required:
+        - azureLocation
+        - subscriptionId
+      properties:
+        azureLocation:
+          title: Primary Azure Location
+          type: string
+          description: Primary Azure region for deployment
+          default: centralus
+          enum:
+            - centralus
+            - eastus
+            - eastus2
+            - westus2
+            - westeurope
+        secondaryLocation:
+          title: Secondary Azure Location
+          type: string
+          description: Secondary region for geo-redundancy
+          default: eastus2
+          enum:
+            - centralus
+            - eastus
+            - eastus2
+            - westus2
+            - westeurope
+        subscriptionId:
+          title: Azure Subscription ID
+          type: string
+          description: Azure subscription ID for resource deployment
+        deployAKS:
+          title: Deploy AKS Cluster
+          type: boolean
+          description: Deploy Azure Kubernetes Service cluster
+          default: true
+        deployARO:
+          title: Deploy ARO Cluster
+          type: boolean
+          description: Deploy Azure Red Hat OpenShift cluster
+          default: false
+    - title: Repository Information
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+  steps:
+    - id: template
+      name: Fetch Infrastructure Template
+      action: fetch:template
+      input:
+        url: ./skeleton
+        values:
+          name: ${{ parameters.name }}
+          environment: ${{ parameters.environment }}
+          destination: ${{ parameters.repoUrl | parseRepoUrl }}
+          owner: ${{ parameters.owner }}
+          azureLocation: ${{ parameters.azureLocation }}
+          secondaryLocation: ${{ parameters.secondaryLocation }}
+          subscriptionId: ${{ parameters.subscriptionId }}
+          deployAKS: ${{ parameters.deployAKS }}
+          deployARO: ${{ parameters.deployARO }}
+
+    - id: publish
+      name: Publish
+      action: publish:github
+      input:
+        allowedHosts: ["github.com"]
+        description: Azure Infrastructure for ${{ parameters.name }}
+        repoUrl: ${{ parameters.repoUrl }}
+
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: "/catalog-info.yaml"
+
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps.register.output.entityRef }}

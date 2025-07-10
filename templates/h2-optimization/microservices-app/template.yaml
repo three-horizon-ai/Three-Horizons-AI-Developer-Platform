@@ -1,0 +1,130 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: h2-microservices-app
+  title: H2 Microservices Application
+  description: Create a microservices-based application with container orchestration for optimization and scalability
+  tags:
+    - h2-optimization
+    - microservices
+    - kubernetes
+    - azure
+    - containers
+spec:
+  owner: three-horizon-ai
+  type: service
+  parameters:
+    - title: Application Information
+      required:
+        - name
+        - description
+        - owner
+      properties:
+        name:
+          title: Name
+          type: string
+          description: Unique name of the microservices application
+          pattern: '^([a-z0-9\-]+)$'
+          ui:autofocus: true
+          ui:help: 'Use lowercase letters, numbers, and hyphens only'
+        description:
+          title: Description
+          type: string
+          description: Help others understand what this application does
+        owner:
+          title: Owner
+          type: string
+          description: Owner of the component
+          ui:field: OwnerPicker
+          ui:options:
+            allowedKinds:
+              - Group
+              - User
+    - title: Choose a Repository Location
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+            allowedOrganizations:
+              - three-horizon-ai
+    - title: Microservices Configuration
+      required:
+        - services
+      properties:
+        services:
+          title: Microservices
+          type: array
+          description: Define the microservices that will be part of this application
+          items:
+            type: object
+            required:
+              - name
+              - port
+            properties:
+              name:
+                title: Service Name
+                type: string
+                description: Name of the microservice
+              port:
+                title: Port
+                type: integer
+                description: Port number for the service
+                default: 8080
+              database:
+                title: Database
+                type: boolean
+                description: Does this service need a database?
+                default: false
+        useMessaging:
+          title: Enable Message Queue
+          type: boolean
+          description: Include message queue service (Azure Service Bus)
+          default: false
+        monitoring:
+          title: Enable Monitoring
+          type: boolean
+          description: Include monitoring and observability stack
+          default: true
+  steps:
+    - id: fetch
+      name: Fetch Base
+      action: fetch:template
+      input:
+        url: ./content
+        values:
+          name: ${{ parameters.name }}
+          description: ${{ parameters.description }}
+          owner: ${{ parameters.owner }}
+          services: ${{ parameters.services }}
+          useMessaging: ${{ parameters.useMessaging }}
+          monitoring: ${{ parameters.monitoring }}
+    - id: publish
+      name: Publish
+      action: publish:github
+      input:
+        allowedHosts: ['github.com']
+        description: 'H2 Microservices Application: ${{ parameters.description }}'
+        repoUrl: ${{ parameters.repoUrl }}
+        defaultBranch: main
+        gitCommitMessage: 'Initial commit for H2 microservices application'
+        gitAuthorName: 'Backstage'
+        gitAuthorEmail: 'backstage@three-horizon-ai.com'
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: '/catalog-info.yaml'
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps.register.output.entityRef }}

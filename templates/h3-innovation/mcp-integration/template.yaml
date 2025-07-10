@@ -1,0 +1,571 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: h3-mcp-integration
+  title: H3: MCP Integration Platform
+  description: Comprehensive Model Context Protocol (MCP) integration platform for seamless AI tool orchestration and multi-service connectivity
+  annotations:
+    backstage.io/managed-by-location: url:https://github.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform/blob/main/templates/h3-innovation/mcp-integration/template.yaml
+  tags:
+    - horizon-3
+    - innovation
+    - mcp
+    - integration
+    - ai-orchestration
+    - tool-connectivity
+spec:
+  owner: platform-team
+  type: integration-platform
+  
+  parameters:
+    - title: MCP Platform Configuration
+      required:
+        - name
+        - owner
+        - integrationScope
+      properties:
+        name:
+          title: MCP Integration Platform Name
+          type: string
+          pattern: '^[a-z0-9-]+$'
+          description: Unique name for your MCP integration platform
+          default: h3-mcp-integration
+        description:
+          title: Description
+          type: string
+          description: Description of your MCP integration platform
+          default: Comprehensive MCP platform for AI tool orchestration and multi-service connectivity
+        owner:
+          title: Owner
+          type: string
+          description: Owner of the MCP platform (GitHub username or team)
+          ui:field: OwnerPicker
+          ui:options:
+            catalogFilter:
+              kind: [Group, User]
+        integrationScope:
+          title: Integration Scope
+          type: string
+          description: Scope of MCP integrations
+          default: enterprise
+          enum:
+            - basic
+            - advanced
+            - enterprise
+            - global
+            
+    - title: MCP Servers and Tools
+      required:
+        - mcpServers
+        - enableCustomServers
+      properties:
+        mcpServers:
+          title: MCP Servers
+          type: array
+          description: MCP servers to deploy and integrate
+          items:
+            type: string
+            enum:
+              - azure-mcp-server
+              - github-mcp-server
+              - filesystem-mcp
+              - database-mcp
+              - web-search-mcp
+              - slack-mcp
+              - email-mcp
+              - calendar-mcp
+              - jira-mcp
+              - confluence-mcp
+              - docker-mcp
+              - kubernetes-mcp
+              - aws-mcp
+              - gcp-mcp
+              - terraform-mcp
+              - ansible-mcp
+          default: ["azure-mcp-server", "github-mcp-server", "filesystem-mcp", "web-search-mcp"]
+          ui:widget: checkboxes
+        enableCustomServers:
+          title: Enable Custom MCP Servers
+          type: boolean
+          description: Support for custom MCP server development
+          default: true
+        mcpToolCategories:
+          title: MCP Tool Categories
+          type: array
+          description: Categories of MCP tools to include
+          items:
+            type: string
+            enum:
+              - development-tools
+              - cloud-management
+              - data-processing
+              - communication
+              - project-management
+              - security-tools
+              - monitoring-tools
+              - deployment-tools
+              - testing-tools
+              - documentation-tools
+          default: ["development-tools", "cloud-management", "communication"]
+          ui:widget: checkboxes
+        enableToolDiscovery:
+          title: Enable Tool Discovery
+          type: boolean
+          description: Automatic discovery and registration of MCP tools
+          default: true
+        enableToolComposition:
+          title: Enable Tool Composition
+          type: boolean
+          description: Ability to compose complex workflows from multiple tools
+          default: true
+          
+    - title: AI Model Integration
+      required:
+        - supportedModels
+        - enableMultiModel
+      properties:
+        supportedModels:
+          title: Supported AI Models
+          type: array
+          description: AI models to integrate with MCP platform
+          items:
+            type: string
+            enum:
+              - gpt-4o
+              - gpt-4o-mini
+              - claude-3-sonnet
+              - claude-3-haiku
+              - gemini-pro
+              - llama-3
+              - codellama
+              - phi-3
+              - mistral
+              - cohere
+          default: ["gpt-4o", "claude-3-sonnet", "gpt-4o-mini"]
+          ui:widget: checkboxes
+        enableMultiModel:
+          title: Enable Multi-Model Support
+          type: boolean
+          description: Support for using multiple AI models simultaneously
+          default: true
+        enableModelRouting:
+          title: Enable Intelligent Model Routing
+          type: boolean
+          description: Route requests to optimal models based on task type
+          default: true
+        enableModelFallback:
+          title: Enable Model Fallback
+          type: boolean
+          description: Automatic fallback to alternative models on failure
+          default: true
+        enableContextSharing:
+          title: Enable Context Sharing
+          type: boolean
+          description: Share context between different AI models and tools
+          default: true
+        enableEmbeddings:
+          title: Enable Embeddings Integration
+          type: boolean
+          description: Support for text embeddings and vector operations
+          default: true
+          
+    - title: Protocol and Communication
+      required:
+        - protocolVersion
+        - enableSSE
+        - enableWebSockets
+      properties:
+        protocolVersion:
+          title: MCP Protocol Version
+          type: string
+          description: Version of MCP protocol to implement
+          default: "2024-11-05"
+          enum:
+            - "2024-11-05"
+            - "2024-10-07"
+            - latest
+        enableSSE:
+          title: Enable Server-Sent Events
+          type: boolean
+          description: Support for SSE-based communication
+          default: true
+        enableWebSockets:
+          title: Enable WebSockets
+          type: boolean
+          description: Support for WebSocket-based communication
+          default: true
+        enableStdIO:
+          title: Enable Standard I/O
+          type: boolean
+          description: Support for stdio-based communication
+          default: true
+        enableAuthentication:
+          title: Enable Authentication
+          type: boolean
+          description: Implement authentication for MCP connections
+          default: true
+        authenticationMethods:
+          title: Authentication Methods
+          type: array
+          description: Supported authentication methods
+          items:
+            type: string
+            enum:
+              - oauth2
+              - api-key
+              - jwt
+              - mutual-tls
+              - azure-ad
+              - github-app
+          default: ["oauth2", "api-key", "azure-ad"]
+          ui:widget: checkboxes
+          
+    - title: Azure and Cloud Integration
+      required:
+        - azureSubscription
+        - azureLocation
+        - enableAzureIntegration
+      properties:
+        azureSubscription:
+          title: Azure Subscription ID
+          type: string
+          description: Azure subscription ID for cloud integrations
+          ui:help: 'Enter your Azure subscription ID (GUID format)'
+        azureLocation:
+          title: Azure Location
+          type: string
+          description: Primary Azure region for MCP platform
+          default: eastus
+          enum:
+            - eastus
+            - westus2
+            - northeurope
+            - westeurope
+            - australiaeast
+            - southeastasia
+        enableAzureIntegration:
+          title: Enable Deep Azure Integration
+          type: boolean
+          description: Enable comprehensive Azure service integration
+          default: true
+        azureServices:
+          title: Azure Services to Integrate
+          type: array
+          description: Azure services to expose through MCP
+          items:
+            type: string
+            enum:
+              - azure-openai
+              - cognitive-services
+              - storage-accounts
+              - cosmos-db
+              - key-vault
+              - app-service
+              - functions
+              - container-apps
+              - aks
+              - log-analytics
+              - monitor
+              - devops
+          default: ["azure-openai", "storage-accounts", "cosmos-db", "key-vault"]
+          ui:widget: checkboxes
+        enableMultiCloud:
+          title: Enable Multi-Cloud Support
+          type: boolean
+          description: Support for AWS, GCP, and other cloud providers
+          default: false
+          
+    - title: Data and State Management
+      required:
+        - enableSessionManagement
+        - stateStorage
+      properties:
+        enableSessionManagement:
+          title: Enable Session Management
+          type: boolean
+          description: Manage sessions and context across MCP interactions
+          default: true
+        stateStorage:
+          title: State Storage Backend
+          type: string
+          description: Backend for storing MCP state and context
+          default: cosmos-db
+          enum:
+            - cosmos-db
+            - redis
+            - postgresql
+            - in-memory
+            - azure-table-storage
+        enableContextPersistence:
+          title: Enable Context Persistence
+          type: boolean
+          description: Persist conversation context across sessions
+          default: true
+        enableDataEncryption:
+          title: Enable Data Encryption
+          type: boolean
+          description: Encrypt stored data and communications
+          default: true
+        enableAuditLogging:
+          title: Enable Audit Logging
+          type: boolean
+          description: Comprehensive audit logging of all MCP interactions
+          default: true
+        dataRetentionPeriod:
+          title: Data Retention Period
+          type: string
+          description: How long to retain MCP data and logs
+          default: 90d
+          enum:
+            - 30d
+            - 90d
+            - 180d
+            - 1y
+            - indefinite
+            
+    - title: Deployment and Scaling
+      required:
+        - deploymentTarget
+        - enableHorizontalScaling
+      properties:
+        deploymentTarget:
+          title: Deployment Target
+          type: string
+          description: Target platform for MCP deployment
+          default: kubernetes
+          enum:
+            - kubernetes
+            - container-apps
+            - app-service
+            - functions
+            - vm-scale-sets
+        enableHorizontalScaling:
+          title: Enable Horizontal Scaling
+          type: boolean
+          description: Automatic horizontal scaling based on load
+          default: true
+        enableLoadBalancing:
+          title: Enable Load Balancing
+          type: boolean
+          description: Load balancing across MCP server instances
+          default: true
+        enableHealthChecks:
+          title: Enable Health Checks
+          type: boolean
+          description: Comprehensive health checking for all components
+          default: true
+        enableCircuitBreaker:
+          title: Enable Circuit Breaker
+          type: boolean
+          description: Circuit breaker pattern for resilient operations
+          default: true
+        maxConcurrentConnections:
+          title: Max Concurrent Connections
+          type: integer
+          description: Maximum concurrent MCP connections
+          default: 1000
+          minimum: 10
+          maximum: 10000
+          
+    - title: Monitoring and Observability
+      required:
+        - enableMonitoring
+        - monitoringStack
+      properties:
+        enableMonitoring:
+          title: Enable Comprehensive Monitoring
+          type: boolean
+          description: Deploy full monitoring and observability stack
+          default: true
+        monitoringStack:
+          title: Monitoring Stack
+          type: array
+          description: Monitoring tools to deploy
+          items:
+            type: string
+            enum:
+              - prometheus
+              - grafana
+              - jaeger
+              - azure-monitor
+              - application-insights
+              - elastic-stack
+              - datadog
+          default: ["prometheus", "grafana", "azure-monitor"]
+          ui:widget: checkboxes
+        enableDistributedTracing:
+          title: Enable Distributed Tracing
+          type: boolean
+          description: Full distributed tracing across MCP interactions
+          default: true
+        enableMetricsCollection:
+          title: Enable Metrics Collection
+          type: boolean
+          description: Collect detailed metrics on MCP performance
+          default: true
+        enableAlerts:
+          title: Enable Intelligent Alerts
+          type: boolean
+          description: AI-powered alerting for MCP platform issues
+          default: true
+        alertChannels:
+          title: Alert Channels
+          type: array
+          description: Channels for receiving alerts
+          items:
+            type: string
+            enum:
+              - email
+              - slack
+              - teams
+              - pagerduty
+              - webhook
+          default: ["email", "slack"]
+          ui:widget: checkboxes
+          
+    - title: Security and Compliance
+      required:
+        - enableSecurity
+        - securityLevel
+      properties:
+        enableSecurity:
+          title: Enable Advanced Security
+          type: boolean
+          description: Implement comprehensive security measures
+          default: true
+        securityLevel:
+          title: Security Level
+          type: string
+          description: Level of security implementation
+          default: high
+          enum:
+            - basic
+            - medium
+            - high
+            - enterprise
+        enableTLS:
+          title: Enable TLS Encryption
+          type: boolean
+          description: Enforce TLS for all communications
+          default: true
+        enableRBAC:
+          title: Enable RBAC
+          type: boolean
+          description: Role-based access control for MCP resources
+          default: true
+        enableAPIRateLimit:
+          title: Enable API Rate Limiting
+          type: boolean
+          description: Rate limiting for MCP API endpoints
+          default: true
+        enableVulnerabilityScanning:
+          title: Enable Vulnerability Scanning
+          type: boolean
+          description: Regular vulnerability scanning of MCP components
+          default: true
+        complianceFrameworks:
+          title: Compliance Frameworks
+          type: array
+          description: Compliance frameworks to implement
+          items:
+            type: string
+            enum:
+              - soc2
+              - iso27001
+              - gdpr
+              - hipaa
+              - pci-dss
+          default: ["soc2"]
+          ui:widget: checkboxes
+
+  steps:
+    - id: template
+      name: Render MCP Integration Template
+      action: fetch:template
+      input:
+        url: ./skeleton
+        values:
+          name: ${{ parameters.name }}
+          description: ${{ parameters.description }}
+          owner: ${{ parameters.owner }}
+          integrationScope: ${{ parameters.integrationScope }}
+          mcpServers: ${{ parameters.mcpServers }}
+          enableCustomServers: ${{ parameters.enableCustomServers }}
+          mcpToolCategories: ${{ parameters.mcpToolCategories }}
+          enableToolDiscovery: ${{ parameters.enableToolDiscovery }}
+          enableToolComposition: ${{ parameters.enableToolComposition }}
+          supportedModels: ${{ parameters.supportedModels }}
+          enableMultiModel: ${{ parameters.enableMultiModel }}
+          enableModelRouting: ${{ parameters.enableModelRouting }}
+          enableModelFallback: ${{ parameters.enableModelFallback }}
+          enableContextSharing: ${{ parameters.enableContextSharing }}
+          enableEmbeddings: ${{ parameters.enableEmbeddings }}
+          protocolVersion: ${{ parameters.protocolVersion }}
+          enableSSE: ${{ parameters.enableSSE }}
+          enableWebSockets: ${{ parameters.enableWebSockets }}
+          enableStdIO: ${{ parameters.enableStdIO }}
+          enableAuthentication: ${{ parameters.enableAuthentication }}
+          authenticationMethods: ${{ parameters.authenticationMethods }}
+          azureSubscription: ${{ parameters.azureSubscription }}
+          azureLocation: ${{ parameters.azureLocation }}
+          enableAzureIntegration: ${{ parameters.enableAzureIntegration }}
+          azureServices: ${{ parameters.azureServices }}
+          enableMultiCloud: ${{ parameters.enableMultiCloud }}
+          enableSessionManagement: ${{ parameters.enableSessionManagement }}
+          stateStorage: ${{ parameters.stateStorage }}
+          enableContextPersistence: ${{ parameters.enableContextPersistence }}
+          enableDataEncryption: ${{ parameters.enableDataEncryption }}
+          enableAuditLogging: ${{ parameters.enableAuditLogging }}
+          dataRetentionPeriod: ${{ parameters.dataRetentionPeriod }}
+          deploymentTarget: ${{ parameters.deploymentTarget }}
+          enableHorizontalScaling: ${{ parameters.enableHorizontalScaling }}
+          enableLoadBalancing: ${{ parameters.enableLoadBalancing }}
+          enableHealthChecks: ${{ parameters.enableHealthChecks }}
+          enableCircuitBreaker: ${{ parameters.enableCircuitBreaker }}
+          maxConcurrentConnections: ${{ parameters.maxConcurrentConnections }}
+          enableMonitoring: ${{ parameters.enableMonitoring }}
+          monitoringStack: ${{ parameters.monitoringStack }}
+          enableDistributedTracing: ${{ parameters.enableDistributedTracing }}
+          enableMetricsCollection: ${{ parameters.enableMetricsCollection }}
+          enableAlerts: ${{ parameters.enableAlerts }}
+          alertChannels: ${{ parameters.alertChannels }}
+          enableSecurity: ${{ parameters.enableSecurity }}
+          securityLevel: ${{ parameters.securityLevel }}
+          enableTLS: ${{ parameters.enableTLS }}
+          enableRBAC: ${{ parameters.enableRBAC }}
+          enableAPIRateLimit: ${{ parameters.enableAPIRateLimit }}
+          enableVulnerabilityScanning: ${{ parameters.enableVulnerabilityScanning }}
+          complianceFrameworks: ${{ parameters.complianceFrameworks }}
+
+    - id: publish
+      name: Publish to GitHub
+      action: publish:github
+      input:
+        allowedHosts: ['github.com']
+        description: 'MCP Integration Platform: ${{ parameters.name }}'
+        repoUrl: github.com/three-horizon-ai/${{ parameters.name }}
+        defaultBranch: main
+        gitCommitMessage: 'Initial MCP integration platform setup for ${{ parameters.name }}'
+        gitAuthorName: ${{ parameters.owner }}
+        gitAuthorEmail: ${{ parameters.owner }}@users.noreply.github.com
+
+    - id: register
+      name: Register in Catalog
+      action: catalog:register
+      input:
+        repoContentsUrl: https://github.com/three-horizon-ai/${{ parameters.name }}
+        catalogInfoPath: '/catalog-info.yaml'
+
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps.register.output.entityRef }}
+      - title: MCP Dashboard
+        url: https://mcp-dashboard.${{ parameters.name }}.local
+      - title: MCP API Console
+        url: https://mcp-api.${{ parameters.name }}.local
+      - title: Tool Registry
+        url: https://tool-registry.${{ parameters.name }}.local

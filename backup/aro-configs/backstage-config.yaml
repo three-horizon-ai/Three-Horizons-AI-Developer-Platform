@@ -1,0 +1,36 @@
+apiVersion: rhdh.redhat.com/v1alpha3
+kind: Backstage
+metadata:
+  creationTimestamp: "2025-07-07T20:45:33Z"
+  generation: 4
+  labels:
+    app.kubernetes.io/name: backstage
+  name: developer-hub
+  namespace: developer-hub
+  resourceVersion: "54182235"
+  uid: 44d807af-5e88-493b-b099-bedb17d640c5
+spec:
+  application:
+    appConfig:
+      configMaps:
+      - name: app-config-rhdh
+      mountPath: /opt/app-root/src
+    dynamicPluginsConfigMapName: dynamic-plugins-rhdh
+    extraEnvs:
+      secrets:
+      - name: github-app-credentials
+    extraFiles:
+      mountPath: /opt/app-root/src
+      secrets: []
+    replicas: 1
+    route:
+      enabled: true
+  database:
+    enableLocalDb: true
+status:
+  conditions:
+  - lastTransitionTime: "2025-07-10T15:50:07Z"
+    message: ""
+    reason: Deployed
+    status: "True"
+    type: Deployed

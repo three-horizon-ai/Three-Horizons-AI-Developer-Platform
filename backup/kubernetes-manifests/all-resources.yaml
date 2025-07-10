@@ -1,0 +1,4435 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      k8s.ovn.org/pod-networks: '{"default":{"ip_addresses":["10.129.2.136/23"],"mac_address":"0a:58:0a:81:02:88","gateway_ips":["10.129.2.1"],"routes":[{"dest":"10.128.0.0/14","nextHop":"10.129.2.1"},{"dest":"172.30.0.0/16","nextHop":"10.129.2.1"},{"dest":"100.64.0.0/16","nextHop":"10.129.2.1"}],"ip_address":"10.129.2.136/23","gateway_ip":"10.129.2.1"}}'
+      k8s.v1.cni.cncf.io/network-status: |-
+        [{
+            "name": "ovn-kubernetes",
+            "interface": "eth0",
+            "ips": [
+                "10.129.2.136"
+            ],
+            "mac": "0a:58:0a:81:02:88",
+            "default": true,
+            "dns": {}
+        }]
+      openshift.io/scc: restricted-v2
+      rhdh.redhat.com/ext-config-hash: 7726fe584093a9b2a95b467599dbcdf393a9a5c2b3839ecb98f22b8e3caef7e4
+      seccomp.security.alpha.kubernetes.io/pod: runtime/default
+    creationTimestamp: "2025-07-09T23:50:08Z"
+    generateName: backstage-developer-hub-97c7498b7-
+    labels:
+      pod-template-hash: 97c7498b7
+      rhdh.redhat.com/app: backstage-developer-hub
+    name: backstage-developer-hub-97c7498b7-qjszn
+    namespace: developer-hub
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: backstage-developer-hub-97c7498b7
+      uid: d51e329d-b07b-4531-b63d-57083caabf89
+    resourceVersion: "54182142"
+    uid: 450629ee-0265-4ad9-b763-bd566b28d009
+  spec:
+    automountServiceAccountToken: false
+    containers:
+    - args:
+      - --config
+      - dynamic-plugins-root/app-config.dynamic-plugins.yaml
+      - --config
+      - /opt/app-root/src/default.app-config.yaml
+      - --config
+      - /opt/app-root/src/app-config-rhdh.yaml
+      env:
+      - name: APP_CONFIG_backend_listen_port
+        value: "7007"
+      envFrom:
+      - secretRef:
+          name: backstage-psql-secret-developer-hub
+      - secretRef:
+          name: backstage-envs-developer-hub
+      - secretRef:
+          name: github-app-credentials
+      image: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+      imagePullPolicy: IfNotPresent
+      livenessProbe:
+        failureThreshold: 3
+        httpGet:
+          path: /.backstage/health/v1/liveness
+          port: backend
+          scheme: HTTP
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 4
+      name: backstage-backend
+      ports:
+      - containerPort: 7007
+        name: backend
+        protocol: TCP
+      readinessProbe:
+        failureThreshold: 3
+        httpGet:
+          path: /.backstage/health/v1/readiness
+          port: backend
+          scheme: HTTP
+        periodSeconds: 10
+        successThreshold: 2
+        timeoutSeconds: 4
+      resources:
+        limits:
+          cpu: "1"
+          ephemeral-storage: 5Gi
+          memory: 2560Mi
+        requests:
+          cpu: 250m
+          ephemeral-storage: 5Gi
+          memory: 256Mi
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+        readOnlyRootFilesystem: true
+        runAsNonRoot: true
+        runAsUser: 1000780000
+        seccompProfile:
+          type: RuntimeDefault
+      startupProbe:
+        failureThreshold: 3
+        httpGet:
+          path: /.backstage/health/v1/liveness
+          port: backend
+          scheme: HTTP
+        initialDelaySeconds: 30
+        periodSeconds: 20
+        successThreshold: 1
+        timeoutSeconds: 4
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /opt/app-root/src/dynamic-plugins-root
+        name: dynamic-plugins-root
+      - mountPath: /tmp
+        name: temp
+      - mountPath: /opt/app-root/src/default.app-config.yaml
+        name: backstage-appconfig-developer-hub
+        readOnly: true
+        subPath: default.app-config.yaml
+      - mountPath: /opt/app-root/src/app-config-rhdh.yaml
+        name: app-config-rhdh
+        readOnly: true
+        subPath: app-config-rhdh.yaml
+      workingDir: /opt/app-root/src
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    imagePullSecrets:
+    - name: default-dockercfg-qhszw
+    initContainers:
+    - command:
+      - ./install-dynamic-plugins.sh
+      - /dynamic-plugins-root
+      env:
+      - name: NPM_CONFIG_USERCONFIG
+        value: /opt/app-root/src/.npmrc.dynamic-plugins
+      image: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+      imagePullPolicy: IfNotPresent
+      name: install-dynamic-plugins
+      resources:
+        limits:
+          cpu: "1"
+          ephemeral-storage: 5Gi
+          memory: 2560Mi
+        requests:
+          cpu: 250m
+          ephemeral-storage: 5Gi
+          memory: 256Mi
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+        readOnlyRootFilesystem: true
+        runAsNonRoot: true
+        runAsUser: 1000780000
+        seccompProfile:
+          type: RuntimeDefault
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /dynamic-plugins-root
+        name: dynamic-plugins-root
+      - mountPath: /opt/app-root/src/.npmrc.dynamic-plugins
+        name: dynamic-plugins-npmrc
+        readOnly: true
+        subPath: .npmrc
+      - mountPath: /opt/app-root/src/.config/containers
+        name: dynamic-plugins-registry-auth
+        readOnly: true
+      - mountPath: /opt/app-root/src/.npm/_cacache
+        name: npmcacache
+      - mountPath: /tmp
+        name: temp
+      - mountPath: /opt/app-root/src/dynamic-plugins.yaml
+        name: dynamic-plugins-rhdh
+        readOnly: true
+        subPath: dynamic-plugins.yaml
+      workingDir: /opt/app-root/src
+    nodeName: three-horizons-aro-5q584-worker-centralus3-tn4pb
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1000780000
+      seLinuxOptions:
+        level: s0:c28,c12
+      seccompProfile:
+        type: RuntimeDefault
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    volumes:
+    - ephemeral:
+        volumeClaimTemplate:
+          metadata:
+            creationTimestamp: null
+          spec:
+            accessModes:
+            - ReadWriteOnce
+            resources:
+              requests:
+                storage: 2Gi
+            volumeMode: Filesystem
+      name: dynamic-plugins-root
+    - name: dynamic-plugins-npmrc
+      secret:
+        defaultMode: 420
+        optional: true
+        secretName: dynamic-plugins-npmrc
+    - name: dynamic-plugins-registry-auth
+      secret:
+        defaultMode: 416
+        optional: true
+        secretName: dynamic-plugins-registry-auth
+    - emptyDir: {}
+      name: npmcacache
+    - emptyDir: {}
+      name: temp
+    - configMap:
+        defaultMode: 420
+        name: backstage-appconfig-developer-hub
+        optional: false
+      name: backstage-appconfig-developer-hub
+    - configMap:
+        defaultMode: 420
+        name: app-config-rhdh
+        optional: false
+      name: app-config-rhdh
+    - configMap:
+        defaultMode: 420
+        name: dynamic-plugins-rhdh
+        optional: false
+      name: dynamic-plugins-rhdh
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-07-09T23:52:43Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-07-09T23:53:36Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-07-09T23:53:36Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-07-09T23:50:12Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: cri-o://e1d2b56ffbff0963bd2ef944faef47befc0812f0955dcce29fcc5253731dbcca
+      image: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+      imageID: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+      lastState: {}
+      name: backstage-backend
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2025-07-09T23:52:44Z"
+    hostIP: 10.0.10.4
+    initContainerStatuses:
+    - containerID: cri-o://2bbb6aa1be8ec909a3c0ec77d405f1069ad653a3576e2a84db5ebb03f5313ae0
+      image: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+      imageID: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+      lastState: {}
+      name: install-dynamic-plugins
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: cri-o://2bbb6aa1be8ec909a3c0ec77d405f1069ad653a3576e2a84db5ebb03f5313ae0
+          exitCode: 0
+          finishedAt: "2025-07-09T23:52:43Z"
+          reason: Completed
+          startedAt: "2025-07-09T23:50:27Z"
+    phase: Running
+    podIP: 10.129.2.136
+    podIPs:
+    - ip: 10.129.2.136
+    qosClass: Burstable
+    startTime: "2025-07-09T23:50:12Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      k8s.ovn.org/pod-networks: '{"default":{"ip_addresses":["10.129.3.124/23"],"mac_address":"0a:58:0a:81:03:7c","gateway_ips":["10.129.2.1"],"routes":[{"dest":"10.128.0.0/14","nextHop":"10.129.2.1"},{"dest":"172.30.0.0/16","nextHop":"10.129.2.1"},{"dest":"100.64.0.0/16","nextHop":"10.129.2.1"}],"ip_address":"10.129.3.124/23","gateway_ip":"10.129.2.1"}}'
+      k8s.v1.cni.cncf.io/network-status: |-
+        [{
+            "name": "ovn-kubernetes",
+            "interface": "eth0",
+            "ips": [
+                "10.129.3.124"
+            ],
+            "mac": "0a:58:0a:81:03:7c",
+            "default": true,
+            "dns": {}
+        }]
+      openshift.io/scc: restricted-v2
+      seccomp.security.alpha.kubernetes.io/pod: runtime/default
+    creationTimestamp: "2025-07-07T22:43:43Z"
+    generateName: backstage-psql-developer-hub-
+    labels:
+      apps.kubernetes.io/pod-index: "0"
+      controller-revision-hash: backstage-psql-developer-hub-896c9dc5f
+      rhdh.redhat.com/app: backstage-psql-developer-hub
+      statefulset.kubernetes.io/pod-name: backstage-psql-developer-hub-0
+    name: backstage-psql-developer-hub-0
+    namespace: developer-hub
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: StatefulSet
+      name: backstage-psql-developer-hub
+      uid: 5aecefb4-031b-443a-a451-a808f624e5aa
+    resourceVersion: "54182112"
+    uid: 85332090-7728-4001-bc10-1a6d0fea1c29
+  spec:
+    automountServiceAccountToken: false
+    containers:
+    - env:
+      - name: POSTGRESQL_PORT_NUMBER
+        value: "5432"
+      - name: POSTGRESQL_VOLUME_DIR
+        value: /var/lib/pgsql/data
+      - name: PGDATA
+        value: /var/lib/pgsql/data/userdata
+      envFrom:
+      - secretRef:
+          name: backstage-psql-secret-developer-hub
+      image: registry.redhat.io/rhel9/postgresql-15@sha256:ddf4827c9093a0ec93b5b4f4fd31b009c7811c38a406187400ab448579036c6c
+      imagePullPolicy: IfNotPresent
+      livenessProbe:
+        exec:
+          command:
+          - /bin/sh
+          - -c
+          - exec pg_isready -U ${POSTGRES_USER} -h 127.0.0.1 -p 5432
+        failureThreshold: 6
+        initialDelaySeconds: 30
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 5
+      name: postgresql
+      ports:
+      - containerPort: 5432
+        name: tcp-postgresql
+        protocol: TCP
+      readinessProbe:
+        exec:
+          command:
+          - /bin/sh
+          - -c
+          - -e
+          - |
+            exec pg_isready -U ${POSTGRES_USER} -h 127.0.0.1 -p 5432
+        failureThreshold: 6
+        initialDelaySeconds: 5
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 5
+      resources:
+        limits:
+          cpu: 250m
+          ephemeral-storage: 20Mi
+          memory: 1Gi
+        requests:
+          cpu: 250m
+          ephemeral-storage: 20Mi
+          memory: 256Mi
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+        runAsGroup: 0
+        runAsNonRoot: true
+        runAsUser: 1000780000
+        seccompProfile:
+          type: RuntimeDefault
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /dev/shm
+        name: dshm
+      - mountPath: /var/lib/pgsql/data
+        name: data
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    hostname: backstage-psql-developer-hub-0
+    imagePullSecrets:
+    - name: default-dockercfg-qhszw
+    nodeName: three-horizons-aro-5q584-worker-centralus3-tn4pb
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1000780000
+      seLinuxOptions:
+        level: s0:c28,c12
+      seccompProfile:
+        type: RuntimeDefault
+    serviceAccount: default
+    serviceAccountName: default
+    subdomain: backstage-psql-developer-hub
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    volumes:
+    - name: data
+      persistentVolumeClaim:
+        claimName: data-backstage-psql-developer-hub-0
+    - emptyDir:
+        medium: Memory
+      name: dshm
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-07-07T22:43:43Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-07-07T22:43:58Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-07-07T22:43:58Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-07-07T22:43:43Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: cri-o://71fb87be0bd6f74e0d9ffde83baed89a745a2105e02907305e9fab0b06c933ba
+      image: registry.redhat.io/rhel9/postgresql-15@sha256:ddf4827c9093a0ec93b5b4f4fd31b009c7811c38a406187400ab448579036c6c
+      imageID: registry.redhat.io/rhel9/postgresql-15@sha256:00f53ed1afcacd79767a5f36726e2eded05b58099d4628a421dd04f2f402afc8
+      lastState: {}
+      name: postgresql
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2025-07-07T22:43:48Z"
+    hostIP: 10.0.10.4
+    phase: Running
+    podIP: 10.129.3.124
+    podIPs:
+    - ip: 10.129.3.124
+    qosClass: Burstable
+    startTime: "2025-07-07T22:43:43Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      alm-examples: |-
+        [
+          {
+            "apiVersion": "rhdh.redhat.com/v1alpha1",
+            "kind": "Backstage",
+            "metadata": {
+              "labels": {
+                "app.kubernetes.io/name": "backstage"
+              },
+              "name": "developer-hub"
+            }
+          },
+          {
+            "apiVersion": "rhdh.redhat.com/v1alpha2",
+            "kind": "Backstage",
+            "metadata": {
+              "labels": {
+                "app.kubernetes.io/name": "backstage"
+              },
+              "name": "developer-hub"
+            }
+          },
+          {
+            "apiVersion": "rhdh.redhat.com/v1alpha3",
+            "kind": "Backstage",
+            "metadata": {
+              "labels": {
+                "app.kubernetes.io/name": "backstage"
+              },
+              "name": "developer-hub"
+            }
+          }
+        ]
+      capabilities: Seamless Upgrades
+      categories: Developer Tools
+      certified: "true"
+      containerImage: registry.redhat.io/rhdh/rhdh-rhel9-operator@sha256:2f72c8706af43c0fbf8afc82d1925c77887aa7c3c3b1cb28f698bc4e4241ed4d
+      createdAt: "2025-05-14T19:28:36Z"
+      description: Red Hat Developer Hub is a Red Hat supported version of Backstage.
+        It comes with pre-built plug-ins and configuration settings, supports use
+        of an external database, and can help streamline the process of setting up
+        a self-managed internal developer portal for adopters who are just starting
+        out.
+      features.operators.openshift.io/cnf: "false"
+      features.operators.openshift.io/cni: "false"
+      features.operators.openshift.io/csi: "false"
+      features.operators.openshift.io/disconnected: "true"
+      features.operators.openshift.io/fips-compliant: "false"
+      features.operators.openshift.io/proxy-aware: "false"
+      features.operators.openshift.io/tls-profiles: "false"
+      features.operators.openshift.io/token-auth-aws: "false"
+      features.operators.openshift.io/token-auth-azure: "false"
+      features.operators.openshift.io/token-auth-gcp: "false"
+      k8s.ovn.org/pod-networks: '{"default":{"ip_addresses":["10.131.0.101/23"],"mac_address":"0a:58:0a:83:00:65","gateway_ips":["10.131.0.1"],"routes":[{"dest":"10.128.0.0/14","nextHop":"10.131.0.1"},{"dest":"172.30.0.0/16","nextHop":"10.131.0.1"},{"dest":"100.64.0.0/16","nextHop":"10.131.0.1"}],"ip_address":"10.131.0.101/23","gateway_ip":"10.131.0.1"}}'
+      k8s.v1.cni.cncf.io/network-status: |-
+        [{
+            "name": "ovn-kubernetes",
+            "interface": "eth0",
+            "ips": [
+                "10.131.0.101"
+            ],
+            "mac": "0a:58:0a:83:00:65",
+            "default": true,
+            "dns": {}
+        }]
+      kubectl.kubernetes.io/default-container: manager
+      olm.operatorGroup: developer-hub-x6dbb
+      olm.operatorNamespace: developer-hub
+      olm.targetNamespaces: ""
+      openshift.io/scc: restricted-v2
+      operatorframework.io/properties: '{"properties":[{"type":"olm.gvk","value":{"group":"rhdh.redhat.com","kind":"Backstage","version":"v1alpha1"}},{"type":"olm.gvk","value":{"group":"rhdh.redhat.com","kind":"Backstage","version":"v1alpha2"}},{"type":"olm.gvk","value":{"group":"rhdh.redhat.com","kind":"Backstage","version":"v1alpha3"}},{"type":"olm.package","value":{"packageName":"rhdh","version":"1.6.1"}}]}'
+      operatorframework.io/suggested-namespace: rhdh-operator
+      operators.openshift.io/valid-subscription: '["Red Hat Developer Hub"]'
+      operators.operatorframework.io/builder: operator-sdk-v1.37.0
+      operators.operatorframework.io/project_layout: go.kubebuilder.io/v4
+      repository: https://gitlab.cee.redhat.com/rhidp/rhdh/
+      seccomp.security.alpha.kubernetes.io/pod: runtime/default
+      skipRange: '>=1.0.0 <1.6.1'
+      support: Red Hat
+    creationTimestamp: "2025-07-07T22:44:26Z"
+    generateName: rhdh-operator-8fb899fd9-
+    labels:
+      app: rhdh-operator
+      app.kubernetes.io/component: rhdh-operator
+      control-plane: controller-manager
+      pod-template-hash: 8fb899fd9
+    name: rhdh-operator-8fb899fd9-l4tmm
+    namespace: developer-hub
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: rhdh-operator-8fb899fd9
+      uid: 181c03aa-802e-4175-992d-d6c6db269dea
+    resourceVersion: "53804619"
+    uid: 5c64a6af-ee8b-495d-88bb-2b1cc9ff78eb
+  spec:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: kubernetes.io/arch
+              operator: In
+              values:
+              - amd64
+            - key: kubernetes.io/os
+              operator: In
+              values:
+              - linux
+    automountServiceAccountToken: true
+    containers:
+    - args:
+      - --health-probe-bind-address=:8081
+      - --metrics-bind-address=:8443
+      - --metrics-secure=true
+      - --leader-elect
+      command:
+      - /manager
+      env:
+      - name: OPERATOR_NAME
+        value: rhdh-operator
+      - name: POD_NAME
+        valueFrom:
+          fieldRef:
+            apiVersion: v1
+            fieldPath: metadata.name
+      - name: RELATED_IMAGE_postgresql
+        value: registry.redhat.io/rhel9/postgresql-15@sha256:ddf4827c9093a0ec93b5b4f4fd31b009c7811c38a406187400ab448579036c6c
+      - name: RELATED_IMAGE_backstage
+        value: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+      - name: OPERATOR_CONDITION_NAME
+        value: rhdh-operator.v1.6.1
+      image: registry.redhat.io/rhdh/rhdh-rhel9-operator@sha256:2f72c8706af43c0fbf8afc82d1925c77887aa7c3c3b1cb28f698bc4e4241ed4d
+      imagePullPolicy: IfNotPresent
+      livenessProbe:
+        failureThreshold: 3
+        httpGet:
+          path: /healthz
+          port: health
+          scheme: HTTP
+        initialDelaySeconds: 15
+        periodSeconds: 20
+        successThreshold: 1
+        timeoutSeconds: 1
+      name: manager
+      ports:
+      - containerPort: 8081
+        name: health
+        protocol: TCP
+      - containerPort: 8443
+        name: metrics
+        protocol: TCP
+      readinessProbe:
+        failureThreshold: 3
+        httpGet:
+          path: /readyz
+          port: health
+          scheme: HTTP
+        initialDelaySeconds: 5
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      resources:
+        limits:
+          cpu: 500m
+          ephemeral-storage: 20Mi
+          memory: 1Gi
+        requests:
+          cpu: 10m
+          ephemeral-storage: 20Mi
+          memory: 128Mi
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+        readOnlyRootFilesystem: true
+        runAsUser: 1000780000
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /default-config
+        name: default-config
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-9gjm7
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    imagePullSecrets:
+    - name: rhdh-controller-manager-dockercfg-4bbh7
+    nodeName: three-horizons-aro-5q584-worker-centralus1-bd7wq
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1000780000
+      runAsNonRoot: true
+      seLinuxOptions:
+        level: s0:c28,c12
+      seccompProfile:
+        type: RuntimeDefault
+    serviceAccount: rhdh-controller-manager
+    serviceAccountName: rhdh-controller-manager
+    terminationGracePeriodSeconds: 10
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    volumes:
+    - configMap:
+        defaultMode: 420
+        name: rhdh-default-config
+      name: default-config
+    - name: kube-api-access-9gjm7
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+        - configMap:
+            items:
+            - key: service-ca.crt
+              path: service-ca.crt
+            name: openshift-service-ca.crt
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-07-07T22:44:26Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-07-10T09:58:17Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-07-10T09:58:17Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-07-07T22:44:26Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: cri-o://32e4750077c2ddeea53e54a897f680995ff4dac942981b4506163c41cf47aead
+      image: registry.redhat.io/rhdh/rhdh-rhel9-operator@sha256:2f72c8706af43c0fbf8afc82d1925c77887aa7c3c3b1cb28f698bc4e4241ed4d
+      imageID: registry.redhat.io/rhdh/rhdh-rhel9-operator@sha256:2f72c8706af43c0fbf8afc82d1925c77887aa7c3c3b1cb28f698bc4e4241ed4d
+      lastState:
+        terminated:
+          containerID: cri-o://cc36e3b8d1bf2a5fdc85e3836588ae321b31ff6b6ab78c2421f93c7d727ba380
+          exitCode: 1
+          finishedAt: "2025-07-10T09:58:04Z"
+          reason: Error
+          startedAt: "2025-07-09T11:05:33Z"
+      name: manager
+      ready: true
+      restartCount: 4
+      started: true
+      state:
+        running:
+          startedAt: "2025-07-10T09:58:05Z"
+    hostIP: 10.0.10.5
+    phase: Running
+    podIP: 10.131.0.101
+    podIPs:
+    - ip: 10.131.0.101
+    qosClass: Burstable
+    startTime: "2025-07-07T22:44:26Z"
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2025-07-07T20:45:33Z"
+    labels:
+      app.kubernetes.io/instance: developer-hub
+      app.kubernetes.io/name: backstage
+    name: backstage-developer-hub
+    namespace: developer-hub
+    ownerReferences:
+    - apiVersion: rhdh.redhat.com/v1alpha3
+      blockOwnerDeletion: true
+      controller: true
+      kind: Backstage
+      name: developer-hub
+      uid: 44d807af-5e88-493b-b099-bedb17d640c5
+    resourceVersion: "49918459"
+    uid: 30b43563-9459-4f08-888b-0311ce40192f
+  spec:
+    clusterIP: 172.30.65.222
+    clusterIPs:
+    - 172.30.65.222
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: http-backend
+      port: 80
+      protocol: TCP
+      targetPort: backend
+    - name: http-metrics
+      port: 9464
+      protocol: TCP
+      targetPort: 9464
+    selector:
+      rhdh.redhat.com/app: backstage-developer-hub
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2025-07-07T20:45:33Z"
+    labels:
+      app.kubernetes.io/instance: developer-hub
+      app.kubernetes.io/name: backstage
+    name: backstage-psql-developer-hub
+    namespace: developer-hub
+    ownerReferences:
+    - apiVersion: rhdh.redhat.com/v1alpha3
+      blockOwnerDeletion: true
+      controller: true
+      kind: Backstage
+      name: developer-hub
+      uid: 44d807af-5e88-493b-b099-bedb17d640c5
+    resourceVersion: "49918450"
+    uid: e881a814-5cdd-4e5d-8a8a-cf70d94c7aba
+  spec:
+    clusterIP: None
+    clusterIPs:
+    - None
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - port: 5432
+      protocol: TCP
+      targetPort: 5432
+    selector:
+      rhdh.redhat.com/app: backstage-psql-developer-hub
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2025-05-06T18:33:38Z"
+    labels:
+      app.kubernetes.io/component: metrics
+      app.kubernetes.io/created-by: backstage-operator
+      app.kubernetes.io/instance: controller-manager-metrics-service
+      app.kubernetes.io/managed-by: kustomize
+      app.kubernetes.io/name: service
+      app.kubernetes.io/part-of: backstage-operator
+      control-plane: controller-manager
+      olm.managed: "true"
+      operators.coreos.com/rhdh.developer-hub: ""
+    name: rhdh-controller-manager-metrics-service
+    namespace: developer-hub
+    ownerReferences:
+    - apiVersion: operators.coreos.com/v1alpha1
+      blockOwnerDeletion: false
+      controller: false
+      kind: ClusterServiceVersion
+      name: rhdh-operator.v1.6.1
+      uid: cf9d7c35-d078-4ee6-a8af-1887ecb72a76
+    resourceVersion: "22121432"
+    uid: 08108f30-fb63-45d7-9738-2e756de0b2d9
+  spec:
+    clusterIP: 172.30.51.173
+    clusterIPs:
+    - 172.30.51.173
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: metrics
+      port: 8443
+      protocol: TCP
+      targetPort: metrics
+    selector:
+      control-plane: controller-manager
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "53"
+    creationTimestamp: "2025-07-07T20:45:33Z"
+    generation: 53
+    labels:
+      app.kubernetes.io/instance: developer-hub
+      app.kubernetes.io/name: backstage
+    name: backstage-developer-hub
+    namespace: developer-hub
+    ownerReferences:
+    - apiVersion: rhdh.redhat.com/v1alpha3
+      blockOwnerDeletion: true
+      controller: true
+      kind: Backstage
+      name: developer-hub
+      uid: 44d807af-5e88-493b-b099-bedb17d640c5
+    resourceVersion: "54182147"
+    uid: 5adccb73-8819-4e47-afa6-590ea1b688be
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        rhdh.redhat.com/app: backstage-developer-hub
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          rhdh.redhat.com/ext-config-hash: 7726fe584093a9b2a95b467599dbcdf393a9a5c2b3839ecb98f22b8e3caef7e4
+        creationTimestamp: null
+        labels:
+          rhdh.redhat.com/app: backstage-developer-hub
+      spec:
+        automountServiceAccountToken: false
+        containers:
+        - args:
+          - --config
+          - dynamic-plugins-root/app-config.dynamic-plugins.yaml
+          - --config
+          - /opt/app-root/src/default.app-config.yaml
+          - --config
+          - /opt/app-root/src/app-config-rhdh.yaml
+          env:
+          - name: APP_CONFIG_backend_listen_port
+            value: "7007"
+          envFrom:
+          - secretRef:
+              name: backstage-psql-secret-developer-hub
+          - secretRef:
+              name: backstage-envs-developer-hub
+          - secretRef:
+              name: github-app-credentials
+          image: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/liveness
+              port: backend
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 4
+          name: backstage-backend
+          ports:
+          - containerPort: 7007
+            name: backend
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/readiness
+              port: backend
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 2
+            timeoutSeconds: 4
+          resources:
+            limits:
+              cpu: "1"
+              ephemeral-storage: 5Gi
+              memory: 2560Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          startupProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/liveness
+              port: backend
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 20
+            successThreshold: 1
+            timeoutSeconds: 4
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /opt/app-root/src/dynamic-plugins-root
+            name: dynamic-plugins-root
+          - mountPath: /tmp
+            name: temp
+          - mountPath: /opt/app-root/src/default.app-config.yaml
+            name: backstage-appconfig-developer-hub
+            readOnly: true
+            subPath: default.app-config.yaml
+          - mountPath: /opt/app-root/src/app-config-rhdh.yaml
+            name: app-config-rhdh
+            readOnly: true
+            subPath: app-config-rhdh.yaml
+          workingDir: /opt/app-root/src
+        dnsPolicy: ClusterFirst
+        initContainers:
+        - command:
+          - ./install-dynamic-plugins.sh
+          - /dynamic-plugins-root
+          env:
+          - name: NPM_CONFIG_USERCONFIG
+            value: /opt/app-root/src/.npmrc.dynamic-plugins
+          image: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+          imagePullPolicy: IfNotPresent
+          name: install-dynamic-plugins
+          resources:
+            limits:
+              cpu: "1"
+              ephemeral-storage: 5Gi
+              memory: 2560Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /dynamic-plugins-root
+            name: dynamic-plugins-root
+          - mountPath: /opt/app-root/src/.npmrc.dynamic-plugins
+            name: dynamic-plugins-npmrc
+            readOnly: true
+            subPath: .npmrc
+          - mountPath: /opt/app-root/src/.config/containers
+            name: dynamic-plugins-registry-auth
+            readOnly: true
+          - mountPath: /opt/app-root/src/.npm/_cacache
+            name: npmcacache
+          - mountPath: /tmp
+            name: temp
+          - mountPath: /opt/app-root/src/dynamic-plugins.yaml
+            name: dynamic-plugins-rhdh
+            readOnly: true
+            subPath: dynamic-plugins.yaml
+          workingDir: /opt/app-root/src
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - ephemeral:
+            volumeClaimTemplate:
+              metadata:
+                creationTimestamp: null
+              spec:
+                accessModes:
+                - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 2Gi
+                volumeMode: Filesystem
+          name: dynamic-plugins-root
+        - name: dynamic-plugins-npmrc
+          secret:
+            defaultMode: 420
+            optional: true
+            secretName: dynamic-plugins-npmrc
+        - name: dynamic-plugins-registry-auth
+          secret:
+            defaultMode: 416
+            optional: true
+            secretName: dynamic-plugins-registry-auth
+        - emptyDir: {}
+          name: npmcacache
+        - emptyDir: {}
+          name: temp
+        - configMap:
+            defaultMode: 420
+            name: backstage-appconfig-developer-hub
+            optional: false
+          name: backstage-appconfig-developer-hub
+        - configMap:
+            defaultMode: 420
+            name: app-config-rhdh
+            optional: false
+          name: app-config-rhdh
+        - configMap:
+            defaultMode: 420
+            name: dynamic-plugins-rhdh
+            optional: false
+          name: dynamic-plugins-rhdh
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2025-07-09T19:10:12Z"
+      lastUpdateTime: "2025-07-09T23:53:36Z"
+      message: ReplicaSet "backstage-developer-hub-97c7498b7" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-07-10T15:50:07Z"
+      lastUpdateTime: "2025-07-10T15:50:07Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 53
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "3"
+    creationTimestamp: "2025-05-06T18:33:40Z"
+    generation: 89
+    labels:
+      app: rhdh-operator
+      control-plane: controller-manager
+      olm.deployment-spec-hash: ccQkmTcDwq6OrFOa9QY2eDVTbdVytEuAzhZgmW
+      olm.managed: "true"
+      olm.owner: rhdh-operator.v1.6.1
+      olm.owner.kind: ClusterServiceVersion
+      olm.owner.namespace: developer-hub
+      operators.coreos.com/rhdh.developer-hub: ""
+    name: rhdh-operator
+    namespace: developer-hub
+    ownerReferences:
+    - apiVersion: operators.coreos.com/v1alpha1
+      blockOwnerDeletion: false
+      controller: false
+      kind: ClusterServiceVersion
+      name: rhdh-operator.v1.6.1
+      uid: cf9d7c35-d078-4ee6-a8af-1887ecb72a76
+    resourceVersion: "53804623"
+    uid: e17d5c11-b470-4a21-a2e3-327e67774a63
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 1
+    selector:
+      matchLabels:
+        app: rhdh-operator
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          alm-examples: |-
+            [
+              {
+                "apiVersion": "rhdh.redhat.com/v1alpha1",
+                "kind": "Backstage",
+                "metadata": {
+                  "labels": {
+                    "app.kubernetes.io/name": "backstage"
+                  },
+                  "name": "developer-hub"
+                }
+              },
+              {
+                "apiVersion": "rhdh.redhat.com/v1alpha2",
+                "kind": "Backstage",
+                "metadata": {
+                  "labels": {
+                    "app.kubernetes.io/name": "backstage"
+                  },
+                  "name": "developer-hub"
+                }
+              },
+              {
+                "apiVersion": "rhdh.redhat.com/v1alpha3",
+                "kind": "Backstage",
+                "metadata": {
+                  "labels": {
+                    "app.kubernetes.io/name": "backstage"
+                  },
+                  "name": "developer-hub"
+                }
+              }
+            ]
+          capabilities: Seamless Upgrades
+          categories: Developer Tools
+          certified: "true"
+          containerImage: registry.redhat.io/rhdh/rhdh-rhel9-operator@sha256:2f72c8706af43c0fbf8afc82d1925c77887aa7c3c3b1cb28f698bc4e4241ed4d
+          createdAt: "2025-05-14T19:28:36Z"
+          description: Red Hat Developer Hub is a Red Hat supported version of Backstage.
+            It comes with pre-built plug-ins and configuration settings, supports
+            use of an external database, and can help streamline the process of setting
+            up a self-managed internal developer portal for adopters who are just
+            starting out.
+          features.operators.openshift.io/cnf: "false"
+          features.operators.openshift.io/cni: "false"
+          features.operators.openshift.io/csi: "false"
+          features.operators.openshift.io/disconnected: "true"
+          features.operators.openshift.io/fips-compliant: "false"
+          features.operators.openshift.io/proxy-aware: "false"
+          features.operators.openshift.io/tls-profiles: "false"
+          features.operators.openshift.io/token-auth-aws: "false"
+          features.operators.openshift.io/token-auth-azure: "false"
+          features.operators.openshift.io/token-auth-gcp: "false"
+          kubectl.kubernetes.io/default-container: manager
+          olm.operatorGroup: developer-hub-x6dbb
+          olm.operatorNamespace: developer-hub
+          olm.targetNamespaces: ""
+          operatorframework.io/properties: '{"properties":[{"type":"olm.gvk","value":{"group":"rhdh.redhat.com","kind":"Backstage","version":"v1alpha1"}},{"type":"olm.gvk","value":{"group":"rhdh.redhat.com","kind":"Backstage","version":"v1alpha2"}},{"type":"olm.gvk","value":{"group":"rhdh.redhat.com","kind":"Backstage","version":"v1alpha3"}},{"type":"olm.package","value":{"packageName":"rhdh","version":"1.6.1"}}]}'
+          operatorframework.io/suggested-namespace: rhdh-operator
+          operators.openshift.io/valid-subscription: '["Red Hat Developer Hub"]'
+          operators.operatorframework.io/builder: operator-sdk-v1.37.0
+          operators.operatorframework.io/project_layout: go.kubebuilder.io/v4
+          repository: https://gitlab.cee.redhat.com/rhidp/rhdh/
+          skipRange: '>=1.0.0 <1.6.1'
+          support: Red Hat
+        creationTimestamp: null
+        labels:
+          app: rhdh-operator
+          app.kubernetes.io/component: rhdh-operator
+          control-plane: controller-manager
+      spec:
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: kubernetes.io/arch
+                  operator: In
+                  values:
+                  - amd64
+                - key: kubernetes.io/os
+                  operator: In
+                  values:
+                  - linux
+        automountServiceAccountToken: true
+        containers:
+        - args:
+          - --health-probe-bind-address=:8081
+          - --metrics-bind-address=:8443
+          - --metrics-secure=true
+          - --leader-elect
+          command:
+          - /manager
+          env:
+          - name: OPERATOR_NAME
+            value: rhdh-operator
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.name
+          - name: RELATED_IMAGE_postgresql
+            value: registry.redhat.io/rhel9/postgresql-15@sha256:ddf4827c9093a0ec93b5b4f4fd31b009c7811c38a406187400ab448579036c6c
+          - name: RELATED_IMAGE_backstage
+            value: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+          - name: OPERATOR_CONDITION_NAME
+            value: rhdh-operator.v1.6.1
+          image: registry.redhat.io/rhdh/rhdh-rhel9-operator@sha256:2f72c8706af43c0fbf8afc82d1925c77887aa7c3c3b1cb28f698bc4e4241ed4d
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: health
+              scheme: HTTP
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: manager
+          ports:
+          - containerPort: 8081
+            name: health
+            protocol: TCP
+          - containerPort: 8443
+            name: metrics
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /readyz
+              port: health
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 500m
+              ephemeral-storage: 20Mi
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 128Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /default-config
+            name: default-config
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          runAsNonRoot: true
+        serviceAccount: rhdh-controller-manager
+        serviceAccountName: rhdh-controller-manager
+        terminationGracePeriodSeconds: 10
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: rhdh-default-config
+          name: default-config
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2025-05-06T18:33:40Z"
+      lastUpdateTime: "2025-05-27T20:22:58Z"
+      message: ReplicaSet "rhdh-operator-8fb899fd9" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-07-10T09:58:17Z"
+      lastUpdateTime: "2025-07-10T09:58:17Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 89
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "45"
+    creationTimestamp: "2025-07-09T20:17:08Z"
+    generation: 3
+    labels:
+      pod-template-hash: 597985d886
+      rhdh.redhat.com/app: backstage-developer-hub
+    name: backstage-developer-hub-597985d886
+    namespace: developer-hub
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: backstage-developer-hub
+      uid: 5adccb73-8819-4e47-afa6-590ea1b688be
+    resourceVersion: "52940952"
+    uid: 4638f68e-6342-4780-a4eb-dd1438915c3f
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        pod-template-hash: 597985d886
+        rhdh.redhat.com/app: backstage-developer-hub
+    template:
+      metadata:
+        annotations:
+          rhdh.redhat.com/ext-config-hash: f32ecfa6f611979d03fc5abbeadd4431a9eee2d0e4c6fe17832c580c9bb90780
+        creationTimestamp: null
+        labels:
+          pod-template-hash: 597985d886
+          rhdh.redhat.com/app: backstage-developer-hub
+      spec:
+        automountServiceAccountToken: false
+        containers:
+        - args:
+          - --config
+          - dynamic-plugins-root/app-config.dynamic-plugins.yaml
+          - --config
+          - /opt/app-root/src/default.app-config.yaml
+          - --config
+          - /opt/app-root/src/app-config-rhdh.yaml
+          env:
+          - name: APP_CONFIG_backend_listen_port
+            value: "7007"
+          envFrom:
+          - secretRef:
+              name: backstage-psql-secret-developer-hub
+          - secretRef:
+              name: backstage-envs-developer-hub
+          - secretRef:
+              name: github-app-credentials
+          image: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/liveness
+              port: backend
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 4
+          name: backstage-backend
+          ports:
+          - containerPort: 7007
+            name: backend
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/readiness
+              port: backend
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 2
+            timeoutSeconds: 4
+          resources:
+            limits:
+              cpu: "1"
+              ephemeral-storage: 5Gi
+              memory: 2560Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          startupProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/liveness
+              port: backend
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 20
+            successThreshold: 1
+            timeoutSeconds: 4
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /opt/app-root/src/dynamic-plugins-root
+            name: dynamic-plugins-root
+          - mountPath: /tmp
+            name: temp
+          - mountPath: /opt/app-root/src/default.app-config.yaml
+            name: backstage-appconfig-developer-hub
+            readOnly: true
+            subPath: default.app-config.yaml
+          - mountPath: /opt/app-root/src/app-config-rhdh.yaml
+            name: app-config-rhdh
+            readOnly: true
+            subPath: app-config-rhdh.yaml
+          workingDir: /opt/app-root/src
+        dnsPolicy: ClusterFirst
+        initContainers:
+        - command:
+          - ./install-dynamic-plugins.sh
+          - /dynamic-plugins-root
+          env:
+          - name: NPM_CONFIG_USERCONFIG
+            value: /opt/app-root/src/.npmrc.dynamic-plugins
+          image: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+          imagePullPolicy: IfNotPresent
+          name: install-dynamic-plugins
+          resources:
+            limits:
+              cpu: "1"
+              ephemeral-storage: 5Gi
+              memory: 2560Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /dynamic-plugins-root
+            name: dynamic-plugins-root
+          - mountPath: /opt/app-root/src/.npmrc.dynamic-plugins
+            name: dynamic-plugins-npmrc
+            readOnly: true
+            subPath: .npmrc
+          - mountPath: /opt/app-root/src/.config/containers
+            name: dynamic-plugins-registry-auth
+            readOnly: true
+          - mountPath: /opt/app-root/src/.npm/_cacache
+            name: npmcacache
+          - mountPath: /tmp
+            name: temp
+          - mountPath: /opt/app-root/src/dynamic-plugins.yaml
+            name: dynamic-plugins-rhdh
+            readOnly: true
+            subPath: dynamic-plugins.yaml
+          workingDir: /opt/app-root/src
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - ephemeral:
+            volumeClaimTemplate:
+              metadata:
+                creationTimestamp: null
+              spec:
+                accessModes:
+                - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 2Gi
+                volumeMode: Filesystem
+          name: dynamic-plugins-root
+        - name: dynamic-plugins-npmrc
+          secret:
+            defaultMode: 420
+            optional: true
+            secretName: dynamic-plugins-npmrc
+        - name: dynamic-plugins-registry-auth
+          secret:
+            defaultMode: 416
+            optional: true
+            secretName: dynamic-plugins-registry-auth
+        - emptyDir: {}
+          name: npmcacache
+        - emptyDir: {}
+          name: temp
+        - configMap:
+            defaultMode: 420
+            name: backstage-appconfig-developer-hub
+            optional: false
+          name: backstage-appconfig-developer-hub
+        - configMap:
+            defaultMode: 420
+            name: app-config-rhdh
+            optional: false
+          name: app-config-rhdh
+        - configMap:
+            defaultMode: 420
+            name: dynamic-plugins-rhdh
+            optional: false
+          name: dynamic-plugins-rhdh
+  status:
+    observedGeneration: 3
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "47"
+    creationTimestamp: "2025-07-09T20:25:18Z"
+    generation: 3
+    labels:
+      pod-template-hash: 659dc4ccb5
+      rhdh.redhat.com/app: backstage-developer-hub
+    name: backstage-developer-hub-659dc4ccb5
+    namespace: developer-hub
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: backstage-developer-hub
+      uid: 5adccb73-8819-4e47-afa6-590ea1b688be
+    resourceVersion: "52948787"
+    uid: 556fb53a-f692-4276-9fec-14716d1da436
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        pod-template-hash: 659dc4ccb5
+        rhdh.redhat.com/app: backstage-developer-hub
+    template:
+      metadata:
+        annotations:
+          rhdh.redhat.com/ext-config-hash: a3883e98c33e4e68bac72fb107e58f0667db7b984943482b5f126dc314e0b14d
+        creationTimestamp: null
+        labels:
+          pod-template-hash: 659dc4ccb5
+          rhdh.redhat.com/app: backstage-developer-hub
+      spec:
+        automountServiceAccountToken: false
+        containers:
+        - args:
+          - --config
+          - dynamic-plugins-root/app-config.dynamic-plugins.yaml
+          - --config
+          - /opt/app-root/src/default.app-config.yaml
+          - --config
+          - /opt/app-root/src/app-config-rhdh.yaml
+          env:
+          - name: APP_CONFIG_backend_listen_port
+            value: "7007"
+          envFrom:
+          - secretRef:
+              name: backstage-psql-secret-developer-hub
+          - secretRef:
+              name: backstage-envs-developer-hub
+          - secretRef:
+              name: github-app-credentials
+          image: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/liveness
+              port: backend
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 4
+          name: backstage-backend
+          ports:
+          - containerPort: 7007
+            name: backend
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/readiness
+              port: backend
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 2
+            timeoutSeconds: 4
+          resources:
+            limits:
+              cpu: "1"
+              ephemeral-storage: 5Gi
+              memory: 2560Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          startupProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/liveness
+              port: backend
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 20
+            successThreshold: 1
+            timeoutSeconds: 4
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /opt/app-root/src/dynamic-plugins-root
+            name: dynamic-plugins-root
+          - mountPath: /tmp
+            name: temp
+          - mountPath: /opt/app-root/src/default.app-config.yaml
+            name: backstage-appconfig-developer-hub
+            readOnly: true
+            subPath: default.app-config.yaml
+          - mountPath: /opt/app-root/src/app-config-rhdh.yaml
+            name: app-config-rhdh
+            readOnly: true
+            subPath: app-config-rhdh.yaml
+          workingDir: /opt/app-root/src
+        dnsPolicy: ClusterFirst
+        initContainers:
+        - command:
+          - ./install-dynamic-plugins.sh
+          - /dynamic-plugins-root
+          env:
+          - name: NPM_CONFIG_USERCONFIG
+            value: /opt/app-root/src/.npmrc.dynamic-plugins
+          image: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+          imagePullPolicy: IfNotPresent
+          name: install-dynamic-plugins
+          resources:
+            limits:
+              cpu: "1"
+              ephemeral-storage: 5Gi
+              memory: 2560Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /dynamic-plugins-root
+            name: dynamic-plugins-root
+          - mountPath: /opt/app-root/src/.npmrc.dynamic-plugins
+            name: dynamic-plugins-npmrc
+            readOnly: true
+            subPath: .npmrc
+          - mountPath: /opt/app-root/src/.config/containers
+            name: dynamic-plugins-registry-auth
+            readOnly: true
+          - mountPath: /opt/app-root/src/.npm/_cacache
+            name: npmcacache
+          - mountPath: /tmp
+            name: temp
+          - mountPath: /opt/app-root/src/dynamic-plugins.yaml
+            name: dynamic-plugins-rhdh
+            readOnly: true
+            subPath: dynamic-plugins.yaml
+          workingDir: /opt/app-root/src
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - ephemeral:
+            volumeClaimTemplate:
+              metadata:
+                creationTimestamp: null
+              spec:
+                accessModes:
+                - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 2Gi
+                volumeMode: Filesystem
+          name: dynamic-plugins-root
+        - name: dynamic-plugins-npmrc
+          secret:
+            defaultMode: 420
+            optional: true
+            secretName: dynamic-plugins-npmrc
+        - name: dynamic-plugins-registry-auth
+          secret:
+            defaultMode: 416
+            optional: true
+            secretName: dynamic-plugins-registry-auth
+        - emptyDir: {}
+          name: npmcacache
+        - emptyDir: {}
+          name: temp
+        - configMap:
+            defaultMode: 420
+            name: backstage-appconfig-developer-hub
+            optional: false
+          name: backstage-appconfig-developer-hub
+        - configMap:
+            defaultMode: 420
+            name: app-config-rhdh
+            optional: false
+          name: app-config-rhdh
+        - configMap:
+            defaultMode: 420
+            name: dynamic-plugins-rhdh
+            optional: false
+          name: dynamic-plugins-rhdh
+  status:
+    observedGeneration: 3
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "48"
+    creationTimestamp: "2025-07-09T20:27:30Z"
+    generation: 3
+    labels:
+      pod-template-hash: 65f58c94c
+      rhdh.redhat.com/app: backstage-developer-hub
+    name: backstage-developer-hub-65f58c94c
+    namespace: developer-hub
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: backstage-developer-hub
+      uid: 5adccb73-8819-4e47-afa6-590ea1b688be
+    resourceVersion: "52949179"
+    uid: e15d59bf-0993-4130-b6d4-39590a046383
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        pod-template-hash: 65f58c94c
+        rhdh.redhat.com/app: backstage-developer-hub
+    template:
+      metadata:
+        annotations:
+          rhdh.redhat.com/ext-config-hash: fec9fa2d491ff2afdab7e97f8f9f0d199708b4f0b1a72b5ef768a6a22dceb6aa
+        creationTimestamp: null
+        labels:
+          pod-template-hash: 65f58c94c
+          rhdh.redhat.com/app: backstage-developer-hub
+      spec:
+        automountServiceAccountToken: false
+        containers:
+        - args:
+          - --config
+          - dynamic-plugins-root/app-config.dynamic-plugins.yaml
+          - --config
+          - /opt/app-root/src/default.app-config.yaml
+          - --config
+          - /opt/app-root/src/app-config-rhdh.yaml
+          env:
+          - name: APP_CONFIG_backend_listen_port
+            value: "7007"
+          envFrom:
+          - secretRef:
+              name: backstage-psql-secret-developer-hub
+          - secretRef:
+              name: backstage-envs-developer-hub
+          - secretRef:
+              name: github-app-credentials
+          image: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/liveness
+              port: backend
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 4
+          name: backstage-backend
+          ports:
+          - containerPort: 7007
+            name: backend
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/readiness
+              port: backend
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 2
+            timeoutSeconds: 4
+          resources:
+            limits:
+              cpu: "1"
+              ephemeral-storage: 5Gi
+              memory: 2560Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          startupProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/liveness
+              port: backend
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 20
+            successThreshold: 1
+            timeoutSeconds: 4
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /opt/app-root/src/dynamic-plugins-root
+            name: dynamic-plugins-root
+          - mountPath: /tmp
+            name: temp
+          - mountPath: /opt/app-root/src/default.app-config.yaml
+            name: backstage-appconfig-developer-hub
+            readOnly: true
+            subPath: default.app-config.yaml
+          - mountPath: /opt/app-root/src/app-config-rhdh.yaml
+            name: app-config-rhdh
+            readOnly: true
+            subPath: app-config-rhdh.yaml
+          workingDir: /opt/app-root/src
+        dnsPolicy: ClusterFirst
+        initContainers:
+        - command:
+          - ./install-dynamic-plugins.sh
+          - /dynamic-plugins-root
+          env:
+          - name: NPM_CONFIG_USERCONFIG
+            value: /opt/app-root/src/.npmrc.dynamic-plugins
+          image: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+          imagePullPolicy: IfNotPresent
+          name: install-dynamic-plugins
+          resources:
+            limits:
+              cpu: "1"
+              ephemeral-storage: 5Gi
+              memory: 2560Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /dynamic-plugins-root
+            name: dynamic-plugins-root
+          - mountPath: /opt/app-root/src/.npmrc.dynamic-plugins
+            name: dynamic-plugins-npmrc
+            readOnly: true
+            subPath: .npmrc
+          - mountPath: /opt/app-root/src/.config/containers
+            name: dynamic-plugins-registry-auth
+            readOnly: true
+          - mountPath: /opt/app-root/src/.npm/_cacache
+            name: npmcacache
+          - mountPath: /tmp
+            name: temp
+          - mountPath: /opt/app-root/src/dynamic-plugins.yaml
+            name: dynamic-plugins-rhdh
+            readOnly: true
+            subPath: dynamic-plugins.yaml
+          workingDir: /opt/app-root/src
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - ephemeral:
+            volumeClaimTemplate:
+              metadata:
+                creationTimestamp: null
+              spec:
+                accessModes:
+                - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 2Gi
+                volumeMode: Filesystem
+          name: dynamic-plugins-root
+        - name: dynamic-plugins-npmrc
+          secret:
+            defaultMode: 420
+            optional: true
+            secretName: dynamic-plugins-npmrc
+        - name: dynamic-plugins-registry-auth
+          secret:
+            defaultMode: 416
+            optional: true
+            secretName: dynamic-plugins-registry-auth
+        - emptyDir: {}
+          name: npmcacache
+        - emptyDir: {}
+          name: temp
+        - configMap:
+            defaultMode: 420
+            name: backstage-appconfig-developer-hub
+            optional: false
+          name: backstage-appconfig-developer-hub
+        - configMap:
+            defaultMode: 420
+            name: app-config-rhdh
+            optional: false
+          name: app-config-rhdh
+        - configMap:
+            defaultMode: 420
+            name: dynamic-plugins-rhdh
+            optional: false
+          name: dynamic-plugins-rhdh
+  status:
+    observedGeneration: 3
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "50"
+    creationTimestamp: "2025-07-09T20:32:58Z"
+    generation: 3
+    labels:
+      pod-template-hash: 6986d9c6dc
+      rhdh.redhat.com/app: backstage-developer-hub
+    name: backstage-developer-hub-6986d9c6dc
+    namespace: developer-hub
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: backstage-developer-hub
+      uid: 5adccb73-8819-4e47-afa6-590ea1b688be
+    resourceVersion: "52958368"
+    uid: ba21bd71-1408-4b0c-81a3-c99ccd9420ce
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        pod-template-hash: 6986d9c6dc
+        rhdh.redhat.com/app: backstage-developer-hub
+    template:
+      metadata:
+        annotations:
+          rhdh.redhat.com/ext-config-hash: ea2d1a95781889960b05a81bc86c97220774c85274618aa03eb77b544cba1e50
+        creationTimestamp: null
+        labels:
+          pod-template-hash: 6986d9c6dc
+          rhdh.redhat.com/app: backstage-developer-hub
+      spec:
+        automountServiceAccountToken: false
+        containers:
+        - args:
+          - --config
+          - dynamic-plugins-root/app-config.dynamic-plugins.yaml
+          - --config
+          - /opt/app-root/src/default.app-config.yaml
+          - --config
+          - /opt/app-root/src/app-config-rhdh.yaml
+          env:
+          - name: APP_CONFIG_backend_listen_port
+            value: "7007"
+          envFrom:
+          - secretRef:
+              name: backstage-psql-secret-developer-hub
+          - secretRef:
+              name: backstage-envs-developer-hub
+          - secretRef:
+              name: github-app-credentials
+          image: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/liveness
+              port: backend
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 4
+          name: backstage-backend
+          ports:
+          - containerPort: 7007
+            name: backend
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/readiness
+              port: backend
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 2
+            timeoutSeconds: 4
+          resources:
+            limits:
+              cpu: "1"
+              ephemeral-storage: 5Gi
+              memory: 2560Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          startupProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/liveness
+              port: backend
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 20
+            successThreshold: 1
+            timeoutSeconds: 4
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /opt/app-root/src/dynamic-plugins-root
+            name: dynamic-plugins-root
+          - mountPath: /tmp
+            name: temp
+          - mountPath: /opt/app-root/src/default.app-config.yaml
+            name: backstage-appconfig-developer-hub
+            readOnly: true
+            subPath: default.app-config.yaml
+          - mountPath: /opt/app-root/src/app-config-rhdh.yaml
+            name: app-config-rhdh
+            readOnly: true
+            subPath: app-config-rhdh.yaml
+          workingDir: /opt/app-root/src
+        dnsPolicy: ClusterFirst
+        initContainers:
+        - command:
+          - ./install-dynamic-plugins.sh
+          - /dynamic-plugins-root
+          env:
+          - name: NPM_CONFIG_USERCONFIG
+            value: /opt/app-root/src/.npmrc.dynamic-plugins
+          image: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+          imagePullPolicy: IfNotPresent
+          name: install-dynamic-plugins
+          resources:
+            limits:
+              cpu: "1"
+              ephemeral-storage: 5Gi
+              memory: 2560Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /dynamic-plugins-root
+            name: dynamic-plugins-root
+          - mountPath: /opt/app-root/src/.npmrc.dynamic-plugins
+            name: dynamic-plugins-npmrc
+            readOnly: true
+            subPath: .npmrc
+          - mountPath: /opt/app-root/src/.config/containers
+            name: dynamic-plugins-registry-auth
+            readOnly: true
+          - mountPath: /opt/app-root/src/.npm/_cacache
+            name: npmcacache
+          - mountPath: /tmp
+            name: temp
+          - mountPath: /opt/app-root/src/dynamic-plugins.yaml
+            name: dynamic-plugins-rhdh
+            readOnly: true
+            subPath: dynamic-plugins.yaml
+          workingDir: /opt/app-root/src
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - ephemeral:
+            volumeClaimTemplate:
+              metadata:
+                creationTimestamp: null
+              spec:
+                accessModes:
+                - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 2Gi
+                volumeMode: Filesystem
+          name: dynamic-plugins-root
+        - name: dynamic-plugins-npmrc
+          secret:
+            defaultMode: 420
+            optional: true
+            secretName: dynamic-plugins-npmrc
+        - name: dynamic-plugins-registry-auth
+          secret:
+            defaultMode: 416
+            optional: true
+            secretName: dynamic-plugins-registry-auth
+        - emptyDir: {}
+          name: npmcacache
+        - emptyDir: {}
+          name: temp
+        - configMap:
+            defaultMode: 420
+            name: backstage-appconfig-developer-hub
+            optional: false
+          name: backstage-appconfig-developer-hub
+        - configMap:
+            defaultMode: 420
+            name: app-config-rhdh
+            optional: false
+          name: app-config-rhdh
+        - configMap:
+            defaultMode: 420
+            name: dynamic-plugins-rhdh
+            optional: false
+          name: dynamic-plugins-rhdh
+  status:
+    observedGeneration: 3
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "52"
+    creationTimestamp: "2025-07-09T23:28:05Z"
+    generation: 2
+    labels:
+      pod-template-hash: 77fd489b66
+      rhdh.redhat.com/app: backstage-developer-hub
+    name: backstage-developer-hub-77fd489b66
+    namespace: developer-hub
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: backstage-developer-hub
+      uid: 5adccb73-8819-4e47-afa6-590ea1b688be
+    resourceVersion: "53166478"
+    uid: baa81bcf-501d-4bdc-9152-e607e1d77ba9
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        pod-template-hash: 77fd489b66
+        rhdh.redhat.com/app: backstage-developer-hub
+    template:
+      metadata:
+        annotations:
+          rhdh.redhat.com/ext-config-hash: 22c55489e2193978ed998d839d55f63096c81499c1d3af9ac70241227f8102a7
+        creationTimestamp: null
+        labels:
+          pod-template-hash: 77fd489b66
+          rhdh.redhat.com/app: backstage-developer-hub
+      spec:
+        automountServiceAccountToken: false
+        containers:
+        - args:
+          - --config
+          - dynamic-plugins-root/app-config.dynamic-plugins.yaml
+          - --config
+          - /opt/app-root/src/default.app-config.yaml
+          - --config
+          - /opt/app-root/src/app-config-rhdh.yaml
+          env:
+          - name: APP_CONFIG_backend_listen_port
+            value: "7007"
+          envFrom:
+          - secretRef:
+              name: backstage-psql-secret-developer-hub
+          - secretRef:
+              name: backstage-envs-developer-hub
+          - secretRef:
+              name: github-app-credentials
+          image: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/liveness
+              port: backend
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 4
+          name: backstage-backend
+          ports:
+          - containerPort: 7007
+            name: backend
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/readiness
+              port: backend
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 2
+            timeoutSeconds: 4
+          resources:
+            limits:
+              cpu: "1"
+              ephemeral-storage: 5Gi
+              memory: 2560Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          startupProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/liveness
+              port: backend
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 20
+            successThreshold: 1
+            timeoutSeconds: 4
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /opt/app-root/src/dynamic-plugins-root
+            name: dynamic-plugins-root
+          - mountPath: /tmp
+            name: temp
+          - mountPath: /opt/app-root/src/default.app-config.yaml
+            name: backstage-appconfig-developer-hub
+            readOnly: true
+            subPath: default.app-config.yaml
+          - mountPath: /opt/app-root/src/app-config-rhdh.yaml
+            name: app-config-rhdh
+            readOnly: true
+            subPath: app-config-rhdh.yaml
+          workingDir: /opt/app-root/src
+        dnsPolicy: ClusterFirst
+        initContainers:
+        - command:
+          - ./install-dynamic-plugins.sh
+          - /dynamic-plugins-root
+          env:
+          - name: NPM_CONFIG_USERCONFIG
+            value: /opt/app-root/src/.npmrc.dynamic-plugins
+          image: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+          imagePullPolicy: IfNotPresent
+          name: install-dynamic-plugins
+          resources:
+            limits:
+              cpu: "1"
+              ephemeral-storage: 5Gi
+              memory: 2560Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /dynamic-plugins-root
+            name: dynamic-plugins-root
+          - mountPath: /opt/app-root/src/.npmrc.dynamic-plugins
+            name: dynamic-plugins-npmrc
+            readOnly: true
+            subPath: .npmrc
+          - mountPath: /opt/app-root/src/.config/containers
+            name: dynamic-plugins-registry-auth
+            readOnly: true
+          - mountPath: /opt/app-root/src/.npm/_cacache
+            name: npmcacache
+          - mountPath: /tmp
+            name: temp
+          - mountPath: /opt/app-root/src/dynamic-plugins.yaml
+            name: dynamic-plugins-rhdh
+            readOnly: true
+            subPath: dynamic-plugins.yaml
+          workingDir: /opt/app-root/src
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - ephemeral:
+            volumeClaimTemplate:
+              metadata:
+                creationTimestamp: null
+              spec:
+                accessModes:
+                - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 2Gi
+                volumeMode: Filesystem
+          name: dynamic-plugins-root
+        - name: dynamic-plugins-npmrc
+          secret:
+            defaultMode: 420
+            optional: true
+            secretName: dynamic-plugins-npmrc
+        - name: dynamic-plugins-registry-auth
+          secret:
+            defaultMode: 416
+            optional: true
+            secretName: dynamic-plugins-registry-auth
+        - emptyDir: {}
+          name: npmcacache
+        - emptyDir: {}
+          name: temp
+        - configMap:
+            defaultMode: 420
+            name: backstage-appconfig-developer-hub
+            optional: false
+          name: backstage-appconfig-developer-hub
+        - configMap:
+            defaultMode: 420
+            name: app-config-rhdh
+            optional: false
+          name: app-config-rhdh
+        - configMap:
+            defaultMode: 420
+            name: dynamic-plugins-rhdh
+            optional: false
+          name: dynamic-plugins-rhdh
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "42"
+      deployment.kubernetes.io/revision-history: "40"
+    creationTimestamp: "2025-07-09T19:52:55Z"
+    generation: 4
+    labels:
+      pod-template-hash: 8569c699c6
+      rhdh.redhat.com/app: backstage-developer-hub
+    name: backstage-developer-hub-8569c699c6
+    namespace: developer-hub
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: backstage-developer-hub
+      uid: 5adccb73-8819-4e47-afa6-590ea1b688be
+    resourceVersion: "52919486"
+    uid: 0bac59ea-42e9-45b3-9608-00a4c0303123
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        pod-template-hash: 8569c699c6
+        rhdh.redhat.com/app: backstage-developer-hub
+    template:
+      metadata:
+        annotations:
+          rhdh.redhat.com/ext-config-hash: 4a48211ba4812fe792ac8be849afdedb60a1671ccf429aee804fba4ae6af062b
+        creationTimestamp: null
+        labels:
+          pod-template-hash: 8569c699c6
+          rhdh.redhat.com/app: backstage-developer-hub
+      spec:
+        automountServiceAccountToken: false
+        containers:
+        - args:
+          - --config
+          - dynamic-plugins-root/app-config.dynamic-plugins.yaml
+          - --config
+          - /opt/app-root/src/default.app-config.yaml
+          - --config
+          - /opt/app-root/src/app-config-rhdh.yaml
+          env:
+          - name: APP_CONFIG_backend_listen_port
+            value: "7007"
+          envFrom:
+          - secretRef:
+              name: backstage-psql-secret-developer-hub
+          - secretRef:
+              name: backstage-envs-developer-hub
+          - secretRef:
+              name: github-app-credentials
+          image: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/liveness
+              port: backend
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 4
+          name: backstage-backend
+          ports:
+          - containerPort: 7007
+            name: backend
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/readiness
+              port: backend
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 2
+            timeoutSeconds: 4
+          resources:
+            limits:
+              cpu: "1"
+              ephemeral-storage: 5Gi
+              memory: 2560Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          startupProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/liveness
+              port: backend
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 20
+            successThreshold: 1
+            timeoutSeconds: 4
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /opt/app-root/src/dynamic-plugins-root
+            name: dynamic-plugins-root
+          - mountPath: /tmp
+            name: temp
+          - mountPath: /opt/app-root/src/default.app-config.yaml
+            name: backstage-appconfig-developer-hub
+            readOnly: true
+            subPath: default.app-config.yaml
+          - mountPath: /opt/app-root/src/app-config-rhdh.yaml
+            name: app-config-rhdh
+            readOnly: true
+            subPath: app-config-rhdh.yaml
+          workingDir: /opt/app-root/src
+        dnsPolicy: ClusterFirst
+        initContainers:
+        - command:
+          - ./install-dynamic-plugins.sh
+          - /dynamic-plugins-root
+          env:
+          - name: NPM_CONFIG_USERCONFIG
+            value: /opt/app-root/src/.npmrc.dynamic-plugins
+          image: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+          imagePullPolicy: IfNotPresent
+          name: install-dynamic-plugins
+          resources:
+            limits:
+              cpu: "1"
+              ephemeral-storage: 5Gi
+              memory: 2560Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /dynamic-plugins-root
+            name: dynamic-plugins-root
+          - mountPath: /opt/app-root/src/.npmrc.dynamic-plugins
+            name: dynamic-plugins-npmrc
+            readOnly: true
+            subPath: .npmrc
+          - mountPath: /opt/app-root/src/.config/containers
+            name: dynamic-plugins-registry-auth
+            readOnly: true
+          - mountPath: /opt/app-root/src/.npm/_cacache
+            name: npmcacache
+          - mountPath: /tmp
+            name: temp
+          - mountPath: /opt/app-root/src/dynamic-plugins.yaml
+            name: dynamic-plugins-rhdh
+            readOnly: true
+            subPath: dynamic-plugins.yaml
+          workingDir: /opt/app-root/src
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - ephemeral:
+            volumeClaimTemplate:
+              metadata:
+                creationTimestamp: null
+              spec:
+                accessModes:
+                - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 2Gi
+                volumeMode: Filesystem
+          name: dynamic-plugins-root
+        - name: dynamic-plugins-npmrc
+          secret:
+            defaultMode: 420
+            optional: true
+            secretName: dynamic-plugins-npmrc
+        - name: dynamic-plugins-registry-auth
+          secret:
+            defaultMode: 416
+            optional: true
+            secretName: dynamic-plugins-registry-auth
+        - emptyDir: {}
+          name: npmcacache
+        - emptyDir: {}
+          name: temp
+        - configMap:
+            defaultMode: 420
+            name: backstage-appconfig-developer-hub
+            optional: false
+          name: backstage-appconfig-developer-hub
+        - configMap:
+            defaultMode: 420
+            name: app-config-rhdh
+            optional: false
+          name: app-config-rhdh
+        - configMap:
+            defaultMode: 420
+            name: dynamic-plugins-rhdh
+            optional: false
+          name: dynamic-plugins-rhdh
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "46"
+    creationTimestamp: "2025-07-09T20:20:13Z"
+    generation: 3
+    labels:
+      pod-template-hash: 85df898c79
+      rhdh.redhat.com/app: backstage-developer-hub
+    name: backstage-developer-hub-85df898c79
+    namespace: developer-hub
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: backstage-developer-hub
+      uid: 5adccb73-8819-4e47-afa6-590ea1b688be
+    resourceVersion: "52946402"
+    uid: 0f3342aa-f516-4e28-a093-ef7d059a9b5d
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        pod-template-hash: 85df898c79
+        rhdh.redhat.com/app: backstage-developer-hub
+    template:
+      metadata:
+        annotations:
+          rhdh.redhat.com/ext-config-hash: fde5b5c7b8005f7ba7835eaeae6c6b57a96955bd0a430edfeb30730631fb2f26
+        creationTimestamp: null
+        labels:
+          pod-template-hash: 85df898c79
+          rhdh.redhat.com/app: backstage-developer-hub
+      spec:
+        automountServiceAccountToken: false
+        containers:
+        - args:
+          - --config
+          - dynamic-plugins-root/app-config.dynamic-plugins.yaml
+          - --config
+          - /opt/app-root/src/default.app-config.yaml
+          - --config
+          - /opt/app-root/src/app-config-rhdh.yaml
+          env:
+          - name: APP_CONFIG_backend_listen_port
+            value: "7007"
+          envFrom:
+          - secretRef:
+              name: backstage-psql-secret-developer-hub
+          - secretRef:
+              name: backstage-envs-developer-hub
+          - secretRef:
+              name: github-app-credentials
+          image: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/liveness
+              port: backend
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 4
+          name: backstage-backend
+          ports:
+          - containerPort: 7007
+            name: backend
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/readiness
+              port: backend
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 2
+            timeoutSeconds: 4
+          resources:
+            limits:
+              cpu: "1"
+              ephemeral-storage: 5Gi
+              memory: 2560Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          startupProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/liveness
+              port: backend
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 20
+            successThreshold: 1
+            timeoutSeconds: 4
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /opt/app-root/src/dynamic-plugins-root
+            name: dynamic-plugins-root
+          - mountPath: /tmp
+            name: temp
+          - mountPath: /opt/app-root/src/default.app-config.yaml
+            name: backstage-appconfig-developer-hub
+            readOnly: true
+            subPath: default.app-config.yaml
+          - mountPath: /opt/app-root/src/app-config-rhdh.yaml
+            name: app-config-rhdh
+            readOnly: true
+            subPath: app-config-rhdh.yaml
+          workingDir: /opt/app-root/src
+        dnsPolicy: ClusterFirst
+        initContainers:
+        - command:
+          - ./install-dynamic-plugins.sh
+          - /dynamic-plugins-root
+          env:
+          - name: NPM_CONFIG_USERCONFIG
+            value: /opt/app-root/src/.npmrc.dynamic-plugins
+          image: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+          imagePullPolicy: IfNotPresent
+          name: install-dynamic-plugins
+          resources:
+            limits:
+              cpu: "1"
+              ephemeral-storage: 5Gi
+              memory: 2560Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /dynamic-plugins-root
+            name: dynamic-plugins-root
+          - mountPath: /opt/app-root/src/.npmrc.dynamic-plugins
+            name: dynamic-plugins-npmrc
+            readOnly: true
+            subPath: .npmrc
+          - mountPath: /opt/app-root/src/.config/containers
+            name: dynamic-plugins-registry-auth
+            readOnly: true
+          - mountPath: /opt/app-root/src/.npm/_cacache
+            name: npmcacache
+          - mountPath: /tmp
+            name: temp
+          - mountPath: /opt/app-root/src/dynamic-plugins.yaml
+            name: dynamic-plugins-rhdh
+            readOnly: true
+            subPath: dynamic-plugins.yaml
+          workingDir: /opt/app-root/src
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - ephemeral:
+            volumeClaimTemplate:
+              metadata:
+                creationTimestamp: null
+              spec:
+                accessModes:
+                - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 2Gi
+                volumeMode: Filesystem
+          name: dynamic-plugins-root
+        - name: dynamic-plugins-npmrc
+          secret:
+            defaultMode: 420
+            optional: true
+            secretName: dynamic-plugins-npmrc
+        - name: dynamic-plugins-registry-auth
+          secret:
+            defaultMode: 416
+            optional: true
+            secretName: dynamic-plugins-registry-auth
+        - emptyDir: {}
+          name: npmcacache
+        - emptyDir: {}
+          name: temp
+        - configMap:
+            defaultMode: 420
+            name: backstage-appconfig-developer-hub
+            optional: false
+          name: backstage-appconfig-developer-hub
+        - configMap:
+            defaultMode: 420
+            name: app-config-rhdh
+            optional: false
+          name: app-config-rhdh
+        - configMap:
+            defaultMode: 420
+            name: dynamic-plugins-rhdh
+            optional: false
+          name: dynamic-plugins-rhdh
+  status:
+    observedGeneration: 3
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "49"
+    creationTimestamp: "2025-07-09T20:27:51Z"
+    generation: 3
+    labels:
+      pod-template-hash: 8c84f785f
+      rhdh.redhat.com/app: backstage-developer-hub
+    name: backstage-developer-hub-8c84f785f
+    namespace: developer-hub
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: backstage-developer-hub
+      uid: 5adccb73-8819-4e47-afa6-590ea1b688be
+    resourceVersion: "52954562"
+    uid: 8b924f54-cd53-42e9-af4d-d749f2e794be
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        pod-template-hash: 8c84f785f
+        rhdh.redhat.com/app: backstage-developer-hub
+    template:
+      metadata:
+        annotations:
+          rhdh.redhat.com/ext-config-hash: cdf335ed3b0a515bdaaf32efe14835bde7f553feed94fe7d979963945ce61706
+        creationTimestamp: null
+        labels:
+          pod-template-hash: 8c84f785f
+          rhdh.redhat.com/app: backstage-developer-hub
+      spec:
+        automountServiceAccountToken: false
+        containers:
+        - args:
+          - --config
+          - dynamic-plugins-root/app-config.dynamic-plugins.yaml
+          - --config
+          - /opt/app-root/src/default.app-config.yaml
+          - --config
+          - /opt/app-root/src/app-config-rhdh.yaml
+          env:
+          - name: APP_CONFIG_backend_listen_port
+            value: "7007"
+          envFrom:
+          - secretRef:
+              name: backstage-psql-secret-developer-hub
+          - secretRef:
+              name: backstage-envs-developer-hub
+          - secretRef:
+              name: github-app-credentials
+          image: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/liveness
+              port: backend
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 4
+          name: backstage-backend
+          ports:
+          - containerPort: 7007
+            name: backend
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/readiness
+              port: backend
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 2
+            timeoutSeconds: 4
+          resources:
+            limits:
+              cpu: "1"
+              ephemeral-storage: 5Gi
+              memory: 2560Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          startupProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/liveness
+              port: backend
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 20
+            successThreshold: 1
+            timeoutSeconds: 4
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /opt/app-root/src/dynamic-plugins-root
+            name: dynamic-plugins-root
+          - mountPath: /tmp
+            name: temp
+          - mountPath: /opt/app-root/src/default.app-config.yaml
+            name: backstage-appconfig-developer-hub
+            readOnly: true
+            subPath: default.app-config.yaml
+          - mountPath: /opt/app-root/src/app-config-rhdh.yaml
+            name: app-config-rhdh
+            readOnly: true
+            subPath: app-config-rhdh.yaml
+          workingDir: /opt/app-root/src
+        dnsPolicy: ClusterFirst
+        initContainers:
+        - command:
+          - ./install-dynamic-plugins.sh
+          - /dynamic-plugins-root
+          env:
+          - name: NPM_CONFIG_USERCONFIG
+            value: /opt/app-root/src/.npmrc.dynamic-plugins
+          image: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+          imagePullPolicy: IfNotPresent
+          name: install-dynamic-plugins
+          resources:
+            limits:
+              cpu: "1"
+              ephemeral-storage: 5Gi
+              memory: 2560Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /dynamic-plugins-root
+            name: dynamic-plugins-root
+          - mountPath: /opt/app-root/src/.npmrc.dynamic-plugins
+            name: dynamic-plugins-npmrc
+            readOnly: true
+            subPath: .npmrc
+          - mountPath: /opt/app-root/src/.config/containers
+            name: dynamic-plugins-registry-auth
+            readOnly: true
+          - mountPath: /opt/app-root/src/.npm/_cacache
+            name: npmcacache
+          - mountPath: /tmp
+            name: temp
+          - mountPath: /opt/app-root/src/dynamic-plugins.yaml
+            name: dynamic-plugins-rhdh
+            readOnly: true
+            subPath: dynamic-plugins.yaml
+          workingDir: /opt/app-root/src
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - ephemeral:
+            volumeClaimTemplate:
+              metadata:
+                creationTimestamp: null
+              spec:
+                accessModes:
+                - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 2Gi
+                volumeMode: Filesystem
+          name: dynamic-plugins-root
+        - name: dynamic-plugins-npmrc
+          secret:
+            defaultMode: 420
+            optional: true
+            secretName: dynamic-plugins-npmrc
+        - name: dynamic-plugins-registry-auth
+          secret:
+            defaultMode: 416
+            optional: true
+            secretName: dynamic-plugins-registry-auth
+        - emptyDir: {}
+          name: npmcacache
+        - emptyDir: {}
+          name: temp
+        - configMap:
+            defaultMode: 420
+            name: backstage-appconfig-developer-hub
+            optional: false
+          name: backstage-appconfig-developer-hub
+        - configMap:
+            defaultMode: 420
+            name: app-config-rhdh
+            optional: false
+          name: app-config-rhdh
+        - configMap:
+            defaultMode: 420
+            name: dynamic-plugins-rhdh
+            optional: false
+          name: dynamic-plugins-rhdh
+  status:
+    observedGeneration: 3
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "53"
+      deployment.kubernetes.io/revision-history: "51"
+    creationTimestamp: "2025-07-09T20:36:27Z"
+    generation: 4
+    labels:
+      pod-template-hash: 97c7498b7
+      rhdh.redhat.com/app: backstage-developer-hub
+    name: backstage-developer-hub-97c7498b7
+    namespace: developer-hub
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: backstage-developer-hub
+      uid: 5adccb73-8819-4e47-afa6-590ea1b688be
+    resourceVersion: "54182144"
+    uid: d51e329d-b07b-4531-b63d-57083caabf89
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        pod-template-hash: 97c7498b7
+        rhdh.redhat.com/app: backstage-developer-hub
+    template:
+      metadata:
+        annotations:
+          rhdh.redhat.com/ext-config-hash: 7726fe584093a9b2a95b467599dbcdf393a9a5c2b3839ecb98f22b8e3caef7e4
+        creationTimestamp: null
+        labels:
+          pod-template-hash: 97c7498b7
+          rhdh.redhat.com/app: backstage-developer-hub
+      spec:
+        automountServiceAccountToken: false
+        containers:
+        - args:
+          - --config
+          - dynamic-plugins-root/app-config.dynamic-plugins.yaml
+          - --config
+          - /opt/app-root/src/default.app-config.yaml
+          - --config
+          - /opt/app-root/src/app-config-rhdh.yaml
+          env:
+          - name: APP_CONFIG_backend_listen_port
+            value: "7007"
+          envFrom:
+          - secretRef:
+              name: backstage-psql-secret-developer-hub
+          - secretRef:
+              name: backstage-envs-developer-hub
+          - secretRef:
+              name: github-app-credentials
+          image: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/liveness
+              port: backend
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 4
+          name: backstage-backend
+          ports:
+          - containerPort: 7007
+            name: backend
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/readiness
+              port: backend
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 2
+            timeoutSeconds: 4
+          resources:
+            limits:
+              cpu: "1"
+              ephemeral-storage: 5Gi
+              memory: 2560Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          startupProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/liveness
+              port: backend
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 20
+            successThreshold: 1
+            timeoutSeconds: 4
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /opt/app-root/src/dynamic-plugins-root
+            name: dynamic-plugins-root
+          - mountPath: /tmp
+            name: temp
+          - mountPath: /opt/app-root/src/default.app-config.yaml
+            name: backstage-appconfig-developer-hub
+            readOnly: true
+            subPath: default.app-config.yaml
+          - mountPath: /opt/app-root/src/app-config-rhdh.yaml
+            name: app-config-rhdh
+            readOnly: true
+            subPath: app-config-rhdh.yaml
+          workingDir: /opt/app-root/src
+        dnsPolicy: ClusterFirst
+        initContainers:
+        - command:
+          - ./install-dynamic-plugins.sh
+          - /dynamic-plugins-root
+          env:
+          - name: NPM_CONFIG_USERCONFIG
+            value: /opt/app-root/src/.npmrc.dynamic-plugins
+          image: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+          imagePullPolicy: IfNotPresent
+          name: install-dynamic-plugins
+          resources:
+            limits:
+              cpu: "1"
+              ephemeral-storage: 5Gi
+              memory: 2560Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /dynamic-plugins-root
+            name: dynamic-plugins-root
+          - mountPath: /opt/app-root/src/.npmrc.dynamic-plugins
+            name: dynamic-plugins-npmrc
+            readOnly: true
+            subPath: .npmrc
+          - mountPath: /opt/app-root/src/.config/containers
+            name: dynamic-plugins-registry-auth
+            readOnly: true
+          - mountPath: /opt/app-root/src/.npm/_cacache
+            name: npmcacache
+          - mountPath: /tmp
+            name: temp
+          - mountPath: /opt/app-root/src/dynamic-plugins.yaml
+            name: dynamic-plugins-rhdh
+            readOnly: true
+            subPath: dynamic-plugins.yaml
+          workingDir: /opt/app-root/src
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - ephemeral:
+            volumeClaimTemplate:
+              metadata:
+                creationTimestamp: null
+              spec:
+                accessModes:
+                - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 2Gi
+                volumeMode: Filesystem
+          name: dynamic-plugins-root
+        - name: dynamic-plugins-npmrc
+          secret:
+            defaultMode: 420
+            optional: true
+            secretName: dynamic-plugins-npmrc
+        - name: dynamic-plugins-registry-auth
+          secret:
+            defaultMode: 416
+            optional: true
+            secretName: dynamic-plugins-registry-auth
+        - emptyDir: {}
+          name: npmcacache
+        - emptyDir: {}
+          name: temp
+        - configMap:
+            defaultMode: 420
+            name: backstage-appconfig-developer-hub
+            optional: false
+          name: backstage-appconfig-developer-hub
+        - configMap:
+            defaultMode: 420
+            name: app-config-rhdh
+            optional: false
+          name: app-config-rhdh
+        - configMap:
+            defaultMode: 420
+            name: dynamic-plugins-rhdh
+            optional: false
+          name: dynamic-plugins-rhdh
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 4
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "44"
+    creationTimestamp: "2025-07-09T20:08:40Z"
+    generation: 2
+    labels:
+      pod-template-hash: 9dc49bf85
+      rhdh.redhat.com/app: backstage-developer-hub
+    name: backstage-developer-hub-9dc49bf85
+    namespace: developer-hub
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: backstage-developer-hub
+      uid: 5adccb73-8819-4e47-afa6-590ea1b688be
+    resourceVersion: "52937689"
+    uid: 7a014bfa-7cee-499c-a772-4d42a2608bbf
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        pod-template-hash: 9dc49bf85
+        rhdh.redhat.com/app: backstage-developer-hub
+    template:
+      metadata:
+        annotations:
+          rhdh.redhat.com/ext-config-hash: 16beebd968664ede8f390e271fd316835575946890d685698b35da83ba349361
+        creationTimestamp: null
+        labels:
+          pod-template-hash: 9dc49bf85
+          rhdh.redhat.com/app: backstage-developer-hub
+      spec:
+        automountServiceAccountToken: false
+        containers:
+        - args:
+          - --config
+          - dynamic-plugins-root/app-config.dynamic-plugins.yaml
+          - --config
+          - /opt/app-root/src/default.app-config.yaml
+          - --config
+          - /opt/app-root/src/app-config-rhdh.yaml
+          env:
+          - name: APP_CONFIG_backend_listen_port
+            value: "7007"
+          envFrom:
+          - secretRef:
+              name: backstage-psql-secret-developer-hub
+          - secretRef:
+              name: backstage-envs-developer-hub
+          - secretRef:
+              name: github-app-credentials
+          image: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/liveness
+              port: backend
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 4
+          name: backstage-backend
+          ports:
+          - containerPort: 7007
+            name: backend
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/readiness
+              port: backend
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 2
+            timeoutSeconds: 4
+          resources:
+            limits:
+              cpu: "1"
+              ephemeral-storage: 5Gi
+              memory: 2560Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          startupProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/liveness
+              port: backend
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 20
+            successThreshold: 1
+            timeoutSeconds: 4
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /opt/app-root/src/dynamic-plugins-root
+            name: dynamic-plugins-root
+          - mountPath: /tmp
+            name: temp
+          - mountPath: /opt/app-root/src/default.app-config.yaml
+            name: backstage-appconfig-developer-hub
+            readOnly: true
+            subPath: default.app-config.yaml
+          - mountPath: /opt/app-root/src/app-config-rhdh.yaml
+            name: app-config-rhdh
+            readOnly: true
+            subPath: app-config-rhdh.yaml
+          workingDir: /opt/app-root/src
+        dnsPolicy: ClusterFirst
+        initContainers:
+        - command:
+          - ./install-dynamic-plugins.sh
+          - /dynamic-plugins-root
+          env:
+          - name: NPM_CONFIG_USERCONFIG
+            value: /opt/app-root/src/.npmrc.dynamic-plugins
+          image: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+          imagePullPolicy: IfNotPresent
+          name: install-dynamic-plugins
+          resources:
+            limits:
+              cpu: "1"
+              ephemeral-storage: 5Gi
+              memory: 2560Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /dynamic-plugins-root
+            name: dynamic-plugins-root
+          - mountPath: /opt/app-root/src/.npmrc.dynamic-plugins
+            name: dynamic-plugins-npmrc
+            readOnly: true
+            subPath: .npmrc
+          - mountPath: /opt/app-root/src/.config/containers
+            name: dynamic-plugins-registry-auth
+            readOnly: true
+          - mountPath: /opt/app-root/src/.npm/_cacache
+            name: npmcacache
+          - mountPath: /tmp
+            name: temp
+          - mountPath: /opt/app-root/src/dynamic-plugins.yaml
+            name: dynamic-plugins-rhdh
+            readOnly: true
+            subPath: dynamic-plugins.yaml
+          workingDir: /opt/app-root/src
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - ephemeral:
+            volumeClaimTemplate:
+              metadata:
+                creationTimestamp: null
+              spec:
+                accessModes:
+                - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 2Gi
+                volumeMode: Filesystem
+          name: dynamic-plugins-root
+        - name: dynamic-plugins-npmrc
+          secret:
+            defaultMode: 420
+            optional: true
+            secretName: dynamic-plugins-npmrc
+        - name: dynamic-plugins-registry-auth
+          secret:
+            defaultMode: 416
+            optional: true
+            secretName: dynamic-plugins-registry-auth
+        - emptyDir: {}
+          name: npmcacache
+        - emptyDir: {}
+          name: temp
+        - configMap:
+            defaultMode: 420
+            name: backstage-appconfig-developer-hub
+            optional: false
+          name: backstage-appconfig-developer-hub
+        - configMap:
+            defaultMode: 420
+            name: app-config-rhdh
+            optional: false
+          name: app-config-rhdh
+        - configMap:
+            defaultMode: 420
+            name: dynamic-plugins-rhdh
+            optional: false
+          name: dynamic-plugins-rhdh
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "43"
+    creationTimestamp: "2025-07-09T20:00:26Z"
+    generation: 3
+    labels:
+      pod-template-hash: c4f59db89
+      rhdh.redhat.com/app: backstage-developer-hub
+    name: backstage-developer-hub-c4f59db89
+    namespace: developer-hub
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: backstage-developer-hub
+      uid: 5adccb73-8819-4e47-afa6-590ea1b688be
+    resourceVersion: "52962132"
+    uid: 36b2349b-616d-479b-9f65-2c40ab7b27dd
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        pod-template-hash: c4f59db89
+        rhdh.redhat.com/app: backstage-developer-hub
+    template:
+      metadata:
+        annotations:
+          rhdh.redhat.com/ext-config-hash: 584578e19d8239604091fc81dd38dfd96d0a5c8781ba2ad2d38d613978c9ff58
+        creationTimestamp: null
+        labels:
+          pod-template-hash: c4f59db89
+          rhdh.redhat.com/app: backstage-developer-hub
+      spec:
+        automountServiceAccountToken: false
+        containers:
+        - args:
+          - --config
+          - dynamic-plugins-root/app-config.dynamic-plugins.yaml
+          - --config
+          - /opt/app-root/src/default.app-config.yaml
+          - --config
+          - /opt/app-root/src/app-config-rhdh.yaml
+          env:
+          - name: APP_CONFIG_backend_listen_port
+            value: "7007"
+          envFrom:
+          - secretRef:
+              name: backstage-psql-secret-developer-hub
+          - secretRef:
+              name: backstage-envs-developer-hub
+          - secretRef:
+              name: github-app-credentials
+          image: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/liveness
+              port: backend
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 4
+          name: backstage-backend
+          ports:
+          - containerPort: 7007
+            name: backend
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/readiness
+              port: backend
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 2
+            timeoutSeconds: 4
+          resources:
+            limits:
+              cpu: "1"
+              ephemeral-storage: 5Gi
+              memory: 2560Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          startupProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /.backstage/health/v1/liveness
+              port: backend
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 20
+            successThreshold: 1
+            timeoutSeconds: 4
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /opt/app-root/src/dynamic-plugins-root
+            name: dynamic-plugins-root
+          - mountPath: /tmp
+            name: temp
+          - mountPath: /opt/app-root/src/default.app-config.yaml
+            name: backstage-appconfig-developer-hub
+            readOnly: true
+            subPath: default.app-config.yaml
+          - mountPath: /opt/app-root/src/app-config-rhdh.yaml
+            name: app-config-rhdh
+            readOnly: true
+            subPath: app-config-rhdh.yaml
+          workingDir: /opt/app-root/src
+        dnsPolicy: ClusterFirst
+        initContainers:
+        - command:
+          - ./install-dynamic-plugins.sh
+          - /dynamic-plugins-root
+          env:
+          - name: NPM_CONFIG_USERCONFIG
+            value: /opt/app-root/src/.npmrc.dynamic-plugins
+          image: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+          imagePullPolicy: IfNotPresent
+          name: install-dynamic-plugins
+          resources:
+            limits:
+              cpu: "1"
+              ephemeral-storage: 5Gi
+              memory: 2560Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /dynamic-plugins-root
+            name: dynamic-plugins-root
+          - mountPath: /opt/app-root/src/.npmrc.dynamic-plugins
+            name: dynamic-plugins-npmrc
+            readOnly: true
+            subPath: .npmrc
+          - mountPath: /opt/app-root/src/.config/containers
+            name: dynamic-plugins-registry-auth
+            readOnly: true
+          - mountPath: /opt/app-root/src/.npm/_cacache
+            name: npmcacache
+          - mountPath: /tmp
+            name: temp
+          - mountPath: /opt/app-root/src/dynamic-plugins.yaml
+            name: dynamic-plugins-rhdh
+            readOnly: true
+            subPath: dynamic-plugins.yaml
+          workingDir: /opt/app-root/src
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - ephemeral:
+            volumeClaimTemplate:
+              metadata:
+                creationTimestamp: null
+              spec:
+                accessModes:
+                - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 2Gi
+                volumeMode: Filesystem
+          name: dynamic-plugins-root
+        - name: dynamic-plugins-npmrc
+          secret:
+            defaultMode: 420
+            optional: true
+            secretName: dynamic-plugins-npmrc
+        - name: dynamic-plugins-registry-auth
+          secret:
+            defaultMode: 416
+            optional: true
+            secretName: dynamic-plugins-registry-auth
+        - emptyDir: {}
+          name: npmcacache
+        - emptyDir: {}
+          name: temp
+        - configMap:
+            defaultMode: 420
+            name: backstage-appconfig-developer-hub
+            optional: false
+          name: backstage-appconfig-developer-hub
+        - configMap:
+            defaultMode: 420
+            name: app-config-rhdh
+            optional: false
+          name: app-config-rhdh
+        - configMap:
+            defaultMode: 420
+            name: dynamic-plugins-rhdh
+            optional: false
+          name: dynamic-plugins-rhdh
+  status:
+    observedGeneration: 3
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "2"
+    creationTimestamp: "2025-05-14T19:18:53Z"
+    generation: 2
+    labels:
+      app: rhdh-operator
+      app.kubernetes.io/component: rhdh-operator
+      control-plane: controller-manager
+      pod-template-hash: 688d9b9457
+    name: rhdh-operator-688d9b9457
+    namespace: developer-hub
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: rhdh-operator
+      uid: e17d5c11-b470-4a21-a2e3-327e67774a63
+    resourceVersion: "22121082"
+    uid: a1c76576-396a-4cfa-b185-e91df82818a2
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: rhdh-operator
+        pod-template-hash: 688d9b9457
+    template:
+      metadata:
+        annotations:
+          alm-examples: |-
+            [
+              {
+                "apiVersion": "rhdh.redhat.com/v1alpha1",
+                "kind": "Backstage",
+                "metadata": {
+                  "labels": {
+                    "app.kubernetes.io/name": "backstage"
+                  },
+                  "name": "developer-hub"
+                }
+              },
+              {
+                "apiVersion": "rhdh.redhat.com/v1alpha2",
+                "kind": "Backstage",
+                "metadata": {
+                  "labels": {
+                    "app.kubernetes.io/name": "backstage"
+                  },
+                  "name": "developer-hub"
+                }
+              },
+              {
+                "apiVersion": "rhdh.redhat.com/v1alpha3",
+                "kind": "Backstage",
+                "metadata": {
+                  "labels": {
+                    "app.kubernetes.io/name": "backstage"
+                  },
+                  "name": "developer-hub"
+                }
+              }
+            ]
+          capabilities: Seamless Upgrades
+          categories: Developer Tools
+          certified: "true"
+          containerImage: registry.redhat.io/rhdh/rhdh-rhel9-operator@sha256:dbfd9454a0aef0e725834b6c88155e9919b89e2fd3c1c399954143f52293b52f
+          createdAt: "2025-04-01T13:01:17Z"
+          description: Red Hat Developer Hub is a Red Hat supported version of Backstage.
+            It comes with pre-built plug-ins and configuration settings, supports
+            use of an external database, and can help streamline the process of setting
+            up a self-managed internal developer portal for adopters who are just
+            starting out.
+          features.operators.openshift.io/cnf: "false"
+          features.operators.openshift.io/cni: "false"
+          features.operators.openshift.io/csi: "false"
+          features.operators.openshift.io/disconnected: "true"
+          features.operators.openshift.io/fips-compliant: "false"
+          features.operators.openshift.io/proxy-aware: "false"
+          features.operators.openshift.io/tls-profiles: "false"
+          features.operators.openshift.io/token-auth-aws: "false"
+          features.operators.openshift.io/token-auth-azure: "false"
+          features.operators.openshift.io/token-auth-gcp: "false"
+          kubectl.kubernetes.io/default-container: manager
+          olm.operatorGroup: developer-hub-x6dbb
+          olm.operatorNamespace: developer-hub
+          olm.targetNamespaces: ""
+          operatorframework.io/properties: '{"properties":[{"type":"olm.gvk","value":{"group":"rhdh.redhat.com","kind":"Backstage","version":"v1alpha1"}},{"type":"olm.gvk","value":{"group":"rhdh.redhat.com","kind":"Backstage","version":"v1alpha2"}},{"type":"olm.gvk","value":{"group":"rhdh.redhat.com","kind":"Backstage","version":"v1alpha3"}},{"type":"olm.package","value":{"packageName":"rhdh","version":"1.6.0"}}]}'
+          operatorframework.io/suggested-namespace: rhdh-operator
+          operators.openshift.io/valid-subscription: '["Red Hat Developer Hub"]'
+          operators.operatorframework.io/builder: operator-sdk-v1.37.0
+          operators.operatorframework.io/project_layout: go.kubebuilder.io/v4
+          repository: https://gitlab.cee.redhat.com/rhidp/rhdh/
+          skipRange: '>=1.0.0 <1.6.0'
+          support: Red Hat
+        creationTimestamp: null
+        labels:
+          app: rhdh-operator
+          app.kubernetes.io/component: rhdh-operator
+          control-plane: controller-manager
+          pod-template-hash: 688d9b9457
+      spec:
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: kubernetes.io/arch
+                  operator: In
+                  values:
+                  - amd64
+                - key: kubernetes.io/os
+                  operator: In
+                  values:
+                  - linux
+        automountServiceAccountToken: true
+        containers:
+        - args:
+          - --health-probe-bind-address=:8081
+          - --metrics-bind-address=:8443
+          - --metrics-secure=true
+          - --leader-elect
+          command:
+          - /manager
+          env:
+          - name: OPERATOR_NAME
+            value: rhdh-operator
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.name
+          - name: RELATED_IMAGE_postgresql
+            value: registry.redhat.io/rhel9/postgresql-15@sha256:e776cae7d62baab3525be7e2596f45007affd44244379a8be53a431e3a794f34
+          - name: RELATED_IMAGE_backstage
+            value: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:55a2bcb26344d7a04984b13e10213a2b3b76ba06623454bea597b9664ce97a7a
+          - name: OPERATOR_CONDITION_NAME
+            value: rhdh-operator.v1.6.0
+          image: registry.redhat.io/rhdh/rhdh-rhel9-operator@sha256:dbfd9454a0aef0e725834b6c88155e9919b89e2fd3c1c399954143f52293b52f
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: health
+              scheme: HTTP
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: manager
+          ports:
+          - containerPort: 8081
+            name: health
+            protocol: TCP
+          - containerPort: 8443
+            name: metrics
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /readyz
+              port: health
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 500m
+              ephemeral-storage: 20Mi
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 128Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /default-config
+            name: default-config
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          runAsNonRoot: true
+        serviceAccount: rhdh-controller-manager
+        serviceAccountName: rhdh-controller-manager
+        terminationGracePeriodSeconds: 10
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: rhdh-default-config
+          name: default-config
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "3"
+    creationTimestamp: "2025-05-27T20:22:47Z"
+    generation: 1
+    labels:
+      app: rhdh-operator
+      app.kubernetes.io/component: rhdh-operator
+      control-plane: controller-manager
+      pod-template-hash: 8fb899fd9
+    name: rhdh-operator-8fb899fd9
+    namespace: developer-hub
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: rhdh-operator
+      uid: e17d5c11-b470-4a21-a2e3-327e67774a63
+    resourceVersion: "53804622"
+    uid: 181c03aa-802e-4175-992d-d6c6db269dea
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: rhdh-operator
+        pod-template-hash: 8fb899fd9
+    template:
+      metadata:
+        annotations:
+          alm-examples: |-
+            [
+              {
+                "apiVersion": "rhdh.redhat.com/v1alpha1",
+                "kind": "Backstage",
+                "metadata": {
+                  "labels": {
+                    "app.kubernetes.io/name": "backstage"
+                  },
+                  "name": "developer-hub"
+                }
+              },
+              {
+                "apiVersion": "rhdh.redhat.com/v1alpha2",
+                "kind": "Backstage",
+                "metadata": {
+                  "labels": {
+                    "app.kubernetes.io/name": "backstage"
+                  },
+                  "name": "developer-hub"
+                }
+              },
+              {
+                "apiVersion": "rhdh.redhat.com/v1alpha3",
+                "kind": "Backstage",
+                "metadata": {
+                  "labels": {
+                    "app.kubernetes.io/name": "backstage"
+                  },
+                  "name": "developer-hub"
+                }
+              }
+            ]
+          capabilities: Seamless Upgrades
+          categories: Developer Tools
+          certified: "true"
+          containerImage: registry.redhat.io/rhdh/rhdh-rhel9-operator@sha256:2f72c8706af43c0fbf8afc82d1925c77887aa7c3c3b1cb28f698bc4e4241ed4d
+          createdAt: "2025-05-14T19:28:36Z"
+          description: Red Hat Developer Hub is a Red Hat supported version of Backstage.
+            It comes with pre-built plug-ins and configuration settings, supports
+            use of an external database, and can help streamline the process of setting
+            up a self-managed internal developer portal for adopters who are just
+            starting out.
+          features.operators.openshift.io/cnf: "false"
+          features.operators.openshift.io/cni: "false"
+          features.operators.openshift.io/csi: "false"
+          features.operators.openshift.io/disconnected: "true"
+          features.operators.openshift.io/fips-compliant: "false"
+          features.operators.openshift.io/proxy-aware: "false"
+          features.operators.openshift.io/tls-profiles: "false"
+          features.operators.openshift.io/token-auth-aws: "false"
+          features.operators.openshift.io/token-auth-azure: "false"
+          features.operators.openshift.io/token-auth-gcp: "false"
+          kubectl.kubernetes.io/default-container: manager
+          olm.operatorGroup: developer-hub-x6dbb
+          olm.operatorNamespace: developer-hub
+          olm.targetNamespaces: ""
+          operatorframework.io/properties: '{"properties":[{"type":"olm.gvk","value":{"group":"rhdh.redhat.com","kind":"Backstage","version":"v1alpha1"}},{"type":"olm.gvk","value":{"group":"rhdh.redhat.com","kind":"Backstage","version":"v1alpha2"}},{"type":"olm.gvk","value":{"group":"rhdh.redhat.com","kind":"Backstage","version":"v1alpha3"}},{"type":"olm.package","value":{"packageName":"rhdh","version":"1.6.1"}}]}'
+          operatorframework.io/suggested-namespace: rhdh-operator
+          operators.openshift.io/valid-subscription: '["Red Hat Developer Hub"]'
+          operators.operatorframework.io/builder: operator-sdk-v1.37.0
+          operators.operatorframework.io/project_layout: go.kubebuilder.io/v4
+          repository: https://gitlab.cee.redhat.com/rhidp/rhdh/
+          skipRange: '>=1.0.0 <1.6.1'
+          support: Red Hat
+        creationTimestamp: null
+        labels:
+          app: rhdh-operator
+          app.kubernetes.io/component: rhdh-operator
+          control-plane: controller-manager
+          pod-template-hash: 8fb899fd9
+      spec:
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: kubernetes.io/arch
+                  operator: In
+                  values:
+                  - amd64
+                - key: kubernetes.io/os
+                  operator: In
+                  values:
+                  - linux
+        automountServiceAccountToken: true
+        containers:
+        - args:
+          - --health-probe-bind-address=:8081
+          - --metrics-bind-address=:8443
+          - --metrics-secure=true
+          - --leader-elect
+          command:
+          - /manager
+          env:
+          - name: OPERATOR_NAME
+            value: rhdh-operator
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.name
+          - name: RELATED_IMAGE_postgresql
+            value: registry.redhat.io/rhel9/postgresql-15@sha256:ddf4827c9093a0ec93b5b4f4fd31b009c7811c38a406187400ab448579036c6c
+          - name: RELATED_IMAGE_backstage
+            value: registry.redhat.io/rhdh/rhdh-hub-rhel9@sha256:8729c21dc4b6e1339ed29bf87e2e2054c8802f401a029ebb1f397408f3656664
+          - name: OPERATOR_CONDITION_NAME
+            value: rhdh-operator.v1.6.1
+          image: registry.redhat.io/rhdh/rhdh-rhel9-operator@sha256:2f72c8706af43c0fbf8afc82d1925c77887aa7c3c3b1cb28f698bc4e4241ed4d
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: health
+              scheme: HTTP
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: manager
+          ports:
+          - containerPort: 8081
+            name: health
+            protocol: TCP
+          - containerPort: 8443
+            name: metrics
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /readyz
+              port: health
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 500m
+              ephemeral-storage: 20Mi
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 128Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /default-config
+            name: default-config
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          runAsNonRoot: true
+        serviceAccount: rhdh-controller-manager
+        serviceAccountName: rhdh-controller-manager
+        terminationGracePeriodSeconds: 10
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: rhdh-default-config
+          name: default-config
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: StatefulSet
+  metadata:
+    creationTimestamp: "2025-07-07T20:45:33Z"
+    generation: 3
+    labels:
+      app.kubernetes.io/instance: developer-hub
+      app.kubernetes.io/name: backstage
+    name: backstage-psql-developer-hub
+    namespace: developer-hub
+    ownerReferences:
+    - apiVersion: rhdh.redhat.com/v1alpha3
+      blockOwnerDeletion: true
+      controller: true
+      kind: Backstage
+      name: developer-hub
+      uid: 44d807af-5e88-493b-b099-bedb17d640c5
+    resourceVersion: "54182115"
+    uid: 5aecefb4-031b-443a-a451-a808f624e5aa
+  spec:
+    persistentVolumeClaimRetentionPolicy:
+      whenDeleted: Retain
+      whenScaled: Retain
+    podManagementPolicy: OrderedReady
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        rhdh.redhat.com/app: backstage-psql-developer-hub
+    serviceName: backstage-psql-developer-hub
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          rhdh.redhat.com/app: backstage-psql-developer-hub
+      spec:
+        automountServiceAccountToken: false
+        containers:
+        - env:
+          - name: POSTGRESQL_PORT_NUMBER
+            value: "5432"
+          - name: POSTGRESQL_VOLUME_DIR
+            value: /var/lib/pgsql/data
+          - name: PGDATA
+            value: /var/lib/pgsql/data/userdata
+          envFrom:
+          - secretRef:
+              name: backstage-psql-secret-developer-hub
+          image: registry.redhat.io/rhel9/postgresql-15@sha256:ddf4827c9093a0ec93b5b4f4fd31b009c7811c38a406187400ab448579036c6c
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            exec:
+              command:
+              - /bin/sh
+              - -c
+              - exec pg_isready -U ${POSTGRES_USER} -h 127.0.0.1 -p 5432
+            failureThreshold: 6
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: postgresql
+          ports:
+          - containerPort: 5432
+            name: tcp-postgresql
+            protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+              - /bin/sh
+              - -c
+              - -e
+              - |
+                exec pg_isready -U ${POSTGRES_USER} -h 127.0.0.1 -p 5432
+            failureThreshold: 6
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 250m
+              ephemeral-storage: 20Mi
+              memory: 1Gi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            runAsGroup: 0
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /dev/shm
+            name: dshm
+          - mountPath: /var/lib/pgsql/data
+            name: data
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: default
+        serviceAccountName: default
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - emptyDir:
+            medium: Memory
+          name: dshm
+    updateStrategy:
+      rollingUpdate:
+        partition: 0
+      type: RollingUpdate
+    volumeClaimTemplates:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        creationTimestamp: null
+        name: data
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+        volumeMode: Filesystem
+      status:
+        phase: Pending
+  status:
+    availableReplicas: 1
+    collisionCount: 0
+    currentReplicas: 1
+    currentRevision: backstage-psql-developer-hub-896c9dc5f
+    observedGeneration: 3
+    readyReplicas: 1
+    replicas: 1
+    updateRevision: backstage-psql-developer-hub-896c9dc5f
+    updatedReplicas: 1
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    annotations:
+      openshift.io/host.generated: "true"
+    creationTimestamp: "2025-07-07T20:45:33Z"
+    labels:
+      app.kubernetes.io/instance: developer-hub
+      app.kubernetes.io/name: backstage
+    name: backstage-developer-hub
+    namespace: developer-hub
+    ownerReferences:
+    - apiVersion: rhdh.redhat.com/v1alpha3
+      blockOwnerDeletion: true
+      controller: true
+      kind: Backstage
+      name: developer-hub
+      uid: 44d807af-5e88-493b-b099-bedb17d640c5
+    resourceVersion: "49918457"
+    uid: 72aaaae8-19e4-44e5-9950-fae0b77f6832
+  spec:
+    host: backstage-developer-hub-developer-hub.apps.txl952sg.centralus.aroapp.io
+    path: /
+    port:
+      targetPort: http-backend
+    tls:
+      insecureEdgeTerminationPolicy: Redirect
+      termination: edge
+    to:
+      kind: Service
+      name: backstage-developer-hub
+      weight: 100
+    wildcardPolicy: None
+  status:
+    ingress:
+    - conditions:
+      - lastTransitionTime: "2025-07-07T20:45:33Z"
+        status: "True"
+        type: Admitted
+      host: backstage-developer-hub-developer-hub.apps.txl952sg.centralus.aroapp.io
+      routerCanonicalHostname: router-default.apps.txl952sg.centralus.aroapp.io
+      routerName: default
+      wildcardPolicy: None
+kind: List
+metadata:
+  resourceVersion: ""

@@ -1,0 +1,174 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: h1-microservices-starter
+  title: H1: Microservices Starter Kit
+  description: Foundation microservices template with basic patterns and Azure integration
+  annotations:
+    backstage.io/managed-by-location: url:https://github.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform/blob/main/templates/h1-foundation/microservices-starter/template.yaml
+  tags:
+    - horizon-1
+    - foundation
+    - microservices
+    - azure
+    - kubernetes
+    - api
+spec:
+  owner: platform-team
+  type: service
+  
+  parameters:
+    - title: Service Information
+      required:
+        - name
+        - description
+        - owner
+      properties:
+        name:
+          title: Service Name
+          type: string
+          pattern: '^[a-z0-9-]+$'
+          description: Name of your microservice
+        description:
+          title: Description
+          type: string
+          description: What does this microservice do?
+        owner:
+          title: Owner
+          type: string
+          description: Owner of the service
+          ui:field: OwnerPicker
+          ui:options:
+            catalogFilter:
+              kind: [Group, User]
+
+    - title: Technology Stack
+      properties:
+        language:
+          title: Programming Language
+          type: string
+          description: Choose your preferred language
+          default: nodejs
+          enum:
+            - nodejs
+            - python
+            - dotnet
+            - java
+          enumNames:
+            - Node.js
+            - Python
+            - .NET
+            - Java
+        database:
+          title: Database Type
+          type: string
+          description: Choose database for your service
+          default: postgresql
+          enum:
+            - postgresql
+            - mongodb
+            - redis
+            - none
+          enumNames:
+            - PostgreSQL
+            - MongoDB
+            - Redis
+            - None
+        authentication:
+          title: Authentication
+          type: boolean
+          description: Include authentication middleware
+          default: true
+
+    - title: Azure Configuration
+      required:
+        - azureSubscription
+        - azureLocation
+      properties:
+        azureSubscription:
+          title: Azure Subscription ID
+          type: string
+          description: Azure subscription for deployment
+        azureLocation:
+          title: Azure Location
+          type: string
+          default: centralus
+          enum:
+            - centralus
+            - eastus
+            - westus2
+            - westeurope
+
+    - title: Repository Information
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+            allowedOwners:
+              - three-horizon-ai
+
+  steps:
+    - id: fetch-base
+      name: Fetch Base Template
+      action: fetch:template
+      input:
+        url: ./skeleton/${{ parameters.language }}
+        values:
+          name: ${{ parameters.name }}
+          description: ${{ parameters.description }}
+          owner: ${{ parameters.owner }}
+          database: ${{ parameters.database }}
+          authentication: ${{ parameters.authentication }}
+
+    - id: fetch-k8s
+      name: Fetch Kubernetes Manifests
+      action: fetch:template
+      input:
+        url: ./k8s
+        targetPath: ./k8s
+        values:
+          name: ${{ parameters.name }}
+          namespace: ${{ parameters.name }}
+
+    - id: fetch-pipeline
+      name: Fetch CI/CD Pipeline
+      action: fetch:template
+      input:
+        url: ./github
+        targetPath: ./.github
+        values:
+          name: ${{ parameters.name }}
+          azureSubscription: ${{ parameters.azureSubscription }}
+          azureLocation: ${{ parameters.azureLocation }}
+
+    - id: publish
+      name: Publish to GitHub
+      action: publish:github
+      input:
+        allowedHosts: ['github.com']
+        description: '${{ parameters.description }}'
+        repoUrl: ${{ parameters.repoUrl }}
+        defaultBranch: main
+
+    - id: register
+      name: Register in Catalog
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: '/catalog-info.yaml'
+
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps.register.output.entityRef }}
+      - title: API Documentation
+        url: ${{ steps.publish.output.remoteUrl }}/blob/main/docs/api.md
