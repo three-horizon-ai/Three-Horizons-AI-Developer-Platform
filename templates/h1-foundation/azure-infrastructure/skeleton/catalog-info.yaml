@@ -1,0 +1,20 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ${{ values.name }}-infrastructure
+  title: ${{ values.name | title }} Infrastructure
+  description: Azure infrastructure setup for ${{ values.name }} (${{ values.environment }} environment)
+  annotations:
+    github.com/project-slug: ${{ values.destination.owner }}/${{ values.destination.repo }}
+    backstage.io/source-location: url:https://github.com/${{ values.destination.owner }}/${{ values.destination.repo }}
+  tags:
+    - infrastructure
+    - azure
+    - h1-foundation
+    - ${{ values.environment }}
+spec:
+  type: resource
+  lifecycle: experimental
+  owner: ${{ values.owner }}
+  dependsOn:
+    - resource:azure-subscription

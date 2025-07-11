@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "name": {
+      "value": "${{ values.name }}"
+    },
+    "environment": {
+      "value": "${{ values.environment }}"
+    },
+    "azureLocation": {
+      "value": "${{ values.azureLocation }}"
+    },
+    "secondaryLocation": {
+      "value": "${{ values.secondaryLocation }}"
+    },
+    "subscriptionId": {
+      "value": "${{ values.subscriptionId }}"
+    },
+    "deployAKS": {
+      "value": ${{ values.deployAKS }}
+    },
+    "deployARO": {
+      "value": ${{ values.deployARO }}
+    }
+  }
+}
