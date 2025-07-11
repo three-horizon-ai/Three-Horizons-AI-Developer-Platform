@@ -1,0 +1,54 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "resourceBaseName": {
+      "value": "th3horiz"
+    },
+    "environment": {
+      "value": "dev"
+    },
+    "instance": {
+      "value": "001"
+    },
+    "administratorObjectId": {
+      "value": "REPLACE_WITH_YOUR_AZURE_AD_OBJECT_ID"
+    },
+    "tags": {
+      "value": {
+        "project": "three-horizons-ai",
+        "environment": "dev",
+        "cost-center": "platform-engineering",
+        "managed-by": "bicep",
+        "created-date": "2024-01-15"
+      }
+    },
+    "enableDiagnostics": {
+      "value": true
+    },
+    "logAnalyticsWorkspaceName": {
+      "value": ""
+    },
+    "vnetAddressSpace": {
+      "value": "10.0.0.0/16"
+    },
+    "aksSubnetAddressPrefix": {
+      "value": "10.0.1.0/24"
+    },
+    "servicesSubnetAddressPrefix": {
+      "value": "10.0.2.0/24"
+    },
+    "privateEndpointsSubnetAddressPrefix": {
+      "value": "10.0.3.0/24"
+    },
+    "kubernetesVersion": {
+      "value": "1.28.3"
+    },
+    "enableAzurePolicy": {
+      "value": true
+    },
+    "enableContainerInsights": {
+      "value": true
+    }
+  }
+}
