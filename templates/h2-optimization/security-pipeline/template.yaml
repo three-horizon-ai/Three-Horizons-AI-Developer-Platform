@@ -2,8 +2,8 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: h2-security-pipeline
-  title: H2: Enhanced Security Pipeline
-  description: Advanced security pipeline with vulnerability scanning, policy enforcement, and compliance checks for Horizon 2
+  title: "H2: Enhanced Security Pipeline"
+  description: "Advanced security pipeline with vulnerability scanning, policy enforcement, and compliance checks for Horizon 2"
   annotations:
     backstage.io/managed-by-location: url:https://github.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform/blob/main/templates/h2-optimization/security-pipeline/template.yaml
   tags:
@@ -25,28 +25,28 @@ spec:
         - securityLevel
       properties:
         name:
-          title: Security Pipeline Name
+          title: "Security Pipeline Name"
           type: string
           pattern: '^[a-z0-9-]+$'
-          description: Unique name for your security pipeline
+          description: "Unique name for your security pipeline"
           default: h2-security-pipeline
         description:
-          title: Description
+""          title: "Description"
           type: string
-          description: Description of your security pipeline
+          description: "Description of your security pipeline"
           default: Enhanced security pipeline with comprehensive scanning and policy enforcement
         owner:
-          title: Owner
+          title: "Owner"
           type: string
-          description: Owner of the security pipeline (GitHub username or team)
+          description: "Owner of the security pipeline (GitHub username or team)"
           ui:field: OwnerPicker
           ui:options:
             catalogFilter:
               kind: [Group, User]
         securityLevel:
-          title: Security Level
+          title: "Security Level"
           type: string
-          description: Security compliance level
+          description: "Security compliance level"
           default: high
           enum:
             - basic
@@ -61,34 +61,34 @@ spec:
         - enableSCA
       properties:
         enableSAST:
-          title: Enable SAST
+          title: "Enable SAST"
           type: boolean
-          description: Enable Static Application Security Testing
+          description: "Enable Static Application Security Testing"
           default: true
         enableDAST:
-          title: Enable DAST
+          title: "Enable DAST"
           type: boolean
-          description: Enable Dynamic Application Security Testing
+          description: "Enable Dynamic Application Security Testing"
           default: true
         enableSCA:
-          title: Enable SCA
+          title: "Enable SCA"
           type: boolean
-          description: Enable Software Composition Analysis
+          description: "Enable Software Composition Analysis"
           default: true
         enableContainerScanning:
-          title: Enable Container Scanning
+          title: "Enable Container Scanning"
           type: boolean
-          description: Enable container image vulnerability scanning
+          description: "Enable container image vulnerability scanning"
           default: true
         enableIaCScan:
-          title: Enable IaC Scanning
+          title: "Enable IaC Scanning"
           type: boolean
-          description: Enable Infrastructure as Code security scanning
+          description: "Enable Infrastructure as Code security scanning"
           default: true
         scanTools:
-          title: Security Scanning Tools
+          title: "Security Scanning Tools"
           type: array
-          description: Security tools to integrate
+          description: "Security tools to integrate"
           items:
             type: string
             enum:
@@ -108,29 +108,29 @@ spec:
         - enableFalco
       properties:
         enableOPA:
-          title: Enable OPA Gatekeeper
+          title: "Enable OPA Gatekeeper"
           type: boolean
-          description: Enable Open Policy Agent for policy enforcement
+          description: "Enable Open Policy Agent for policy enforcement"
           default: true
         enableFalco:
-          title: Enable Falco
+          title: "Enable Falco"
           type: boolean
-          description: Enable Falco for runtime security monitoring
+          description: "Enable Falco for runtime security monitoring"
           default: true
         enablePodSecurityStandards:
-          title: Enable Pod Security Standards
+          title: "Enable Pod Security Standards"
           type: boolean
-          description: Enable Kubernetes Pod Security Standards
+          description: "Enable Kubernetes Pod Security Standards"
           default: true
         enableNetworkPolicies:
-          title: Enable Network Policies
+          title: "Enable Network Policies"
           type: boolean
-          description: Enable Kubernetes Network Policies
+          description: "Enable Kubernetes Network Policies"
           default: true
         policyFramework:
-          title: Policy Framework
+          title: "Policy Framework"
           type: string
-          description: Security policy framework to implement
+          description: "Security policy framework to implement"
           default: nist
           enum:
             - nist
@@ -145,9 +145,9 @@ spec:
         - enableAuditing
       properties:
         complianceStandards:
-          title: Compliance Standards
+          title: "Compliance Standards"
           type: array
-          description: Compliance standards to enforce
+          description: "Compliance standards to enforce"
           items:
             type: string
             enum:
@@ -160,19 +160,19 @@ spec:
           default: ["soc2"]
           ui:widget: checkboxes
         enableAuditing:
-          title: Enable Security Auditing
+          title: "Enable Security Auditing"
           type: boolean
-          description: Enable comprehensive security auditing
+          description: "Enable comprehensive security auditing"
           default: true
         enableSecretScanning:
-          title: Enable Secret Scanning
+          title: "Enable Secret Scanning"
           type: boolean
-          description: Enable scanning for exposed secrets
+          description: "Enable scanning for exposed secrets"
           default: true
         enableCISBenchmarks:
-          title: Enable CIS Benchmarks
+          title: "Enable CIS Benchmarks"
           type: boolean
-          description: Enable CIS Kubernetes benchmarks
+          description: "Enable CIS Kubernetes benchmarks"
           default: true
           
     - title: Azure Security Integration
@@ -181,29 +181,29 @@ spec:
         - azureSubscription
       properties:
         enableDefender:
-          title: Enable Microsoft Defender
+          title: "Enable Microsoft Defender"
           type: boolean
-          description: Enable Microsoft Defender for Cloud
+          description: "Enable Microsoft Defender for Cloud"
           default: true
         azureSubscription:
-          title: Azure Subscription ID
+          title: "Azure Subscription ID"
           type: string
-          description: Azure subscription ID for security services
+          description: "Azure subscription ID for security services"
           ui:help: 'Enter your Azure subscription ID (GUID format)'
         enableSentinel:
-          title: Enable Azure Sentinel
+          title: "Enable Azure Sentinel"
           type: boolean
-          description: Enable Azure Sentinel for SIEM
+          description: "Enable Azure Sentinel for SIEM"
           default: false
         enableKeyVault:
-          title: Enable Azure Key Vault
+          title: "Enable Azure Key Vault"
           type: boolean
-          description: Enable Azure Key Vault for secret management
+          description: "Enable Azure Key Vault for secret management"
           default: true
         enableSecurityCenter:
-          title: Enable Security Center
+          title: "Enable Security Center"
           type: boolean
-          description: Enable Azure Security Center recommendations
+          description: "Enable Azure Security Center recommendations"
           default: true
           
     - title: Notification Configuration
@@ -212,9 +212,9 @@ spec:
         - notificationChannels
       properties:
         alertingSeverity:
-          title: Minimum Alerting Severity
+          title: "Minimum Alerting Severity"
           type: string
-          description: Minimum severity level for security alerts
+          description: "Minimum severity level for security alerts"
           default: medium
           enum:
             - low
@@ -222,9 +222,9 @@ spec:
             - high
             - critical
         notificationChannels:
-          title: Notification Channels
+          title: "Notification Channels"
           type: array
-          description: Channels for security notifications
+          description: "Channels for security notifications"
           items:
             type: string
             enum:
@@ -236,14 +236,14 @@ spec:
           default: ["email", "slack"]
           ui:widget: checkboxes
         slackChannel:
-          title: Slack Channel
+          title: "Slack Channel"
           type: string
-          description: Slack channel for security notifications
+          description: "Slack channel for security notifications"
           default: "#security-alerts"
         emailRecipients:
-          title: Email Recipients
+          title: "Email Recipients"
           type: string
-          description: Email addresses for security notifications (comma-separated)
+          description: "Email addresses for security notifications (comma-separated)"
           ui:help: 'Enter email addresses separated by commas'
 
   steps:
@@ -254,7 +254,7 @@ spec:
         url: ./skeleton
         values:
           name: ${{ parameters.name }}
-          description: ${{ parameters.description }}
+          description: "${{ parameters.description }}"
           owner: ${{ parameters.owner }}
           securityLevel: ${{ parameters.securityLevel }}
           enableSAST: ${{ parameters.enableSAST }}
@@ -287,7 +287,7 @@ spec:
       action: publish:github
       input:
         allowedHosts: ['github.com']
-        description: 'Enhanced security pipeline for ${{ parameters.name }}'
+        description: "'Enhanced security pipeline for ${{ parameters.name }}'"
         repoUrl: github.com/three-horizon-ai/${{ parameters.name }}
         defaultBranch: main
         gitCommitMessage: 'Initial security pipeline setup for ${{ parameters.name }}'

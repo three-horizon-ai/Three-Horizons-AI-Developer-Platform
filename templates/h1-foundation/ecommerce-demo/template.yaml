@@ -2,10 +2,10 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: h1-ecommerce-demo
-  title: H1: E-commerce Demo Application
-  description: Complete e-commerce demo showcasing Horizon 1 Foundation capabilities with microservices architecture
+  title: "H1: E-commerce Demo Application"
+  description: "Complete e-commerce demo showcasing Horizon 1 Foundation capabilities with microservices architecture"
   annotations:
-    backstage.io/managed-by-location: url:https://github.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform/blob/main/templates/h1-foundation/ecommerce-demo/template.yaml
+    backstage.io/managed-by-location: "url:https://github.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform/blob/main/templates/h1-foundation/ecommerce-demo/template.yaml"
   tags:
     - horizon-1
     - foundation
@@ -17,7 +17,6 @@ metadata:
 spec:
   owner: platform-team
   type: application
-  
   parameters:
     - title: Application Information
       required:
@@ -25,55 +24,36 @@ spec:
         - owner
       properties:
         name:
-          title: Application Name
+          title: Name
           type: string
-          pattern: '^[a-z0-9-]+$'
-          description: Unique name for your e-commerce application
-          default: ecommerce-demo
+          description: Unique name of the e-commerce application
+          pattern: "^[a-z0-9]([a-z0-9-]*[a-z0-9])?$"
+          maxLength: 50
         description:
           title: Description
           type: string
-          description: Short description of your application
-          default: E-commerce demo application with microservices architecture
+          description: Short description of the e-commerce application
+          default: "Modern e-commerce platform with microservices architecture"
         owner:
           title: Owner
           type: string
-          description: Owner of the application (GitHub username or team)
+          description: Owner of the component (team or individual)
           ui:field: OwnerPicker
           ui:options:
             catalogFilter:
-              kind: [Group, User]
-
-    - title: Azure Configuration
-      required:
-        - azureSubscription
-        - azureLocation
-      properties:
-        azureSubscription:
-          title: Azure Subscription ID
+              kind:
+                - Group
+                - User
+        system:
+          title: System
           type: string
-          description: Azure subscription where resources will be deployed
-          pattern: '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'
-        azureLocation:
-          title: Azure Location
-          type: string
-          description: Azure region for deployment
-          default: centralus
-          enum:
-            - centralus
-            - eastus
-            - eastus2
-            - westus2
-            - westeurope
-            - northeurope
-        resourceGroupName:
-          title: Resource Group Name
-          type: string
-          description: Azure resource group name (will be created if not exists)
-          default: rg-ecommerce-demo
-          pattern: '^[a-zA-Z0-9._-]+$'
-
-    - title: Repository Information
+          description: System that this component belongs to
+          ui:field: EntityPicker
+          ui:options:
+            catalogFilter:
+              kind:
+                - System
+    - title: Repository Settings
       required:
         - repoUrl
       properties:
@@ -84,62 +64,58 @@ spec:
           ui:options:
             allowedHosts:
               - github.com
-            allowedOwners:
-              - three-horizon-ai
-
+    - title: Cloud Settings
+      required:
+        - azureRegion
+        - environment
+      properties:
+        azureRegion:
+          title: Azure Region
+          type: string
+          description: Azure region for deployment
+          default: eastus
+          enum:
+            - eastus
+            - westus2
+            - centralus
+            - northeurope
+            - westeurope
+        environment:
+          title: Environment
+          type: string
+          description: Target environment
+          default: development
+          enum:
+            - development
+            - staging
+            - production
   steps:
     - id: fetch-base
-      name: Fetch Base Template
+      name: Fetch Base
       action: fetch:template
       input:
-        url: https://github.com/three-horizon-ai/ecommerce-templates
-        targetPath: ./ecommerce-app
+        url: ./content
         values:
           name: ${{ parameters.name }}
           description: ${{ parameters.description }}
           owner: ${{ parameters.owner }}
-
-    - id: fetch-infrastructure
-      name: Fetch Infrastructure Templates
-      action: fetch:template
-      input:
-        url: ./infrastructure
-        targetPath: ./infrastructure
-        values:
-          name: ${{ parameters.name }}
-          azureSubscription: ${{ parameters.azureSubscription }}
-          azureLocation: ${{ parameters.azureLocation }}
-          resourceGroupName: ${{ parameters.resourceGroupName }}
-
+          system: ${{ parameters.system }}
+          azureRegion: ${{ parameters.azureRegion }}
+          environment: ${{ parameters.environment }}
     - id: publish
-      name: Publish to GitHub
+      name: Publish
       action: publish:github
       input:
-        allowedHosts: ['github.com']
-        description: 'E-commerce demo application for ${{ parameters.name }}'
+        allowedHosts:
+          - github.com
+        description: This is ${{ parameters.name }}
         repoUrl: ${{ parameters.repoUrl }}
-        defaultBranch: main
-        gitCommitMessage: 'Initial commit: E-commerce demo application'
-
     - id: register
-      name: Register in Catalog
+      name: Register
       action: catalog:register
       input:
         repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
-        catalogInfoPath: '/catalog-info.yaml'
-
-    - id: create-azure-resources
-      name: Deploy Azure Infrastructure
-      action: azure:arm-template
-      input:
-        subscriptionId: ${{ parameters.azureSubscription }}
-        resourceGroupName: ${{ parameters.resourceGroupName }}
-        location: ${{ parameters.azureLocation }}
-        templatePath: './infrastructure/main.bicep'
-        parameters:
-          appName: ${{ parameters.name }}
-          location: ${{ parameters.azureLocation }}
-
+        catalogInfoPath: "/catalog-info.yaml"
   output:
     links:
       - title: Repository
@@ -147,7 +123,3 @@ spec:
       - title: Open in catalog
         icon: catalog
         entityRef: ${{ steps.register.output.entityRef }}
-      - title: Azure Portal
-        url: https://portal.azure.com/#@/resource/subscriptions/${{ parameters.azureSubscription }}/resourceGroups/${{ parameters.resourceGroupName }}
-      - title: Application URL
-        url: https://${{ parameters.name }}.azurewebsites.net

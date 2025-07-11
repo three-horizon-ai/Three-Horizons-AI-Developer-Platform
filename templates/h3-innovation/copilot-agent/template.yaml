@@ -2,8 +2,8 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: h3-copilot-agent
-  title: H3: GitHub Copilot Agent
-  description: Create custom GitHub Copilot agents with advanced AI capabilities and MCP integration for Horizon 3
+  title: "H3: GitHub Copilot Agent"
+  description: "Create custom GitHub Copilot agents with advanced AI capabilities and MCP integration for Horizon 3"
   annotations:
     backstage.io/managed-by-location: url:https://github.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform/blob/main/templates/h3-innovation/copilot-agent/template.yaml
   tags:
@@ -26,28 +26,28 @@ spec:
         - agentType
       properties:
         name:
-          title: Copilot Agent Name
+          title: "Copilot Agent Name"
           type: string
           pattern: '^[a-z0-9-]+$'
-          description: Unique name for your Copilot agent
+          description: "Unique name for your Copilot agent"
           default: h3-copilot-agent
         description:
-          title: Description
+""          title: "Description"
           type: string
-          description: Description of your Copilot agent
+          description: "Description of your Copilot agent"
           default: Custom GitHub Copilot agent with advanced AI capabilities
         owner:
-          title: Owner
+          title: "Owner"
           type: string
-          description: Owner of the Copilot agent (GitHub username or team)
+          description: "Owner of the Copilot agent (GitHub username or team)"
           ui:field: OwnerPicker
           ui:options:
             catalogFilter:
               kind: [Group, User]
         agentType:
-          title: Agent Type
+          title: "Agent Type"
           type: string
-          description: Type of Copilot agent to create
+          description: "Type of Copilot agent to create"
           default: development-assistant
           enum:
             - development-assistant
@@ -65,39 +65,39 @@ spec:
         - enableCodeReview
       properties:
         enableCodeGeneration:
-          title: Enable Code Generation
+          title: "Enable Code Generation"
           type: boolean
-          description: Enable intelligent code generation capabilities
+          description: "Enable intelligent code generation capabilities"
           default: true
         enableCodeReview:
-          title: Enable Code Review
+          title: "Enable Code Review"
           type: boolean
-          description: Enable automated code review capabilities
+          description: "Enable automated code review capabilities"
           default: true
         enableDocumentation:
-          title: Enable Documentation Generation
+          title: "Enable Documentation Generation"
           type: boolean
-          description: Generate and maintain documentation automatically
+          description: "Generate and maintain documentation automatically"
           default: true
         enableTesting:
-          title: Enable Test Generation
+          title: "Enable Test Generation"
           type: boolean
-          description: Generate unit tests and integration tests
+          description: "Generate unit tests and integration tests"
           default: true
         enableRefactoring:
-          title: Enable Code Refactoring
+          title: "Enable Code Refactoring"
           type: boolean
-          description: Suggest and perform code refactoring
+          description: "Suggest and perform code refactoring"
           default: true
         enableSecurity:
-          title: Enable Security Analysis
+          title: "Enable Security Analysis"
           type: boolean
-          description: Perform security vulnerability analysis
+          description: "Perform security vulnerability analysis"
           default: true
         capabilities:
-          title: Additional Capabilities
+          title: "Additional Capabilities"
           type: array
-          description: Additional agent capabilities
+          description: "Additional agent capabilities"
           items:
             type: string
             enum:
@@ -118,14 +118,14 @@ spec:
         - mcpServers
       properties:
         enableMCP:
-          title: Enable MCP Integration
+          title: "Enable MCP Integration"
           type: boolean
-          description: Enable Model Context Protocol integration
+          description: "Enable Model Context Protocol integration"
           default: true
         mcpServers:
-          title: MCP Servers
+          title: "MCP Servers"
           type: array
-          description: MCP servers to integrate with
+          description: "MCP servers to integrate with"
           items:
             type: string
             enum:
@@ -140,14 +140,14 @@ spec:
           default: ["azure-mcp-server", "github-mcp-server"]
           ui:widget: checkboxes
         enableCustomMCP:
-          title: Enable Custom MCP Servers
+          title: "Enable Custom MCP Servers"
           type: boolean
-          description: Include capability for custom MCP servers
+          description: "Include capability for custom MCP servers"
           default: true
         mcpTooling:
-          title: MCP Tooling
+          title: "MCP Tooling"
           type: array
-          description: MCP tooling to include
+          description: "MCP tooling to include"
           items:
             type: string
             enum:
@@ -165,9 +165,9 @@ spec:
         - enableMultiModel
       properties:
         primaryModel:
-          title: Primary AI Model
+          title: "Primary AI Model"
           type: string
-          description: Primary AI model for the agent
+          description: "Primary AI model for the agent"
           default: gpt-4o
           enum:
             - gpt-4o
@@ -178,14 +178,14 @@ spec:
             - deepseek-coder
             - phi-3
         enableMultiModel:
-          title: Enable Multi-Model Support
+          title: "Enable Multi-Model Support"
           type: boolean
-          description: Support multiple AI models for different tasks
+          description: "Support multiple AI models for different tasks"
           default: true
         fallbackModels:
-          title: Fallback Models
+          title: "Fallback Models"
           type: array
-          description: Fallback models for redundancy
+          description: "Fallback models for redundancy"
           items:
             type: string
             enum:
@@ -196,14 +196,14 @@ spec:
           default: ["gpt-4o-mini"]
           ui:widget: checkboxes
         enableEmbeddings:
-          title: Enable Embeddings
+          title: "Enable Embeddings"
           type: boolean
-          description: Enable text embeddings for context understanding
+          description: "Enable text embeddings for context understanding"
           default: true
         embeddingModel:
-          title: Embedding Model
+          title: "Embedding Model"
           type: string
-          description: Model for text embeddings
+          description: "Model for text embeddings"
           default: text-embedding-3-small
           enum:
             - text-embedding-3-small
@@ -216,14 +216,14 @@ spec:
         - azureLocation
       properties:
         azureSubscription:
-          title: Azure Subscription ID
+          title: "Azure Subscription ID"
           type: string
-          description: Azure subscription ID for AI services
+          description: "Azure subscription ID for AI services"
           ui:help: 'Enter your Azure subscription ID (GUID format)'
         azureLocation:
-          title: Azure Location
+          title: "Azure Location"
           type: string
-          description: Azure region for AI services
+          description: "Azure region for AI services"
           default: eastus
           enum:
             - eastus
@@ -233,24 +233,24 @@ spec:
             - australiaeast
             - southeastasia
         enableAzureOpenAI:
-          title: Enable Azure OpenAI
+          title: "Enable Azure OpenAI"
           type: boolean
-          description: Use Azure OpenAI services
+          description: "Use Azure OpenAI services"
           default: true
         enableCognitiveServices:
-          title: Enable Cognitive Services
+          title: "Enable Cognitive Services"
           type: boolean
-          description: Include Azure Cognitive Services
+          description: "Include Azure Cognitive Services"
           default: true
         enableKeyVault:
-          title: Enable Azure Key Vault
+          title: "Enable Azure Key Vault"
           type: boolean
-          description: Use Azure Key Vault for secrets management
+          description: "Use Azure Key Vault for secrets management"
           default: true
         enableCosmosDB:
-          title: Enable Cosmos DB
+          title: "Enable Cosmos DB"
           type: boolean
-          description: Use Cosmos DB for agent data storage
+          description: "Use Cosmos DB for agent data storage"
           default: true
           
     - title: Development Environment
@@ -259,9 +259,9 @@ spec:
         - programmingLanguages
       properties:
         targetIDEs:
-          title: Target IDEs
+          title: "Target IDEs"
           type: array
-          description: IDEs to support with the agent
+          description: "IDEs to support with the agent"
           items:
             type: string
             enum:
@@ -274,9 +274,9 @@ spec:
           default: ["vscode", "visual-studio"]
           ui:widget: checkboxes
         programmingLanguages:
-          title: Programming Languages
+          title: "Programming Languages"
           type: array
-          description: Programming languages to specialize in
+          description: "Programming languages to specialize in"
           items:
             type: string
             enum:
@@ -293,14 +293,14 @@ spec:
           default: ["javascript", "typescript", "python", "csharp"]
           ui:widget: checkboxes
         enableLSP:
-          title: Enable LSP Integration
+          title: "Enable LSP Integration"
           type: boolean
-          description: Integrate with Language Server Protocol
+          description: "Integrate with Language Server Protocol"
           default: true
         enableGitIntegration:
-          title: Enable Git Integration
+          title: "Enable Git Integration"
           type: boolean
-          description: Deep integration with Git workflows
+          description: "Deep integration with Git workflows"
           default: true
           
     - title: Deployment and Infrastructure
@@ -309,9 +309,9 @@ spec:
         - enableContainerization
       properties:
         deploymentType:
-          title: Deployment Type
+          title: "Deployment Type"
           type: string
-          description: How to deploy the agent
+          description: "How to deploy the agent"
           default: cloud-service
           enum:
             - cloud-service
@@ -319,24 +319,24 @@ spec:
             - hybrid
             - edge-computing
         enableContainerization:
-          title: Enable Containerization
+          title: "Enable Containerization"
           type: boolean
-          description: Deploy agent in containers
+          description: "Deploy agent in containers"
           default: true
         enableKubernetes:
-          title: Enable Kubernetes
+          title: "Enable Kubernetes"
           type: boolean
-          description: Deploy on Kubernetes cluster
+          description: "Deploy on Kubernetes cluster"
           default: true
         enableScaling:
-          title: Enable Auto Scaling
+          title: "Enable Auto Scaling"
           type: boolean
-          description: Enable automatic scaling based on load
+          description: "Enable automatic scaling based on load"
           default: true
         enableLoadBalancing:
-          title: Enable Load Balancing
+          title: "Enable Load Balancing"
           type: boolean
-          description: Enable load balancing for high availability
+          description: "Enable load balancing for high availability"
           default: true
           
     - title: Monitoring and Analytics
@@ -345,29 +345,29 @@ spec:
         - enableUsageAnalytics
       properties:
         enableTelemetry:
-          title: Enable Telemetry
+          title: "Enable Telemetry"
           type: boolean
-          description: Collect telemetry data for improvement
+          description: "Collect telemetry data for improvement"
           default: true
         enableUsageAnalytics:
-          title: Enable Usage Analytics
+          title: "Enable Usage Analytics"
           type: boolean
-          description: Track agent usage and performance
+          description: "Track agent usage and performance"
           default: true
         enableCostTracking:
-          title: Enable Cost Tracking
+          title: "Enable Cost Tracking"
           type: boolean
-          description: Track AI service costs
+          description: "Track AI service costs"
           default: true
         enablePerformanceMetrics:
-          title: Enable Performance Metrics
+          title: "Enable Performance Metrics"
           type: boolean
-          description: Monitor agent response times and accuracy
+          description: "Monitor agent response times and accuracy"
           default: true
         enableUserFeedback:
-          title: Enable User Feedback
+          title: "Enable User Feedback"
           type: boolean
-          description: Collect user feedback for continuous improvement
+          description: "Collect user feedback for continuous improvement"
           default: true
 
   steps:
@@ -378,7 +378,7 @@ spec:
         url: ./skeleton
         values:
           name: ${{ parameters.name }}
-          description: ${{ parameters.description }}
+          description: "${{ parameters.description }}"
           owner: ${{ parameters.owner }}
           agentType: ${{ parameters.agentType }}
           enableCodeGeneration: ${{ parameters.enableCodeGeneration }}
@@ -423,7 +423,7 @@ spec:
       action: publish:github
       input:
         allowedHosts: ['github.com']
-        description: 'GitHub Copilot Agent: ${{ parameters.name }}'
+        description: "'GitHub Copilot Agent: ${{ parameters.name }}'"
         repoUrl: github.com/three-horizon-ai/${{ parameters.name }}
         defaultBranch: main
         gitCommitMessage: 'Initial Copilot agent setup for ${{ parameters.name }}'

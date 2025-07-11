@@ -2,8 +2,8 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: h2-gitops-advanced
-  title: H2: Advanced GitOps Workflow
-  description: Advanced GitOps deployment patterns for Horizon 2 with ArgoCD and multi-environment management
+  title: "H2: Advanced GitOps Workflow"
+  description: "Advanced GitOps deployment patterns for Horizon 2 with ArgoCD and multi-environment management"
   annotations:
     backstage.io/managed-by-location: url:https://github.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform/blob/main/templates/h2-optimization/gitops-advanced/template.yaml
   tags:
@@ -25,28 +25,28 @@ spec:
         - gitopsStrategy
       properties:
         name:
-          title: GitOps Application Name
+          title: "GitOps Application Name"
           type: string
           pattern: '^[a-z0-9-]+$'
-          description: Unique name for your GitOps application
+          description: "Unique name for your GitOps application"
           default: gitops-advanced-app
         description:
-          title: Description
+""          title: "Description"
           type: string
-          description: Description of your GitOps application
+          description: "Description of your GitOps application"
           default: Advanced GitOps workflow with multi-environment deployment
         owner:
-          title: Owner
+          title: "Owner"
           type: string
-          description: Owner of the application (GitHub username or team)
+          description: "Owner of the application (GitHub username or team)"
           ui:field: OwnerPicker
           ui:options:
             catalogFilter:
               kind: [Group, User]
         gitopsStrategy:
-          title: GitOps Strategy
+          title: "GitOps Strategy"
           type: string
-          description: GitOps deployment strategy
+          description: "GitOps deployment strategy"
           default: app-of-apps
           enum:
             - app-of-apps
@@ -60,9 +60,9 @@ spec:
         - promotionStrategy
       properties:
         environments:
-          title: Target Environments
+          title: "Target Environments"
           type: array
-          description: List of environments to deploy to
+          description: "List of environments to deploy to"
           items:
             type: string
             enum:
@@ -73,9 +73,9 @@ spec:
           default: ["dev", "staging", "prod"]
           ui:widget: checkboxes
         promotionStrategy:
-          title: Promotion Strategy
+          title: "Promotion Strategy"
           type: string
-          description: How to promote between environments
+          description: "How to promote between environments"
           default: auto-dev-manual-prod
           enum:
             - fully-automated
@@ -83,14 +83,14 @@ spec:
             - fully-manual
             - branch-based
         enableCanary:
-          title: Enable Canary Deployments
+          title: "Enable Canary Deployments"
           type: boolean
-          description: Enable canary deployment strategy
+          description: "Enable canary deployment strategy"
           default: true
         enableBlueGreen:
-          title: Enable Blue-Green Deployments
+          title: "Enable Blue-Green Deployments"
           type: boolean
-          description: Enable blue-green deployment strategy
+          description: "Enable blue-green deployment strategy"
           default: false
           
     - title: Azure Configuration
@@ -100,14 +100,14 @@ spec:
         - aksClusterName
       properties:
         azureSubscription:
-          title: Azure Subscription ID
+          title: "Azure Subscription ID"
           type: string
-          description: Azure subscription ID for deployment
+          description: "Azure subscription ID for deployment"
           ui:help: 'Enter your Azure subscription ID (GUID format)'
         azureLocation:
-          title: Azure Location
+          title: "Azure Location"
           type: string
-          description: Azure region for deployment
+          description: "Azure region for deployment"
           default: eastus
           enum:
             - eastus
@@ -117,9 +117,9 @@ spec:
             - australiaeast
             - southeastasia
         aksClusterName:
-          title: AKS Cluster Name
+          title: "AKS Cluster Name"
           type: string
-          description: Name of the AKS cluster for deployment
+          description: "Name of the AKS cluster for deployment"
           default: aks-cluster
           
     - title: ArgoCD Configuration
@@ -128,14 +128,14 @@ spec:
         - syncPolicy
       properties:
         argoCDNamespace:
-          title: ArgoCD Namespace
+          title: "ArgoCD Namespace"
           type: string
-          description: Kubernetes namespace for ArgoCD
+          description: "Kubernetes namespace for ArgoCD"
           default: argocd
         syncPolicy:
-          title: Sync Policy
+          title: "Sync Policy"
           type: string
-          description: ArgoCD sync policy
+          description: "ArgoCD sync policy"
           default: automated
           enum:
             - automated
@@ -143,14 +143,14 @@ spec:
             - automated-prune
             - automated-selfheal
         enableWebhooks:
-          title: Enable Webhooks
+          title: "Enable Webhooks"
           type: boolean
-          description: Enable GitHub webhooks for faster sync
+          description: "Enable GitHub webhooks for faster sync"
           default: true
         enableNotifications:
-          title: Enable Notifications
+          title: "Enable Notifications"
           type: boolean
-          description: Enable ArgoCD notifications
+          description: "Enable ArgoCD notifications"
           default: true
           
     - title: Security Configuration
@@ -159,24 +159,24 @@ spec:
         - enableOPA
       properties:
         enableRBAC:
-          title: Enable RBAC
+          title: "Enable RBAC"
           type: boolean
-          description: Enable Role-Based Access Control
+          description: "Enable Role-Based Access Control"
           default: true
         enableOPA:
-          title: Enable OPA Policies
+          title: "Enable OPA Policies"
           type: boolean
-          description: Enable Open Policy Agent policies
+          description: "Enable Open Policy Agent policies"
           default: true
         enableSecretManagement:
-          title: Enable Secret Management
+          title: "Enable Secret Management"
           type: boolean
-          description: Enable external secret management
+          description: "Enable external secret management"
           default: true
         secretProvider:
-          title: Secret Provider
+          title: "Secret Provider"
           type: string
-          description: External secret provider
+          description: "External secret provider"
           default: azure-keyvault
           enum:
             - azure-keyvault
@@ -192,7 +192,7 @@ spec:
         url: ./skeleton
         values:
           name: ${{ parameters.name }}
-          description: ${{ parameters.description }}
+          description: "${{ parameters.description }}"
           owner: ${{ parameters.owner }}
           gitopsStrategy: ${{ parameters.gitopsStrategy }}
           environments: ${{ parameters.environments }}
@@ -216,7 +216,7 @@ spec:
       action: publish:github
       input:
         allowedHosts: ['github.com']
-        description: 'Advanced GitOps workflow for ${{ parameters.name }}'
+        description: "'Advanced GitOps workflow for ${{ parameters.name }}'"
         repoUrl: github.com/three-horizon-ai/${{ parameters.name }}
         defaultBranch: main
         gitCommitMessage: 'Initial GitOps setup for ${{ parameters.name }}'

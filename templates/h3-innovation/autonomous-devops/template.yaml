@@ -2,8 +2,8 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: h3-autonomous-devops
-  title: H3: Autonomous DevOps System
-  description: Self-healing, intelligent DevOps automation system with AI-driven operations and autonomous decision making for Horizon 3
+  title: "H3: Autonomous DevOps System"
+  description: "Self-healing, intelligent DevOps automation system with AI-driven operations and autonomous decision making for Horizon 3"
   annotations:
     backstage.io/managed-by-location: url:https://github.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform/blob/main/templates/h3-innovation/autonomous-devops/template.yaml
   tags:
@@ -26,28 +26,28 @@ spec:
         - autonomyLevel
       properties:
         name:
-          title: Autonomous DevOps System Name
+          title: "Autonomous DevOps System Name"
           type: string
           pattern: '^[a-z0-9-]+$'
-          description: Unique name for your autonomous DevOps system
+          description: "Unique name for your autonomous DevOps system"
           default: h3-autonomous-devops
         description:
-          title: Description
+""          title: "Description"
           type: string
-          description: Description of your autonomous DevOps system
+          description: "Description of your autonomous DevOps system"
           default: Self-healing, intelligent DevOps automation system with AI-driven operations
         owner:
-          title: Owner
+          title: "Owner"
           type: string
-          description: Owner of the autonomous system (GitHub username or team)
+          description: "Owner of the autonomous system (GitHub username or team)"
           ui:field: OwnerPicker
           ui:options:
             catalogFilter:
               kind: [Group, User]
         autonomyLevel:
-          title: Autonomy Level
+          title: "Autonomy Level"
           type: string
-          description: Level of autonomy for the DevOps system
+          description: "Level of autonomy for the DevOps system"
           default: high
           enum:
             - basic
@@ -61,14 +61,14 @@ spec:
         - healingScope
       properties:
         enableSelfHealing:
-          title: Enable Self-Healing
+          title: "Enable Self-Healing"
           type: boolean
-          description: Enable automatic system recovery and healing
+          description: "Enable automatic system recovery and healing"
           default: true
         healingScope:
-          title: Self-Healing Scope
+          title: "Self-Healing Scope"
           type: array
-          description: Areas where self-healing should be applied
+          description: "Areas where self-healing should be applied"
           items:
             type: string
             enum:
@@ -83,19 +83,19 @@ spec:
           default: ["infrastructure", "applications", "performance"]
           ui:widget: checkboxes
         enablePreventiveMaintenance:
-          title: Enable Preventive Maintenance
+          title: "Enable Preventive Maintenance"
           type: boolean
-          description: Perform preventive maintenance based on AI predictions
+          description: "Perform preventive maintenance based on AI predictions"
           default: true
         enableCapacityPlanning:
-          title: Enable Autonomous Capacity Planning
+          title: "Enable Autonomous Capacity Planning"
           type: boolean
-          description: Automatically scale resources based on predicted demand
+          description: "Automatically scale resources based on predicted demand"
           default: true
         healingStrategies:
-          title: Healing Strategies
+          title: "Healing Strategies"
           type: array
-          description: Strategies for system healing
+          description: "Strategies for system healing"
           items:
             type: string
             enum:
@@ -115,14 +115,14 @@ spec:
         - aiModels
       properties:
         enableAIDecisionMaking:
-          title: Enable AI Decision Making
+          title: "Enable AI Decision Making"
           type: boolean
-          description: Allow AI to make operational decisions
+          description: "Allow AI to make operational decisions"
           default: true
         aiModels:
-          title: AI Models for Operations
+          title: "AI Models for Operations"
           type: array
-          description: AI models to use for operational decisions
+          description: "AI models to use for operational decisions"
           items:
             type: string
             enum:
@@ -135,24 +135,24 @@ spec:
           default: ["gpt-4o", "anomaly-detection-model"]
           ui:widget: checkboxes
         enablePredictiveAnalytics:
-          title: Enable Predictive Analytics
+          title: "Enable Predictive Analytics"
           type: boolean
-          description: Use AI for predictive failure analysis
+          description: "Use AI for predictive failure analysis"
           default: true
         enableAnomalyDetection:
-          title: Enable Anomaly Detection
+          title: "Enable Anomaly Detection"
           type: boolean
-          description: Automatically detect system anomalies
+          description: "Automatically detect system anomalies"
           default: true
         enableIntelligentRouting:
-          title: Enable Intelligent Traffic Routing
+          title: "Enable Intelligent Traffic Routing"
           type: boolean
-          description: AI-driven traffic routing optimization
+          description: "AI-driven traffic routing optimization"
           default: true
         decisionThreshold:
-          title: AI Decision Confidence Threshold
+          title: "AI Decision Confidence Threshold"
           type: number
-          description: Minimum confidence level for autonomous decisions (0-1)
+          description: "Minimum confidence level for autonomous decisions (0-1)"
           default: 0.8
           minimum: 0.5
           maximum: 1.0
@@ -163,14 +163,14 @@ spec:
         - observabilityStack
       properties:
         enableAdvancedMonitoring:
-          title: Enable Advanced Monitoring
+          title: "Enable Advanced Monitoring"
           type: boolean
-          description: Deploy comprehensive monitoring infrastructure
+          description: "Deploy comprehensive monitoring infrastructure"
           default: true
         observabilityStack:
-          title: Observability Stack
+          title: "Observability Stack"
           type: array
-          description: Observability tools to deploy
+          description: "Observability tools to deploy"
           items:
             type: string
             enum:
@@ -185,24 +185,24 @@ spec:
           default: ["prometheus", "grafana", "jaeger", "azure-monitor"]
           ui:widget: checkboxes
         enableDistributedTracing:
-          title: Enable Distributed Tracing
+          title: "Enable Distributed Tracing"
           type: boolean
-          description: Full distributed tracing across all services
+          description: "Full distributed tracing across all services"
           default: true
         enableLogAggregation:
-          title: Enable Log Aggregation
+          title: "Enable Log Aggregation"
           type: boolean
-          description: Centralized log collection and analysis
+          description: "Centralized log collection and analysis"
           default: true
         enableMetricsCorrelation:
-          title: Enable Metrics Correlation
+          title: "Enable Metrics Correlation"
           type: boolean
-          description: AI-powered correlation of metrics and events
+          description: "AI-powered correlation of metrics and events"
           default: true
         enableRealTimeAlerts:
-          title: Enable Real-Time Alerts
+          title: "Enable Real-Time Alerts"
           type: boolean
-          description: Intelligent real-time alerting system
+          description: "Intelligent real-time alerting system"
           default: true
           
     - title: Deployment Automation
@@ -211,14 +211,14 @@ spec:
         - deploymentStrategies
       properties:
         enableContinuousDeployment:
-          title: Enable Continuous Deployment
+          title: "Enable Continuous Deployment"
           type: boolean
-          description: Fully automated deployment pipeline
+          description: "Fully automated deployment pipeline"
           default: true
         deploymentStrategies:
-          title: Deployment Strategies
+          title: "Deployment Strategies"
           type: array
-          description: Automated deployment strategies
+          description: "Automated deployment strategies"
           items:
             type: string
             enum:
@@ -231,19 +231,19 @@ spec:
           default: ["canary", "blue-green", "progressive-delivery"]
           ui:widget: checkboxes
         enableAutomaticRollback:
-          title: Enable Automatic Rollback
+          title: "Enable Automatic Rollback"
           type: boolean
-          description: Automatic rollback on deployment failures
+          description: "Automatic rollback on deployment failures"
           default: true
         enableQualityGates:
-          title: Enable AI Quality Gates
+          title: "Enable AI Quality Gates"
           type: boolean
-          description: AI-powered quality assessment before deployment
+          description: "AI-powered quality assessment before deployment"
           default: true
         enableChaosEngineering:
-          title: Enable Chaos Engineering
+          title: "Enable Chaos Engineering"
           type: boolean
-          description: Automated resilience testing
+          description: "Automated resilience testing"
           default: true
           
     - title: Security Automation
@@ -252,14 +252,14 @@ spec:
         - securityPolicies
       properties:
         enableSecurityAutomation:
-          title: Enable Security Automation
+          title: "Enable Security Automation"
           type: boolean
-          description: Automated security monitoring and response
+          description: "Automated security monitoring and response"
           default: true
         securityPolicies:
-          title: Automated Security Policies
+          title: "Automated Security Policies"
           type: array
-          description: Security policies to automate
+          description: "Security policies to automate"
           items:
             type: string
             enum:
@@ -273,19 +273,19 @@ spec:
           default: ["vulnerability-scanning", "threat-detection", "incident-response"]
           ui:widget: checkboxes
         enableThreatResponse:
-          title: Enable Automated Threat Response
+          title: "Enable Automated Threat Response"
           type: boolean
-          description: Automatic response to security threats
+          description: "Automatic response to security threats"
           default: true
         enableComplianceMonitoring:
-          title: Enable Compliance Monitoring
+          title: "Enable Compliance Monitoring"
           type: boolean
-          description: Continuous compliance monitoring and remediation
+          description: "Continuous compliance monitoring and remediation"
           default: true
         enableSecretManagement:
-          title: Enable Automated Secret Management
+          title: "Enable Automated Secret Management"
           type: boolean
-          description: Automatic secret rotation and management
+          description: "Automatic secret rotation and management"
           default: true
           
     - title: Azure Integration
@@ -295,14 +295,14 @@ spec:
         - enableAzureAutomation
       properties:
         azureSubscription:
-          title: Azure Subscription ID
+          title: "Azure Subscription ID"
           type: string
-          description: Azure subscription ID for autonomous operations
+          description: "Azure subscription ID for autonomous operations"
           ui:help: 'Enter your Azure subscription ID (GUID format)'
         azureLocation:
-          title: Azure Location
+          title: "Azure Location"
           type: string
-          description: Primary Azure region for operations
+          description: "Primary Azure region for operations"
           default: eastus
           enum:
             - eastus
@@ -312,24 +312,24 @@ spec:
             - australiaeast
             - southeastasia
         enableAzureAutomation:
-          title: Enable Azure Automation
+          title: "Enable Azure Automation"
           type: boolean
-          description: Use Azure Automation for runbooks
+          description: "Use Azure Automation for runbooks"
           default: true
         enableLogicApps:
-          title: Enable Azure Logic Apps
+          title: "Enable Azure Logic Apps"
           type: boolean
-          description: Use Logic Apps for workflow automation
+          description: "Use Logic Apps for workflow automation"
           default: true
         enableFunctions:
-          title: Enable Azure Functions
+          title: "Enable Azure Functions"
           type: boolean
-          description: Use serverless functions for automation
+          description: "Use serverless functions for automation"
           default: true
         enableAzureAI:
-          title: Enable Azure AI Services
+          title: "Enable Azure AI Services"
           type: boolean
-          description: Integrate with Azure AI for decision making
+          description: "Integrate with Azure AI for decision making"
           default: true
           
     - title: Cost Optimization
@@ -338,14 +338,14 @@ spec:
         - optimizationStrategies
       properties:
         enableCostOptimization:
-          title: Enable Autonomous Cost Optimization
+          title: "Enable Autonomous Cost Optimization"
           type: boolean
-          description: Automatically optimize cloud costs
+          description: "Automatically optimize cloud costs"
           default: true
         optimizationStrategies:
-          title: Cost Optimization Strategies
+          title: "Cost Optimization Strategies"
           type: array
-          description: Strategies for cost optimization
+          description: "Strategies for cost optimization"
           items:
             type: string
             enum:
@@ -359,15 +359,15 @@ spec:
           default: ["right-sizing", "auto-scaling", "unused-resource-cleanup"]
           ui:widget: checkboxes
         costThreshold:
-          title: Cost Alert Threshold
+          title: "Cost Alert Threshold"
           type: number
-          description: Monthly cost threshold for alerts (USD)
+          description: "Monthly cost threshold for alerts (USD)"
           default: 1000
           minimum: 100
         enableBudgetManagement:
-          title: Enable Budget Management
+          title: "Enable Budget Management"
           type: boolean
-          description: Automatic budget management and enforcement
+          description: "Automatic budget management and enforcement"
           default: true
           
     - title: Governance and Compliance
@@ -376,14 +376,14 @@ spec:
         - complianceFrameworks
       properties:
         enableGovernance:
-          title: Enable Autonomous Governance
+          title: "Enable Autonomous Governance"
           type: boolean
-          description: Automated governance and compliance enforcement
+          description: "Automated governance and compliance enforcement"
           default: true
         complianceFrameworks:
-          title: Compliance Frameworks
+          title: "Compliance Frameworks"
           type: array
-          description: Compliance frameworks to automate
+          description: "Compliance frameworks to automate"
           items:
             type: string
             enum:
@@ -397,14 +397,14 @@ spec:
           default: ["soc2", "iso27001"]
           ui:widget: checkboxes
         enableAuditTrails:
-          title: Enable Audit Trails
+          title: "Enable Audit Trails"
           type: boolean
-          description: Comprehensive audit trail generation
+          description: "Comprehensive audit trail generation"
           default: true
         enablePolicyEnforcement:
-          title: Enable Policy Enforcement
+          title: "Enable Policy Enforcement"
           type: boolean
-          description: Automatic policy enforcement
+          description: "Automatic policy enforcement"
           default: true
 
   steps:
@@ -415,7 +415,7 @@ spec:
         url: ./skeleton
         values:
           name: ${{ parameters.name }}
-          description: ${{ parameters.description }}
+          description: "${{ parameters.description }}"
           owner: ${{ parameters.owner }}
           autonomyLevel: ${{ parameters.autonomyLevel }}
           enableSelfHealing: ${{ parameters.enableSelfHealing }}
@@ -465,7 +465,7 @@ spec:
       action: publish:github
       input:
         allowedHosts: ['github.com']
-        description: 'Autonomous DevOps System: ${{ parameters.name }}'
+        description: "'Autonomous DevOps System: ${{ parameters.name }}'"
         repoUrl: github.com/three-horizon-ai/${{ parameters.name }}
         defaultBranch: main
         gitCommitMessage: 'Initial autonomous DevOps setup for ${{ parameters.name }}'

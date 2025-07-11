@@ -2,8 +2,8 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: h1-microservices-starter
-  title: H1: Microservices Starter Kit
-  description: Foundation microservices template with basic patterns and Azure integration
+  title: "H1: Microservices Starter Kit"
+  description: "Foundation microservices template with basic patterns and Azure integration"
   annotations:
     backstage.io/managed-by-location: url:https://github.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform/blob/main/templates/h1-foundation/microservices-starter/template.yaml
   tags:
@@ -25,18 +25,18 @@ spec:
         - owner
       properties:
         name:
-          title: Service Name
+          title: "Service Name"
           type: string
           pattern: '^[a-z0-9-]+$'
-          description: Name of your microservice
+          description: "Name of your microservice"
         description:
-          title: Description
+""          title: "Description"
           type: string
-          description: What does this microservice do?
+          description: "What does this microservice do?"
         owner:
-          title: Owner
+          title: "Owner"
           type: string
-          description: Owner of the service
+          description: "Owner of the service"
           ui:field: OwnerPicker
           ui:options:
             catalogFilter:
@@ -45,9 +45,9 @@ spec:
     - title: Technology Stack
       properties:
         language:
-          title: Programming Language
+          title: "Programming Language"
           type: string
-          description: Choose your preferred language
+          description: "Choose your preferred language"
           default: nodejs
           enum:
             - nodejs
@@ -60,9 +60,9 @@ spec:
             - .NET
             - Java
         database:
-          title: Database Type
+          title: "Database Type"
           type: string
-          description: Choose database for your service
+          description: "Choose database for your service"
           default: postgresql
           enum:
             - postgresql
@@ -75,9 +75,9 @@ spec:
             - Redis
             - None
         authentication:
-          title: Authentication
+          title: "Authentication"
           type: boolean
-          description: Include authentication middleware
+          description: "Include authentication middleware"
           default: true
 
     - title: Azure Configuration
@@ -86,11 +86,11 @@ spec:
         - azureLocation
       properties:
         azureSubscription:
-          title: Azure Subscription ID
+          title: "Azure Subscription ID"
           type: string
-          description: Azure subscription for deployment
+          description: "Azure subscription for deployment"
         azureLocation:
-          title: Azure Location
+          title: "Azure Location"
           type: string
           default: centralus
           enum:
@@ -104,7 +104,7 @@ spec:
         - repoUrl
       properties:
         repoUrl:
-          title: Repository Location
+          title: "Repository Location"
           type: string
           ui:field: RepoUrlPicker
           ui:options:
@@ -121,7 +121,7 @@ spec:
         url: ./skeleton/${{ parameters.language }}
         values:
           name: ${{ parameters.name }}
-          description: ${{ parameters.description }}
+          description: "${{ parameters.description }}"
           owner: ${{ parameters.owner }}
           database: ${{ parameters.database }}
           authentication: ${{ parameters.authentication }}
@@ -152,7 +152,7 @@ spec:
       action: publish:github
       input:
         allowedHosts: ['github.com']
-        description: '${{ parameters.description }}'
+        description: "'${{ parameters.description }}'"
         repoUrl: ${{ parameters.repoUrl }}
         defaultBranch: main
 

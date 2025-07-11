@@ -1,0 +1,125 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: h1-ecommerce-demo
+  title: "H1: E-commerce Demo Application"
+  description: "Complete e-commerce demo showcasing Horizon 1 Foundation capabilities with microservices architecture"
+  annotations:
+    backstage.io/managed-by-location: "url:https://github.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform/blob/main/templates/h1-foundation/ecommerce-demo/template.yaml"
+  tags:
+    - horizon-1
+    - foundation
+    - demo
+    - ecommerce
+    - microservices
+    - azure
+    - kubernetes
+spec:
+  owner: platform-team
+  type: application
+  parameters:
+    - title: Application Information
+      required:
+        - name
+        - owner
+      properties:
+        name:
+          title: Name
+          type: string
+          description: Unique name of the e-commerce application
+          pattern: "^[a-z0-9]([a-z0-9-]*[a-z0-9])?$"
+          maxLength: 50
+        description:
+          title: Description
+          type: string
+          description: Short description of the e-commerce application
+          default: "Modern e-commerce platform with microservices architecture"
+        owner:
+          title: Owner
+          type: string
+          description: Owner of the component (team or individual)
+          ui:field: OwnerPicker
+          ui:options:
+            catalogFilter:
+              kind:
+                - Group
+                - User
+        system:
+          title: System
+          type: string
+          description: System that this component belongs to
+          ui:field: EntityPicker
+          ui:options:
+            catalogFilter:
+              kind:
+                - System
+    - title: Repository Settings
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+    - title: Cloud Settings
+      required:
+        - azureRegion
+        - environment
+      properties:
+        azureRegion:
+          title: Azure Region
+          type: string
+          description: Azure region for deployment
+          default: eastus
+          enum:
+            - eastus
+            - westus2
+            - centralus
+            - northeurope
+            - westeurope
+        environment:
+          title: Environment
+          type: string
+          description: Target environment
+          default: development
+          enum:
+            - development
+            - staging
+            - production
+  steps:
+    - id: fetch-base
+      name: Fetch Base
+      action: fetch:template
+      input:
+        url: ./content
+        values:
+          name: ${{ parameters.name }}
+          description: ${{ parameters.description }}
+          owner: ${{ parameters.owner }}
+          system: ${{ parameters.system }}
+          azureRegion: ${{ parameters.azureRegion }}
+          environment: ${{ parameters.environment }}
+    - id: publish
+      name: Publish
+      action: publish:github
+      input:
+        allowedHosts:
+          - github.com
+        description: This is ${{ parameters.name }}
+        repoUrl: ${{ parameters.repoUrl }}
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: "/catalog-info.yaml"
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps.register.output.entityRef }}

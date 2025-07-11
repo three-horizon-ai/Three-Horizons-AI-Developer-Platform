@@ -2,8 +2,8 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: h1-basic-cicd
-  title: H1: Basic CI/CD Pipeline
-  description: Set up basic CI/CD pipeline for Horizon 1 with GitHub Actions and Azure deployment
+  title: "H1: Basic CI/CD Pipeline"
+  description: "Set up basic CI/CD pipeline for Horizon 1 with GitHub Actions and Azure deployment"
   annotations:
     backstage.io/managed-by-location: url:https://github.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform/blob/main/templates/h1-foundation/basic-cicd/template.yaml
   tags:
@@ -25,28 +25,28 @@ spec:
         - targetType
       properties:
         name:
-          title: Pipeline Name
+          title: "Pipeline Name"
           type: string
           pattern: '^[a-z0-9-]+$'
-          description: Unique name for your CI/CD pipeline
+          description: "Unique name for your CI/CD pipeline"
           default: basic-cicd-pipeline
         description:
-          title: Description
+""          title: "Description"
           type: string
-          description: Description of your CI/CD pipeline
+          description: "Description of your CI/CD pipeline"
           default: Basic CI/CD pipeline for Horizon 1 applications
         owner:
-          title: Owner
+          title: "Owner"
           type: string
-          description: Owner of the pipeline (GitHub username or team)
+          description: "Owner of the pipeline (GitHub username or team)"
           ui:field: OwnerPicker
           ui:options:
             catalogFilter:
               kind: [Group, User]
         targetType:
-          title: Target Application Type
+          title: "Target Application Type"
           type: string
-          description: Type of application to deploy
+          description: "Type of application to deploy"
           default: web-app
           enum:
             - web-app
@@ -62,14 +62,14 @@ spec:
         - resourceGroup
       properties:
         azureSubscription:
-          title: Azure Subscription ID
+          title: "Azure Subscription ID"
           type: string
-          description: Azure subscription ID for deployment
+          description: "Azure subscription ID for deployment"
           ui:help: 'Enter your Azure subscription ID (GUID format)'
         azureLocation:
-          title: Azure Location
+          title: "Azure Location"
           type: string
-          description: Azure region for deployment
+          description: "Azure region for deployment"
           default: eastus
           enum:
             - eastus
@@ -79,9 +79,9 @@ spec:
             - australiaeast
             - southeastasia
         resourceGroup:
-          title: Resource Group
+          title: "Resource Group"
           type: string
-          description: Azure resource group name
+          description: "Azure resource group name"
           default: rg-cicd-demo
           
     - title: Build Configuration
@@ -90,9 +90,9 @@ spec:
         - nodeVersion
       properties:
         buildTool:
-          title: Build Tool
+          title: "Build Tool"
           type: string
-          description: Build tool to use
+          description: "Build tool to use"
           default: npm
           enum:
             - npm
@@ -102,9 +102,9 @@ spec:
             - gradle
             - dotnet
         nodeVersion:
-          title: Node.js Version
+          title: "Node.js Version"
           type: string
-          description: Node.js version for build
+          description: "Node.js version for build"
           default: '18'
           enum:
             - '16'
@@ -112,14 +112,14 @@ spec:
             - '20'
             - '21'
         enableTesting:
-          title: Enable Testing
+          title: "Enable Testing"
           type: boolean
-          description: Include testing step in pipeline
+          description: "Include testing step in pipeline"
           default: true
         enableSecurity:
-          title: Enable Security Scanning
+          title: "Enable Security Scanning"
           type: boolean
-          description: Include security scanning step
+          description: "Include security scanning step"
           default: true
           
     - title: Deployment Configuration
@@ -128,9 +128,9 @@ spec:
         - environment
       properties:
         deploymentTarget:
-          title: Deployment Target
+          title: "Deployment Target"
           type: string
-          description: Azure service to deploy to
+          description: "Azure service to deploy to"
           default: app-service
           enum:
             - app-service
@@ -139,23 +139,23 @@ spec:
             - static-web-apps
             - functions
         environment:
-          title: Environment
+          title: "Environment"
           type: string
-          description: Target environment
+          description: "Target environment"
           default: dev
           enum:
             - dev
             - staging
             - prod
         enableBlueGreen:
-          title: Enable Blue-Green Deployment
+          title: "Enable Blue-Green Deployment"
           type: boolean
-          description: Enable blue-green deployment strategy
+          description: "Enable blue-green deployment strategy"
           default: false
         enableRollback:
-          title: Enable Automatic Rollback
+          title: "Enable Automatic Rollback"
           type: boolean
-          description: Enable automatic rollback on failure
+          description: "Enable automatic rollback on failure"
           default: true
 
   steps:
@@ -166,7 +166,7 @@ spec:
         url: ./skeleton
         values:
           name: ${{ parameters.name }}
-          description: ${{ parameters.description }}
+          description: "${{ parameters.description }}"
           owner: ${{ parameters.owner }}
           targetType: ${{ parameters.targetType }}
           azureSubscription: ${{ parameters.azureSubscription }}
@@ -186,7 +186,7 @@ spec:
       action: publish:github
       input:
         allowedHosts: ['github.com']
-        description: 'Basic CI/CD Pipeline for ${{ parameters.name }}'
+        description: "'Basic CI/CD Pipeline for ${{ parameters.name }}'"
         repoUrl: github.com/three-horizon-ai/${{ parameters.name }}
         defaultBranch: main
         gitCommitMessage: 'Initial CI/CD pipeline setup for ${{ parameters.name }}'

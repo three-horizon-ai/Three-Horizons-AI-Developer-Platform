@@ -2,8 +2,8 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: h2-performance-testing
-  title: H2: Performance Testing Suite
-  description: Comprehensive performance testing and optimization suite for Horizon 2 applications
+  title: "H2: Performance Testing Suite"
+  description: "Comprehensive performance testing and optimization suite for Horizon 2 applications"
   annotations:
     backstage.io/managed-by-location: url:https://github.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform/blob/main/templates/h2-optimization/performance-testing/template.yaml
   tags:
@@ -25,28 +25,28 @@ spec:
         - testingScope
       properties:
         name:
-          title: Performance Testing Suite Name
+          title: "Performance Testing Suite Name"
           type: string
           pattern: '^[a-z0-9-]+$'
-          description: Unique name for your performance testing suite
+          description: "Unique name for your performance testing suite"
           default: h2-performance-testing
         description:
-          title: Description
+""          title: "Description"
           type: string
-          description: Description of your performance testing suite
+          description: "Description of your performance testing suite"
           default: Comprehensive performance testing and optimization suite
         owner:
-          title: Owner
+          title: "Owner"
           type: string
-          description: Owner of the performance testing suite (GitHub username or team)
+          description: "Owner of the performance testing suite (GitHub username or team)"
           ui:field: OwnerPicker
           ui:options:
             catalogFilter:
               kind: [Group, User]
         testingScope:
-          title: Testing Scope
+          title: "Testing Scope"
           type: string
-          description: Scope of performance testing
+          description: "Scope of performance testing"
           default: full-stack
           enum:
             - frontend-only
@@ -62,9 +62,9 @@ spec:
         - testDuration
       properties:
         loadTestingTool:
-          title: Load Testing Tool
+          title: "Load Testing Tool"
           type: string
-          description: Primary load testing tool
+          description: "Primary load testing tool"
           default: k6
           enum:
             - k6
@@ -74,16 +74,16 @@ spec:
             - hey
             - locust
         maxUsers:
-          title: Maximum Concurrent Users
+          title: "Maximum Concurrent Users"
           type: integer
-          description: Maximum number of concurrent users for load testing
+          description: "Maximum number of concurrent users for load testing"
           default: 1000
           minimum: 10
           maximum: 10000
         testDuration:
-          title: Test Duration
+          title: "Test Duration"
           type: string
-          description: Duration for each performance test
+          description: "Duration for each performance test"
           default: 10m
           enum:
             - 1m
@@ -92,9 +92,9 @@ spec:
             - 30m
             - 1h
         rampUpTime:
-          title: Ramp-up Time
+          title: "Ramp-up Time"
           type: string
-          description: Time to ramp up to maximum users
+          description: "Time to ramp up to maximum users"
           default: 2m
           enum:
             - 30s
@@ -109,34 +109,34 @@ spec:
         - enableEnduranceTest
       properties:
         enableStressTest:
-          title: Enable Stress Testing
+          title: "Enable Stress Testing"
           type: boolean
-          description: Enable stress testing scenarios
+          description: "Enable stress testing scenarios"
           default: true
         enableEnduranceTest:
-          title: Enable Endurance Testing
+          title: "Enable Endurance Testing"
           type: boolean
-          description: Enable endurance/soak testing
+          description: "Enable endurance/soak testing"
           default: true
         enableSpikeTest:
-          title: Enable Spike Testing
+          title: "Enable Spike Testing"
           type: boolean
-          description: Enable spike testing scenarios
+          description: "Enable spike testing scenarios"
           default: true
         enableVolumeTest:
-          title: Enable Volume Testing
+          title: "Enable Volume Testing"
           type: boolean
-          description: Enable volume testing scenarios
+          description: "Enable volume testing scenarios"
           default: false
         enableSecurityTest:
-          title: Enable Security Testing
+          title: "Enable Security Testing"
           type: boolean
-          description: Enable security-focused performance testing
+          description: "Enable security-focused performance testing"
           default: true
         testEnvironments:
-          title: Test Environments
+          title: "Test Environments"
           type: array
-          description: Environments to run performance tests against
+          description: "Environments to run performance tests against"
           items:
             type: string
             enum:
@@ -153,40 +153,40 @@ spec:
         - performanceTargets
       properties:
         enableAPM:
-          title: Enable APM Integration
+          title: "Enable APM Integration"
           type: boolean
-          description: Enable Application Performance Monitoring integration
+          description: "Enable Application Performance Monitoring integration"
           default: true
         performanceTargets:
-          title: Performance Targets
+          title: "Performance Targets"
           type: object
-          description: Performance SLA targets
+          description: "Performance SLA targets"
           properties:
             responseTime:
-              title: Max Response Time (ms)
+              title: "Max Response Time (ms)"
               type: integer
               default: 500
             throughput:
-              title: Min Throughput (rps)
+              title: "Min Throughput (rps)"
               type: integer
               default: 100
             errorRate:
-              title: Max Error Rate (%)
+              title: "Max Error Rate (%)"
               type: number
               default: 1.0
             availability:
-              title: Min Availability (%)
+              title: "Min Availability (%)"
               type: number
               default: 99.9
         enableRealUserMonitoring:
-          title: Enable Real User Monitoring
+          title: "Enable Real User Monitoring"
           type: boolean
-          description: Enable RUM for production insights
+          description: "Enable RUM for production insights"
           default: true
         enableSyntheticMonitoring:
-          title: Enable Synthetic Monitoring
+          title: "Enable Synthetic Monitoring"
           type: boolean
-          description: Enable synthetic transaction monitoring
+          description: "Enable synthetic transaction monitoring"
           default: true
           
     - title: Azure Integration
@@ -195,29 +195,29 @@ spec:
         - enableAzureLoadTesting
       properties:
         azureSubscription:
-          title: Azure Subscription ID
+          title: "Azure Subscription ID"
           type: string
-          description: Azure subscription ID for load testing resources
+          description: "Azure subscription ID for load testing resources"
           ui:help: 'Enter your Azure subscription ID (GUID format)'
         enableAzureLoadTesting:
-          title: Enable Azure Load Testing
+          title: "Enable Azure Load Testing"
           type: boolean
-          description: Use Azure Load Testing service
+          description: "Use Azure Load Testing service"
           default: true
         enableApplicationInsights:
-          title: Enable Application Insights
+          title: "Enable Application Insights"
           type: boolean
-          description: Integrate with Azure Application Insights
+          description: "Integrate with Azure Application Insights"
           default: true
         enableAzureMonitor:
-          title: Enable Azure Monitor
+          title: "Enable Azure Monitor"
           type: boolean
-          description: Integrate with Azure Monitor for metrics
+          description: "Integrate with Azure Monitor for metrics"
           default: true
         testDataLocation:
-          title: Test Data Location
+          title: "Test Data Location"
           type: string
-          description: Azure region for test execution
+          description: "Azure region for test execution"
           default: eastus
           enum:
             - eastus
@@ -233,14 +233,14 @@ spec:
         - reportFormat
       properties:
         enableReporting:
-          title: Enable Performance Reporting
+          title: "Enable Performance Reporting"
           type: boolean
-          description: Generate detailed performance reports
+          description: "Generate detailed performance reports"
           default: true
         reportFormat:
-          title: Report Format
+          title: "Report Format"
           type: array
-          description: Formats for performance reports
+          description: "Formats for performance reports"
           items:
             type: string
             enum:
@@ -252,31 +252,31 @@ spec:
           default: ["html", "json"]
           ui:widget: checkboxes
         enableTrendAnalysis:
-          title: Enable Trend Analysis
+          title: "Enable Trend Analysis"
           type: boolean
-          description: Enable performance trend analysis over time
+          description: "Enable performance trend analysis over time"
           default: true
         alertThresholds:
-          title: Alert Thresholds
+          title: "Alert Thresholds"
           type: object
-          description: Thresholds for performance alerts
+          description: "Thresholds for performance alerts"
           properties:
             responseTimeThreshold:
-              title: Response Time Alert (ms)
+              title: "Response Time Alert (ms)"
               type: integer
               default: 1000
             errorRateThreshold:
-              title: Error Rate Alert (%)
+              title: "Error Rate Alert (%)"
               type: number
               default: 5.0
             throughputThreshold:
-              title: Throughput Alert (% decrease)
+              title: "Throughput Alert (% decrease)"
               type: number
               default: 20.0
         notificationChannels:
-          title: Notification Channels
+          title: "Notification Channels"
           type: array
-          description: Channels for performance alerts
+          description: "Channels for performance alerts"
           items:
             type: string
             enum:
@@ -295,7 +295,7 @@ spec:
         url: ./skeleton
         values:
           name: ${{ parameters.name }}
-          description: ${{ parameters.description }}
+          description: "${{ parameters.description }}"
           owner: ${{ parameters.owner }}
           testingScope: ${{ parameters.testingScope }}
           loadTestingTool: ${{ parameters.loadTestingTool }}
@@ -328,7 +328,7 @@ spec:
       action: publish:github
       input:
         allowedHosts: ['github.com']
-        description: 'Performance testing suite for ${{ parameters.name }}'
+        description: "'Performance testing suite for ${{ parameters.name }}'"
         repoUrl: github.com/three-horizon-ai/${{ parameters.name }}
         defaultBranch: main
         gitCommitMessage: 'Initial performance testing setup for ${{ parameters.name }}'
