@@ -1,0 +1,16 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: ${{ values.component_id }}-pdb
+  namespace: ${{ values.component_id }}-prod
+  labels:
+    app.kubernetes.io/name: ${{ values.component_id }}
+    app.kubernetes.io/instance: ${{ values.component_id }}-prod
+    app.kubernetes.io/managed-by: argocd
+    horizon: h2
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: ${{ values.component_id }}
+      app.kubernetes.io/instance: ${{ values.component_id }}-prod

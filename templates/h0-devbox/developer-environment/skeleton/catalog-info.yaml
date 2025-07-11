@@ -1,0 +1,62 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ${{ values.repo_name }}
+  title: Three Horizons Developer Environment
+  description: Complete development environment for Three Horizons AI Platform with pre-configured tools, SDKs, and VS Code setup
+  annotations:
+    backstage.io/managed-by-location: url:https://github.com/three-horizon-ai/${{ values.repo_name }}
+    backstage.io/techdocs-ref: dir:.
+    github.com/project-slug: three-horizon-ai/${{ values.repo_name }}
+    dev.azure.com/project: three-horizons-platform
+    dev.azure.com/build-definition: devbox-build
+  tags:
+    - h0
+    - setup
+    - devbox
+    - development-environment
+    - vscode
+    - azure
+    - kubernetes
+    - ai-platform
+    - developer-tools
+  links:
+    - url: https://github.com/three-horizon-ai/${{ values.repo_name }}
+      title: GitHub Repository
+      icon: github
+    - url: vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/three-horizon-ai/${{ values.repo_name }}
+      title: Open in VS Code Devcontainer
+      icon: vscode
+    - url: https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=three-horizon-ai/${{ values.repo_name }}
+      title: Open in GitHub Codespaces
+      icon: github
+    - url: https://portal.azure.com/#create/Microsoft.ContainerInstances
+      title: Deploy to Azure Container Instances
+      icon: cloud
+spec:
+  type: environment
+  lifecycle: production
+  owner: ${{ values.team }}
+  system: three-horizons-platform
+  providesApis: []
+  consumesApis: []
+  dependsOn: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: three-horizons-devbox-system
+  description: Developer environment system for Three Horizons AI Platform
+  annotations:
+    backstage.io/managed-by-location: url:https://github.com/three-horizon-ai/${{ values.repo_name }}
+spec:
+  owner: three-horizons-platform-team
+  domain: development-platform
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: development-platform
+  description: Development platform and tooling domain
+spec:
+  owner: three-horizons-platform-team

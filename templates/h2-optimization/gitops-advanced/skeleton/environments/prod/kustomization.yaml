@@ -1,0 +1,109 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+metadata:
+  name: ${{ values.component_id }}-prod
+  namespace: ${{ values.component_id }}-prod
+
+# Base resources
+resources:
+- ../../base
+- namespace.yaml
+- hpa.yaml
+- pdb.yaml
+- network-policy.yaml
+
+# Namespace for all resources
+namespace: ${{ values.component_id }}-prod
+
+# Common labels for production environment
+commonLabels:
+  app.kubernetes.io/instance: ${{ values.component_id }}-prod
+  app.kubernetes.io/environment: prod
+  app.kubernetes.io/managed-by: argocd
+  horizon: h2
+
+# Common annotations
+commonAnnotations:
+  argocd.argoproj.io/sync-wave: "1"
+  config.kubernetes.io/local-config: "true"
+
+# Images with production tags
+images:
+- name: ${{ values.component_id }}
+  newTag: prod-v1.0.0
+
+# ConfigMap generators for production-specific config
+configMapGenerator:
+- name: ${{ values.component_id }}-env-config
+  literals:
+  - ENVIRONMENT=production
+  - LOG_LEVEL=warn
+  - REPLICAS=3
+  - RESOURCE_REQUESTS_CPU=500m
+  - RESOURCE_REQUESTS_MEMORY=512Mi
+  - RESOURCE_LIMITS_CPU=2000m
+  - RESOURCE_LIMITS_MEMORY=2Gi
+  - AZURE_ENVIRONMENT=prod
+  - MONITORING_ENABLED=true
+  - DEBUG_MODE=false
+  - PERFORMANCE_TESTING=false
+  - HIGH_AVAILABILITY=true
+
+# Secret generators
+secretGenerator:
+- name: ${{ values.component_id }}-env-secrets
+  literals:
+  - DATABASE_PASSWORD=prod-password-from-keyvault
+  - API_KEY=prod-api-key-from-keyvault
+
+# Patches for production environment
+patchesStrategicMerge:
+- deployment-patch.yaml
+- service-patch.yaml
+- ingress-patch.yaml
+
+# JSON patches for specific modifications
+patchesJson6902:
+- target:
+    group: apps
+    version: v1
+    kind: Deployment
+    name: ${{ values.component_id }}
+    namespace: ${{ values.component_id }}-prod
+  patch: |-
+    - op: replace
+      path: /spec/replicas
+      value: 3
+    - op: add
+      path: /spec/template/spec/containers/0/env/-
+      value:
+        name: ENVIRONMENT
+        value: "production"
+    - op: add
+      path: /spec/template/spec/containers/0/env/-
+      value:
+        name: HIGH_AVAILABILITY
+        value: "true"
+
+# Replicas for production (high availability)
+replicas:
+- name: ${{ values.component_id }}-deployment
+  count: 3
+
+# Variables for substitution
+vars:
+- name: ENVIRONMENT
+  objref:
+    kind: ConfigMap
+    name: ${{ values.component_id }}-env-config
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.ENVIRONMENT
+
+# Inventory for tracking
+inventory:
+  type: ConfigMap
+  configMap:
+    name: inventory-${{ values.component_id }}-prod
+    namespace: ${{ values.component_id }}-prod

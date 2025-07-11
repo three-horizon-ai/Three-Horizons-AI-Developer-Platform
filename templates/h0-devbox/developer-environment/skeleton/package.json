@@ -1,0 +1,56 @@
+{
+  "name": "${{ values.project_name }}-devbox",
+  "version": "1.0.0",
+  "description": "Three Horizons AI Platform - Developer Environment for ${{ values.developer_name }}",
+  "private": true,
+  "scripts": {
+    "dev": "echo 'Starting development environment...' && npm run setup",
+    "setup": "node scripts/setup-environment.js",
+    "test": "npm run test:lint && npm run test:format",
+    "test:lint": "eslint . --ext .js,.ts,.json --ignore-path .gitignore",
+    "test:format": "prettier --check .",
+    "format": "prettier --write .",
+    "clean": "rimraf node_modules dist coverage .nyc_output",
+    "h1": "cd ../../../h1-foundation && echo 'Navigated to H1 Foundation templates'",
+    "h2": "cd ../../../h2-optimization && echo 'Navigated to H2 Optimization templates'", 
+    "h3": "cd ../../../h3-innovation && echo 'Navigated to H3 Innovation templates'",
+    "azure:login": "az login --use-device-code",
+    "azure:status": "az account show",
+    "k8s:status": "kubectl cluster-info",
+    "docker:status": "docker info",
+    "github:status": "gh auth status"
+  },
+  "keywords": [
+    "three-horizons",
+    "ai-platform",
+    "devbox",
+    "azure",
+    "kubernetes",
+    "microservices"
+  ],
+  "author": "${{ values.developer_name }} <${{ values.github_email }}>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/${{ values.github_organization }}/${{ values.project_name }}.git"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "eslint": "^8.50.0",
+    "prettier": "^3.0.0",
+    "rimraf": "^5.0.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^11.0.0",
+    "inquirer": "^9.2.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "volta": {
+    "node": "18.18.0",
+    "npm": "9.8.1"
+  }
+}

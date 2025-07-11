@@ -1,0 +1,100 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+metadata:
+  name: ${{ values.component_id }}-staging
+  namespace: ${{ values.component_id }}-staging
+
+# Base resources
+resources:
+- ../../base
+- namespace.yaml
+
+# Namespace for all resources
+namespace: ${{ values.component_id }}-staging
+
+# Common labels for staging environment
+commonLabels:
+  app.kubernetes.io/instance: ${{ values.component_id }}-staging
+  app.kubernetes.io/environment: staging
+  app.kubernetes.io/managed-by: argocd
+  horizon: h2
+
+# Common annotations
+commonAnnotations:
+  argocd.argoproj.io/sync-wave: "1"
+  config.kubernetes.io/local-config: "true"
+
+# Images with staging tags
+images:
+- name: ${{ values.component_id }}
+  newTag: staging-latest
+
+# ConfigMap generators for staging-specific config
+configMapGenerator:
+- name: ${{ values.component_id }}-env-config
+  literals:
+  - ENVIRONMENT=staging
+  - LOG_LEVEL=info
+  - REPLICAS=2
+  - RESOURCE_REQUESTS_CPU=200m
+  - RESOURCE_REQUESTS_MEMORY=256Mi
+  - RESOURCE_LIMITS_CPU=1000m
+  - RESOURCE_LIMITS_MEMORY=1Gi
+  - AZURE_ENVIRONMENT=staging
+  - MONITORING_ENABLED=true
+  - DEBUG_MODE=false
+  - PERFORMANCE_TESTING=true
+
+# Secret generators
+secretGenerator:
+- name: ${{ values.component_id }}-env-secrets
+  literals:
+  - DATABASE_PASSWORD=staging-password
+  - API_KEY=staging-api-key
+
+# Patches for staging environment
+patchesStrategicMerge:
+- deployment-patch.yaml
+- service-patch.yaml
+- ingress-patch.yaml
+
+# JSON patches for specific modifications
+patchesJson6902:
+- target:
+    group: apps
+    version: v1
+    kind: Deployment
+    name: ${{ values.component_id }}
+    namespace: ${{ values.component_id }}-staging
+  patch: |-
+    - op: replace
+      path: /spec/replicas
+      value: 2
+    - op: add
+      path: /spec/template/spec/containers/0/env/-
+      value:
+        name: ENVIRONMENT
+        value: "staging"
+
+# Replicas for staging (moderate resources)
+replicas:
+- name: ${{ values.component_id }}-deployment
+  count: 2
+
+# Variables for substitution
+vars:
+- name: ENVIRONMENT
+  objref:
+    kind: ConfigMap
+    name: ${{ values.component_id }}-env-config
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.ENVIRONMENT
+
+# Inventory for tracking
+inventory:
+  type: ConfigMap
+  configMap:
+    name: inventory-${{ values.component_id }}-staging
+    namespace: ${{ values.component_id }}-staging

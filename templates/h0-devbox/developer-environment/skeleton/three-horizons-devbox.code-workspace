@@ -1,0 +1,198 @@
+{
+  "folders": [
+    {
+      "name": "Three Horizons DevBox",
+      "path": "."
+    },
+    {
+      "name": "H1 Foundation Templates",
+      "path": "../../h1-foundation"
+    },
+    {
+      "name": "H2 Optimization Templates", 
+      "path": "../../h2-optimization"
+    },
+    {
+      "name": "H3 Innovation Templates",
+      "path": "../../h3-innovation"
+    }
+  ],
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "${{ values.preferred_shell }}",
+    "files.associations": {
+      "*.yaml": "yaml",
+      "*.yml": "yaml",
+      "Dockerfile*": "dockerfile",
+      ".env*": "properties"
+    },
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit",
+      "source.fixAll": "explicit"
+    },
+    "git.enableSmartCommit": true,
+    "git.confirmSync": false,
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+      "*.ts": "${capture}.js",
+      "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
+      "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml",
+      "Dockerfile": "Dockerfile*, .dockerignore",
+      "*.dockerfile": "${capture}.dockerignore",
+      "docker-compose.yml": "docker-compose*.yml",
+      ".env": ".env.*"
+    },
+    "workbench.colorCustomizations": {
+      "titleBar.activeBackground": "#0078d4",
+      "titleBar.activeForeground": "#ffffff",
+      "statusBar.background": "#0078d4",
+      "statusBar.foreground": "#ffffff"
+    },
+    "azure.resourceFilter": ["${{ values.azure_subscription_id }}"],
+    "kubernetes.outputFormat": "yaml",
+    "yaml.schemas": {
+      "https://json.schemastore.org/github-workflow.json": ".github/workflows/*.{yml,yaml}",
+      "https://json.schemastore.org/kustomization.json": "kustomization.{yml,yaml}",
+      "https://json.schemastore.org/chart.json": "Chart.{yml,yaml}",
+      "https://json.schemastore.org/azure-pipelines.json": "azure-pipelines.{yml,yaml}"
+    }
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Setup DevBox Environment",
+        "type": "shell",
+        "command": "npm",
+        "args": ["run", "setup"],
+        "group": "build",
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "shared"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "Verify Environment",
+        "type": "shell", 
+        "command": "./scripts/verify-environment.sh",
+        "group": "test",
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "shared"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "Azure Login",
+        "type": "shell",
+        "command": "az",
+        "args": ["login", "--use-device-code"],
+        "group": "build",
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": true,
+          "panel": "shared"
+        }
+      },
+      {
+        "label": "GitHub Login",
+        "type": "shell",
+        "command": "gh",
+        "args": ["auth", "login"],
+        "group": "build",
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": true,
+          "panel": "shared"
+        }
+      },
+      {
+        "label": "Check All Status",
+        "type": "shell",
+        "command": "npm",
+        "args": ["run", "azure:status"],
+        "dependsOrder": "sequence",
+        "dependsOn": ["Azure Status", "Kubernetes Status", "GitHub Status"],
+        "group": "test"
+      },
+      {
+        "label": "Azure Status",
+        "type": "shell",
+        "command": "az",
+        "args": ["account", "show"],
+        "group": "test"
+      },
+      {
+        "label": "Kubernetes Status", 
+        "type": "shell",
+        "command": "kubectl",
+        "args": ["cluster-info"],
+        "group": "test"
+      },
+      {
+        "label": "GitHub Status",
+        "type": "shell",
+        "command": "gh",
+        "args": ["auth", "status"],
+        "group": "test"
+      }
+    ]
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Debug Node.js App",
+        "type": "node",
+        "request": "launch",
+        "program": "${workspaceFolder}/app.js",
+        "skipFiles": ["<node_internals>/**"],
+        "env": {
+          "NODE_ENV": "development"
+        }
+      },
+      {
+        "name": "Debug TypeScript App",
+        "type": "node",
+        "request": "launch",
+        "program": "${workspaceFolder}/src/index.ts",
+        "preLaunchTask": "Build TypeScript",
+        "outFiles": ["${workspaceFolder}/dist/**/*.js"],
+        "skipFiles": ["<node_internals>/**"]
+      }
+    ]
+  },
+  "extensions": {
+    "recommendations": [
+      "ms-vscode-remote.remote-containers",
+      "ms-vscode.vscode-typescript-next",
+      "ms-python.python",
+      "ms-dotnettools.csharp",
+      "ms-vscode.vscode-json",
+      "redhat.vscode-yaml",
+      "ms-kubernetes-tools.vscode-kubernetes-tools",
+      "ms-azuretools.vscode-azurecli",
+      "ms-azuretools.vscode-docker",
+      "ms-vscode.azure-account",
+      "ms-azuretools.vscode-azureresourcegroups",
+      "github.copilot",
+      "github.copilot-chat",
+      "github.vscode-pull-request-github",
+      "eamodio.gitlens",
+      "esbenp.prettier-vscode",
+      "ms-toolsai.jupyter",
+      "hashicorp.terraform",
+      "redhat.vscode-xml",
+      "vscode-icons-team.vscode-icons",
+      "streetsidesoftware.code-spell-checker",
+      "humao.rest-client"
+    ]
+  }
+}

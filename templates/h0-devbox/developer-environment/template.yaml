@@ -1,0 +1,228 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: h0-developer-environment
+  title: Three Horizons Developer Environment - H0 Setup
+  description: Complete developer environment setup with VS Code, SDKs, and all dependencies for Three Horizons AI Platform development
+  tags:
+    - h0
+    - setup
+    - devbox
+    - development-environment
+    - vscode
+    - azure
+    - kubernetes
+    - node
+    - python
+    - dotnet
+    - ai
+    - devcontainer
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+    github.com/project-slug: three-horizon-ai/devbox-template
+spec:
+  owner: three-horizons-platform-team
+  type: environment
+  parameters:
+    - title: Developer Information
+      required:
+        - developer_name
+        - team
+        - preferred_shell
+      properties:
+        developer_name:
+          title: Developer Name
+          type: string
+          description: Your name for personalizing the environment
+          pattern: '^[a-zA-Z0-9\s-]+$'
+        team:
+          title: Team
+          type: string
+          description: Your team name
+          ui:field: OwnerPicker
+          ui:options:
+            catalogFilter:
+              kind: [Group, User]
+        preferred_shell:
+          title: Preferred Shell
+          type: string
+          description: Your preferred shell environment
+          default: zsh
+          enum:
+            - bash
+            - zsh
+            - fish
+            - powershell
+
+    - title: Development Stack
+      properties:
+        languages:
+          title: Programming Languages
+          type: array
+          description: Select programming languages to configure
+          items:
+            type: string
+            enum:
+              - nodejs
+              - python
+              - dotnet
+              - java
+              - go
+              - rust
+          uniqueItems: true
+          default: ["nodejs", "python", "dotnet"]
+        cloud_tools:
+          title: Cloud Tools
+          type: array
+          description: Select cloud tools to install
+          items:
+            type: string
+            enum:
+              - azure-cli
+              - kubectl
+              - helm
+              - terraform
+              - bicep
+              - docker
+              - podman
+              - k9s
+              - argocd-cli
+          uniqueItems: true
+          default: ["azure-cli", "kubectl", "helm", "docker", "bicep"]
+        ai_tools:
+          title: AI/ML Tools
+          type: array
+          description: Select AI/ML development tools
+          items:
+            type: string
+            enum:
+              - azure-ai-cli
+              - openai-cli
+              - jupyter
+              - tensorboard
+              - mlflow
+              - huggingface-cli
+              - langchain
+          uniqueItems: true
+          default: ["azure-ai-cli", "jupyter", "langchain"]
+
+    - title: VS Code Configuration
+      properties:
+        vscode_extensions:
+          title: VS Code Extensions
+          type: array
+          description: Pre-install VS Code extensions
+          items:
+            type: string
+            enum:
+              - ms-vscode.vscode-typescript-next
+              - ms-python.python
+              - ms-dotnettools.csharp
+              - ms-azuretools.vscode-azureresourcegroups
+              - ms-kubernetes-tools.vscode-kubernetes-tools
+              - ms-vscode.azure-account
+              - github.copilot
+              - github.copilot-chat
+              - redhat.vscode-yaml
+              - ms-vscode.powershell
+              - hashicorp.terraform
+              - ms-azuretools.vscode-bicep
+          uniqueItems: true
+          default: ["github.copilot", "github.copilot-chat", "ms-azuretools.vscode-azureresourcegroups", "ms-kubernetes-tools.vscode-kubernetes-tools"]
+        workspace_settings:
+          title: Custom Workspace Settings
+          type: boolean
+          description: Apply custom VS Code workspace settings for Three Horizons development
+          default: true
+
+    - title: Azure Configuration
+      properties:
+        setup_azure_auth:
+          title: Setup Azure Authentication
+          type: boolean
+          description: Configure Azure CLI authentication and subscription
+          default: true
+        azure_subscription_id:
+          title: Azure Subscription ID (Optional)
+          type: string
+          description: Azure subscription ID to configure by default
+          pattern: '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'
+        setup_aks_access:
+          title: Setup AKS Access
+          type: boolean
+          description: Configure kubectl for AKS clusters
+          default: true
+
+    - title: Repository Settings
+      required:
+        - repo_name
+      properties:
+        repo_name:
+          title: Repository Name
+          type: string
+          description: Name for the developer environment repository
+          default: my-three-horizons-devbox
+          pattern: '^[a-z0-9-]+$'
+        include_samples:
+          title: Include Sample Code
+          type: boolean
+          description: Include sample code and templates for each horizon
+          default: true
+
+  steps:
+    - id: fetch-base
+      name: Fetch Base Template
+      action: fetch:template
+      input:
+        url: ./skeleton
+        values:
+          developer_name: ${{ parameters.developer_name }}
+          team: ${{ parameters.team }}
+          preferred_shell: ${{ parameters.preferred_shell }}
+          languages: ${{ parameters.languages }}
+          cloud_tools: ${{ parameters.cloud_tools }}
+          ai_tools: ${{ parameters.ai_tools }}
+          vscode_extensions: ${{ parameters.vscode_extensions }}
+          workspace_settings: ${{ parameters.workspace_settings }}
+          setup_azure_auth: ${{ parameters.setup_azure_auth }}
+          azure_subscription_id: ${{ parameters.azure_subscription_id }}
+          setup_aks_access: ${{ parameters.setup_aks_access }}
+          repo_name: ${{ parameters.repo_name }}
+          include_samples: ${{ parameters.include_samples }}
+
+    - id: publish
+      name: Publish to GitHub
+      action: publish:github
+      input:
+        allowedHosts: ['github.com']
+        description: Three Horizons AI Platform Developer Environment for ${{ parameters.developer_name }}
+        repoUrl: github.com?owner=three-horizon-ai&repo=${{ parameters.repo_name }}
+        defaultBranch: main
+        gitCommitMessage: 'Initial setup: Three Horizons Developer Environment'
+        topics:
+          - three-horizons
+          - devbox
+          - development-environment
+          - azure
+          - ai-platform
+
+    - id: register
+      name: Register Component
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: '/catalog-info.yaml'
+
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps.register.output.entityRef }}
+      - title: VS Code Devcontainer
+        url: vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=${{ steps.publish.output.remoteUrl }}
+      - title: GitHub Codespaces
+        url: https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=${{ steps.publish.output.repoId }}
+      - title: Azure Container Instances
+        url: https://portal.azure.com/#create/Microsoft.ContainerInstances

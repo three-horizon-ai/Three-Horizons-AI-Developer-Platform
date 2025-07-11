@@ -1,123 +1,332 @@
-# 🚀 Three Horizon AI Development Platform
+# 🚀 Three Horizons AI Platform
 
-<div align="center">
 
-[![Official Website](https://img.shields.io/badge/Official_Website-threehorizon.ai-blue)](https://threehorizon.ai)
-![Version](https://img.shields.io/badge/version-1.0-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
-[![Documentation](https://img.shields.io/badge/docs-latest-brightgreen.svg)](docs/)
+**The Industry's First AI-Enabled Development Platform with Agentic DevOps**
 
-**A comprehensive platform integrating Microsoft Azure, Red Hat Developer Hub, and GitHub Enterprise to create a superior developer experience.**
+*Integrating Microsoft Azure, Red Hat Developer Hub 1.6, GitHub Enterprise, and Azure AI Foundry to create an autonomous, self-operating development ecosystem*
 
-![Three Horizons Platform](docs/images/Three-Horizon.svg)
 
-</div>
+## 📋 Table of Contents
+
+- [🔍 Overview](#-overview)
+- [🏗️ Platform Architecture](#-platform-architecture)
+- [🎯 Three Horizons Implementation](#-three-horizons-implementation)
+- [🚀 Quick Start](#-quick-start)
+- [📚 Documentation](#-documentation)
+- [🛠️ Implementation Guides](#-implementation-guides)
+- [📊 Platform Components](#-platform-components)
+- [🔒 Security & Compliance](#-security--compliance)
+- [📈 Metrics & KPIs](#-metrics--kpis)
 
 ## 🔍 Overview
 
-The Three Horizons Platform integrates Microsoft Azure, Red Hat Developer Hub, and GitHub Enterprise to create a unified developer experience that accelerates innovation while maintaining governance and quality.
+The Three Horizons AI Platform revolutionizes enterprise software development by creating the industry's first fully autonomous development ecosystem. This platform transcends traditional DevOps by introducing **Agentic DevOps** - where AI agents autonomously handle development tasks, security scanning, deployment decisions, and operational maintenance.
 
-![Three Horizons Platform Overview](docs/images/three-horizons-diagram.svg)
+### 🎯 What Makes This Platform Unique?
 
-This platform evolves your organization's capabilities across three horizons:
+| Traditional DevOps | Agentic DevOps (Our Platform) |
+|-------------------|------------------------------|
+| Manual pipeline creation | AI agents design and optimize pipelines |
+| Reactive security scanning | Proactive shift-left security with AI prediction |
+| Script-based deployments | Autonomous deployment decisions |
+| Human-operated monitoring | Self-healing infrastructure with SRE agents |
+| Static development environments | Dynamic AI-optimized DevBox environments |
 
-1. **Horizon 1**: Foundation - Establish the core platform and essential services
-2. **Horizon 2**: Enhancement - Optimize workflows and improve developer productivity
-3. **Horizon 3**: Innovation - Enable AI-powered development and continuous innovation
+### 💡 Business Impact
 
-## ✨ Key Benefits
+According to [Microsoft's Agentic DevOps announcement](https://azure.microsoft.com/en-us/blog/agentic-devops-evolving-software-development-with-github-copilot-and-microsoft-azure/):
+- **80% reduction** in repetitive DevOps tasks
+- **60% faster** time-to-market for new features
+- **90% reduction** in security vulnerabilities through shift-left practices
+- **50% improvement** in developer productivity
 
-- **🚀 Accelerated Onboarding** - Developers become productive in minutes
-- **🧠 Reduced Cognitive Load** - Golden Paths guide developers through common workflows
-- **🤖 AI-Assisted Development** - GitHub Copilot integration enhances productivity
-- **🔒 Integrated Security** - Unified security controls across the platform
-- **📈 Streamlined Lifecycle** - Seamless transitions from development to deployment
+## 🏗️ Platform Architecture
 
-## 🏗️ Architecture
+```mermaid
+graph TB
+    subgraph "🎯 Control Plane"
+        RHDH[📚 Red Hat Developer Hub 1.6]
+        GHE[🐙 GitHub Enterprise]
+        AIF[🧪 Azure AI Foundry]
+        MCP[🔌 Model Context Protocol]
+    end
+    
+    subgraph "🤖 AI & Automation Layer"
+        Copilot[🧠 GitHub Copilot Enterprise]
+        Agent[🤖 Copilot Agent Mode]
+        CodeAgent[💻 GitHub Code Agent]
+        DevOps[⚡ Agentic DevOps]
+        SRE[🚨 Azure SRE Agent]
+    end
+    
+    subgraph "☁️ Infrastructure Layer"
+        AKS[🌊 Azure Kubernetes Service]
+        ARO[🔴 Azure Red Hat OpenShift]
+        Arc[🔗 Azure Arc]
+        DevBox[🖥️ Microsoft DevBox]
+    end
+    
+    subgraph "🔒 Security Layer"
+        GHAS[🛡️ GitHub Advanced Security]
+        Defender[🔐 Defender for Cloud]
+        Sentinel[📊 Azure Sentinel]
+    end
+    
+    subgraph "📊 Observability Layer"
+        Monitor[📈 Azure Monitor]
+        Insights[💡 Application Insights]
+        Prometheus[📊 Prometheus]
+        Grafana[📉 Grafana]
+        Datadog[🐕 Datadog]
+    end
+    
+    RHDH --> AKS
+    RHDH --> ARO
+    GHE --> GHAS
+    AIF --> Agent
+    Agent --> DevOps
+    DevOps --> SRE
+    
+    AKS --> Monitor
+    ARO --> Monitor
+    GHAS --> Defender
+    Defender --> Sentinel
+    Monitor --> SRE
+    SRE --> DevOps
+```
 
-The platform combines three key technology pillars:
+### 🔄 Development Workflow Zones
 
-1. **Microsoft Azure** - Cloud infrastructure and services (AKS/ARO)
-2. **Red Hat Developer Hub** - Developer portal and experience platform
-3. **GitHub Enterprise** - Source control, collaboration and CI/CD
+![Development Workflow](docs/images/workflow-zones.svg)
 
-![Three Horizons Developer Hub Architecture](docs/images/integration-architecture-corrected.png)
+1. **🏠 Development Zone (Inner Loop)**
+   - AI-powered local development with DevBox
+   - GitHub Copilot Enterprise integration
+   - Instant environment provisioning
+   - Real-time AI code suggestions
 
-> 🏗️ **Architecture Overview:** The diagram above shows how these components integrate with AI services, modern DevOps workflows, and the comprehensive developer experience platform.
+2. **⚙️ Integration Zone (CI/CD)**
+   - Autonomous pipeline generation
+   - Self-optimizing workflows
+   - Shift-left security gates
+   - AI-driven quality checks
 
-![Developer Hub Portal Example](docs/images/dev-hub-portal-sample.png)
+3. **🚀 Runtime Zone (Outer Loop)**
+   - Multi-cloud deployment (Azure, AWS, GCP)
+   - GitOps with Ansible automation
+   - Progressive delivery with AI decisions
+   - Self-scaling infrastructure
 
-## 🆕 Red Hat Developer Hub 1.6 Features
+4. **📊 Operations Zone**
+   - Autonomous incident response
+   - Predictive failure detection
+   - Self-healing systems
+   - AI-powered root cause analysis
 
-The Three Horizons Platform leverages the latest Red Hat Developer Hub 1.6 capabilities, featuring advanced centralization, standardization, and security enhancements:
+## 🎯 Three Horizons Implementation
 
-![Red Hat Developer Hub 1.6 Architecture](docs/images/rhdh-16.png)
+Our implementation follows a proven three-horizon model that progressively transforms your development platform:
 
-### Key v1.6 Enhancements:
+### 🟦 Horizon 1: AI-Assisted Foundation (Months 0-6)
+*Establish core infrastructure with basic AI capabilities*
 
-#### **🚀 Platform Evolution:**
-- **🏠 RHDH Local (Preview)** - Run Developer Hub locally for development and testing
-- **🔒 Air-gapped Installation** - Deploy in secure, disconnected environments  
-- **⚡ High Availability on Azure AKS** - Enhanced resilience and enterprise-grade reliability
-- **🔌 Dynamic Plugins System** - Hot-swappable extensions with no downtime updates
+**Key Deliverables:**
+- ✅ Azure infrastructure with AKS/ARO deployment
+- ✅ Red Hat Developer Hub 1.6 installation
+- ✅ GitHub Enterprise integration
+- ✅ Basic CI/CD with GitHub Actions
+- ✅ Shift-left security with GHAS
+- ✅ DevBox standardized environments
+- ✅ Foundation monitoring setup
 
-#### **🎯 Developer Experience:**
-- **🖱️ Easier Plugin Configuration** - Copy YAML configurations directly from Extensions Catalog
-- **🏢 Self-Service Portal** - Renamed "Create" menu with improved navigation and customization
-- **📚 Enhanced Documentation** - Comprehensive guides for air-gapped installations and private registries
-- **⚡ Faster Onboarding** - Streamlined setup and golden path templates
+**[📘 H1 Documentation →](docs/horizon-1/)**
 
-#### **🔐 Security & Governance:**
-- **🔐 Advanced RBAC Delegation** - Platform engineers can delegate permission controls
-- **🛡️ Supply Chain Security** - SLSA compliance with Trusted Application Pipelines
-- **📊 Centralized Governance** - Unified monitoring, auditing, and compliance management
-- **✅ Verified Components** - Red Hat-validated plugins and integrations
+### 🟨 Horizon 2: AI-Enhanced Optimization (Months 6-12)
+*Optimize platform with advanced AI features*
 
-#### **☁️ Enterprise Integration:**
-- **☁️ Multi-Cloud Support** - Enhanced integrations with AWS, Azure, Google Cloud, and OpenShift
-- **🔗 Unified Access** - Single portal for all development tools and resources
-- **📋 Standardized Templates** - "Golden Path" templates with built-in best practices
-- **🎯 Centralized Documentation** - TechDocs integration with living documentation
+**Key Deliverables:**
+- ✅ Azure AI Foundry integration
+- ✅ GitHub Copilot Enterprise deployment
+- ✅ Advanced GitOps with Flux/ArgoCD
+- ✅ Multi-cloud deployment capabilities
+- ✅ Enhanced security automation
+- ✅ Comprehensive observability
+- ✅ Golden Path templates
 
-> 💡 **Business Impact**: Version 1.6 reduces developer cognitive load, accelerates time-to-market, and enhances security posture while maintaining the flexibility needed for modern enterprise development.
+**[📙 H2 Documentation →](docs/horizon-2/)**
 
-## 🚀 Implementation Guide
+### 🟪 Horizon 3: Autonomous Innovation (Months 12+)
+*Transform to fully autonomous operations*
 
-For a comprehensive, step-by-step guide to implementing the complete Three Horizons Platform, follow our detailed tutorial:
+**Key Deliverables:**
+- ✅ Agentic DevOps activation
+- ✅ GitHub Copilot Agent Mode
+- ✅ Autonomous deployment decisions
+- ✅ Self-healing infrastructure
+- ✅ Natural language automation
+- ✅ Zero-touch operations
+- ✅ Continuous AI optimization
 
-👉 [**Complete Integration Tutorial**](docs/complete-integration-tutorial/index.md)
+**[📕 H3 Documentation →](docs/horizon-3/)**
 
-This tutorial will guide you through:
+## 🚀 Quick Start
 
-1. Infrastructure provisioning
-2. Platform installation
-3. Developer Hub deployment
-4. GitHub integration
-5. CI/CD pipeline setup
-6. Monitoring & observability configuration
-7. Platform validation
+### Prerequisites
 
-## 📚 Playbook Components
+- Azure subscription with Owner/Contributor access
+- GitHub Enterprise account or GitHub.com organization
+- Red Hat subscription (for ARO) or AKS access
+- Basic knowledge of Kubernetes and Git
 
-Our comprehensive playbook includes these key documentation resources:
+### Rapid Deployment
 
-### Core Implementation Resources
+```bash
+# Clone the repository
+git clone https://github.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform.git
+cd Three-Horizons-AI-Developer-Platform
 
-- [Complete Integration Tutorial](docs/complete-integration-tutorial/index.md) - Primary step-by-step implementation guide
-- [Inner Loop Development Guide](docs/guides/inner-loop-development.md) - Optimizing developer workflows
-- [Outer Loop Deployment Guide](docs/guides/outer-loop-deployment.md) - Implementing continuous deployment
-- [Golden Paths Guide](docs/guides/golden-paths.md) - Standardized developer workflows
+# Run the automated deployment
+./scripts/deploy-developer-hub.sh -e dev -p aks -l centralus
 
-### Developer Resources
+# Configure integrations
+./scripts/configure-integrations.sh
+```
 
-- [Developer Guide](docs/guides/developer-guide.md) - Guidance for application developers
+For detailed instructions, see our **[Complete Integration Tutorial](docs/tutorials/complete-integration-tutorial.md)**.
 
-## 🔧 Prerequisites
+## 📚 Documentation
 
-- Azure subscription with appropriate permissions
-- GitHub Enterprise Cloud account or GitHub.com organization
-- Red Hat OpenShift subscription (for ARO deployments) or AKS access
-- Basic familiarity with Kubernetes, Git, and CI/CD concepts
+### 🌅 Horizon 1: Foundation
+- [H1-001: Platform Introduction](docs/horizon-1/h1-001-platform-introduction.md)
+- [H1-002: Infrastructure Setup](docs/horizon-1/h1-002-infrastructure-setup.md)
+- [H1-003: Security Foundation](docs/horizon-1/h1-003-security-foundation.md)
+- [H1-004: GitHub Enterprise Setup](docs/horizon-1/h1-004-github-setup.md)
+- [H1-005: Developer Hub Deployment](docs/horizon-1/h1-005-developer-hub-deployment.md)
+- [H1-006: Basic CI/CD Pipeline](docs/horizon-1/h1-006-basic-cicd.md)
+- [H1-007: Demo Environment](docs/horizon-1/h1-007-demo-environment.md)
+
+### 🌄 Horizon 2: Enhancement
+- [H2-001: Advanced Deployment](docs/horizon-2/h2-001-advanced-deployment.md)
+- [H2-002: Comprehensive Monitoring](docs/horizon-2/h2-002-monitoring.md)
+- [H2-003: Enhanced Security](docs/horizon-2/h2-003-enhanced-security.md)
+- [H2-004: Performance Optimization](docs/horizon-2/h2-004-performance.md)
+- [H2-005: Golden Paths](docs/horizon-2/h2-005-golden-paths.md)
+- [H2-006: Advanced Developer Hub](docs/horizon-2/h2-006-advanced-devhub.md)
+- [H2-007: Enhanced Demo](docs/horizon-2/h2-007-enhanced-demo.md)
+
+### 🌇 Horizon 3: Innovation
+- [H3-001: AI-Driven Development](docs/horizon-3/h3-001-ai-development.md)
+- [H3-002: Azure AI Foundry](docs/horizon-3/h3-002-ai-foundry.md)
+- [H3-003: Autonomous Operations](docs/horizon-3/h3-003-autonomous-ops.md)
+- [H3-004: MCP Implementation](docs/horizon-3/h3-004-mcp-implementation.md)
+- [H3-005: Advanced Analytics](docs/horizon-3/h3-005-analytics.md)
+- [H3-006: Unified Experience](docs/horizon-3/h3-006-unified-experience.md)
+- [H3-007: Innovation Showcase](docs/horizon-3/h3-007-innovation-demo.md)
+
+## 🛠️ Implementation Guides
+
+### Development Workflow Guides
+- 📖 [Inner Loop Development Guide](docs/guides/inner-loop-development.md)
+- 📖 [Outer Loop Deployment Guide](docs/guides/outer-loop-deployment.md)
+- 📖 [Developer Guide](docs/guides/developer-guide.md)
+
+### Technical Implementation
+- 🔧 [Infrastructure as Code (Bicep)](resources/bicep/)
+- 🔧 [Ansible Automation](resources/ansible/)
+- 🔧 [GitHub Actions Workflows](resources/github-actions/)
+- 🔧 [Monitoring Configurations](resources/monitoring/)
+
+## 📊 Platform Components
+
+### 🔷 Microsoft Azure - AI-Enhanced Infrastructure
+
+| Component | Description | Horizon |
+|-----------|-------------|---------|
+| **Azure Kubernetes Service (AKS)** | Managed K8s with GPU support | H1 |
+| **Azure Red Hat OpenShift (ARO)** | Enterprise container platform | H1 |
+| **Azure DevBox** | AI-ready dev environments | H1 |
+| **Azure Monitor** | Unified observability | H2 |
+| **Azure SRE Agent** | Autonomous site reliability | H3 |
+| **Agentic DevOps** | Self-operating pipelines | H3 |
+
+### 🐙 GitHub Enterprise - AI-Powered Development
+
+| Component | Description | Horizon |
+|-----------|-------------|---------|
+| **GitHub Actions** | CI/CD automation | H1 |
+| **GitHub Copilot Enterprise** | AI pair programming | H2 |
+| **GitHub Advanced Security** | Shift-left security | H1 |
+| **Copilot Agent Mode** | Autonomous coding | H3 |
+| **GitHub Code Agent** | PR/Issue automation | H3 |
+
+### 📚 Red Hat Developer Hub 1.6 - Unified Portal
+
+| Component | Description | Horizon |
+|-----------|-------------|---------|
+| **Software Catalog** | Service discovery | H1 |
+| **Golden Path Templates** | Standardized workflows | H2 |
+| **Dynamic Plugins** | Extensible platform | H2 |
+| **RBAC Delegation** | Fine-grained access | H2 |
+| **Air-gapped Support** | Secure deployment | H2 |
+
+### 🧪 Azure AI Foundry - Enterprise AI Platform
+
+| Component | Description | Horizon |
+|-----------|-------------|---------|
+| **Unified SDK** | Consistent AI development | H2 |
+| **GenAIOps Workflows** | AI application lifecycle | H2 |
+| **Model Registry** | Centralized AI models | H2 |
+| **MCP Protocol** | Multi-model orchestration | H3 |
+| **Responsible AI** | Governance & evaluation | H3 |
+
+## 🔒 Security & Compliance
+
+Our platform implements **shift-left security** by default:
+
+- 🛡️ **GitHub Advanced Security**: Code scanning, secret detection, dependency review
+- 🔐 **Azure Defender**: Cloud workload protection
+- 📊 **Azure Sentinel**: SIEM and SOAR capabilities
+- 🔒 **Zero Trust Architecture**: Identity-based security model
+- ✅ **Compliance**: SOC2, HIPAA, PCI-DSS ready
+
+## 📈 Metrics & KPIs
+
+Track your platform success with built-in metrics:
+
+### Developer Productivity
+- Lead time for changes
+- Deployment frequency
+- Mean time to recovery
+- Change failure rate
+
+### Platform Health
+- Infrastructure availability (target: 99.95%)
+- API response times
+- Resource utilization
+- Cost optimization metrics
+
+### Security Posture
+- Vulnerabilities detected/fixed
+- Time to patch
+- Security gate pass rate
+- Compliance score
+
+## 🚦 Getting Started
+
+1. **Choose Your Starting Point:**
+   - [Complete Platform Tutorial](docs/tutorials/complete-integration-tutorial.md) - Full implementation guide
+   - [Quick Start on AKS](docs/quick-start/aks-quickstart.md) - Rapid deployment
+   - [Quick Start on ARO](docs/quick-start/aro-quickstart.md) - OpenShift deployment
+
+2. **Select Your Horizon:**
+   - Start with [Horizon 1](docs/horizon-1/) if you're building from scratch
+   - Jump to [Horizon 2](docs/horizon-2/) if you have basic infrastructure
+   - Explore [Horizon 3](docs/horizon-3/) for cutting-edge AI features
+
+3. **Get Support:**
+   - [Architecture Decision Records](docs/adr/)
+   - [Troubleshooting Guide](docs/troubleshooting/)
+   - [FAQ](docs/faq.md)
 
 ## 📝 License
 
@@ -125,6 +334,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-<p align="center">
-<b>The Future of Development Now: Microsoft, Red Hat, and GitHub Redefining What's Possible.</b>
-</p>
+
+**🚀 Welcome to the Future of Software Development**
+
+*Where AI doesn't just assist—it autonomously creates, deploys, and maintains*
+
+[Get Started](docs/tutorials/complete-integration-tutorial.md) • [View Demos](docs/demos/) • [Architecture](docs/architecture/)
+

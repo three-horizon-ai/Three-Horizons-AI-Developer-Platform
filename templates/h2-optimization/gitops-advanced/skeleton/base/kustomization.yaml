@@ -1,0 +1,61 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+metadata:
+  name: ${{ values.component_id }}-base
+
+# Base resources that are common across all environments
+resources:
+- deployment.yaml
+- service.yaml
+- configmap.yaml
+- secret.yaml
+- servicemonitor.yaml
+
+# Common labels applied to all resources
+commonLabels:
+  app.kubernetes.io/name: ${{ values.component_id }}
+  app.kubernetes.io/component: application
+  app.kubernetes.io/part-of: ${{ values.component_id }}-system
+  horizon: h2
+
+# Common annotations
+commonAnnotations:
+  backstage.io/managed-by-location: url:${{ values.git_repo_url }}
+  argocd.argoproj.io/managed-by: argocd
+
+# Images
+images:
+- name: ${{ values.component_id }}
+  newName: ${{ values.azure_resource_group }}.azurecr.io/${{ values.component_id }}
+  newTag: latest
+
+# ConfigMap generator for base configuration
+configMapGenerator:
+- name: ${{ values.component_id }}-base-config
+  literals:
+  - APP_NAME=${{ values.component_id }}
+  - APP_VERSION=1.0.0
+
+# Name prefix for all resources
+namePrefix: ""
+
+# Name suffix for all resources
+nameSuffix: ""
+
+# Replicas (will be overridden in overlays)
+replicas:
+- name: ${{ values.component_id }}-deployment
+  count: 1
+
+# Transformers
+transformers: []
+
+# Generators
+generators: []
+
+# Variables for substitution
+vars: []
+
+# OpenAPI schema
+openapi: {}

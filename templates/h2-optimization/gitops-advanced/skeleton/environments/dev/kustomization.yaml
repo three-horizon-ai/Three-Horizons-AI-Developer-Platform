@@ -1,0 +1,104 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+metadata:
+  name: ${{ values.component_id }}-dev
+  namespace: ${{ values.component_id }}-dev
+
+# Base resources
+resources:
+- ../../base
+- namespace.yaml
+
+# Namespace for all resources
+namespace: ${{ values.component_id }}-dev
+
+# Common labels for development environment
+commonLabels:
+  app.kubernetes.io/instance: ${{ values.component_id }}-dev
+  app.kubernetes.io/environment: dev
+  app.kubernetes.io/managed-by: argocd
+  horizon: h2
+
+# Common annotations
+commonAnnotations:
+  argocd.argoproj.io/sync-wave: "1"
+  config.kubernetes.io/local-config: "true"
+
+# Images with development tags
+images:
+- name: ${{ values.component_id }}
+  newTag: dev-latest
+
+# ConfigMap generators for environment-specific config
+configMapGenerator:
+- name: ${{ values.component_id }}-env-config
+  literals:
+  - ENVIRONMENT=development
+  - LOG_LEVEL=debug
+  - REPLICAS=1
+  - RESOURCE_REQUESTS_CPU=100m
+  - RESOURCE_REQUESTS_MEMORY=128Mi
+  - RESOURCE_LIMITS_CPU=500m
+  - RESOURCE_LIMITS_MEMORY=512Mi
+  - AZURE_ENVIRONMENT=dev
+  - MONITORING_ENABLED=true
+  - DEBUG_MODE=true
+
+# Secret generators
+secretGenerator:
+- name: ${{ values.component_id }}-env-secrets
+  literals:
+  - DATABASE_PASSWORD=dev-password
+  - API_KEY=dev-api-key
+
+# Patches for development environment
+patchesStrategicMerge:
+- deployment-patch.yaml
+- service-patch.yaml
+
+# JSON patches for specific modifications
+patchesJson6902:
+- target:
+    group: apps
+    version: v1
+    kind: Deployment
+    name: ${{ values.component_id }}
+    namespace: ${{ values.component_id }}-dev
+  patch: |-
+    - op: replace
+      path: /spec/replicas
+      value: 1
+    - op: add
+      path: /spec/template/spec/containers/0/env/-
+      value:
+        name: ENVIRONMENT
+        value: "development"
+
+# Replicas for development (minimal resources)
+replicas:
+- name: ${{ values.component_id }}-deployment
+  count: 1
+
+# Transformers
+transformers: []
+
+# Generators
+generators: []
+
+# Variables for substitution
+vars:
+- name: ENVIRONMENT
+  objref:
+    kind: ConfigMap
+    name: ${{ values.component_id }}-env-config
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.ENVIRONMENT
+
+# Inventory for tracking
+inventory:
+  type: ConfigMap
+  configMap:
+    name: inventory-${{ values.component_id }}-dev
+    namespace: ${{ values.component_id }}-dev

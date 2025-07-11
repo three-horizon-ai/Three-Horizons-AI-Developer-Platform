@@ -1,767 +1,1120 @@
-# Deploying Developer Hub on Azure Red Hat OpenShift (ARO)
+# 🔴 Red Hat Developer Hub on Azure Red Hat OpenShift (ARO)
 
-This guide provides step-by-step instructions for deploying the Three Horizons Platform's Developer Hub on Azure Red Hat OpenShift, aligned with the [Complete Integration Tutorial](../complete-integration-tutorial/index.md).
+<div align="center">
 
-## Prerequisites
+**Enterprise-Grade Developer Portal on OpenShift**
 
-- Azure subscription with Owner or Contributor access
-- Red Hat account with appropriate entitlements and pull secret
-- Azure CLI v2.53.0 or later installed and configured
-- OpenShift CLI (oc) v4.13 or later installed
-- GitHub account with administrative access to your organization
-- Basic understanding of OpenShift and Azure concepts
+</div>
 
-> 📘 **Note:** This guide follows the same infrastructure patterns as the [Complete Integration Tutorial](../complete-integration-tutorial/index.md). For a full platform deployment, refer to that comprehensive guide.
+## 📋 Table of Contents
 
-## Architecture Overview
+1. [Overview](#-overview)
+2. [Prerequisites](#-prerequisites)
+3. [ARO Cluster Setup](#-aro-cluster-setup)
+4. [Developer Hub Installation](#-developer-hub-installation)
+5. [OpenShift Integration](#-openshift-integration)
+6. [Security Configuration](#-security-configuration)
+7. [GitOps Integration](#-gitops-integration)
+8. [Monitoring Setup](#-monitoring-setup)
+9. [Advanced Configuration](#-advanced-configuration)
+10. [Troubleshooting](#-troubleshooting)
 
-The deployment uses the following Azure resources following Three Horizons Platform standards:
+## 🔍 Overview
 
-- **Azure Red Hat OpenShift (ARO)** cluster with managed services
-- **Azure Container Registry (ACR)** with geo-replication
-- **Azure Key Vault** with RBAC enabled
-- **Azure Monitor** with Container Insights
-- **Azure Virtual Network** with dedicated subnets
-- **Managed Identities** for secure authentication
+This guide covers deploying Red Hat Developer Hub 1.6 on Azure Red Hat OpenShift (ARO), leveraging OpenShift's enterprise features for enhanced security, scalability, and operations.
 
-## Phase 1: Infrastructure Setup
+### Why ARO for Developer Hub?
 
-### Step 1.1: Set up Environment Variables
+| Feature | Benefit |
+|---------|---------|
+| **Enterprise Support** | Full Red Hat support stack |
+| **Integrated Security** | OpenShift security policies |
+| **Operator Framework** | Automated lifecycle management |
+| **Built-in GitOps** | OpenShift GitOps operator |
+| **Advanced Networking** | Service mesh and network policies |
+| **Compliance** | FIPS, PCI-DSS, HIPAA ready |
 
-```bash
-# Set environment variables following Three Horizons naming convention
-RESOURCE_GROUP_PLATFORM="three-horizons-platform"
-RESOURCE_GROUP_SHARED="three-horizons-shared"
-LOCATION="centralus"
-SECONDARY_LOCATION="eastus2"
-ARO_CLUSTER_NAME="three-horizons-aro"
+### Architecture on ARO
 
-# Generate unique names to avoid conflicts
-TIMESTAMP=$(date +%s)
-ACR_NAME="threehorizonsreg${TIMESTAMP}"
-KEY_VAULT_NAME="th3horizons${TIMESTAMP}"
-VNET_NAME="three-horizons-vnet"
-MASTER_SUBNET="aro-master-subnet"
-WORKER_SUBNET="aro-worker-subnet"
-ARO_DOMAIN="three-horizons-aro"
-
-echo "Resource Group (Platform): $RESOURCE_GROUP_PLATFORM"
-echo "Resource Group (Shared): $RESOURCE_GROUP_SHARED"
-echo "ARO Cluster: $ARO_CLUSTER_NAME"
-echo "Container Registry: $ACR_NAME"
-echo "Key Vault: $KEY_VAULT_NAME"
-echo "ARO Domain: $ARO_DOMAIN"
+```mermaid
+graph TB
+    subgraph "ARO Cluster"
+        subgraph "OpenShift Control Plane"
+            A[API Server]
+            B[OAuth Server]
+            C[Operators]
+        end
+        
+        subgraph "Developer Hub"
+            D[RHDH Pods]
+            E[PostgreSQL]
+            F[Redis Cache]
+        end
+        
+        subgraph "Supporting Services"
+            G[OpenShift GitOps]
+            H[Service Mesh]
+            I[Monitoring Stack]
+        end
+        
+        subgraph "Storage"
+            J[Persistent Volumes]
+            K[Object Storage]
+        end
+    end
+    
+    A --> D
+    B --> D
+    C --> D
+    D --> E
+    D --> F
+    D --> G
+    H --> D
+    D --> J
+    D --> K
+    
+    style D fill:#ff6666
+    style G fill:#66ff66
+    style H fill:#6666ff
 ```
 
-### Step 1.2: Create Resource Groups
+## ✅ Prerequisites
+
+### 1. Required Tools
 
 ```bash
-# Create resource groups with proper tagging
-az group create \
-  --name $RESOURCE_GROUP_PLATFORM \
-  --location $LOCATION \
-  --tags Environment=Production Project=ThreeHorizons Owner=PlatformTeam
+#!/bin/bash
+# check-aro-prerequisites.sh
 
-az group create \
-  --name $RESOURCE_GROUP_SHARED \
-  --location $LOCATION \
-  --tags Environment=Production Project=ThreeHorizons Owner=PlatformTeam
+echo "🔍 Checking ARO prerequisites..."
+
+# Check Azure CLI
+if ! command -v az &> /dev/null; then
+    echo "❌ Azure CLI not installed"
+    echo "Install from: https://docs.microsoft.com/cli/azure/install-azure-cli"
+    exit 1
+fi
+
+# Check OpenShift CLI
+if ! command -v oc &> /dev/null; then
+    echo "❌ OpenShift CLI not installed"
+    echo "Install from: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/"
+    exit 1
+fi
+
+# Check ARO extension
+if ! az extension show --name aro &> /dev/null; then
+    echo "📦 Installing ARO extension..."
+    az extension add --name aro
+fi
+
+# Check Red Hat pull secret
+if [ ! -f "$HOME/.docker/config.json" ]; then
+    echo "❌ Red Hat pull secret not found"
+    echo "Download from: https://console.redhat.com/openshift/install/azure/aro-provisioned"
+    exit 1
+fi
+
+echo "✅ All prerequisites met!"
 ```
 
-### Step 1.3: Register Resource Providers
+### 2. Azure Configuration
 
 ```bash
-# Register required resource providers for ARO
+# Set environment variables
+export LOCATION="eastus"
+export RESOURCE_GROUP="rg-aro-devhub"
+export CLUSTER_NAME="aro-devhub"
+export PULL_SECRET_FILE="$HOME/.docker/config.json"
+export DOMAIN_NAME="devhub.example.com"
+
+# Register providers
 az provider register --namespace Microsoft.RedHatOpenShift --wait
 az provider register --namespace Microsoft.Compute --wait
 az provider register --namespace Microsoft.Storage --wait
 az provider register --namespace Microsoft.Authorization --wait
-az provider register --namespace Microsoft.Network --wait
-
-echo "Resource providers registered successfully"
 ```
 
-### Step 1.4: Deploy Network Infrastructure
+## 🏗️ ARO Cluster Setup
+
+### 1. Create Resource Group and Network
 
 ```bash
-# Create virtual network with properly sized subnets for ARO
+# Create resource group
+az group create \
+    --name $RESOURCE_GROUP \
+    --location $LOCATION
+
+# Create virtual network
 az network vnet create \
-  --resource-group $RESOURCE_GROUP_PLATFORM \
-  --name $VNET_NAME \
-  --address-prefix 10.0.0.0/16 \
-  --tags Environment=Production Project=ThreeHorizons
+    --resource-group $RESOURCE_GROUP \
+    --name aro-vnet \
+    --address-prefixes 10.0.0.0/22
 
-# Create master subnet (minimum /27 required for ARO)
+# Create master subnet
 az network vnet subnet create \
-  --resource-group $RESOURCE_GROUP_PLATFORM \
-  --vnet-name $VNET_NAME \
-  --name $MASTER_SUBNET \
-  --address-prefix 10.0.8.0/23 \
-  --service-endpoints Microsoft.ContainerRegistry
+    --resource-group $RESOURCE_GROUP \
+    --vnet-name aro-vnet \
+    --name master-subnet \
+    --address-prefixes 10.0.0.0/24 \
+    --service-endpoints Microsoft.ContainerRegistry
 
-# Create worker subnet (minimum /27 required for ARO)
+# Create worker subnet
 az network vnet subnet create \
-  --resource-group $RESOURCE_GROUP_PLATFORM \
-  --vnet-name $VNET_NAME \
-  --name $WORKER_SUBNET \
-  --address-prefix 10.0.10.0/23 \
-  --service-endpoints Microsoft.ContainerRegistry
+    --resource-group $RESOURCE_GROUP \
+    --vnet-name aro-vnet \
+    --name worker-subnet \
+    --address-prefixes 10.0.1.0/24 \
+    --service-endpoints Microsoft.ContainerRegistry
 
-# Disable private link service network policies on master subnet
+# Update subnet to disable private endpoint policies
 az network vnet subnet update \
-  --name $MASTER_SUBNET \
-  --resource-group $RESOURCE_GROUP_PLATFORM \
-  --vnet-name $VNET_NAME \
-  --private-link-service-network-policies Disabled
-
-# Create subnet for Azure services
-az network vnet subnet create \
-  --resource-group $RESOURCE_GROUP_PLATFORM \
-  --vnet-name $VNET_NAME \
-  --name services-subnet \
-  --address-prefix 10.0.4.0/24
-
-# Create subnet for private endpoints
-az network vnet subnet create \
-  --resource-group $RESOURCE_GROUP_PLATFORM \
-  --vnet-name $VNET_NAME \
-  --name endpoint-subnet \
-  --address-prefix 10.0.5.0/24 \
-  --disable-private-endpoint-network-policies true
+    --resource-group $RESOURCE_GROUP \
+    --vnet-name aro-vnet \
+    --name master-subnet \
+    --disable-private-link-service-network-policies true
 ```
 
-### Step 1.5: Deploy Azure Container Registry
+### 2. Create ARO Cluster
 
 ```bash
-# Create container registry with geo-replication
-az acr create \
-  --name $ACR_NAME \
-  --resource-group $RESOURCE_GROUP_SHARED \
-  --location $LOCATION \
-  --sku Premium \
-  --admin-enabled false \
-  --tags Environment=Production Project=ThreeHorizons
+# Create ARO cluster (this takes ~35 minutes)
+echo "🚀 Creating ARO cluster (this will take ~35 minutes)..."
 
-echo "Container Registry created: $ACR_NAME"
-
-# Enable geo-replication for production workloads
-az acr replication create \
-  --registry $ACR_NAME \
-  --location $SECONDARY_LOCATION
-
-# Enable Microsoft Defender for containers
-az security pricing create \
-  --name ContainerRegistry \
-  --tier 'standard'
-```
-
-### Step 1.6: Deploy Key Vault
-
-```bash
-# Create key vault with RBAC authorization
-az keyvault create \
-  --name $KEY_VAULT_NAME \
-  --resource-group $RESOURCE_GROUP_SHARED \
-  --location $LOCATION \
-  --sku standard \
-  --enable-rbac-authorization true \
-  --tags Environment=Production Project=ThreeHorizons
-
-# Assign yourself Key Vault Secrets Officer role
-az role assignment create \
-  --role "Key Vault Secrets Officer" \
-  --assignee "$(az account show --query user.name -o tsv)" \
-  --scope "$(az keyvault show --name "$KEY_VAULT_NAME" --resource-group $RESOURCE_GROUP_SHARED --query id -o tsv)"
-
-echo "Key Vault created: $KEY_VAULT_NAME"
-echo "Waiting 5 minutes for RBAC permissions to propagate..."
-sleep 300
-```
-
-### Step 1.7: Create Managed Identity
-
-```bash
-# Create user-assigned managed identity
-az identity create \
-  --name three-horizons-identity \
-  --resource-group $RESOURCE_GROUP_SHARED \
-  --tags Environment=Production Project=ThreeHorizons
-
-# Get identity client ID and principal ID
-IDENTITY_CLIENT_ID=$(az identity show --name three-horizons-identity --resource-group $RESOURCE_GROUP_SHARED --query clientId -o tsv)
-IDENTITY_PRINCIPAL_ID=$(az identity show --name three-horizons-identity --resource-group $RESOURCE_GROUP_SHARED --query principalId -o tsv)
-
-# Grant access to Key Vault
-az role assignment create \
-  --assignee-object-id $IDENTITY_PRINCIPAL_ID \
-  --assignee-principal-type ServicePrincipal \
-  --role "Key Vault Secrets User" \
-  --scope $(az keyvault show --name "$KEY_VAULT_NAME" --resource-group $RESOURCE_GROUP_SHARED --query id -o tsv)
-
-echo "Managed Identity created with Key Vault access"
-```
-
-## Phase 2: ARO Cluster Deployment
-
-### Step 2.1: Prepare ARO Pull Secret
-
-```bash
-# Download your pull secret from https://cloud.redhat.com/openshift/install/azure/aro-provisioned
-# Save it as pull-secret.txt in your current directory
-echo "Please ensure you have downloaded your Red Hat pull secret and saved it as 'pull-secret.txt'"
-echo "You can download it from: https://cloud.redhat.com/openshift/install/azure/aro-provisioned"
-
-# Verify the pull secret file exists
-if [ ! -f "pull-secret.txt" ]; then
-  echo "Error: pull-secret.txt not found. Please download it from Red Hat Cloud Console."
-  exit 1
-fi
-
-echo "Pull secret verified successfully"
-```
-
-### Step 2.2: Deploy ARO Cluster
-
-```bash
-# Get subnet IDs for ARO
-MASTER_SUBNET_ID=$(az network vnet subnet show \
-  --resource-group $RESOURCE_GROUP_PLATFORM \
-  --vnet-name $VNET_NAME \
-  --name $MASTER_SUBNET \
-  --query id -o tsv)
-
-WORKER_SUBNET_ID=$(az network vnet subnet show \
-  --resource-group $RESOURCE_GROUP_PLATFORM \
-  --vnet-name $VNET_NAME \
-  --name $WORKER_SUBNET \
-  --query id -o tsv)
-
-# Create ARO cluster with current OpenShift version
 az aro create \
-  --resource-group $RESOURCE_GROUP_PLATFORM \
-  --name $ARO_CLUSTER_NAME \
-  --vnet $VNET_NAME \
-  --master-subnet $MASTER_SUBNET_ID \
-  --worker-subnet $WORKER_SUBNET_ID \
-  --apiserver-visibility Public \
-  --ingress-visibility Public \
-  --pull-secret @pull-secret.txt \
-  --worker-count 3 \
-  --worker-vm-size Standard_D4s_v3 \
-  --domain $ARO_DOMAIN \
-  --tags Environment=Production Project=ThreeHorizons
+    --resource-group $RESOURCE_GROUP \
+    --name $CLUSTER_NAME \
+    --vnet aro-vnet \
+    --master-subnet master-subnet \
+    --worker-subnet worker-subnet \
+    --apiserver-visibility Public \
+    --ingress-visibility Public \
+    --worker-count 3 \
+    --worker-vm-size Standard_D8s_v3 \
+    --master-vm-size Standard_D8s_v3 \
+    --pull-secret @$PULL_SECRET_FILE
 
-echo "ARO cluster creation initiated. This may take 30-45 minutes..."
+# Get credentials
+echo "🔑 Getting cluster credentials..."
+APISERVER=$(az aro show \
+    --name $CLUSTER_NAME \
+    --resource-group $RESOURCE_GROUP \
+    --query apiserverProfile.url -o tsv)
+
+KUBEADMIN_PASSWORD=$(az aro list-credentials \
+    --name $CLUSTER_NAME \
+    --resource-group $RESOURCE_GROUP \
+    --query kubeadminPassword -o tsv)
+
+# Login to OpenShift
+oc login $APISERVER -u kubeadmin -p $KUBEADMIN_PASSWORD
+
+echo "✅ ARO cluster created successfully!"
+echo "🌐 Console URL: $(az aro show --name $CLUSTER_NAME --resource-group $RESOURCE_GROUP --query consoleProfile.url -o tsv)"
 ```
 
-### Step 2.3: Connect to ARO Cluster
+### 3. Configure Storage Classes
 
-```bash
-# Get ARO cluster credentials
-ARO_CREDENTIALS=$(az aro list-credentials \
-  --resource-group $RESOURCE_GROUP_PLATFORM \
-  --name $ARO_CLUSTER_NAME)
-
-ARO_USERNAME=$(echo $ARO_CREDENTIALS | jq -r .kubeadminUsername)
-ARO_PASSWORD=$(echo $ARO_CREDENTIALS | jq -r .kubeadminPassword)
-
-# Get ARO API server URL
-API_SERVER=$(az aro show \
-  --resource-group $RESOURCE_GROUP_PLATFORM \
-  --name $ARO_CLUSTER_NAME \
-  --query apiserverProfile.url -o tsv)
-
-# Get ARO console URL
-CONSOLE_URL=$(az aro show \
-  --resource-group $RESOURCE_GROUP_PLATFORM \
-  --name $ARO_CLUSTER_NAME \
-  --query consoleProfile.url -o tsv)
-
-echo "ARO API Server: $API_SERVER"
-echo "ARO Console: $CONSOLE_URL"
-echo "Username: $ARO_USERNAME"
-echo "Password: $ARO_PASSWORD"
-
-# Login with oc CLI
-oc login "$API_SERVER" -u "$ARO_USERNAME" -p "$ARO_PASSWORD" --insecure-skip-tls-verify=true
-
-# Verify connection
-oc get nodes
-oc get clusterversion
-```
-
-### Step 2.4: Configure Storage Classes
-
-```bash
-# Create additional storage class for RWX volumes (if needed)
-oc apply -f - <<EOF
+```yaml
+# storage-class-ssd.yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: azure-file-rwx
-provisioner: kubernetes.io/azure-file
+  name: managed-premium-retain
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "false"
+provisioner: kubernetes.io/azure-disk
 parameters:
-  skuName: Premium_ZRS
-reclaimPolicy: Delete
-volumeBindingMode: Immediate
+  storageaccounttype: Premium_LRS
+  kind: Managed
+reclaimPolicy: Retain
 allowVolumeExpansion: true
-mountOptions:
-  - dir_mode=0777
-  - file_mode=0777
-  - uid=0
-  - gid=0
-EOF
-
-# Verify storage classes
-oc get storageclass
+volumeBindingMode: WaitForFirstConsumer
 ```
 
-## Phase 3: Red Hat Developer Hub Deployment
-
-### Step 3.1: Configure PostgreSQL Database
-
+Apply storage configuration:
 ```bash
-# Generate unique timestamp for database server name
-DB_TIMESTAMP=$(date +"%m%d%H%M")
-DB_SERVER_NAME="backstagedb-${DB_TIMESTAMP}"
-DB_PASSWORD="StrongPassword123!"
-
-# Create Azure Database for PostgreSQL flexible server
-# It requires register to provider Microsoft.DBforPostgreSQL
-# az provider register --namespace Microsoft.DBforPostgreSQL
-az postgres flexible-server create \
-  --resource-group $RESOURCE_GROUP_SHARED \
-  --name ${DB_SERVER_NAME} \
-  --admin-user backstage \
-  --admin-password "$DB_PASSWORD" \
-  --sku-name Standard_D2s_v3 \
-  --tier GeneralPurpose \
-  --storage-size 32 \
-  --version 14 \
-  --high-availability ZoneRedundant \
-  --location $LOCATION \
-  --database-name backstage \
-  --tags Environment=Production Project=ThreeHorizons
-
-# Configure firewall rule
-az postgres flexible-server firewall-rule create \
-  --resource-group $RESOURCE_GROUP_SHARED \
-  --name ${DB_SERVER_NAME} \
-  --rule-name AllowAzureServices \
-  --start-ip-address 0.0.0.0 \
-  --end-ip-address 0.0.0.0
-
-# Store credentials in Key Vault
-az keyvault secret set \
-  --name db-password \
-  --vault-name "$KEY_VAULT_NAME" \
-  --value "$DB_PASSWORD"
-
-# Get database host
-DB_HOST=$(az postgres flexible-server show \
-  --resource-group $RESOURCE_GROUP_SHARED \
-  --name ${DB_SERVER_NAME} \
-  --query fullyQualifiedDomainName \
-  --output tsv)
-
-echo "Database Host: $DB_HOST"
+oc apply -f storage-class-ssd.yaml
 ```
 
-### Step 3.2: Install Red Hat Developer Hub Operator
+## 📚 Developer Hub Installation
+
+### 1. Create Project and Permissions
 
 ```bash
 # Create project for Developer Hub
 oc new-project developer-hub
 
-# Install the Red Hat Developer Hub Operator v1.6 from OperatorHub
-oc apply -f - <<EOF
+# Create service account
+oc create serviceaccount rhdh-sa -n developer-hub
+
+# Grant permissions
+oc adm policy add-cluster-role-to-user cluster-reader -z rhdh-sa -n developer-hub
+oc adm policy add-role-to-user admin -z rhdh-sa -n developer-hub
+```
+
+### 2. Deploy PostgreSQL Database
+
+```yaml
+# postgres-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: developer-hub
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: registry.redhat.io/rhel9/postgresql-15:latest
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRESQL_USER
+          value: devhub
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: password
+        - name: POSTGRESQL_DATABASE
+          value: devhub
+        - name: POSTGRESQL_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: admin-password
+        volumeMounts:
+        - name: postgres-storage
+          mountPath: /var/lib/pgsql/data
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
+      volumes:
+      - name: postgres-storage
+        persistentVolumeClaim:
+          claimName: postgres-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: developer-hub
+spec:
+  selector:
+    app: postgres
+  ports:
+  - port: 5432
+    targetPort: 5432
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pvc
+  namespace: developer-hub
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+  storageClassName: managed-premium-retain
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: postgres-secret
+  namespace: developer-hub
+type: Opaque
+stringData:
+  password: "$(openssl rand -base64 32)"
+  admin-password: "$(openssl rand -base64 32)"
+```
+
+Apply PostgreSQL configuration:
+```bash
+oc apply -f postgres-deployment.yaml
+```
+
+### 3. Install Developer Hub Using Helm
+
+```bash
+# Add Red Hat Helm repository
+helm repo add redhat-developer-hub https://redhat-developer.github.io/rhdh-chart
+helm repo update
+
+# Create values file for ARO
+cat > devhub-aro-values.yaml << 'EOF'
+global:
+  # Use OpenShift routes instead of ingress
+  route:
+    enabled: true
+    host: ${DEVHUB_ROUTE_HOST}
+    tls:
+      enabled: true
+      termination: edge
+      insecureEdgeTerminationPolicy: Redirect
+
+upstream:
+  backstage:
+    image:
+      registry: registry.redhat.io
+      repository: rhdh/rhdh-hub-rhel9
+      tag: 1.6-latest
+      pullSecrets:
+        - name: pull-secret
+
+    replicas: 3
+    
+    resources:
+      requests:
+        memory: 2Gi
+        cpu: 1000m
+      limits:
+        memory: 4Gi
+        cpu: 2000m
+
+    extraEnvVars:
+      - name: NODE_ENV
+        value: production
+      - name: LOG_LEVEL
+        value: info
+
+    appConfig:
+      app:
+        title: Red Hat Developer Hub on ARO
+        baseUrl: https://${DEVHUB_ROUTE_HOST}
+
+      backend:
+        baseUrl: https://${DEVHUB_ROUTE_HOST}
+        listen:
+          port: 7007
+        cors:
+          origin: https://${DEVHUB_ROUTE_HOST}
+        database:
+          client: pg
+          connection:
+            host: postgres.developer-hub.svc.cluster.local
+            port: 5432
+            user: devhub
+            password: ${POSTGRES_PASSWORD}
+            database: devhub
+
+      integrations:
+        github:
+          - host: github.com
+            token: ${GITHUB_TOKEN}
+
+      auth:
+        environment: production
+        providers:
+          openshift:
+            production:
+              baseUrl: ${OPENSHIFT_OAUTH_URL}
+              clientId: developer-hub
+              clientSecret: ${OAUTH_CLIENT_SECRET}
+              scope: 'user:full user:check-access'
+
+      kubernetes:
+        serviceLocatorMethod:
+          type: multiTenant
+        clusterLocatorMethods:
+          - type: config
+            clusters:
+              - url: ${KUBERNETES_API_URL}
+                name: aro-cluster
+                authProvider: serviceAccount
+                serviceAccountToken: ${SERVICE_ACCOUNT_TOKEN}
+                skipTLSVerify: false
+
+      techdocs:
+        builder: external
+        generator:
+          runIn: docker
+        publisher:
+          type: azureBlobStorage
+          azureBlobStorage:
+            containerName: techdocs
+            accountName: ${STORAGE_ACCOUNT}
+
+    serviceAccount:
+      create: false
+      name: rhdh-sa
+
+    podSecurityContext:
+      runAsNonRoot: true
+      runAsUser: 1001
+      fsGroup: 1001
+      seccompProfile:
+        type: RuntimeDefault
+
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+          - ALL
+      readOnlyRootFilesystem: false
+      runAsNonRoot: true
+      runAsUser: 1001
+
+postgresql:
+  enabled: false
+
+ingress:
+  enabled: false
+EOF
+
+# Get route host
+DEVHUB_ROUTE_HOST="devhub-developer-hub.apps.${CLUSTER_NAME}.${LOCATION}.aroapp.io"
+
+# Install Developer Hub
+helm upgrade --install developer-hub \
+    redhat-developer-hub/developer-hub \
+    --namespace developer-hub \
+    --values devhub-aro-values.yaml \
+    --set global.route.host=$DEVHUB_ROUTE_HOST \
+    --wait
+```
+
+### 4. Configure OpenShift OAuth
+
+```yaml
+# oauth-client.yaml
+apiVersion: oauth.openshift.io/v1
+kind: OAuthClient
+metadata:
+  name: developer-hub
+grantMethod: prompt
+secret: "$(openssl rand -base64 32)"
+redirectURIs:
+  - https://${DEVHUB_ROUTE_HOST}/api/auth/openshift/handler/frame
+scopeRestrictions:
+  - literals:
+    - "user:full"
+    - "user:check-access"
+```
+
+Apply OAuth configuration:
+```bash
+# Store the secret value
+OAUTH_SECRET=$(openssl rand -base64 32)
+
+# Create OAuth client
+cat oauth-client.yaml | envsubst | oc apply -f -
+
+# Update Developer Hub with OAuth secret
+oc create secret generic oauth-secret \
+    --from-literal=client-secret=$OAUTH_SECRET \
+    -n developer-hub
+```
+
+## 🔐 OpenShift Integration
+
+### 1. Configure RBAC for Developer Hub
+
+```yaml
+# devhub-rbac.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: developer-hub-catalog-reader
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services", "configmaps", "secrets", "namespaces"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["apps"]
+    resources: ["deployments", "replicasets", "statefulsets", "daemonsets"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["autoscaling"]
+    resources: ["horizontalpodautoscalers"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["networking.k8s.io"]
+    resources: ["ingresses"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["route.openshift.io"]
+    resources: ["routes"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["build.openshift.io"]
+    resources: ["builds", "buildconfigs"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["image.openshift.io"]
+    resources: ["imagestreams", "imagestreamtags"]
+    verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: developer-hub-catalog-reader-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: developer-hub-catalog-reader
+subjects:
+  - kind: ServiceAccount
+    name: rhdh-sa
+    namespace: developer-hub
+```
+
+Apply RBAC configuration:
+```bash
+oc apply -f devhub-rbac.yaml
+```
+
+### 2. Configure OpenShift Projects Discovery
+
+```yaml
+# project-discovery-config.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: devhub-openshift-config
+  namespace: developer-hub
+data:
+  openshift-discovery.yaml: |
+    catalog:
+      rules:
+        - allow: [Component, API, System, Domain, Resource, Location]
+      
+      processors:
+        - openshift-project-discovery:
+            clusters:
+              - name: aro-cluster
+                url: ${KUBERNETES_API_URL}
+                authProvider: serviceAccount
+            filters:
+              - kind: Project
+                selector:
+                  matchLabels:
+                    backstage.io/catalog: "true"
+```
+
+### 3. Enable OpenShift Console Integration
+
+```typescript
+// openshift-console-plugin.ts
+import { createPlugin } from '@backstage/core-plugin-api';
+import { OpenshiftConsoleClient } from './OpenshiftConsoleClient';
+
+export const openshiftConsolePlugin = createPlugin({
+  id: 'openshift-console',
+  apis: [
+    createApiFactory({
+      api: openshiftConsoleApiRef,
+      deps: { 
+        configApi: configApiRef,
+        identityApi: identityApiRef 
+      },
+      factory: ({ configApi, identityApi }) =>
+        new OpenshiftConsoleClient({ configApi, identityApi }),
+    }),
+  ],
+});
+
+// Add to catalog entity page
+export const EntityOpenshiftConsoleCard = () => {
+  const entity = useEntity();
+  const consoleUrl = `https://console-openshift-console.apps.${CLUSTER_NAME}.${LOCATION}.aroapp.io`;
+  
+  return (
+    <InfoCard title="OpenShift Console">
+      <Button 
+        variant="contained" 
+        color="primary"
+        href={`${consoleUrl}/k8s/ns/${entity.metadata.namespace}/deployments/${entity.metadata.name}`}
+        target="_blank"
+      >
+        View in OpenShift Console
+      </Button>
+    </InfoCard>
+  );
+};
+```
+
+## 🔒 Security Configuration
+
+### 1. Network Policies
+
+```yaml
+# network-policies.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: developer-hub-ingress
+  namespace: developer-hub
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: developer-hub
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: openshift-ingress
+    ports:
+    - protocol: TCP
+      port: 7007
+  - from:
+    - podSelector:
+        matchLabels:
+          app: postgres
+    ports:
+    - protocol: TCP
+      port: 5432
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: postgres-ingress
+  namespace: developer-hub
+spec:
+  podSelector:
+    matchLabels:
+      app: postgres
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: developer-hub
+    ports:
+    - protocol: TCP
+      port: 5432
+```
+
+### 2. Security Context Constraints
+
+```yaml
+# scc-devhub.yaml
+apiVersion: security.openshift.io/v1
+kind: SecurityContextConstraints
+metadata:
+  name: developer-hub-scc
+allowHostDirVolumePlugin: false
+allowHostIPC: false
+allowHostNetwork: false
+allowHostPID: false
+allowHostPorts: false
+allowPrivilegeEscalation: false
+allowPrivilegedContainer: false
+allowedCapabilities: null
+defaultAddCapabilities: null
+fsGroup:
+  type: MustRunAs
+  ranges:
+    - min: 1001
+      max: 1001
+priority: null
+readOnlyRootFilesystem: false
+requiredDropCapabilities:
+- ALL
+runAsUser:
+  type: MustRunAsRange
+  uidRangeMin: 1001
+  uidRangeMax: 1001
+seLinuxContext:
+  type: MustRunAs
+supplementalGroups:
+  type: RunAsAny
+users:
+- system:serviceaccount:developer-hub:rhdh-sa
+volumes:
+- configMap
+- downwardAPI
+- emptyDir
+- persistentVolumeClaim
+- projected
+- secret
+```
+
+Apply security configurations:
+```bash
+oc apply -f network-policies.yaml
+oc apply -f scc-devhub.yaml
+```
+
+## 🔄 GitOps Integration
+
+### 1. Install OpenShift GitOps
+
+```bash
+# Install OpenShift GitOps operator
+cat <<EOF | oc apply -f -
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
-  name: rhdh-operator
+  name: openshift-gitops-operator
   namespace: openshift-operators
 spec:
-  channel: fast-1.6
-  name: rhdh
+  channel: latest
+  installPlanApproval: Automatic
+  name: openshift-gitops-operator
   source: redhat-operators
   sourceNamespace: openshift-marketplace
-  installPlanApproval: Automatic
 EOF
 
-# Wait for the operator to be installed
-echo "Waiting for Red Hat Developer Hub Operator to be ready..."
-oc wait --for=condition=ready pod -l app=rhdh-operator -n openshift-operators --timeout=600s
-
-# Verify operator installation
-oc get csv -n openshift-operators | grep rhdh
+# Wait for operator to be ready
+oc wait --for=condition=Ready --timeout=300s -n openshift-gitops pod -l app.kubernetes.io/name=openshift-gitops-server
 ```
 
-### Step 3.3: Deploy Developer Hub Instance
+### 2. Configure ArgoCD for Developer Hub
 
-```bash
-# Create database secret
-oc create secret generic developer-hub-postgres \
-  --namespace developer-hub \
-  --from-literal=postgres-password="$DB_PASSWORD"
+```yaml
+# argocd-devhub-app.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: developer-hub
+  namespace: openshift-gitops
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/${GITHUB_ORG}/gitops-config
+    targetRevision: main
+    path: developer-hub/overlays/aro
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: developer-hub
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+```
 
-# Deploy Red Hat Developer Hub instance v1.6
-oc apply -f - <<EOF
-apiVersion: rhdh.redhat.com/v1alpha1
-kind: Backstage
+### 3. Integrate GitOps with Developer Hub
+
+```yaml
+# devhub-gitops-config.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: devhub-gitops-config
+  namespace: developer-hub
+data:
+  gitops-config.yaml: |
+    integrations:
+      argocd:
+        - name: openshift-gitops
+          url: https://openshift-gitops-server-openshift-gitops.apps.${CLUSTER_NAME}.${LOCATION}.aroapp.io
+          username: admin
+          password: ${ARGOCD_PASSWORD}
+          
+    catalog:
+      locations:
+        - type: url
+          target: https://openshift-gitops-server-openshift-gitops.apps.${CLUSTER_NAME}.${LOCATION}.aroapp.io/api/v1/applications
+          rules:
+            - allow: [Component]
+```
+
+## 📊 Monitoring Setup
+
+### 1. Enable OpenShift Monitoring
+
+```yaml
+# user-workload-monitoring.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user-workload-monitoring-config
+  namespace: openshift-user-workload-monitoring
+data:
+  config.yaml: |
+    enableUserWorkload: true
+    prometheus:
+      retention: 30d
+      resources:
+        requests:
+          cpu: 200m
+          memory: 2Gi
+    alertmanager:
+      enabled: true
+```
+
+### 2. Create ServiceMonitor for Developer Hub
+
+```yaml
+# devhub-servicemonitor.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
 metadata:
   name: developer-hub
   namespace: developer-hub
 spec:
-  application:
-    replicas: 2
-    resources:
-      requests:
-        cpu: "1"
-        memory: "2Gi"
-      limits:
-        cpu: "2"
-        memory: "4Gi"
-  database:
-    host: "${DB_HOST}"
-    port: 5432
-    name: "backstage"
-    user: "backstage"
-    passwordSecret:
-      name: "developer-hub-postgres"
-      key: "postgres-password"
-  rbac:
-    enabled: true
-  extraEnvs:
-    - name: RHDH_CONFIG_APP_CONFIG_app_baseUrl
-      value: "https://devhub-developer-hub.apps.${ARO_DOMAIN}.${LOCATION}.aroapp.io"
-    - name: RHDH_DYNAMIC_PLUGINS_BACKEND_DYNAMIC_PLUGINS
-      value: "true"
-EOF
-
-# Wait for Developer Hub to be ready
-echo "Waiting for Developer Hub to be ready..."
-oc wait --for=condition=ready pod -l rhdh.redhat.com/app=backstage-developer-hub -n developer-hub --timeout=600s
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: developer-hub
+  endpoints:
+  - port: backend
+    interval: 30s
+    path: /metrics
 ```
 
-### Step 3.4: Configure Route
+### 3. Grafana Dashboard
 
-```bash
-# Create a route for Developer Hub (OpenShift automatically creates routes)
-# oc expose service developer-hub -n developer-hub
-
-# Get the route URL
-DEVHUB_URL=$(oc get route backstage-developer-hub -n developer-hub -o jsonpath='{.spec.host}')
-echo "Developer Hub URL: https://$DEVHUB_URL"
-
-# Verify route is working
-curl -k https://$DEVHUB_URL
+```json
+{
+  "dashboard": {
+    "title": "Developer Hub on ARO",
+    "panels": [
+      {
+        "title": "Request Rate",
+        "targets": [{
+          "expr": "sum(rate(http_request_duration_seconds_count{job=\"developer-hub\"}[5m])) by (method, route)"
+        }]
+      },
+      {
+        "title": "Response Time (P95)",
+        "targets": [{
+          "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket{job=\"developer-hub\"}[5m])) by (le))"
+        }]
+      },
+      {
+        "title": "Active Users",
+        "targets": [{
+          "expr": "sum(increase(auth_success_total[1h])) by (provider)"
+        }]
+      },
+      {
+        "title": "Catalog Entities",
+        "targets": [{
+          "expr": "catalog_entities_total"
+        }]
+      }
+    ]
+  }
+}
 ```
 
-## Phase 4: GitHub Integration
+## 🔧 Advanced Configuration
 
-### Step 4.1: Create GitHub App
+### 1. Custom Plugins
 
-Follow the [Complete Integration Tutorial GitHub section](../complete-integration-tutorial/index.md#phase-4-github-integration) to create a GitHub App with the following settings:
+```typescript
+// custom-aro-plugin/src/plugin.ts
+import {
+  createPlugin,
+  createRoutableExtension,
+} from '@backstage/core-plugin-api';
 
-1. **GitHub App name**: `ThreeHorizons-RHDH-ARO-<GUID>`
-2. **Homepage URL**: Your Developer Hub URL
-3. **Callback URL**: `https://<devhub-route>/api/auth/github/handler/frame`
-4. **Repository permissions**: Read access to Contents, Issues, Pull Requests
-5. **Organization permissions**: Read access to Members
+import { rootRouteRef } from './routes';
 
-### Step 4.2: Configure GitHub Integration
+export const aroPlugin = createPlugin({
+  id: 'aro',
+  routes: {
+    root: rootRouteRef,
+  },
+});
 
-```bash
-# Set variables
-export GITHUB_APP_ID="your-github-app-id"
-export GITHUB_CLIENT_SECRET="your-github-client-secret"
-export GITHUB_CLIENT_ID="your-github-client-id"
-export GITHUB_ORGANIZATION="your-github-organization"
-export GITHUB_ORG_URL="your-github-org-url"
-export GITHUB_WEBHOOK_URL="your-github-webhook-url"
-export GITHUB_WEBHOOK_SECRET="your-github-webhook-secret"
-
-
-# Store GitHub App credentials in Key Vault
-az keyvault secret set \
-  --vault-name "$KEY_VAULT_NAME" \
-  --name "github-app-id" \
-  --value $GITHUB_APP_ID
-
-az keyvault secret set \
-  --vault-name "$KEY_VAULT_NAME" \
-  --name "github-app-private-key" \
-  --value "$(cat your-private-key.pem)"
-
-az keyvault secret set \
-  --vault-name "$KEY_VAULT_NAME" \
-  --name "github-client-secret" \
-  --value $GITHUB_CLIENT_SECRET
-
-# Create OpenShift secrets
-oc create secret generic github-app-credentials \
-  --namespace developer-hub \
-  --from-literal=AUTH_GITHUB_APP_ID="$GITHUB_APP_ID" \
-  --from-literal=AUTH_GITHUB_CLIENT_ID="$GITHUB_CLIENT_ID" \
-  --from-literal=GITHUB_CLIENT_SECRET="$GITHUB_CLIENT_SECRET" \
-  --from-literal=GITHUB_ORGANIZATION="$GITHUB_ORGANIZATION" \
-  --from-literal=GITHUB_ORG_URL="$GITHUB_ORG_URL" \
-  --from-literal=GITHUB_WEBHOOK_URL="$GITHUB_WEBHOOK_URL"\
-  --from-literal=GITHUB_WEBHOOK_SECRET="$GITHUB_WEBHOOK_SECRET" \
-  --from-literal=GITHUB_PRIVATE_KEY_FILE="$(cat your-private-key.pem)" 
-
-
-
+export const AroPage = aroPlugin.provide(
+  createRoutableExtension({
+    name: 'AroPage',
+    component: () =>
+      import('./components/AroComponent').then(m => m.AroComponent),
+    mountPoint: rootRouteRef,
+  }),
+);
 ```
 
-### Step 4.3: Configure Microsoft Entra ID Integration (Optional)
+### 2. Multi-Tenancy Configuration
 
-```bash
-# Register an application in Microsoft Entra ID for Developer Hub
-APP_ID=$(az ad app create \
-  --display-name "Three Horizons Developer Hub ARO" \
-  --query appId -o tsv)
-
-# Get the tenant ID
-TENANT_ID=$(az account show --query tenantId -o tsv)
-
-# Configure the OAuth settings
-az ad app update \
-  --id $APP_ID \
-  --web-redirect-uris "https://oauth-openshift.apps.${ARO_DOMAIN}.${LOCATION}.aroapp.io/oauth2callback/EntraID"
-
-# Create client secret
-CLIENT_SECRET=$(az ad app credential reset --id $APP_ID --query password -o tsv)
-
-# Configure identity provider in OpenShift
-oc apply -f - <<EOF
-apiVersion: config.openshift.io/v1
-kind: OAuth
-metadata:
-  name: cluster
-spec:
-  identityProviders:
-  - name: EntraID
-    mappingMethod: claim
-    type: OpenID
-    openID:
-      clientID: $APP_ID
-      clientSecret: 
-        name: entraid-client-secret
-      extraScopes: 
-      - email
-      - profile
-      claims:
-        preferredUsername:
-        - preferred_username
-        - email
-        name:
-        - name
-        email:
-        - email
-      issuer: https://login.microsoftonline.com/$TENANT_ID/v2.0
-EOF
-
-# Create the client secret
-oc create secret generic entraid-client-secret \
-  --from-literal=clientSecret="$CLIENT_SECRET" \
-  -n openshift-config
-```
-
-## Validation and Testing
-
-### Infrastructure Validation
-
-```bash
-# Check all resource groups
-az group list --query "[?contains(name, 'three-horizons')]" -o table
-
-# Check ARO cluster status
-az aro show --name $ARO_CLUSTER_NAME --resource-group $RESOURCE_GROUP_PLATFORM --query "{name:name,provisioningState:provisioningState,consoleProfile:consoleProfile.url}" -o table
-
-# Verify cluster operators status
-oc get clusteroperators
-
-# Check ARO cluster version
-oc get clusterversion
-
-# Verify nodes
-oc get nodes -o wide
-
-# Check Developer Hub pods
-oc get pods -n developer-hub
-```
-
-### Application Validation
-
-```bash
-# Test Developer Hub accessibility
-curl -k https://$DEVHUB_URL/api/health
-
-# Check Developer Hub logs
-oc logs -n developer-hub -l rhdh.redhat.com/app=backstage-developer-hub --tail=50
-
-# Verify database connection
-oc exec -it -n developer-hub $(oc get pods -n developer-hub -l rhdh.redhat.com/app=backstage-developer-hub -o jsonpath='{.items[0].metadata.name}') -- curl  http://localhost:7007
-
-# Check route status
-oc get route -n developer-hub
-```
-
-### Storage Validation
-
-```bash
-# Test persistent volume claims
-cat <<EOF | oc apply -f -
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: validation-pvc
-  namespace: developer-hub
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
-  storageClassName: managed-csi
-EOF
-
-# Check PVC status (should show Bound after a moment)
-oc get pvc validation-pvc -n developer-hub
-
-# Clean up test PVC
-oc delete pvc validation-pvc -n developer-hub
-```
-
-## Post-Installation Configuration
-
-### 1. Configure SSL/TLS
-
-OpenShift automatically provides SSL/TLS certificates for routes. For custom certificates:
-
-```bash
-# Create a custom certificate (if needed)
-oc create route edge developer-hub-secure \
-  --service=developer-hub \
-  --hostname=devhub.yourdomain.com \
-  --cert=path/to/tls.crt \
-  --key=path/to/tls.key \
-  -n developer-hub
-```
-
-### 2. Configure Monitoring
-
-Enable additional monitoring for the Developer Hub:
-
-```bash
-# Verify OpenShift monitoring is enabled
-oc get pods -n openshift-monitoring
-
-# Check if user workload monitoring is enabled
-oc get configmap cluster-monitoring-config -n openshift-monitoring -o yaml
-
-# Enable user workload monitoring (if not already enabled)
-oc apply -f - <<EOF
+```yaml
+# multi-tenancy-config.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: cluster-monitoring-config
-  namespace: openshift-monitoring
+  name: devhub-tenancy-config
+  namespace: developer-hub
 data:
-  config.yaml: |
-    enableUserWorkload: true
-EOF
+  tenancy.yaml: |
+    tenancy:
+      enabled: true
+      isolation:
+        type: namespace
+        labelSelector:
+          backstage.io/tenant: "true"
+      rbac:
+        autoCreate: true
+        roleTemplate:
+          rules:
+          - apiGroups: [""]
+            resources: ["pods", "services"]
+            verbs: ["get", "list", "watch"]
+          - apiGroups: ["apps"]
+            resources: ["deployments"]
+            verbs: ["get", "list", "watch", "create", "update", "patch"]
 ```
 
-### 3. Configure Resource Quotas
+### 3. High Availability Setup
 
-Set up resource quotas for the developer-hub project:
-
-```bash
-oc apply -f - <<EOF
-apiVersion: v1
-kind: ResourceQuota
+```yaml
+# ha-config.yaml
+apiVersion: policy/v1
+kind: PodDisruptionBudget
 metadata:
-  name: developer-hub-quota
+  name: developer-hub-pdb
   namespace: developer-hub
 spec:
-  hard:
-    requests.cpu: "8"
-    requests.memory: 16Gi
-    limits.cpu: "16"
-    limits.memory: 32Gi
-    persistentvolumeclaims: "10"
-EOF
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: developer-hub
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: developer-hub-hpa
+  namespace: developer-hub
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: developer-hub
+  minReplicas: 3
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
 ```
 
-## Troubleshooting
+## 🔧 Troubleshooting
 
-### Common Issues and Solutions
+### Common Issues
 
-#### Issue: ARO cluster creation fails
-**Solution**: Check Azure quotas and ensure proper permissions
+**1. OAuth Login Fails**
 ```bash
-az vm list-usage --location $LOCATION -o table
-# Ensure you have at least 40 vCPUs available
+# Check OAuth client
+oc get oauthclient developer-hub -o yaml
+
+# Verify redirect URI
+oc get route -n developer-hub developer-hub -o jsonpath='{.spec.host}'
+
+# Check logs
+oc logs -n developer-hub deployment/developer-hub | grep -i auth
 ```
 
-#### Issue: Pull secret authentication fails
-**Solution**: Verify your Red Hat subscription and pull secret
+**2. Database Connection Issues**
 ```bash
-# Verify pull secret format
-cat pull-secret.txt | jq .
-# Download a fresh pull secret from https://cloud.redhat.com/openshift/install/azure/aro-provisioned
+# Test database connection
+oc exec -n developer-hub deployment/developer-hub -- nc -zv postgres 5432
+
+# Check database pod
+oc get pods -n developer-hub -l app=postgres
+oc logs -n developer-hub -l app=postgres
 ```
 
-#### Issue: Developer Hub pods are pending
-**Solution**: Check node resources and storage classes
+**3. Catalog Discovery Not Working**
 ```bash
-oc describe pod -n developer-hub
-oc get storageclass
-oc get nodes -o wide
+# Check service account permissions
+oc auth can-i list deployments --as=system:serviceaccount:developer-hub:rhdh-sa --all-namespaces
+
+# Verify cluster role binding
+oc get clusterrolebinding developer-hub-catalog-reader-binding
 ```
 
-#### Issue: Cannot access Developer Hub UI
-**Solution**: Verify route and DNS configuration
+### Performance Tuning
+
+```yaml
+# performance-config.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: devhub-performance
+  namespace: developer-hub
+data:
+  performance.yaml: |
+    backend:
+      cache:
+        store: redis
+        connection:
+          host: redis.developer-hub.svc.cluster.local
+      database:
+        connection:
+          max: 20
+          idleTimeoutMillis: 30000
+      catalog:
+        processing:
+          interval: { minutes: 5 }
+          batchSize: 100
+```
+
+### Backup and Recovery
+
 ```bash
-oc get route -n developer-hub
-oc describe route developer-hub -n developer-hub
-curl -k https://$DEVHUB_URL/api/health
+#!/bin/bash
+# backup-devhub.sh
+
+# Backup database
+oc exec -n developer-hub postgres-0 -- pg_dump -U devhub devhub > devhub-backup-$(date +%Y%m%d).sql
+
+# Backup configurations
+oc get configmap,secret -n developer-hub -o yaml > devhub-config-backup-$(date +%Y%m%d).yaml
+
+# Backup persistent volumes
+for pvc in $(oc get pvc -n developer-hub -o jsonpath='{.items[*].metadata.name}'); do
+    oc create job backup-$pvc --from=cronjob/backup-job -n developer-hub
+done
 ```
 
-#### Issue: Database connection failures
-**Solution**: Check firewall rules and connectivity
-```bash
-# Test connectivity from cluster
-oc run test-pod --image=postgres:14 --rm -it -- psql -h $DB_HOST -U backstage -d backstage
-```
+## 📋 Validation Checklist
 
-#### Issue: OpenShift operators not installing
-**Solution**: Check operator hub and subscription status
-```bash
-oc get packagemanifest | grep rhdh
-oc get subscription -n openshift-operators
-oc get csv -n openshift-operators
-```
+- [ ] ARO cluster is running and accessible
+- [ ] Developer Hub pods are running
+- [ ] OAuth login works correctly
+- [ ] Catalog shows OpenShift resources
+- [ ] GitOps integration is functional
+- [ ] Monitoring dashboards are available
+- [ ] Network policies are enforced
+- [ ] Backups are configured
 
-## Next Steps
+## 🎯 Next Steps
 
-- [Configure Monitoring and Alerts](troubleshooting.md)
-- [Set Up CI/CD Pipelines](../complete-integration-tutorial/index.md#ci-cd-pipeline-setup)
-- [Configure User Management](../complete-integration-tutorial/index.md#authentication-and-authorization)
-- [Customize Developer Hub](../complete-integration-tutorial/index.md#red-hat-developer-hub-rhdh-setup)
-
-## References
-
-- [Complete Integration Tutorial](../complete-integration-tutorial/index.md)
-- [Azure Red Hat OpenShift Documentation](https://learn.microsoft.com/en-us/azure/openshift/)
-- [OpenShift Container Platform Documentation](https://docs.openshift.com/container-platform/4.13/)
-- [Red Hat Developer Hub 1.6 Documentation](https://access.redhat.com/documentation/en-us/red_hat_developer_hub/1.6)
-- [ARO Network Requirements](https://learn.microsoft.com/en-us/azure/openshift/tutorial-create-cluster#before-you-begin)
-- [OpenShift Operator Lifecycle Manager](https://docs.openshift.com/container-platform/4.13/operators/understanding/olm/olm-understanding-olm.html)
-- [Azure Database for PostgreSQL](https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/)
+1. **Configure Templates**: Add Golden Path templates
+2. **Enable TechDocs**: Set up documentation system
+3. **Add Plugins**: Install additional plugins
+4. **Configure RBAC**: Fine-tune permissions
+5. **Set up CI/CD**: Integrate with pipelines
 
 ---
 
-> 📝 **Note:** This guide is aligned with the [Complete Integration Tutorial](../complete-integration-tutorial/index.md). For a comprehensive multi-service deployment, refer to that guide for the complete Three Horizons Platform setup.
+<div align="center">
+
+**Developer Hub on ARO Successfully Deployed! 🎉**
+
+Your enterprise developer portal is ready on OpenShift.
+
+[← Back to Guides](../) | [View Platform](https://devhub-developer-hub.apps.${CLUSTER_NAME}.${LOCATION}.aroapp.io)
+
+</div>

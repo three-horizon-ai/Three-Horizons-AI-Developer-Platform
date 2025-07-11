@@ -1,0 +1,114 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${{ values.component_id }}-deployment
+  labels:
+    app.kubernetes.io/name: ${{ values.component_id }}
+    app.kubernetes.io/instance: ${{ values.component_id }}
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/component: application
+    app.kubernetes.io/part-of: ${{ values.component_id }}-system
+    app.kubernetes.io/managed-by: argocd
+    horizon: h2
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: ${{ values.component_id }}
+      app.kubernetes.io/instance: ${{ values.component_id }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: ${{ values.component_id }}
+        app.kubernetes.io/instance: ${{ values.component_id }}
+        app.kubernetes.io/version: "1.0.0"
+        app.kubernetes.io/component: application
+        app.kubernetes.io/part-of: ${{ values.component_id }}-system
+        app.kubernetes.io/managed-by: argocd
+        horizon: h2
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        prometheus.io/path: "/metrics"
+        backstage.io/managed-by-location: url:${{ values.git_repo_url }}
+    spec:
+      serviceAccountName: ${{ values.component_id }}
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1001
+        fsGroup: 1001
+      containers:
+      - name: ${{ values.component_id }}
+        image: ${{ values.component_id }}:latest
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8080
+          protocol: TCP
+        env:
+        - name: PORT
+          value: "8080"
+        - name: APP_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: ${{ values.component_id }}-base-config
+              key: APP_NAME
+        - name: APP_VERSION
+          valueFrom:
+            configMapKeyRef:
+              name: ${{ values.component_id }}-base-config
+              key: APP_VERSION
+        envFrom:
+        - configMapRef:
+            name: ${{ values.component_id }}-config
+        - secretRef:
+            name: ${{ values.component_id }}-secrets
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 1001
+          capabilities:
+            drop:
+            - ALL
+        volumeMounts:
+        - name: tmp-volume
+          mountPath: /tmp
+      volumes:
+      - name: tmp-volume
+        emptyDir: {}
+      nodeSelector:
+        kubernetes.io/os: linux
+      tolerations:
+      - key: "kubernetes.azure.com/scalesetpriority"
+        operator: "Equal"
+        value: "spot"
+        effect: "NoSchedule"

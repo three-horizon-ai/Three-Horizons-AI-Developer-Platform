@@ -1,0 +1,202 @@
+{
+  "name": "Three Horizons AI Platform DevBox - ${{ values.developer_name }}",
+  "image": "mcr.microsoft.com/devcontainers/universal:2-linux",
+  
+  "features": {
+    "ghcr.io/devcontainers/features/azure-cli:1": {
+      "version": "latest",
+      "installBicep": true
+    },
+    "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {
+      "version": "latest",
+      "helm": "latest",
+      "minikube": "none"
+    },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "latest",
+      "enableNonRootDocker": "true"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/terraform:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts",
+      "nodeGypDependencies": true,
+      "installYarnUsingApt": true
+    },
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.11",
+      "installTools": true,
+      "optimize": true
+    },
+    "ghcr.io/devcontainers/features/dotnet:2": {
+      "version": "8.0",
+      "aspNetCoreRuntimeVersions": "8.0",
+      "dotnetRuntimeVersions": "8.0"
+    },
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "17",
+      "jdkDistro": "ms",
+      "installMaven": true,
+      "installGradle": true
+    },
+    "ghcr.io/devcontainers/features/go:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "installOhMyZsh": true,
+      "configureZshAsDefaultShell": true,
+      "installOhMyZshConfig": true,
+      "upgradePackages": true,
+      "username": "vscode",
+      "uid": "1000",
+      "gid": "1000"
+    }
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.vscode-typescript-next",
+        "ms-python.python",
+        "ms-dotnettools.csharp",
+        "ms-vscode.vscode-json",
+        "redhat.vscode-yaml",
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "ms-azuretools.vscode-azurecli",
+        "ms-azuretools.vscode-docker",
+        "ms-vscode.azure-account",
+        "ms-azuretools.vscode-azureresourcegroups",
+        "github.copilot",
+        "github.copilot-chat",
+        "github.vscode-pull-request-github",
+        "eamodio.gitlens",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+        "ms-toolsai.jupyter",
+        "ms-toolsai.vscode-jupyter-cell-tags",
+        "ms-toolsai.vscode-jupyter-slideshow",
+        "hashicorp.terraform",
+        "redhat.vscode-xml",
+        "vscode-icons-team.vscode-icons",
+        "streetsidesoftware.code-spell-checker",
+        "humao.rest-client"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "${{ values.preferred_shell }}",
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "/bin/bash",
+            "args": ["-l"]
+          },
+          "zsh": {
+            "path": "/usr/bin/zsh",
+            "args": ["-l"]
+          }
+        },
+        "git.enableSmartCommit": true,
+        "git.confirmSync": false,
+        "git.autofetch": true,
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+          "source.organizeImports": true,
+          "source.fixAll": true
+        },
+        "files.autoSave": "afterDelay",
+        "files.autoSaveDelay": 1000,
+        "workbench.colorTheme": "GitHub Dark",
+        "workbench.iconTheme": "vscode-icons",
+        "azure.resourceFilter": ["${{ values.azure_subscription_id }}"],
+        "kubernetes.outputFormat": "yaml",
+        "kubernetes.defaultNamespace": "default",
+        "typescript.preferences.importModuleSpecifier": "relative",
+        "python.defaultInterpreterPath": "/usr/local/bin/python3",
+        "jupyter.askForKernelRestart": false,
+        "jupyter.interactiveWindow.creationMode": "perFile",
+        "github.copilot.enable": {
+          "*": true,
+          "yaml": true,
+          "plaintext": true,
+          "markdown": true
+        }
+      }
+    }
+  },
+
+  "containerEnv": {
+    "GITHUB_TOKEN": "${localEnv:GITHUB_TOKEN}",
+    "AZURE_SUBSCRIPTION_ID": "${{ values.azure_subscription_id }}",
+    "AZURE_TENANT_ID": "${{ values.azure_tenant_id }}",
+    "DEVELOPER_NAME": "${{ values.developer_name }}",
+    "TEAM": "${{ values.team }}",
+    "PREFERRED_SHELL": "${{ values.preferred_shell }}",
+    "THREE_HORIZONS_ENV": "devbox"
+  },
+
+  "forwardPorts": [
+    3000,
+    5000,
+    5173,
+    8000,
+    8080,
+    9090,
+    3001,
+    4200,
+    5432,
+    6379,
+    27017
+  ],
+  "portsAttributes": {
+    "3000": {
+      "label": "Node.js App",
+      "onAutoForward": "notify"
+    },
+    "5000": {
+      "label": "Python App",
+      "onAutoForward": "notify"
+    },
+    "8080": {
+      "label": "Web Application",
+      "onAutoForward": "notify"
+    }
+  },
+
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+  "workspaceFolder": "/workspace",
+
+  "remoteUser": "vscode",
+  "updateRemoteUserUID": true,
+
+  "postCreateCommand": "/workspace/.devcontainer/post-create.sh",
+  "postStartCommand": "/workspace/.devcontainer/post-start.sh",
+  "initializeCommand": "/workspace/.devcontainer/initialize.sh",
+
+  "runArgs": [
+    "--init",
+    "--privileged"
+  ],
+
+  "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker-host.sock,type=bind",
+    "source=three-horizons-devbox-home,target=/home/vscode,type=volume"
+  ],
+
+  "hostRequirements": {
+    "cpus": 4,
+    "memory": "8gb",
+    "storage": "32gb"
+  },
+
+  "secrets": {
+    "GITHUB_TOKEN": {
+      "description": "GitHub personal access token for authentication"
+    },
+    "AZURE_CLIENT_SECRET": {
+      "description": "Azure service principal client secret"
+    }
+  }
+}

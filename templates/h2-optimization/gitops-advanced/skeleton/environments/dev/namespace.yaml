@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ${{ values.component_id }}-dev
+  labels:
+    name: ${{ values.component_id }}-dev
+    environment: dev
+    horizon: h2
+    managed-by: argocd
+    app.kubernetes.io/name: ${{ values.component_id }}
+    app.kubernetes.io/instance: ${{ values.component_id }}-dev
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/component: namespace
+    app.kubernetes.io/part-of: ${{ values.component_id }}-system
+    app.kubernetes.io/managed-by: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+    backstage.io/managed-by-location: url:${{ values.git_repo_url }}
+    azure.workload.identity/use: "true"
+    config.kubernetes.io/local-config: "true"
+spec:
+  finalizers:
+  - kubernetes
