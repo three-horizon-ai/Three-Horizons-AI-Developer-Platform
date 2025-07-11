@@ -31,7 +31,8 @@ spec:
           description: "Unique name for your performance testing suite"
           default: h2-performance-testing
         description:
-""          title: "Description"
+
+          title: "Description"
           type: string
           description: "Description of your performance testing suite"
           default: Comprehensive performance testing and optimization suite

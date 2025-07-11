@@ -31,7 +31,8 @@ spec:
           description: "Unique name for your MCP integration platform"
           default: h3-mcp-integration
         description:
-""          title: "Description"
+
+          title: "Description"
           type: string
           description: "Description of your MCP integration platform"
           default: Comprehensive MCP platform for AI tool orchestration and multi-service connectivity

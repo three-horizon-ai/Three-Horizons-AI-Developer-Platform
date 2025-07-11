@@ -32,7 +32,8 @@ spec:
           description: "Unique name for your monitoring stack"
           default: h2-monitoring-stack
         description:
-""          title: "Description"
+
+          title: "Description"
           type: string
           description: "Description of your monitoring stack"
           default: Comprehensive monitoring and observability stack for Horizon 2

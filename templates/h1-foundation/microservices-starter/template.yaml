@@ -30,7 +30,7 @@ spec:
           pattern: '^[a-z0-9-]+$'
           description: "Name of your microservice"
         description:
-""          title: "Description"
+          title: "Description"
           type: string
           description: "What does this microservice do?"
         owner:

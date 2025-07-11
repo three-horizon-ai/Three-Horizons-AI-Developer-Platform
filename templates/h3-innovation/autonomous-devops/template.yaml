@@ -32,7 +32,8 @@ spec:
           description: "Unique name for your autonomous DevOps system"
           default: h3-autonomous-devops
         description:
-""          title: "Description"
+
+          title: "Description"
           type: string
           description: "Description of your autonomous DevOps system"
           default: Self-healing, intelligent DevOps automation system with AI-driven operations

@@ -31,7 +31,8 @@ spec:
           description: "Unique name for your security pipeline"
           default: h2-security-pipeline
         description:
-""          title: "Description"
+
+          title: "Description"
           type: string
           description: "Description of your security pipeline"
           default: Enhanced security pipeline with comprehensive scanning and policy enforcement

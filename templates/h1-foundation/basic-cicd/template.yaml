@@ -31,7 +31,7 @@ spec:
           description: "Unique name for your CI/CD pipeline"
           default: basic-cicd-pipeline
         description:
-""          title: "Description"
+          title: "Description"
           type: string
           description: "Description of your CI/CD pipeline"
           default: Basic CI/CD pipeline for Horizon 1 applications

@@ -31,7 +31,8 @@ spec:
           description: "Unique name for your GitOps application"
           default: gitops-advanced-app
         description:
-""          title: "Description"
+
+          title: "Description"
           type: string
           description: "Description of your GitOps application"
           default: Advanced GitOps workflow with multi-environment deployment
