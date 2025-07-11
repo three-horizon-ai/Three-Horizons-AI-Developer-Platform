@@ -17,6 +17,7 @@ spec:
     # H1: Foundation Demo Templates
     - ./h1-foundation/ecommerce-demo/template.yaml
     - ./h1-foundation/microservices-starter/template.yaml
+    - ./h1-foundation/basic-web-app/template.yaml
     - ./h1-foundation/azure-infrastructure/template.yaml
     - ./h1-foundation/basic-cicd/template.yaml
     
@@ -25,6 +26,7 @@ spec:
     - ./h2-optimization/monitoring-stack/template.yaml
     - ./h2-optimization/security-pipeline/template.yaml
     - ./h2-optimization/performance-testing/template.yaml
+    - ./h2-optimization/microservices-app/template.yaml
     
     # H3: Innovation Demo Templates
     - ./h3-innovation/ai-powered-app/template.yaml
