@@ -1,0 +1,111 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: ${{ values.component_id }}-monitor
+  namespace: ${{ values.namespace | default("default") }}
+  labels:
+    app: ${{ values.component_id }}
+    horizon: h1
+    component: microservice
+    prometheus: kube-prometheus
+spec:
+  selector:
+    matchLabels:
+      app: ${{ values.component_id }}
+  endpoints:
+  - port: metrics
+    path: /metrics
+    interval: 30s
+    scrapeTimeout: 10s
+    honorLabels: true
+    relabelings:
+    - sourceLabels: [__meta_kubernetes_service_name]
+      targetLabel: service
+    - sourceLabels: [__meta_kubernetes_namespace]
+      targetLabel: namespace
+    - sourceLabels: [__meta_kubernetes_pod_name]
+      targetLabel: pod
+    metricRelabelings:
+    - sourceLabels: [__name__]
+      regex: 'go_.*'
+      action: drop
+    - sourceLabels: [__name__]
+      regex: 'process_.*'
+      action: drop
+  namespaceSelector:
+    matchNames:
+    - ${{ values.namespace | default("default") }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: ${{ values.component_id }}-alerts
+  namespace: ${{ values.namespace | default("default") }}
+  labels:
+    app: ${{ values.component_id }}
+    horizon: h1
+    component: microservice
+    prometheus: kube-prometheus
+spec:
+  groups:
+  - name: ${{ values.component_id }}.rules
+    interval: 30s
+    rules:
+    - alert: HighErrorRate
+      expr: |
+        (
+          rate(http_requests_total{job="${{ values.component_id }}-service", status=~"5.."}[5m])
+          /
+          rate(http_requests_total{job="${{ values.component_id }}-service"}[5m])
+        ) > 0.1
+      for: 5m
+      labels:
+        severity: warning
+        service: ${{ values.component_id }}
+      annotations:
+        summary: "High error rate detected for ${{ values.component_id }}"
+        description: "Error rate is {{ $value | humanizePercentage }} for service ${{ values.component_id }}"
+    
+    - alert: HighResponseTime
+      expr: |
+        histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{job="${{ values.component_id }}-service"}[5m])) > 1
+      for: 5m
+      labels:
+        severity: warning
+        service: ${{ values.component_id }}
+      annotations:
+        summary: "High response time detected for ${{ values.component_id }}"
+        description: "95th percentile response time is {{ $value }}s for service ${{ values.component_id }}"
+    
+    - alert: ServiceDown
+      expr: |
+        up{job="${{ values.component_id }}-service"} == 0
+      for: 1m
+      labels:
+        severity: critical
+        service: ${{ values.component_id }}
+      annotations:
+        summary: "Service ${{ values.component_id }} is down"
+        description: "Service ${{ values.component_id }} has been down for more than 1 minute"
+    
+    - alert: HighMemoryUsage
+      expr: |
+        (container_memory_working_set_bytes{pod=~"${{ values.component_id }}-.*"} / container_spec_memory_limit_bytes{pod=~"${{ values.component_id }}-.*"}) > 0.8
+      for: 5m
+      labels:
+        severity: warning
+        service: ${{ values.component_id }}
+      annotations:
+        summary: "High memory usage for ${{ values.component_id }}"
+        description: "Memory usage is {{ $value | humanizePercentage }} for service ${{ values.component_id }}"
+    
+    - alert: HighCPUUsage
+      expr: |
+        (rate(container_cpu_usage_seconds_total{pod=~"${{ values.component_id }}-.*"}[5m]) / container_spec_cpu_quota{pod=~"${{ values.component_id }}-.*"} * 100000) > 80
+      for: 5m
+      labels:
+        severity: warning
+        service: ${{ values.component_id }}
+      annotations:
+        summary: "High CPU usage for ${{ values.component_id }}"
+        description: "CPU usage is {{ $value }}% for service ${{ values.component_id }}"

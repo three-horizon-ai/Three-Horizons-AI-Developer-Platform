@@ -1,0 +1,104 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+metadata:
+  name: ${{ values.component_id }}-kustomization
+  namespace: ${{ values.namespace | default("default") }}
+
+# Resources to include
+resources:
+- deployment.yaml
+- service.yaml
+- ingress.yaml
+- configmap.yaml
+- secret.yaml
+- monitoring.yaml
+- scaling.yaml
+
+# Common labels applied to all resources
+commonLabels:
+  app: ${{ values.component_id }}
+  horizon: h1
+  component: microservice
+  managed-by: backstage
+
+# Common annotations
+commonAnnotations:
+  backstage.io/managed-by-location: url:${{ values.backstage_entity_url }}
+  backstage.io/managed-by-origin-location: url:${{ values.backstage_entity_url }}
+
+# Namespace for all resources
+namespace: ${{ values.namespace | default("default") }}
+
+# Name prefix for all resources
+namePrefix: ""
+
+# Name suffix for all resources
+nameSuffix: ""
+
+# Images to replace
+images:
+- name: ${{ values.container_registry }}.azurecr.io/${{ values.component_id }}
+  newTag: latest
+
+# ConfigMap generator for environment-specific configs
+configMapGenerator:
+- name: ${{ values.component_id }}-env-config
+  literals:
+  - ENVIRONMENT=${{ values.environment | default("production") }}
+  - DEPLOYMENT_TIME=${{ values.deployment_time }}
+  - BUILD_VERSION=${{ values.build_version | default("1.0.0") }}
+
+# Secret generator for runtime secrets
+secretGenerator:
+- name: ${{ values.component_id }}-runtime-secrets
+  literals:
+  - DEPLOYMENT_ID=${{ values.deployment_id }}
+
+# Patches for environment-specific customizations
+patchesStrategicMerge:
+- |-
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: ${{ values.component_id }}-deployment
+  spec:
+    template:
+      spec:
+        containers:
+        - name: ${{ values.component_id }}
+          env:
+          - name: DEPLOYMENT_ENVIRONMENT
+            value: "${{ values.environment | default('production') }}"
+          - name: AZURE_SUBSCRIPTION_ID
+            value: "${{ values.azure_subscription_id }}"
+
+# Replicas based on environment
+replicas:
+- name: ${{ values.component_id }}-deployment
+  count: ${{ values.replicas | default(3) }}
+
+# Patches for JSON6902
+patchesJson6902: []
+
+# Vars for substitution
+vars: []
+
+# CRDs to include
+crds: []
+
+# Generators
+generators: []
+
+# Transformers
+transformers: []
+
+# OpenAPI schema
+openapi: {}
+
+# Inventory
+inventory:
+  type: ConfigMap
+  configMap:
+    name: inventory-${{ values.component_id }}
+    namespace: ${{ values.namespace | default("default") }}

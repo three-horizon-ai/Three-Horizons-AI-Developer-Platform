@@ -1,0 +1,56 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ${{ values.name }}
+  title: "${{ values.name | title }}"
+  description: ${{ values.description }}
+  annotations:
+    github.com/project-slug: ${{ values.owner }}/${{ values.name }}
+    backstage.io/source-location: url:https://github.com/${{ values.owner }}/${{ values.name }}
+  tags:
+    - h1-foundation
+    - microservice
+    - ${{ values.language }}
+    - ${{ values.framework }}
+  links:
+    - url: https://github.com/${{ values.owner }}/${{ values.name }}/actions
+      title: CI/CD Pipeline
+      icon: github
+spec:
+  type: service
+  lifecycle: experimental
+  owner: ${{ values.owner }}
+  system: h1-foundation
+  providesApis:
+    - ${{ values.name }}-api
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: ${{ values.name }}-api
+  title: "${{ values.name | title }} API"
+  description: API for ${{ values.name }} microservice
+spec:
+  type: openapi
+  lifecycle: experimental
+  owner: ${{ values.owner }}
+  system: h1-foundation
+  definition: |
+    openapi: 3.0.1
+    info:
+      title: ${{ values.name | title }} API
+      description: API for ${{ values.name }} microservice
+      version: 1.0.0
+    paths:
+      /health:
+        get:
+          summary: Health check endpoint
+          responses:
+            200:
+              description: Service is healthy
+      /api/v1/${{ values.name }}:
+        get:
+          summary: Get ${{ values.name }} data
+          responses:
+            200:
+              description: Success
