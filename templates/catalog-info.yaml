@@ -31,10 +31,6 @@ spec:
     - ./h3-innovation/copilot-agent/template.yaml
     - ./h3-innovation/autonomous-devops/template.yaml
     - ./h3-innovation/mcp-integration/template.yaml
-    
-    # External Template Repositories
-    - https://github.com/three-horizon-ai/ecommerce-templates/blob/main/catalog-info.yaml
-    - https://github.com/three-horizon-ai/demo-angular-app/blob/master/catalog-info.yaml
 
 ---
 apiVersion: backstage.io/v1alpha1
