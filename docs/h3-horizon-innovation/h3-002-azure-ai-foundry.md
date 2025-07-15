@@ -2136,7 +2136,7 @@ After implementing Azure AI Foundry:
 2. ✅ Create first AI applications
 3. ✅ Set up monitoring dashboards
 4. ✅ Implement GenAIOps workflows
-5. ✅ Continue to [H3-003: Autonomous Operations →](h3-horizon-innovation/003-autonomous-operations.md)
+5. ✅ Continue to [H3-003: Autonomous Operations →](h3-003-autonomous-operations.md)
 
 ---
 

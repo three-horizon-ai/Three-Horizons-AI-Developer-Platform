@@ -913,9 +913,9 @@ az storage account show \
 4. ✅ Configure backup policies for stateful components
 
 ### Continue to Next Phase
-- [**H1-003: Security Foundation**](h1-horizon-foundation/003-security-foundation.md) - Set up Azure AD, RBAC, and security policies
-- [**H1-004: GitHub Enterprise Setup**](h1-horizon-foundation/004-github-setup.md) - Configure source control and CI/CD
-- [**H1-005: Developer Hub Deployment**](h1-horizon-foundation/005-developer-hub-deployment.md) - Install Red Hat Developer Hub
+- [**H1-003: Security Foundation**](h1-003-security-foundation.md) - Set up Azure AD, RBAC, and security policies
+- [**H1-004: GitHub Enterprise Setup**](h1-004-github-setup.md) - Configure source control and CI/CD
+- [**H1-005: Developer Hub Deployment**](h1-005-developer-hub-deployment.md) - Install Red Hat Developer Hub
 
 ---
 
@@ -925,6 +925,6 @@ az storage account show \
 
 Your Azure infrastructure is now prepared for the Three Horizons AI Platform.
 
-[← Previous: Platform Introduction](h1-001-platform-introduction.md) | [Next: Security Foundation →](h1-horizon-foundation/003-security-foundation.md)
+[← Previous: Platform Introduction](h1-001-platform-introduction.md) | [Next: Security Foundation →](h1-003-security-foundation.md)
 
 </div>

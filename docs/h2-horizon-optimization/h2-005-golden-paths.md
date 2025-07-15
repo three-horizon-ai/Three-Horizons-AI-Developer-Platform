@@ -1805,9 +1805,9 @@ program.parse();
 4. ✅ Monitor adoption metrics
 
 ### Continue to Next Component
-- [**H2-006: Advanced Developer Hub**](h2-horizon-optimization/006-advanced-devhub.md) - Portal features
-- [**H2-007: Enhanced Demo**](h2-horizon-optimization/007-enhanced-demo.md) - Demo scenarios
-- [**H3-001: AI-Driven Development**](../horizon-3/h3-001-ai-development.md) - Next horizon
+- [**H2-006: Advanced Developer Hub**](h2-006-advanced-devhub.md) - Portal features
+- [**H2-007: Enhanced Demo**](h2-007-enhanced-demo.md) - Demo scenarios
+- [**H3-001: AI-Driven Development**](../h3-horizon-innovation/h3-001-ai-driven-development.md) - Next horizon
 
 ---
 
@@ -1817,6 +1817,6 @@ program.parse();
 
 Your developers now have access to production-ready templates that encode best practices and accelerate delivery.
 
-[← Previous: Performance Optimization](h2-004-performance.md) | [Next: Advanced Developer Hub →](h2-horizon-optimization/006-advanced-devhub.md)
+[← Previous: Performance Optimization](h2-004-performance.md) | [Next: Advanced Developer Hub →](h2-006-advanced-devhub.md)
 
 </div>

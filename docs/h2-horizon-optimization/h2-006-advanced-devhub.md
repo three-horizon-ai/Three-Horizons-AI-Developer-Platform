@@ -1926,8 +1926,8 @@ export const CustomHomepage: React.FC = () => {
 4. ✅ Review analytics insights
 
 ### Continue to Next Component
-- [**H2-007: Enhanced Demo**](h2-horizon-optimization/007-enhanced-demo.md) - Demo scenarios
-- [**H3-001: AI-Driven Development**](../horizon-3/h3-001-ai-development.md) - Begin Horizon 3
+- [**H2-007: Enhanced Demo**](h2-007-enhanced-demo.md) - Demo scenarios
+- [**H3-001: AI-Driven Development**](../h3-horizon-innovation/h3-001-ai-driven-development.md) - Begin Horizon 3
 
 ---
 
@@ -1937,6 +1937,6 @@ export const CustomHomepage: React.FC = () => {
 
 Your developers now have access to a comprehensive, self-service platform that accelerates development and improves productivity.
 
-[← Previous: Golden Paths](h2-horizon-optimization/005-golden-paths.md) | [Next: Enhanced Demo →](h2-horizon-optimization/007-enhanced-demo.md)
+[← Previous: Golden Paths](h2-005-golden-paths.md) | [Next: Enhanced Demo →](h2-007-enhanced-demo.md)
 
 </div>

@@ -740,7 +740,7 @@ After implementing Advanced Analytics:
 2. ✅ Create executive dashboards
 3. ✅ Train team on self-service analytics
 4. ✅ Establish data governance
-5. ✅ Continue to [H3-006: Unified Experience →](h3-horizon-innovation/006-unified-experience.md)
+5. ✅ Continue to [H3-006: Unified Experience →](h3-006-unified-experience.md)
 
 ---
 

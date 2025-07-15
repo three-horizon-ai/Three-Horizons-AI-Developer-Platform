@@ -1195,9 +1195,9 @@ Access the monitoring dashboard at:
 4. ✅ Configure team access and permissions
 
 ### Continue to Next Phase
-- [**H1-006: Basic CI/CD Pipeline**](h1-horizon-foundation/006-basic-cicd.md) - Set up initial pipelines
-- [**H1-007: Demo Environment**](h1-horizon-foundation/007-demo-environment.md) - Create demo scenarios
-- [**H2-001: Advanced Deployment**](../horizon-2/h2-horizon-optimization/001-advanced-deployment.md) - GitOps setup
+- [**H1-006: Basic CI/CD Pipeline**](h1-006-basic-cicd.md) - Set up initial pipelines
+- [**H1-007: Demo Environment**](h1-007-demo-environment.md) - Create demo scenarios
+- [**H2-001: Advanced Deployment**](../h2-horizon-optimization/h2-001-advanced-deployment.md) - GitOps setup
 
 ---
 
@@ -1207,6 +1207,6 @@ Access the monitoring dashboard at:
 
 Your central developer portal is now ready to accelerate development.
 
-[← Previous: GitHub Setup](h1-horizon-foundation/004-github-setup.md) | [Next: CI/CD Pipeline →](h1-horizon-foundation/006-basic-cicd.md)
+[← Previous: GitHub Setup](h1-004-github-setup.md) | [Next: CI/CD Pipeline →](h1-006-basic-cicd.md)
 
 </div>

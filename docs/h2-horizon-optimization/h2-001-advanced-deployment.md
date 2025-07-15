@@ -1809,7 +1809,7 @@ if __name__ == "__main__":
 
 ### Next Horizon 2 Components
 - [**H2-002: Comprehensive Monitoring**](h2-002-monitoring.md) - Full observability stack
-- [**H2-003: Enhanced Security**](h2-horizon-optimization/003-enhanced-security.md) - Advanced security features
+- [**H2-003: Enhanced Security**](h2-003-enhanced-security.md) - Advanced security features
 - [**H2-004: Performance Optimization**](h2-004-performance.md) - Platform optimization
 
 ---
@@ -1820,6 +1820,6 @@ if __name__ == "__main__":
 
 Your platform now supports GitOps, progressive delivery, and multi-cloud deployments.
 
-[← Previous: Demo Environment](../horizon-1/h1-horizon-foundation/007-demo-environment.md) | [Next: Comprehensive Monitoring →](h2-002-monitoring.md)
+[← Previous: Demo Environment](../h1-horizon-foundation/h1-007-demo-environment.md) | [Next: Comprehensive Monitoring →](h2-002-comprehensive-monitoring.md)
 
 </div>

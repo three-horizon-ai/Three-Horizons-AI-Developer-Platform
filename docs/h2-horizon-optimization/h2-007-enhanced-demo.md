@@ -1384,7 +1384,7 @@ export class DemoStateManager {
 - Plan next improvements
 
 ### Continue to Horizon 3
-- [**H3-001: AI-Driven Development**](../horizon-3/h3-001-ai-development.md) - Begin the innovation journey
+- [**H3-001: AI-Driven Development**](../h3-horizon-innovation/h3-001-ai-driven-development.md) - Begin the innovation journey
 
 ---
 
@@ -1394,6 +1394,6 @@ export class DemoStateManager {
 
 Your comprehensive demonstration platform showcases all Horizon 2 capabilities through realistic, interactive scenarios.
 
-[← Previous: Advanced Developer Hub](h2-horizon-optimization/006-advanced-devhub.md) | [Next: Horizon 3 →](../horizon-3/h3-001-ai-development.md)
+[← Previous: Advanced Developer Hub](h2-006-advanced-devhub.md) | [Next: Horizon 3 →](../h3-horizon-innovation/h3-001-ai-driven-development.md)
 
 </div>

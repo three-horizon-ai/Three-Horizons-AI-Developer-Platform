@@ -2655,7 +2655,7 @@ After implementing Autonomous Operations:
    - Implement cost optimization automation
    - Add customer experience predictions
 
-5. **✅ Continue to [H3-004: MCP Implementation →](h3-horizon-innovation/004-mcp-implementation.md)**
+5. **✅ Continue to [H3-004: MCP Implementation →](h3-004-mcp-implementation.md)**
 
 ---
 

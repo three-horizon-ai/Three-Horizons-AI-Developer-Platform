@@ -1078,4 +1078,4 @@ After implementing AI-driven development:
 
 ---
 
-**Ready for Advanced AI?** Continue to [H3-002: Azure AI Foundry Integration →](h3-horizon-innovation/002-azure-ai-foundry.md)
+**Ready for Advanced AI?** Continue to [H3-002: Azure AI Foundry Integration →](h3-002-azure-ai-foundry.md)

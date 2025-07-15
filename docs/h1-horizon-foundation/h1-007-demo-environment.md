@@ -1909,9 +1909,9 @@ if __name__ == "__main__":
 4. ✅ Prepare for production implementation
 
 ### Continue to Horizon 2
-- [**H2-001: Advanced Deployment**](../horizon-2/h2-horizon-optimization/001-advanced-deployment.md) - GitOps and multi-cloud
-- [**H2-002: Comprehensive Monitoring**](../horizon-2/h2-002-monitoring.md) - Full observability
-- [**H2-003: Enhanced Security**](../horizon-2/h2-horizon-optimization/003-enhanced-security.md) - Advanced security features
+- [**H2-001: Advanced Deployment**](../h2-horizon-optimization/h2-001-advanced-deployment.md) - GitOps and multi-cloud
+- [**H2-002: Comprehensive Monitoring**](../h2-horizon-optimization/h2-002-comprehensive-monitoring.md) - Full observability
+- [**H2-003: Enhanced Security**](../h2-horizon-optimization/h2-003-enhanced-security.md) - Advanced security features
 
 ---
 
@@ -1921,6 +1921,6 @@ if __name__ == "__main__":
 
 Your Three Horizons AI Platform demo is fully operational and ready to showcase.
 
-[← Previous: CI/CD Pipeline](h1-horizon-foundation/006-basic-cicd.md) | [Next: Horizon 2 →](../horizon-2/h2-horizon-optimization/001-advanced-deployment.md)
+[← Previous: CI/CD Pipeline](h1-006-basic-cicd.md) | [Next: Horizon 2 →](../h2-horizon-optimization/h2-001-advanced-deployment.md)
 
 </div>

@@ -2325,9 +2325,9 @@ class PerformanceReporter:
 4. ✅ Review AI-generated insights daily
 
 ### Continue to Next Component
-- [**H2-003: Enhanced Security**](h2-horizon-optimization/003-enhanced-security.md) - Advanced security features
+- [**H2-003: Enhanced Security**](h2-003-enhanced-security.md) - Advanced security features
 - [**H2-004: Performance Optimization**](h2-004-performance.md) - Platform optimization
-- [**H2-005: Golden Paths**](h2-horizon-optimization/005-golden-paths.md) - Developer workflows
+- [**H2-005: Golden Paths**](h2-005-golden-paths.md) - Developer workflows
 
 ---
 
@@ -2337,6 +2337,6 @@ class PerformanceReporter:
 
 Your platform now has full observability with AI-powered insights and predictive analytics.
 
-[← Previous: Advanced Deployment](h2-horizon-optimization/001-advanced-deployment.md) | [Next: Enhanced Security →](h2-horizon-optimization/003-enhanced-security.md)
+[← Previous: Advanced Deployment](h2-001-advanced-deployment.md) | [Next: Enhanced Security →](h2-003-enhanced-security.md)
 
 </div>

@@ -1086,9 +1086,9 @@ fi
 4. ✅ Configure security alerts and notifications
 
 ### Continue to Next Phase
-- [**H1-004: GitHub Enterprise Setup**](h1-horizon-foundation/004-github-setup.md) - Configure source control and CI/CD
-- [**H1-005: Developer Hub Deployment**](h1-horizon-foundation/005-developer-hub-deployment.md) - Install Red Hat Developer Hub
-- [**H1-006: Basic CI/CD Pipeline**](h1-horizon-foundation/006-basic-cicd.md) - Set up initial pipelines
+- [**H1-004: GitHub Enterprise Setup**](h1-004-github-setup.md) - Configure source control and CI/CD
+- [**H1-005: Developer Hub Deployment**](h1-005-developer-hub-deployment.md) - Install Red Hat Developer Hub
+- [**H1-006: Basic CI/CD Pipeline**](h1-006-basic-cicd.md) - Set up initial pipelines
 
 ---
 
@@ -1098,6 +1098,6 @@ fi
 
 Your platform now has enterprise-grade security with shift-left principles.
 
-[← Previous: Infrastructure Setup](h1-horizon-foundation/002-infrastructure-setup.md) | [Next: GitHub Enterprise Setup →](h1-horizon-foundation/004-github-setup.md)
+[← Previous: Infrastructure Setup](h1-002-infrastructure-setup.md) | [Next: GitHub Enterprise Setup →](h1-004-github-setup.md)
 
 </div>

@@ -1807,9 +1807,9 @@ export function handleSummary(data) {
 4. ✅ Set up performance alerts
 
 ### Continue to Next Component
-- [**H2-005: Golden Paths**](h2-horizon-optimization/005-golden-paths.md) - Developer workflows
-- [**H2-006: Advanced Developer Hub**](h2-horizon-optimization/006-advanced-devhub.md) - Portal features
-- [**H2-007: Enhanced Demo**](h2-horizon-optimization/007-enhanced-demo.md) - Demo scenarios
+- [**H2-005: Golden Paths**](h2-005-golden-paths.md) - Developer workflows
+- [**H2-006: Advanced Developer Hub**](h2-006-advanced-devhub.md) - Portal features
+- [**H2-007: Enhanced Demo**](h2-007-enhanced-demo.md) - Demo scenarios
 
 ---
 
@@ -1819,6 +1819,6 @@ export function handleSummary(data) {
 
 Your platform is now optimized for maximum performance and cost efficiency.
 
-[← Previous: Enhanced Security](h2-horizon-optimization/003-enhanced-security.md) | [Next: Golden Paths →](h2-horizon-optimization/005-golden-paths.md)
+[← Previous: Enhanced Security](h2-003-enhanced-security.md) | [Next: Golden Paths →](h2-005-golden-paths.md)
 
 </div>

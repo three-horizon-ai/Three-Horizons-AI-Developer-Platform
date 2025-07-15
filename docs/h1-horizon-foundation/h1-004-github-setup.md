@@ -1155,9 +1155,9 @@ jobs:
 4. ✅ Set up branch policies for all repositories
 
 ### Continue to Next Phase
-- [**H1-005: Developer Hub Deployment**](h1-horizon-foundation/005-developer-hub-deployment.md) - Install Red Hat Developer Hub
-- [**H1-006: Basic CI/CD Pipeline**](h1-horizon-foundation/006-basic-cicd.md) - Create initial pipelines
-- [**H1-007: Demo Environment**](h1-horizon-foundation/007-demo-environment.md) - Set up demo scenarios
+- [**H1-005: Developer Hub Deployment**](h1-005-developer-hub-deployment.md) - Install Red Hat Developer Hub
+- [**H1-006: Basic CI/CD Pipeline**](h1-006-basic-cicd.md) - Create initial pipelines
+- [**H1-007: Demo Environment**](h1-007-demo-environment.md) - Set up demo scenarios
 
 ---
 
@@ -1167,6 +1167,6 @@ jobs:
 
 Your source control platform is now ready for AI-powered development.
 
-[← Previous: Security Foundation](h1-horizon-foundation/003-security-foundation.md) | [Next: Developer Hub Deployment →](h1-horizon-foundation/005-developer-hub-deployment.md)
+[← Previous: Security Foundation](h1-003-security-foundation.md) | [Next: Developer Hub Deployment →](h1-005-developer-hub-deployment.md)
 
 </div>

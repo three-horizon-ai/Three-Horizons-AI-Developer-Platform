@@ -345,8 +345,8 @@ For a 100-developer organization:
 - [ ] Establish governance model
 
 ### 3. **Getting Started**
-- [ ] Proceed to [H1-002: Infrastructure Setup](h1-horizon-foundation/002-infrastructure-setup.md)
-- [ ] Review [Prerequisites Checklist](../checklists/prerequisites.md)
+- [ ] Proceed to [H1-002: Infrastructure Setup](h1-002-infrastructure-setup.md)
+- [ ] Review [Prerequisites Checklist](../guides/developer-guide.md#prerequisites)
 - [ ] Contact vendor representatives for licensing
 
 ---
@@ -355,7 +355,7 @@ For a 100-developer organization:
 
 **Ready to Transform Your Development Platform?**
 
-[🚀 Start Implementation](h1-horizon-foundation/002-infrastructure-setup.md) | [📊 View Demo](h1-horizon-foundation/007-demo-environment.md) | [❓ FAQ](../faq/platform-faq.md)
+[🚀 Start Implementation](h1-002-infrastructure-setup.md) | [📊 View Demo](h1-007-demo-environment.md) | [❓ FAQ](../guides/developer-guide.md#faq)
 
 *"The future of software development is autonomous, intelligent, and already here."*
 

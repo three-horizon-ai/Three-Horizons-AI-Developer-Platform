@@ -3025,7 +3025,7 @@ After implementing MCP:
 2. ✅ Verify A2A communication flows
 3. ✅ Set up monitoring dashboards
 4. ✅ Train AI models with enriched context
-5. ✅ Continue to [H3-005: Advanced Analytics →](h3-horizon-innovation/005-advanced-analytics.md)
+5. ✅ Continue to [H3-005: Advanced Analytics →](h3-005-advanced-analytics.md)
 
 ---
 

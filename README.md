@@ -139,7 +139,7 @@ Our implementation follows a proven three-horizon model that progressively trans
 - ✅ DevBox standardized environments
 - ✅ Foundation monitoring setup
 
-**[📘 H1 Documentation →](docs/horizon-1/)**
+**[📘 H1 Documentation →](docs/h1-horizon-foundation/)**
 
 ### 🟨 Horizon 2: AI-Enhanced Optimization (Months 6-12)
 *Optimize platform with advanced AI features*
@@ -153,7 +153,7 @@ Our implementation follows a proven three-horizon model that progressively trans
 - ✅ Comprehensive observability
 - ✅ Golden Path templates
 
-**[📙 H2 Documentation →](docs/horizon-2/)**
+**[📙 H2 Documentation →](docs/h2-horizon-optimization/)**
 
 ### 🟪 Horizon 3: Autonomous Innovation (Months 12+)
 *Transform to fully autonomous operations*
@@ -167,7 +167,7 @@ Our implementation follows a proven three-horizon model that progressively trans
 - ✅ Zero-touch operations
 - ✅ Continuous AI optimization
 
-**[📕 H3 Documentation →](docs/horizon-3/)**
+**[📕 H3 Documentation →](docs/h3-horizon-innovation/)**
 
 ## 🚀 Quick Start
 
@@ -185,43 +185,42 @@ Our implementation follows a proven three-horizon model that progressively trans
 git clone https://github.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform.git
 cd Three-Horizons-AI-Developer-Platform
 
-# Run the automated deployment
-./scripts/deploy-developer-hub.sh -e dev -p aks -l centralus
+# Validate templates (ensure best practices compliance)
+./scripts/validate-templates.sh
 
-# Configure integrations
-./scripts/configure-integrations.sh
+# Follow the complete integration tutorial for deployment
 ```
 
-For detailed instructions, see our **[Complete Integration Tutorial](docs/tutorials/complete-integration-tutorial.md)**.
+For detailed instructions, see our **[Complete Integration Tutorial](docs/guides/complete-integration-tutorial.md)**.
 
 ## 📚 Documentation
 
 ### 🌅 Horizon 1: Foundation
-- [H1-001: Platform Introduction](docs/horizon-1/h1-001-platform-introduction.md)
-- [H1-002: Infrastructure Setup](docs/horizon-1/h1-002-infrastructure-setup.md)
-- [H1-003: Security Foundation](docs/horizon-1/h1-003-security-foundation.md)
-- [H1-004: GitHub Enterprise Setup](docs/horizon-1/h1-004-github-setup.md)
-- [H1-005: Developer Hub Deployment](docs/horizon-1/h1-005-developer-hub-deployment.md)
-- [H1-006: Basic CI/CD Pipeline](docs/horizon-1/h1-006-basic-cicd.md)
-- [H1-007: Demo Environment](docs/horizon-1/h1-007-demo-environment.md)
+- [H1-001: Platform Introduction](docs/h1-horizon-foundation/h1-001-platform-introduction.md)
+- [H1-002: Infrastructure Setup](docs/h1-horizon-foundation/h1-002-infrastructure-setup.md)
+- [H1-003: Security Foundation](docs/h1-horizon-foundation/h1-003-security-foundation.md)
+- [H1-004: GitHub Enterprise Setup](docs/h1-horizon-foundation/h1-004-github-setup.md)
+- [H1-005: Developer Hub Deployment](docs/h1-horizon-foundation/h1-005-developer-hub-deployment.md)
+- [H1-006: Basic CI/CD Pipeline](docs/h1-horizon-foundation/h1-006-basic-cicd.md)
+- [H1-007: Demo Environment](docs/h1-horizon-foundation/h1-007-demo-environment.md)
 
 ### 🌄 Horizon 2: Enhancement
-- [H2-001: Advanced Deployment](docs/horizon-2/h2-001-advanced-deployment.md)
-- [H2-002: Comprehensive Monitoring](docs/horizon-2/h2-002-monitoring.md)
-- [H2-003: Enhanced Security](docs/horizon-2/h2-003-enhanced-security.md)
-- [H2-004: Performance Optimization](docs/horizon-2/h2-004-performance.md)
-- [H2-005: Golden Paths](docs/horizon-2/h2-005-golden-paths.md)
-- [H2-006: Advanced Developer Hub](docs/horizon-2/h2-006-advanced-devhub.md)
-- [H2-007: Enhanced Demo](docs/horizon-2/h2-007-enhanced-demo.md)
+- [H2-001: Advanced Deployment](docs/h2-horizon-optimization/h2-001-advanced-deployment.md)
+- [H2-002: Comprehensive Monitoring](docs/h2-horizon-optimization/h2-002-comprehensive-monitoring.md)
+- [H2-003: Enhanced Security](docs/h2-horizon-optimization/h2-003-enhanced-security.md)
+- [H2-004: Performance Optimization](docs/h2-horizon-optimization/h2-004-performance-optimization.md)
+- [H2-005: Golden Paths](docs/h2-horizon-optimization/h2-005-golden-paths.md)
+- [H2-006: Advanced Developer Hub](docs/h2-horizon-optimization/h2-006-advanced-devhub.md)
+- [H2-007: Enhanced Demo](docs/h2-horizon-optimization/h2-007-enhanced-demo.md)
 
 ### 🌇 Horizon 3: Innovation
-- [H3-001: AI-Driven Development](docs/horizon-3/h3-001-ai-development.md)
-- [H3-002: Azure AI Foundry](docs/horizon-3/h3-002-ai-foundry.md)
-- [H3-003: Autonomous Operations](docs/horizon-3/h3-003-autonomous-ops.md)
-- [H3-004: MCP Implementation](docs/horizon-3/h3-004-mcp-implementation.md)
-- [H3-005: Advanced Analytics](docs/horizon-3/h3-005-analytics.md)
-- [H3-006: Unified Experience](docs/horizon-3/h3-006-unified-experience.md)
-- [H3-007: Innovation Showcase](docs/horizon-3/h3-007-innovation-demo.md)
+- [H3-001: AI-Driven Development](docs/h3-horizon-innovation/h3-001-ai-driven-development.md)
+- [H3-002: Azure AI Foundry](docs/h3-horizon-innovation/h3-002-azure-ai-foundry.md)
+- [H3-003: Autonomous Operations](docs/h3-horizon-innovation/h3-003-autonomous-operations.md)
+- [H3-004: MCP Implementation](docs/h3-horizon-innovation/h3-004-mcp-implementation.md)
+- [H3-005: Advanced Analytics](docs/h3-horizon-innovation/h3-005-advanced-analytics.md)
+- [H3-006: Unified Experience](docs/h3-horizon-innovation/h3-006-unified-experience.md)
+- [H3-007: Innovation Showcase](docs/h3-horizon-innovation/h3-007-innovation-showcase.md)
 
 ## 🛠️ Implementation Guides
 
@@ -232,9 +231,9 @@ For detailed instructions, see our **[Complete Integration Tutorial](docs/tutori
 
 ### Technical Implementation
 - 🔧 [Infrastructure as Code (Bicep)](resources/bicep/)
-- 🔧 [Ansible Automation](resources/ansible/)
-- 🔧 [GitHub Actions Workflows](resources/github-actions/)
-- 🔧 [Monitoring Configurations](resources/monitoring/)
+- 🔧 [DevBox Configurations](resources/devbox/)
+- 🔧 [Automation Scripts](resources/scripts/)
+- 🔧 [Platform Templates](templates/)
 
 ## 📊 Platform Components
 
@@ -314,19 +313,19 @@ Track your platform success with built-in metrics:
 ## 🚦 Getting Started
 
 1. **Choose Your Starting Point:**
-   - [Complete Platform Tutorial](docs/tutorials/complete-integration-tutorial.md) - Full implementation guide
-   - [Quick Start on AKS](docs/quick-start/aks-quickstart.md) - Rapid deployment
-   - [Quick Start on ARO](docs/quick-start/aro-quickstart.md) - OpenShift deployment
+   - [Complete Platform Tutorial](docs/guides/complete-integration-tutorial.md) - Full implementation guide
+   - [Developer Guide](docs/guides/developer-guide.md) - Development workflow guide
+   - [DevHub ARO Guide](docs/guides/devhub-aro-guide.md) - OpenShift deployment
 
 2. **Select Your Horizon:**
-   - Start with [Horizon 1](docs/horizon-1/) if you're building from scratch
-   - Jump to [Horizon 2](docs/horizon-2/) if you have basic infrastructure
-   - Explore [Horizon 3](docs/horizon-3/) for cutting-edge AI features
+   - Start with [Horizon 1](docs/h1-horizon-foundation/) if you're building from scratch
+   - Jump to [Horizon 2](docs/h2-horizon-optimization/) if you have basic infrastructure
+   - Explore [Horizon 3](docs/h3-horizon-innovation/) for cutting-edge AI features
 
 3. **Get Support:**
-   - [Architecture Decision Records](docs/adr/)
-   - [Troubleshooting Guide](docs/troubleshooting/)
-   - [FAQ](docs/faq.md)
+   - [Platform Best Practices](docs/PLATFORM-WORKFLOW-BEST-PRACTICES.md)
+   - [Azure Compliance Report](docs/AZURE-BEST-PRACTICES-COMPLIANCE-REPORT.md)
+   - [Executive Summary](docs/EXECUTIVE-SUMMARY-COMPLIANCE.md)
 
 ## 📝 License
 
@@ -339,5 +338,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 *Where AI doesn't just assist—it autonomously creates, deploys, and maintains*
 
-[Get Started](docs/tutorials/complete-integration-tutorial.md) • [View Demos](docs/demos/) • [Architecture](docs/architecture/)
+[Get Started](docs/guides/complete-integration-tutorial.md) • [View Templates](templates/) • [Platform Architecture](docs/)
 

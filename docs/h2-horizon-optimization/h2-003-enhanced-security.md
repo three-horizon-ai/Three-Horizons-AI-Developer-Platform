@@ -1489,8 +1489,8 @@ export const SOCDashboard: React.FC = () => {
 
 ### Continue to Next Component
 - [**H2-004: Performance Optimization**](h2-004-performance.md) - Platform optimization
-- [**H2-005: Golden Paths**](h2-horizon-optimization/005-golden-paths.md) - Developer workflows
-- [**H2-006: Advanced Developer Hub**](h2-horizon-optimization/006-advanced-devhub.md) - Portal features
+- [**H2-005: Golden Paths**](h2-005-golden-paths.md) - Developer workflows
+- [**H2-006: Advanced Developer Hub**](h2-006-advanced-devhub.md) - Portal features
 
 ---
 

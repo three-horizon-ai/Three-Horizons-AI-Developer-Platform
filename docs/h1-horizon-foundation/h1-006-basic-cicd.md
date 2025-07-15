@@ -1343,9 +1343,9 @@ describe('CI/CD Pipeline Integration Tests', () => {
 4. ✅ Set up alerts for pipeline failures
 
 ### Continue to Next Phase
-- [**H1-007: Demo Environment**](h1-horizon-foundation/007-demo-environment.md) - Set up demo scenarios
-- [**H2-001: Advanced Deployment**](../horizon-2/h2-horizon-optimization/001-advanced-deployment.md) - GitOps implementation
-- [**H2-002: Comprehensive Monitoring**](../horizon-2/h2-002-monitoring.md) - Full observability
+- [**H1-007: Demo Environment**](h1-007-demo-environment.md) - Set up demo scenarios
+- [**H2-001: Advanced Deployment**](../h2-horizon-optimization/h2-001-advanced-deployment.md) - GitOps implementation
+- [**H2-002: Comprehensive Monitoring**](../h2-horizon-optimization/h2-002-comprehensive-monitoring.md) - Full observability
 
 ---
 
@@ -1355,6 +1355,6 @@ describe('CI/CD Pipeline Integration Tests', () => {
 
 Your automated build and deployment pipelines are now operational.
 
-[← Previous: Developer Hub](h1-horizon-foundation/005-developer-hub-deployment.md) | [Next: Demo Environment →](h1-horizon-foundation/007-demo-environment.md)
+[← Previous: Developer Hub](h1-005-developer-hub-deployment.md) | [Next: Demo Environment →](h1-007-demo-environment.md)
 
 </div>

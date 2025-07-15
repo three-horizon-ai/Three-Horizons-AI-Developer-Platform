@@ -21,39 +21,39 @@ This documentation is organized into three progressive horizons, each building u
 
 | Document | Description | Time Investment | Prerequisites |
 |----------|-------------|-----------------|---------------|
-| [📖 Platform Introduction](h1-horizon-foundation/001-platform-intro.md) | Overview and business case | 30 min | None |
-| [🏗️ Infrastructure Setup](h1-horizon-foundation/002-infrastructure-setup.md) | Azure infrastructure deployment | 2-4 hours | Azure subscription |
-| [🔒 Security Foundation](h1-horizon-foundation/003-security-foundation.md) | Core security implementation | 1-2 hours | Infrastructure |
-| [🐙 GitHub Setup](h1-horizon-foundation/004-github-setup.md) | GitHub Enterprise configuration | 1 hour | GitHub licenses |
-| [📚 Developer Hub Deployment](h1-horizon-foundation/005-developer-hub-deployment.md) | Red Hat Developer Hub setup | 2-3 hours | K8s cluster |
-| [🔄 Basic CI/CD](h1-horizon-foundation/006-basic-cicd.md) | Pipeline implementation | 1-2 hours | All previous |
-| [🎬 Demo Environment](h1-horizon-foundation/007-demo-environment.md) | Complete demonstration | 1 hour | All previous |
+| [📖 Platform Introduction](h1-horizon-foundation/h1-001-platform-introduction.md) | Overview and business case | 30 min | None |
+| [🏗️ Infrastructure Setup](h1-horizon-foundation/h1-002-infrastructure-setup.md) | Azure infrastructure deployment | 2-4 hours | Azure subscription |
+| [🔒 Security Foundation](h1-horizon-foundation/h1-003-security-foundation.md) | Core security implementation | 1-2 hours | Infrastructure |
+| [🐙 GitHub Setup](h1-horizon-foundation/h1-004-github-setup.md) | GitHub Enterprise configuration | 1 hour | GitHub licenses |
+| [📚 Developer Hub Deployment](h1-horizon-foundation/h1-005-developer-hub-deployment.md) | Red Hat Developer Hub setup | 2-3 hours | K8s cluster |
+| [🔄 Basic CI/CD](h1-horizon-foundation/h1-006-basic-cicd.md) | Pipeline implementation | 1-2 hours | All previous |
+| [🎬 Demo Environment](h1-horizon-foundation/h1-007-demo-environment.md) | Complete demonstration | 1 hour | All previous |
 
 ### ⚡ Horizon 2: Optimization Platform
 > **Enhanced capabilities - Optimize performance, security, and developer experience**
 
 | Document | Description | Time Investment | Prerequisites |
 |----------|-------------|-----------------|---------------|
-| [🚀 Advanced Deployment](h2-horizon-optimization/001-advanced-deployment.md) | GitOps and multi-cloud strategies | 3-4 hours | H1 Complete |
-| [📊 Comprehensive Monitoring](h2-horizon-optimization/002-comprehensive-monitoring.md) | Advanced observability | 2-3 hours | H1 Complete |
-| [🛡️ Enhanced Security](h2-horizon-optimization/003-enhanced-security.md) | Advanced security controls | 2-3 hours | H1 Complete |
-| [⚡ Performance Optimization](h2-horizon-optimization/004-performance-optimization.md) | Platform performance tuning | 2-3 hours | H1 Complete |
-| [🛣️ Golden Paths](h2-horizon-optimization/005-golden-paths.md) | Developer best practices | 2-3 hours | H1 Complete |
-| [🏛️ Advanced Developer Hub](h2-horizon-optimization/006-advanced-devhub.md) | Enhanced portal features | 2-3 hours | H1 Complete |
-| [🎭 Enhanced Demo](h2-horizon-optimization/007-enhanced-demo.md) | Advanced demonstrations | 1-2 hours | H2 Complete |
+| [🚀 Advanced Deployment](h2-horizon-optimization/h2-001-advanced-deployment.md) | GitOps and multi-cloud strategies | 3-4 hours | H1 Complete |
+| [📊 Comprehensive Monitoring](h2-horizon-optimization/h2-002-comprehensive-monitoring.md) | Advanced observability | 2-3 hours | H1 Complete |
+| [🛡️ Enhanced Security](h2-horizon-optimization/h2-003-enhanced-security.md) | Advanced security controls | 2-3 hours | H1 Complete |
+| [⚡ Performance Optimization](h2-horizon-optimization/h2-004-performance-optimization.md) | Platform performance tuning | 2-3 hours | H1 Complete |
+| [🛣️ Golden Paths](h2-horizon-optimization/h2-005-golden-paths.md) | Developer best practices | 2-3 hours | H1 Complete |
+| [🏛️ Advanced Developer Hub](h2-horizon-optimization/h2-006-advanced-devhub.md) | Enhanced portal features | 2-3 hours | H1 Complete |
+| [🎭 Enhanced Demo](h2-horizon-optimization/h2-007-enhanced-demo.md) | Advanced demonstrations | 1-2 hours | H2 Complete |
 
 ### 🤖 Horizon 3: Innovation Platform
 > **AI-driven capabilities - The future of autonomous development**
 
 | Document | Description | Time Investment | Prerequisites |
 |----------|-------------|-----------------|---------------|
-| [🧠 AI-Driven Development](h3-horizon-innovation/001-ai-driven-development.md) | GitHub Copilot integration | 2-3 hours | H2 Complete |
-| [🧪 Azure AI Foundry](h3-horizon-innovation/002-azure-ai-foundry.md) | AI model management | 3-4 hours | H2 Complete |
-| [🤖 Autonomous Operations](h3-horizon-innovation/003-autonomous-operations.md) | Self-healing systems | 4-5 hours | H2 Complete |
-| [🔌 MCP Implementation](h3-horizon-innovation/004-mcp-implementation.md) | Multi-Cloud Protocol | 3-4 hours | H2 Complete |
-| [📈 Advanced Analytics](h3-horizon-innovation/005-advanced-analytics.md) | AI-powered insights | 2-3 hours | H2 Complete |
-| [🎯 Unified Experience](h3-horizon-innovation/006-unified-experience.md) | Seamless integration | 2-3 hours | H2 Complete |
-| [🎪 Innovation Showcase](h3-horizon-innovation/007-innovation-showcase.md) | Cutting-edge demonstrations | 1-2 hours | H3 Complete |
+| [🧠 AI-Driven Development](h3-horizon-innovation/h3-001-ai-driven-development.md) | GitHub Copilot integration | 2-3 hours | H2 Complete |
+| [🧪 Azure AI Foundry](h3-horizon-innovation/h3-002-azure-ai-foundry.md) | AI model management | 3-4 hours | H2 Complete |
+| [🤖 Autonomous Operations](h3-horizon-innovation/h3-003-autonomous-operations.md) | Self-healing systems | 4-5 hours | H2 Complete |
+| [🔌 MCP Implementation](h3-horizon-innovation/h3-004-mcp-implementation.md) | Multi-Cloud Protocol | 3-4 hours | H2 Complete |
+| [📈 Advanced Analytics](h3-horizon-innovation/h3-005-advanced-analytics.md) | AI-powered insights | 2-3 hours | H2 Complete |
+| [🎯 Unified Experience](h3-horizon-innovation/h3-006-unified-experience.md) | Seamless integration | 2-3 hours | H2 Complete |
+| [🎪 Innovation Showcase](h3-horizon-innovation/h3-007-innovation-showcase.md) | Cutting-edge demonstrations | 1-2 hours | H3 Complete |
 
 ## 📚 Additional Resources
 
@@ -74,14 +74,14 @@ This documentation is organized into three progressive horizons, each building u
 ## 🎯 Quick Start Paths
 
 ### 🚀 For Decision Makers (30 minutes)
-1. [📖 Platform Introduction](h1-horizon-foundation/001-platform-intro.md)
-2. [🎬 Demo Environment](h1-horizon-foundation/007-demo-environment.md)
-3. [🎪 Innovation Showcase](h3-horizon-innovation/007-innovation-showcase.md)
+1. [📖 Platform Introduction](h1-horizon-foundation/h1-001-platform-introduction.md)
+2. [🎬 Demo Environment](h1-horizon-foundation/h1-007-demo-environment.md)
+3. [🎪 Innovation Showcase](h3-horizon-innovation/h3-007-innovation-showcase.md)
 
 ### 👨‍💻 For Developers (2 hours)
 1. [👨‍💻 Developer Guide](guides/developer-guide.md)
 2. [💻 Inner Loop Development](guides/inner-loop-development.md)
-3. [🧠 AI-Driven Development](h3-horizon-innovation/001-ai-driven-development.md)
+3. [🧠 AI-Driven Development](h3-horizon-innovation/h3-001-ai-driven-development.md)
 
 ### 🏗️ For Platform Engineers (1 day)
 1. Start with [Horizon 1 Foundation](#%EF%B8%8F-horizon-1-foundation-platform)
@@ -89,9 +89,9 @@ This documentation is organized into three progressive horizons, each building u
 3. Implement progressively through all horizons
 
 ### 🔒 For Security Teams (4 hours)
-1. [🔒 Security Foundation](h1-horizon-foundation/003-security-foundation.md)
-2. [🛡️ Enhanced Security](h2-horizon-optimization/003-enhanced-security.md)
-3. [📊 Comprehensive Monitoring](h2-horizon-optimization/002-comprehensive-monitoring.md)
+1. [🔒 Security Foundation](h1-horizon-foundation/h1-003-security-foundation.md)
+2. [🛡️ Enhanced Security](h2-horizon-optimization/h2-003-enhanced-security.md)
+3. [📊 Comprehensive Monitoring](h2-horizon-optimization/h2-002-comprehensive-monitoring.md)
 
 ## 🖼️ Visual Architecture
 
@@ -166,6 +166,6 @@ gantt
 
 *Transforming how enterprises build, deploy, and operate software with AI-powered automation*
 
-[🚀 Start Your Journey](h1-horizon-foundation/001-platform-intro.md) | [📊 View Architecture](../assets/diagrams/architecture-diagram.svg) | [🔧 Get Support](reference/troubleshooting-faq.md)
+[🚀 Start Your Journey](h1-horizon-foundation/h1-001-platform-introduction.md) | [📊 View Architecture](../assets/diagrams/architecture-diagram.svg) | [🔧 Get Support](reference/troubleshooting-faq.md)
 
 </div>
