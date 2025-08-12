@@ -206,6 +206,46 @@ spec:
           default: true
 
   steps:
+    - id: create-resource-group
+      name: Create Azure Resource Group
+      action: azure:resource-group:create
+      input:
+        resourceGroupName: 'rg-${{ parameters.repo_name | replace("-", "") }}-${{ parameters.devbox_region }}'
+        location: ${{ parameters.devbox_region }}
+        tags:
+          project: ${{ parameters.repo_name }}
+          developer: ${{ parameters.developer_name }}
+          team: ${{ parameters.team }}
+          managedBy: red-hat-developer-hub
+          environment: development
+
+    - id: deploy-devbox-infrastructure
+      name: Deploy Dev Box Infrastructure
+      action: azure:arm:deploy
+      input:
+        resourceGroupName: ${{ steps['create-resource-group'].output.resourceGroupName }}
+        deploymentName: 'devbox-${{ parameters.repo_name }}-deployment'
+        templateUri: 'https://raw.githubusercontent.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform/main/resources/bicep/devbox-infrastructure.bicep'
+        parameters:
+          projectName:
+            value: ${{ parameters.repo_name }}
+          location:
+            value: ${{ parameters.devbox_region }}
+          developerName:
+            value: ${{ parameters.developer_name }}
+          teamName:
+            value: ${{ parameters.team }}
+          devBoxSize:
+            value: ${{ parameters.devbox_size }}
+          userPrincipalId:
+            value: ${{ user.entity.metadata.annotations['microsoft.com/object-id'] || user.entity.spec.profile.email }}
+
+    - id: wait-for-deployment
+      name: Wait for Infrastructure Deployment
+      action: debug:wait
+      input:
+        seconds: 120
+
     - id: create-devbox-config
       name: Create Dev Box Configuration
       action: fs:create
@@ -214,6 +254,10 @@ spec:
         content: |
           {
             "name": "${{ parameters.repo_name }}-devbox",
+            "resourceGroup": "${{ steps['create-resource-group'].output.resourceGroupName }}",
+            "devCenter": "${{ steps['deploy-devbox-infrastructure'].output.devCenterName }}",
+            "project": "${{ steps['deploy-devbox-infrastructure'].output.projectName }}",
+            "pool": "${{ steps['deploy-devbox-infrastructure'].output.poolName }}",
             "imageDefinition": "three-horizons-ai-devbox",
             "size": "${{ parameters.devbox_size }}",
             "region": "${{ parameters.devbox_region }}",
@@ -233,6 +277,14 @@ spec:
               "setupAuth": ${{ parameters.setup_azure_auth }},
               "subscriptionId": "${{ parameters.azure_subscription_id }}",
               "setupAksAccess": ${{ parameters.setup_aks_access }}
+            },
+            "deployment": {
+              "resourceGroupId": "${{ steps['create-resource-group'].output.resourceGroupId }}",
+              "devCenterResourceId": "${{ steps['deploy-devbox-infrastructure'].output.devCenterResourceId }}",
+              "projectResourceId": "${{ steps['deploy-devbox-infrastructure'].output.projectResourceId }}",
+              "poolResourceId": "${{ steps['deploy-devbox-infrastructure'].output.poolResourceId }}",
+              "devBoxPortalUrl": "${{ steps['deploy-devbox-infrastructure'].output.devBoxPortalUrl }}",
+              "nextSteps": ${{ steps['deploy-devbox-infrastructure'].output.nextSteps | dump }}
             }
           }
 
@@ -286,9 +338,13 @@ spec:
     text:
       - title: Three Horizons AI Dev Box Created Successfully! 🎉
         content: |
-          Your Azure Dev Box **${{ parameters.repo_name }}** has been configured for the Three Horizons AI Platform!
+          Your Azure Dev Box **${{ parameters.repo_name }}** has been successfully provisioned for the Three Horizons AI Platform!
           
           ## 📋 Dev Box Configuration
+          - **Resource Group**: ${{ steps['create-resource-group'].output.resourceGroupName }}
+          - **Dev Center**: ${{ steps['deploy-devbox-infrastructure'].output.devCenterName }}
+          - **Project**: ${{ steps['deploy-devbox-infrastructure'].output.projectName }}
+          - **Pool**: ${{ steps['deploy-devbox-infrastructure'].output.poolName }}
           - **Size**: ${{ parameters.devbox_size }}
           - **Region**: ${{ parameters.devbox_region }}
           - **Image**: {% if parameters.use_image_definition %}three-horizons-ai-devbox (pre-configured){% else %}Custom configuration{% endif %}
@@ -299,14 +355,24 @@ spec:
           - **AI/ML Tools**: ${{ parameters.ai_tools | join(', ') }}
           
           ## 🚀 Next Steps
-          1. **Access your Dev Box** in the Azure portal
-          2. **Open VS Code** with pre-installed extensions
-          3. **Start developing** with the Three Horizons platform
+          1. **Access your Dev Box** at the [Azure Dev Box Portal](${{ steps['deploy-devbox-infrastructure'].output.devBoxPortalUrl }})
+          2. **Create a new Dev Box** using the **${{ steps['deploy-devbox-infrastructure'].output.poolName }}** pool
+          3. **Connect to your Dev Box** and run the setup script
+          4. **Open VS Code** with pre-installed extensions
+          5. **Start developing** with the Three Horizons platform
           
-          The repository contains your personalized development environment configuration.
+          The repository contains your personalized development environment configuration and deployment details.
+          
+          ## 📖 Detailed Instructions
+          ${{ steps['deploy-devbox-infrastructure'].output.nextSteps.step1 }}
+          ${{ steps['deploy-devbox-infrastructure'].output.nextSteps.step2 }}
+          ${{ steps['deploy-devbox-infrastructure'].output.nextSteps.step3 }}
+          ${{ steps['deploy-devbox-infrastructure'].output.nextSteps.step4 }}
     links:
       - title: Azure Dev Box Portal
-        url: https://portal.azure.com/#view/Microsoft_Azure_DevBox/DevBoxDashboard
+        url: ${{ steps['deploy-devbox-infrastructure'].output.devBoxPortalUrl }}
+      - title: Azure Resource Group
+        url: https://portal.azure.com/#@/resource/subscriptions/${{ azure.subscriptionId }}/resourceGroups/${{ steps['create-resource-group'].output.resourceGroupName }}/overview
       - title: Repository
         url: ${{ steps.publish.output.remoteUrl }}
       - title: Open in catalog
