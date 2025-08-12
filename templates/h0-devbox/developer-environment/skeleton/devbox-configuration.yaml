@@ -1,0 +1,56 @@
+# Three Horizons AI Developer Platform - Dev Box Configuration
+# Generated for: {{ values.developer_name }}
+# Team: {{ values.team }}
+# Date: {{ "" | today }}
+
+## Dev Box Specifications
+DevBox:
+  Name: "{{ values.repo_name }}-devbox"
+  Size: "{{ values.devbox_size }}"
+  Region: "{{ values.devbox_region }}"
+  ImageDefinition: {% if values.use_image_definition %}"three-horizons-ai-devbox"{% else %}"custom"{% endif %}
+
+## Developer Configuration
+Developer:
+  Name: "{{ values.developer_name }}"
+  Team: "{{ values.team }}"
+  PreferredShell: "{{ values.preferred_shell }}"
+
+## Tool Configuration
+Languages:
+{% for lang in values.languages %}
+  - {{ lang }}
+{% endfor %}
+
+CloudTools:
+{% for tool in values.cloud_tools %}
+  - {{ tool }}
+{% endfor %}
+
+AITools:
+{% for tool in values.ai_tools %}
+  - {{ tool }}
+{% endfor %}
+
+VSCodeExtensions:
+{% for ext in values.vscode_extensions %}
+  - {{ ext }}
+{% endfor %}
+
+## Azure Configuration
+Azure:
+  SetupAuth: {{ values.setup_azure_auth }}
+  SubscriptionId: "{{ values.azure_subscription_id }}"
+  SetupAKSAccess: {{ values.setup_aks_access }}
+
+## Features
+Features:
+  WorkspaceSettings: {{ values.workspace_settings }}
+  IncludeSamples: {{ values.include_samples }}
+
+## Quick Start Commands
+# After Dev Box is provisioned, run these commands:
+# 1. .\scripts\setup-devbox.ps1
+# 2. code "C:\Workspaces\Three-Horizons-AI-Developer-Platform"
+# 3. Explore templates in /templates/ directory
+# 4. Read documentation in /docs/ directory

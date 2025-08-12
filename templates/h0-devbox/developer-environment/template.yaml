@@ -2,8 +2,8 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: h0-developer-environment
-  title: Three Horizons Developer Environment - H0 Setup
-  description: Complete developer environment setup with VS Code, SDKs, and all dependencies for Three Horizons AI Platform development
+  title: Three Horizons AI Dev Box - Complete Development Environment
+  description: Azure Dev Box template with pre-configured tools, VS Code extensions, and automated setup for Three Horizons AI Platform development
   tags:
     - h0
     - setup
@@ -24,6 +24,42 @@ spec:
   owner: three-horizons-platform-team
   type: environment
   parameters:
+    - title: Azure Dev Box Configuration
+      properties:
+        devbox_size:
+          title: Dev Box Size
+          type: string
+          description: Select the size of your Azure Dev Box
+          enum:
+            - "Standard_D4as_v4"
+            - "Standard_D8as_v4" 
+            - "Standard_D16as_v4"
+          enumNames:
+            - "Small (4 vCPUs, 16GB RAM) - Basic development"
+            - "Medium (8 vCPUs, 32GB RAM) - Standard development"
+            - "Large (16 vCPUs, 64GB RAM) - AI/ML intensive development"
+          default: "Standard_D8as_v4"
+        devbox_region:
+          title: Azure Region
+          type: string
+          description: Azure region for Dev Box deployment
+          enum:
+            - "eastus"
+            - "westus2"
+            - "westeurope"
+            - "southeastasia"
+          enumNames:
+            - "East US"
+            - "West US 2" 
+            - "West Europe"
+            - "Southeast Asia"
+          default: "eastus"
+        use_image_definition:
+          title: Use Three Horizons Image Definition
+          type: boolean
+          description: Use the pre-configured Three Horizons AI image with all tools pre-installed
+          default: true
+
     - title: Developer Information
       required:
         - developer_name
@@ -170,12 +206,45 @@ spec:
           default: true
 
   steps:
+    - id: create-devbox-config
+      name: Create Dev Box Configuration
+      action: fs:create
+      input:
+        path: devbox-config.json
+        content: |
+          {
+            "name": "${{ parameters.repo_name }}-devbox",
+            "imageDefinition": "three-horizons-ai-devbox",
+            "size": "${{ parameters.devbox_size }}",
+            "region": "${{ parameters.devbox_region }}",
+            "useImageDefinition": ${{ parameters.use_image_definition }},
+            "developer": {
+              "name": "${{ parameters.developer_name }}",
+              "team": "${{ parameters.team }}",
+              "shell": "${{ parameters.preferred_shell }}"
+            },
+            "tools": {
+              "languages": ${{ parameters.languages | dump }},
+              "cloudTools": ${{ parameters.cloud_tools | dump }},
+              "aiTools": ${{ parameters.ai_tools | dump }},
+              "vscodeExtensions": ${{ parameters.vscode_extensions | dump }}
+            },
+            "azure": {
+              "setupAuth": ${{ parameters.setup_azure_auth }},
+              "subscriptionId": "${{ parameters.azure_subscription_id }}",
+              "setupAksAccess": ${{ parameters.setup_aks_access }}
+            }
+          }
+
     - id: fetch-base
       name: Fetch Base Template
       action: fetch:template
       input:
         url: ./skeleton
         values:
+          devbox_size: ${{ parameters.devbox_size }}
+          devbox_region: ${{ parameters.devbox_region }}
+          use_image_definition: ${{ parameters.use_image_definition }}
           developer_name: ${{ parameters.developer_name }}
           team: ${{ parameters.team }}
           preferred_shell: ${{ parameters.preferred_shell }}
@@ -214,7 +283,30 @@ spec:
         catalogInfoPath: '/catalog-info.yaml'
 
   output:
+    text:
+      - title: Three Horizons AI Dev Box Created Successfully! 🎉
+        content: |
+          Your Azure Dev Box **${{ parameters.repo_name }}** has been configured for the Three Horizons AI Platform!
+          
+          ## 📋 Dev Box Configuration
+          - **Size**: ${{ parameters.devbox_size }}
+          - **Region**: ${{ parameters.devbox_region }}
+          - **Image**: {% if parameters.use_image_definition %}three-horizons-ai-devbox (pre-configured){% else %}Custom configuration{% endif %}
+          
+          ## 🔧 Tools Configured
+          - **Languages**: ${{ parameters.languages | join(', ') }}
+          - **Cloud Tools**: ${{ parameters.cloud_tools | join(', ') }}
+          - **AI/ML Tools**: ${{ parameters.ai_tools | join(', ') }}
+          
+          ## 🚀 Next Steps
+          1. **Access your Dev Box** in the Azure portal
+          2. **Open VS Code** with pre-installed extensions
+          3. **Start developing** with the Three Horizons platform
+          
+          The repository contains your personalized development environment configuration.
     links:
+      - title: Azure Dev Box Portal
+        url: https://portal.azure.com/#view/Microsoft_Azure_DevBox/DevBoxDashboard
       - title: Repository
         url: ${{ steps.publish.output.remoteUrl }}
       - title: Open in catalog
@@ -224,5 +316,5 @@ spec:
         url: vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=${{ steps.publish.output.remoteUrl }}
       - title: GitHub Codespaces
         url: https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=${{ steps.publish.output.repoId }}
-      - title: Azure Container Instances
-        url: https://portal.azure.com/#create/Microsoft.ContainerInstances
+      - title: Three Horizons Documentation
+        url: https://github.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform/tree/main/docs

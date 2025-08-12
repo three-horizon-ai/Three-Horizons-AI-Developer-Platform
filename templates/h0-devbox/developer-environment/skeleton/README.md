@@ -1,6 +1,13 @@
-# Three Horizons AI Platform - Developer Environment
+# Three Horizons AI Platform - Azure Dev Box Environment
 
-Welcome to your personalized Three Horizons AI Platform development environment! This devbox is pre-configured with all the tools, SDKs, and dependencies needed to develop across all three horizons.
+Welcome to your personalized Three Horizons AI Platform Azure Dev Box! This cloud-based development environment is pre-configured with all the tools, SDKs, and dependencies needed to develop across all three horizons.
+
+## 💻 Your Dev Box Configuration
+- **Developer**: ${{ values.developer_name }}
+- **Team**: ${{ values.team }}
+- **Size**: ${{ values.devbox_size }}
+- **Region**: ${{ values.devbox_region }}
+- **Image**: {% if values.use_image_definition %}Three Horizons AI (Pre-configured){% else %}Custom Configuration{% endif %}
 
 ## 👋 Welcome, ${{ values.developer_name }}!
 

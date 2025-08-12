@@ -1,0 +1,53 @@
+$schema: "1.0"
+name: "three-horizons-ai-devbox"
+image: microsoftvisualstudio_visualstudioplustools_vs-2022-ent-general-win11-m365-gen2
+tasks:
+  - name: winget
+    description: Install Azure Developer CLI
+    parameters:
+      package: Microsoft.Azd
+  - name: winget
+    description: Install Visual Studio Code
+    parameters:
+      package: Microsoft.VisualStudioCode
+  - name: winget
+    description: Install Node.js LTS
+    parameters:
+      package: OpenJS.NodeJS.LTS
+  - name: winget
+    description: Install Python 3.11
+    parameters:
+      package: Python.Python.3.11
+  - name: winget
+    description: Install Docker Desktop
+    parameters:
+      package: Docker.DockerDesktop
+  - name: winget
+    description: Install Git
+    parameters:
+      package: Git.Git
+  - name: winget
+    description: Install Azure CLI
+    parameters:
+      package: Microsoft.AzureCLI
+  - name: winget
+    description: Install GitHub CLI
+    parameters:
+      package: GitHub.CLI
+  - name: winget
+    description: Install PowerShell Core
+    parameters:
+      package: Microsoft.PowerShell
+  - name: winget
+    description: Install Terraform
+    parameters:
+      package: HashiCorp.Terraform
+  - name: git-clone
+    description: Clone the Three Horizons AI Developer Platform repository
+    parameters:
+      repositoryUrl: https://github.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform.git
+      directory: 'C:\Workspaces'
+  - name: powershell
+    description: Configure VS Code extensions for AI/Azure development and set up global Git
+    parameters:
+      command: "code --install-extension ms-python.python; code --install-extension ms-azuretools.vscode-azurefunctions; code --install-extension ms-toolsai.jupyter; code --install-extension ms-vscode.azurecli; code --install-extension ms-azuretools.vscode-bicep; code --install-extension redhat.vscode-yaml; code --install-extension GitHub.copilot; code --install-extension ms-dotnettools.csharp; Write-Host 'VS Code extensions installed successfully'"
