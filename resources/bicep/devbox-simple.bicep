@@ -24,12 +24,30 @@ param devBoxSize string = 'Standard_D8as_v4'
 @description('User Principal ID for Dev Box access')
 param userPrincipalId string
 
-// Variables
-var devCenterName = '${projectName}-devcenter'
-var devBoxProjectName = '${projectName}-project'
-var devBoxDefinitionName = '${projectName}-definition'
-var devBoxPoolName = '${projectName}-pool'
-var networkConnectionName = '${projectName}-network'
+@description('Unique identifier for resource naming (use timestamp: yyyyMMdd-HHmm)')
+param instanceId string
+
+// Variables - Following Azure naming conventions with uniqueness
+var uniqueSuffix = uniqueString(resourceGroup().id, projectName, instanceId)
+
+// Resource names following Azure naming conventions: {resource-type}-{workload}-{environment}-{region}-{instance}-{unique}
+// Using Azure resource abbreviations from CAF: https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations
+var devCenterName = 'dc-${projectName}-dev-${location}-${take(instanceId, 8)}-${take(uniqueSuffix, 6)}'
+var devBoxProjectName = 'dbp-${projectName}-dev-${location}-${take(instanceId, 8)}-${take(uniqueSuffix, 6)}'
+var devBoxDefinitionName = 'dbd-${projectName}-dev-${location}-${take(instanceId, 8)}-${take(uniqueSuffix, 6)}'
+var devBoxPoolName = 'pool-${projectName}-dev-${location}-${take(instanceId, 8)}-${take(uniqueSuffix, 6)}'
+var networkConnectionName = 'nc-${projectName}-dev-${location}-${take(instanceId, 8)}-${take(uniqueSuffix, 6)}'
+
+// Common tags for all resources
+var commonTags = {
+  project: projectName
+  managedBy: 'red-hat-developer-hub'
+  developer: developerName
+  team: teamName
+  instanceId: instanceId
+  environment: 'development'
+  createdBy: 'bicep-template'
+}
 var vnetName = '${projectName}-vnet'
 
 // Create Virtual Network
@@ -67,12 +85,7 @@ resource devCenter 'Microsoft.DevCenter/devcenters@2024-02-01' = {
   identity: {
     type: 'SystemAssigned'
   }
-  tags: {
-    project: projectName
-    managedBy: 'red-hat-developer-hub'
-    developer: developerName
-    team: teamName
-  }
+  tags: commonTags
 }
 
 // Create Network Connection
@@ -80,16 +93,10 @@ resource networkConnection 'Microsoft.DevCenter/networkConnections@2024-02-01' =
   name: networkConnectionName
   location: location
   properties: {
+    networkingResourceGroupName: resourceGroup().name
     domainJoinType: 'AzureADJoin'
-    subnetId: '${vnet.id}/subnets/devbox-subnet'
-    networkingResourceGroupName: '${resourceGroup().name}-networking'
   }
-  tags: {
-    project: projectName
-    managedBy: 'red-hat-developer-hub'
-    developer: developerName
-    team: teamName
-  }
+  tags: commonTags
 }
 
 // Attach Network Connection to Dev Center
@@ -126,12 +133,7 @@ resource devBoxProject 'Microsoft.DevCenter/projects@2024-02-01' = {
     devCenterId: devCenter.id
     description: 'Three Horizons AI Development Project for ${developerName}'
   }
-  tags: {
-    project: projectName
-    managedBy: 'red-hat-developer-hub'
-    developer: developerName
-    team: teamName
-  }
+  tags: commonTags
 }
 
 // Create Dev Box Pool (with network connection)

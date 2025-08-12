@@ -64,6 +64,7 @@ TEST_RESOURCE_GROUP="rg-${TEST_PROJECT_NAME}-eastus"
 TEST_REGION="eastus"
 DEVELOPER_NAME="Test Developer"
 TEAM_NAME="Platform Team"
+INSTANCE_ID="$(date +%Y%m%d-%H%M)"
 
 print_step "Configurações do teste:"
 echo -e "  Project Name: ${TEST_PROJECT_NAME}"
@@ -71,6 +72,7 @@ echo -e "  Resource Group: ${TEST_RESOURCE_GROUP}"
 echo -e "  Region: ${TEST_REGION}"
 echo -e "  Developer: ${DEVELOPER_NAME}"
 echo -e "  Team: ${TEAM_NAME}"
+echo -e "  Instance ID: ${INSTANCE_ID}"
 
 # Função para limpeza
 cleanup() {
@@ -90,7 +92,7 @@ trap cleanup EXIT
 # Teste 1: Validar template Bicep
 print_step "Teste 1: Validando template Bicep..."
 
-BICEP_FILE="./resources/bicep/devbox-infrastructure.bicep"
+BICEP_FILE="./resources/bicep/devbox-simple.bicep"
 if [ ! -f "$BICEP_FILE" ]; then
     print_error "Template Bicep não encontrado: $BICEP_FILE"
     exit 1
@@ -130,6 +132,7 @@ az deployment group validate \
         developerName="$DEVELOPER_NAME" \
         teamName="$TEAM_NAME" \
         devBoxSize="Standard_D8as_v4" \
+        instanceId="$INSTANCE_ID" \
         userPrincipalId="$USER_ID" \
     > /dev/null
 
@@ -148,6 +151,7 @@ az deployment group what-if \
         developerName="$DEVELOPER_NAME" \
         teamName="$TEAM_NAME" \
         devBoxSize="Standard_D8as_v4" \
+        instanceId="$INSTANCE_ID" \
         userPrincipalId="$USER_ID" \
     --no-pretty-print
 

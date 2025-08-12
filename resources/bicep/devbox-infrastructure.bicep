@@ -125,10 +125,7 @@ resource devBoxDefinition 'Microsoft.DevCenter/devcenters/devboxdefinitions@2024
   location: location
   properties: {
     imageReference: {
-      publisher: 'MicrosoftVisualStudio'
-      offer: 'visualstudioplustools'
-      sku: 'vs-2022-ent-general-win11-m365-gen2'
-      version: 'latest'
+      id: '${devCenter.id}/galleries/default/images/microsoftwindowsdesktop_windows-11_win11-22h2-ent'
     }
     sku: {
       name: devBoxSize
