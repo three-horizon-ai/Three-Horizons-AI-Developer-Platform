@@ -77,7 +77,7 @@ resource vnet 'Microsoft.Network/virtualNetworks@2023-04-01' = {
 }
 
 // Create Dev Center
-resource devCenter 'Microsoft.DevCenter/devcenters@2023-04-01' = {
+resource devCenter 'Microsoft.DevCenter/devcenters@2024-02-01' = {
   name: devCenterName
   location: location
   properties: {}
@@ -93,7 +93,7 @@ resource devCenter 'Microsoft.DevCenter/devcenters@2023-04-01' = {
 }
 
 // Create Network Connection
-resource networkConnection 'Microsoft.DevCenter/networkConnections@2023-04-01' = {
+resource networkConnection 'Microsoft.DevCenter/networkConnections@2024-02-01' = {
   name: networkConnectionName
   location: location
   properties: {
@@ -110,7 +110,7 @@ resource networkConnection 'Microsoft.DevCenter/networkConnections@2023-04-01' =
 }
 
 // Attach Network Connection to Dev Center
-resource networkConnectionAttachment 'Microsoft.DevCenter/devcenters/attachednetworks@2023-04-01' = {
+resource networkConnectionAttachment 'Microsoft.DevCenter/devcenters/attachednetworks@2024-02-01' = {
   parent: devCenter
   name: networkConnectionName
   properties: {
@@ -119,13 +119,16 @@ resource networkConnectionAttachment 'Microsoft.DevCenter/devcenters/attachednet
 }
 
 // Create Dev Box Definition
-resource devBoxDefinition 'Microsoft.DevCenter/devcenters/devboxdefinitions@2023-04-01' = {
+resource devBoxDefinition 'Microsoft.DevCenter/devcenters/devboxdefinitions@2024-02-01' = {
   parent: devCenter
   name: devBoxDefinitionName
   location: location
   properties: {
     imageReference: {
-      id: '/subscriptions/${subscription().subscriptionId}/resourceGroups/${resourceGroup().name}/providers/Microsoft.DevCenter/devcenters/${devCenterName}/galleries/default/images/microsoftvisualstudio_visualstudioplustools_vs-2022-ent-general-win11-m365-gen2'
+      publisher: 'MicrosoftVisualStudio'
+      offer: 'visualstudioplustools'
+      sku: 'vs-2022-ent-general-win11-m365-gen2'
+      version: 'latest'
     }
     sku: {
       name: devBoxSize
@@ -136,7 +139,7 @@ resource devBoxDefinition 'Microsoft.DevCenter/devcenters/devboxdefinitions@2023
 }
 
 // Create Dev Box Project
-resource devBoxProject 'Microsoft.DevCenter/projects@2023-04-01' = {
+resource devBoxProject 'Microsoft.DevCenter/projects@2024-02-01' = {
   name: devBoxProjectName
   location: location
   properties: {
@@ -152,7 +155,7 @@ resource devBoxProject 'Microsoft.DevCenter/projects@2023-04-01' = {
 }
 
 // Create Dev Box Pool
-resource devBoxPool 'Microsoft.DevCenter/projects/pools@2023-04-01' = {
+resource devBoxPool 'Microsoft.DevCenter/projects/pools@2024-02-01' = {
   parent: devBoxProject
   name: devBoxPoolName
   properties: {

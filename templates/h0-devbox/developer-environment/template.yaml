@@ -225,7 +225,7 @@ spec:
       input:
         resourceGroupName: ${{ steps['create-resource-group'].output.resourceGroupName }}
         deploymentName: 'devbox-${{ parameters.repo_name }}-deployment'
-        templateUri: 'https://raw.githubusercontent.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform/main/resources/bicep/devbox-infrastructure.bicep'
+        templateUri: 'https://raw.githubusercontent.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform/main/resources/bicep/devbox-simple.bicep'
         parameters:
           projectName:
             value: ${{ parameters.repo_name }}
