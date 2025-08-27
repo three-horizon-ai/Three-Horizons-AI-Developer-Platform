@@ -25,7 +25,7 @@
 
 | Tool | Version | Installation | Verification |
 |------|---------|--------------|--------------|
-| **Azure CLI** | 2.57.0+ | [Install Guide](https://docs.microsoft.com/azure/cli/install) | `az --version` |
+| **Azure CLI** | 2.57.0+ | [Install Guide](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) | `az --version` |
 | **kubectl** | 1.28.0+ | [Install Guide](https://kubernetes.io/docs/tasks/tools/) | `kubectl version --client` |
 | **Helm** | 3.14.0+ | [Install Guide](https://helm.sh/docs/intro/install/) | `helm version` |
 | **Bicep** | 0.25.0+ | `az bicep install` | `bicep --version` |
