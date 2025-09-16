@@ -1,0 +1,141 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: three-horizons-ai-platform
+  title: Three Horizons AI Developer Platform
+  description: A comprehensive developer platform implementing the Three Horizons innovation framework for AI-driven development
+  annotations:
+    github.com/project-slug: three-horizon-ai/Three-Horizons-AI-Developer-Platform
+spec:
+  owner: platform-team
+  domain: developer-experience
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: h1-foundation
+  title: H1 Foundation Components
+  description: Core foundational components for stable, reliable AI development infrastructure
+  annotations:
+    github.com/project-slug: three-horizon-ai/Three-Horizons-AI-Developer-Platform
+    backstage.io/source-location: url:https://github.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform/tree/main/templates/h1-foundation
+spec:
+  type: service
+  lifecycle: production
+  owner: platform-team
+  system: three-horizons-ai-platform
+  providesApis:
+    - h1-foundation-api
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: h2-optimization
+  title: H2 Optimization Components
+  description: Performance optimization and scaling components for AI workloads
+  annotations:
+    github.com/project-slug: three-horizon-ai/Three-Horizons-AI-Developer-Platform
+    backstage.io/source-location: url:https://github.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform/tree/main/templates/h2-optimization
+spec:
+  type: service
+  lifecycle: experimental
+  owner: platform-team
+  system: three-horizons-ai-platform
+  providesApis:
+    - h2-optimization-api
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: h3-innovation
+  title: H3 Innovation Components
+  description: Cutting-edge experimental AI technologies and future-focused innovations
+  annotations:
+    github.com/project-slug: three-horizon-ai/Three-Horizons-AI-Developer-Platform
+    backstage.io/source-location: url:https://github.com/three-horizon-ai/Three-Horizons-AI-Developer-Platform/tree/main/templates/h3-innovation
+spec:
+  type: service
+  lifecycle: experimental
+  owner: platform-team
+  system: three-horizons-ai-platform
+  providesApis:
+    - h3-innovation-api
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: developer-hub
+  title: Red Hat Developer Hub
+  description: Backstage-based developer portal running on Azure Kubernetes Service
+  annotations:
+    github.com/project-slug: three-horizon-ai/Three-Horizons-AI-Developer-Platform
+    backstage.io/kubernetes-id: backstage
+spec:
+  type: website
+  lifecycle: production
+  owner: platform-team
+  system: three-horizons-ai-platform
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: h1-foundation-api
+  title: H1 Foundation API
+  description: Core foundational APIs for stable AI development
+spec:
+  type: openapi
+  lifecycle: production
+  owner: platform-team
+  system: three-horizons-ai-platform
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: h2-optimization-api
+  title: H2 Optimization API
+  description: Performance optimization APIs for AI workloads
+spec:
+  type: openapi
+  lifecycle: experimental
+  owner: platform-team
+  system: three-horizons-ai-platform
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: h3-innovation-api
+  title: H3 Innovation API
+  description: Experimental APIs for cutting-edge AI technologies
+spec:
+  type: openapi
+  lifecycle: experimental
+  owner: platform-team
+  system: three-horizons-ai-platform
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: developer-experience
+  title: Developer Experience
+  description: Tools and platforms that enhance developer productivity and experience
+spec:
+  owner: platform-team
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: platform-team
+  title: Platform Team
+  description: Team responsible for maintaining the Three Horizons AI Developer Platform
+spec:
+  type: team
+  children: []
